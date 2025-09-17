@@ -1,0 +1,30 @@
+{
+	"name": "pl_FotMob_Reproceso",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait1",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 1
+				}
+			}
+		],
+		"parameters": {
+			"PipelineId": {
+				"type": "int"
+			},
+			"Parametros_Json": {
+				"type": "object"
+			},
+			"TablaParametro": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-09-16T21:58:58Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

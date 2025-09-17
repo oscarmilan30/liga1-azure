@@ -1,0 +1,105 @@
+{
+	"name": "pl_condition_proceso",
+	"properties": {
+		"activities": [
+			{
+				"name": "If_Validar_Modo_Ejecucion",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Set_Variable_Modo",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(variables('modo_ejecucion'),'HISTORICO')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Wait2",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 1
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Execute_Historico",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_FotMob_Historico",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"Parametros_Json": {
+										"value": "@pipeline().parameters.Parametros_Json",
+										"type": "Expression"
+									},
+									"Pipeline_Id": {
+										"value": "@pipeline().parameters.PipelineId",
+										"type": "Expression"
+									},
+									"TablaParametro": {
+										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Set_Variable_Modo",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "modo_ejecucion",
+					"value": {
+						"value": "@pipeline().parameters.Parametros_Json['MODO_EJECUCION']",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"Parametros_Json": {
+				"type": "object"
+			},
+			"PipelineId": {
+				"type": "int"
+			},
+			"TablaParametro": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"modo_ejecucion": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-09-16T21:59:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

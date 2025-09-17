@@ -1,0 +1,148 @@
+{
+	"name": "pl_FotMob_Orchestrator",
+	"properties": {
+		"activities": [
+			{
+				"name": "lkp_parametros",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_parametros]",
+						"storedProcedureParameters": {
+							"PipelineId": {
+								"type": "Int32",
+								"value": {
+									"value": "@pipeline().parameters.PipelineId",
+									"type": "Expression"
+								}
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sql_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TablaParametro",
+								"type": "Expression"
+							},
+							"SchemaName": "dbo"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "If_validar_reproceso",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "lkp_parametros",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(activity('lkp_parametros').output.firstRow.FLG_REPROCESO,1)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Execute_Proceso",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_condition_proceso",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"Parametros_Json": {
+										"value": "@activity('lkp_parametros').output.firstRow",
+										"type": "Expression"
+									},
+									"PipelineId": {
+										"value": "@pipeline().parameters.PipelineId",
+										"type": "Expression"
+									},
+									"TablaParametro": {
+										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Execute_Reproceso",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_FotMob_Reproceso",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"PipelineId": {
+										"value": "@pipeline().parameters.PipelineId",
+										"type": "Expression"
+									},
+									"Parametros_Json": {
+										"value": "@activity('lkp_parametros').output.firstRow",
+										"type": "Expression"
+									},
+									"TablaParametro": {
+										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"PipelineId": {
+				"type": "int",
+				"defaultValue": 1
+			},
+			"TablaParametro": {
+				"type": "string",
+				"defaultValue": "tbl_pipeline_parametros"
+			}
+		},
+		"folder": {
+			"name": "pl_fotmob_liga1"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-09-16T23:11:39Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
