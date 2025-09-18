@@ -60,6 +60,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "lkp_datos_entidad",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"userProperties": [],
@@ -71,15 +77,93 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Wait1",
-							"type": "Wait",
+							"name": "web scpraping",
+							"type": "DatabricksNotebook",
 							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
-								"waitTimeInSeconds": 1
+								"notebookPath": "/Users/oaaseguimiento@outlook.com/liga1-azure/frm_landing/scraping/fotmob_scraping_piloto",
+								"baseParameters": {
+									"temporada": {
+										"value": "@item().Anio",
+										"type": "Expression"
+									},
+									"liga_id": {
+										"value": "@pipeline().parameters.Parametros_Json['LEAGUE_ID']",
+										"type": "Expression"
+									},
+									"liga_nombre": {
+										"value": "@pipeline().parameters.Parametros_Json['URL_SEASON_PARAM']",
+										"type": "Expression"
+									},
+									"nivel": {
+										"value": "@activity('lkp_datos_entidad').output.firstRow.Nivel",
+										"type": "Expression"
+									},
+									"rutabase": {
+										"value": "@activity('lkp_datos_entidad').output.firstRow.RutaBase",
+										"type": "Expression"
+									},
+									"url_base": {
+										"value": "@pipeline().parameters.Parametros_Json['URL_BASE']",
+										"type": "Expression"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_databricks",
+								"type": "LinkedServiceReference"
 							}
 						}
 					]
+				}
+			},
+			{
+				"name": "lkp_datos_entidad",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_adls]",
+						"storedProcedureParameters": {
+							"pipelineid": {
+								"type": "Int32",
+								"value": {
+									"value": "@pipeline().parameters.Pipeline_Id",
+									"type": "Expression"
+								}
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sql_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TablaParametro",
+								"type": "Expression"
+							},
+							"SchemaName": "dbo"
+						}
+					}
 				}
 			}
 		],
