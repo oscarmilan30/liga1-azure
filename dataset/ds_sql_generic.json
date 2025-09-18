@@ -15,7 +15,7 @@
 			}
 		},
 		"folder": {
-			"name": "ds_api_football"
+			"name": "ds_api_football/liga1"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
