@@ -112,7 +112,7 @@
 										"value": "@pipeline().parameters.Parametros_Json['URL_BASE']",
 										"type": "Expression"
 									},
-									"container": {
+									"container_temp": {
 										"value": "@pipeline().parameters.Parametros_Json['CONTAINER_TEMP']",
 										"type": "Expression"
 									}
@@ -260,11 +260,11 @@
 							"type": "String"
 						},
 						"RegistrosEscritos": {
-							"value": "",
+							"value": null,
 							"type": "Int32"
 						},
 						"RegistrosLeidos": {
-							"value": "",
+							"value": null,
 							"type": "Int32"
 						}
 					}
