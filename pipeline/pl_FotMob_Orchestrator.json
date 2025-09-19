@@ -88,6 +88,10 @@
 									"TablaParametro": {
 										"value": "@pipeline().parameters.TablaParametro",
 										"type": "Expression"
+									},
+									"IdEjecucion": {
+										"value": "@activity('lkp_sp_start').output.firstRow.IdEjecucion",
+										"type": "Expression"
 									}
 								}
 							}
@@ -119,6 +123,10 @@
 									},
 									"TablaParametro": {
 										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									},
+									"IdEjecucion": {
+										"value": "@activity('lkp_sp_start').output.firstRow.IdEjecucion",
 										"type": "Expression"
 									}
 								}

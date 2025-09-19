@@ -33,7 +33,25 @@
 									"referenceName": "pl_FotMob_Incremental",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"IdEjecucion": {
+										"value": "@pipeline().parameters.IdEjecucion",
+										"type": "Expression"
+									},
+									"Parametros_Json": {
+										"value": "@pipeline().parameters.Parametros_Json",
+										"type": "Expression"
+									},
+									"Pipeline_Id": {
+										"value": "@pipeline().parameters.PipelineId",
+										"type": "Expression"
+									},
+									"TablaParametro": {
+										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					],
@@ -63,6 +81,10 @@
 									},
 									"TablaParametro": {
 										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									},
+									"IdEjecucion": {
+										"value": "@pipeline().parameters.IdEjecucion",
 										"type": "Expression"
 									}
 								}
