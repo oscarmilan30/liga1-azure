@@ -14,13 +14,13 @@
 		],
 		"parameters": {
 			"IdEjecucion": {
-				"type": "string"
+				"type": "int"
 			},
 			"Parametros_Json": {
 				"type": "string"
 			},
 			"Pipeline_Id": {
-				"type": "string"
+				"type": "int"
 			},
 			"TablaParametro": {
 				"type": "string"

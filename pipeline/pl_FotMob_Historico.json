@@ -172,13 +172,13 @@
 				"type": "object"
 			},
 			"Pipeline_Id": {
-				"type": "string"
+				"type": "int"
 			},
 			"TablaParametro": {
 				"type": "string"
 			},
 			"IdEjecucion": {
-				"type": "string"
+				"type": "int"
 			}
 		},
 		"annotations": [],
