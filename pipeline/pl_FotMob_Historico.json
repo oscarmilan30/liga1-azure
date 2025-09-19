@@ -53,6 +53,7 @@
 			},
 			{
 				"name": "foreach_procesar_anios",
+				"description": "",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -164,6 +165,153 @@
 							"SchemaName": "dbo"
 						}
 					}
+				}
+			},
+			{
+				"name": "sp_end_succeeds",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "foreach_procesar_anios",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_log_end]",
+					"storedProcedureParameters": {
+						"Estado": {
+							"value": "COMPLETADO",
+							"type": "String"
+						},
+						"IdEjecucion": {
+							"value": {
+								"value": "@pipeline().parameters.IdEjecucion",
+								"type": "Expression"
+							},
+							"type": "Int32"
+						},
+						"Observaciones": {
+							"value": "Carga Historica Completada",
+							"type": "String"
+						},
+						"RegistrosEscritos": {
+							"value": null,
+							"type": "Int32"
+						},
+						"RegistrosLeidos": {
+							"value": null,
+							"type": "Int32"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sql_liga1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_end_error",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "foreach_procesar_anios",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_log_end]",
+					"storedProcedureParameters": {
+						"Estado": {
+							"value": "ERROR",
+							"type": "String"
+						},
+						"IdEjecucion": {
+							"value": {
+								"value": "@pipeline().parameters.IdEjecucion",
+								"type": "Expression"
+							},
+							"type": "Int32"
+						},
+						"Observaciones": {
+							"value": {
+								"value": "@concat('Error en ForEach: ',activity('web scpraping').error.message)",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RegistrosEscritos": {
+							"value": "",
+							"type": "Int32"
+						},
+						"RegistrosLeidos": {
+							"value": "",
+							"type": "Int32"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sql_liga1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_act_estado",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_end_succeeds",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_update_execution_mode]",
+					"storedProcedureParameters": {
+						"NewMode": {
+							"value": "INCREMENTAL",
+							"type": "Int32"
+						},
+						"PipelineId": {
+							"value": {
+								"value": "@pipeline().parameters.Pipeline_Id",
+								"type": "Expression"
+							},
+							"type": "Int32"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sql_liga1",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
