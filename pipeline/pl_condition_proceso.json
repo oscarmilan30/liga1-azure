@@ -21,12 +21,19 @@
 					},
 					"ifFalseActivities": [
 						{
-							"name": "Wait2",
-							"type": "Wait",
+							"name": "Execute_Incremental",
+							"type": "ExecutePipeline",
 							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
-								"waitTimeInSeconds": 1
+								"pipeline": {
+									"referenceName": "pl_FotMob_Incremental",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
 							}
 						}
 					],
@@ -90,6 +97,9 @@
 				"type": "int"
 			},
 			"TablaParametro": {
+				"type": "string"
+			},
+			"IdEjecucion": {
 				"type": "string"
 			}
 		},

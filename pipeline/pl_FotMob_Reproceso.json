@@ -21,6 +21,9 @@
 			},
 			"TablaParametro": {
 				"type": "string"
+			},
+			"IdEjecucion": {
+				"type": "string"
 			}
 		},
 		"annotations": [],

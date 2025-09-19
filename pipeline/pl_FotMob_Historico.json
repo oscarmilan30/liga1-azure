@@ -92,11 +92,11 @@
 								"notebookPath": "/Repos/FOTMOB/liga1-azure/frm_landing/scraping/fotmob_scraping_piloto",
 								"baseParameters": {
 									"temporada": {
-										"value": "@item().Anio",
+										"value": "@string(item().Anio)",
 										"type": "Expression"
 									},
 									"liga_id": {
-										"value": "@pipeline().parameters.Parametros_Json['LEAGUE_ID']",
+										"value": "@string(pipeline().parameters.Parametros_Json['LEAGUE_ID'])",
 										"type": "Expression"
 									},
 									"liga_nombre": {
@@ -175,6 +175,9 @@
 				"type": "string"
 			},
 			"TablaParametro": {
+				"type": "string"
+			},
+			"IdEjecucion": {
 				"type": "string"
 			}
 		},
