@@ -24,6 +24,12 @@
 			},
 			"TablaParametro": {
 				"type": "string"
+			},
+			"pipeline_type": {
+				"type": "string"
+			},
+			"execution_id": {
+				"type": "string"
 			}
 		},
 		"annotations": [],

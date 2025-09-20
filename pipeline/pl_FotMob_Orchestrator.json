@@ -49,7 +49,7 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "lkp_sp_start",
+						"activity": "IdEjecucion",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -90,7 +90,12 @@
 										"type": "Expression"
 									},
 									"IdEjecucion": {
-										"value": "@activity('lkp_sp_start').output.firstRow.IdEjecucion",
+										"value": "@variables('IdEjecucion')",
+										"type": "Expression"
+									},
+									"pipeline_type": "HIJO",
+									"execution_id": {
+										"value": "@pipeline().RunId",
 										"type": "Expression"
 									}
 								}
@@ -126,7 +131,12 @@
 										"type": "Expression"
 									},
 									"IdEjecucion": {
-										"value": "@activity('lkp_sp_start').output.firstRow.IdEjecucion",
+										"value": "@variables('IdEjecucion')",
+										"type": "Expression"
+									},
+									"pipeline_type": "HIJO",
+									"execution_id": {
+										"value": "@pipeline().RunId",
 										"type": "Expression"
 									}
 								}
@@ -136,8 +146,8 @@
 				}
 			},
 			{
-				"name": "lkp_sp_start",
-				"type": "Lookup",
+				"name": "sp_start",
+				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
 						"activity": "lkp_parametros",
@@ -150,57 +160,66 @@
 					"timeout": "0.12:00:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_log_start]",
+					"storedProcedureParameters": {
+						"execution_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "Guid"
+						},
+						"pipeline_name": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"pipeline_type": {
+							"value": "PADRE",
+							"type": "String"
+						},
+						"PipelineId": {
+							"value": {
+								"value": "@pipeline().parameters.PipelineId",
+								"type": "Expression"
+							},
+							"type": "Int32"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sql_liga1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "IdEjecucion",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "sp_start",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
 					"secureOutput": false,
 					"secureInput": false
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "[dbo].[sp_log_start]",
-						"storedProcedureParameters": {
-							"AnioProcesado": {
-								"type": "Int32",
-								"value": {
-									"value": "@activity('lkp_parametros').output.firstRow.HISTORIC_START_YEAR",
-									"type": "Expression"
-								}
-							},
-							"PipelineId": {
-								"type": "Int32",
-								"value": {
-									"value": "@pipeline().parameters.PipelineId",
-									"type": "Expression"
-								}
-							},
-							"RunId": {
-								"type": "String",
-								"value": {
-									"value": "@pipeline().RunId",
-									"type": "Expression"
-								}
-							},
-							"TipoEjecucion": {
-								"type": "String",
-								"value": {
-									"value": "@activity('lkp_parametros').output.firstRow.MODO_EJECUCION",
-									"type": "Expression"
-								}
-							}
-						},
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "ds_sql_generic",
-						"type": "DatasetReference",
-						"parameters": {
-							"TableName": {
-								"value": "@pipeline().parameters.TablaParametro",
-								"type": "Expression"
-							},
-							"SchemaName": "dbo"
-						}
+					"variableName": "IdEjecucion",
+					"value": {
+						"value": "@activity('sp_start').output.firstRow.IdEjecucion",
+						"type": "Expression"
 					}
 				}
 			}
@@ -213,6 +232,11 @@
 			"TablaParametro": {
 				"type": "string",
 				"defaultValue": "tbl_pipeline_parametros"
+			}
+		},
+		"variables": {
+			"IdEjecucion": {
+				"type": "String"
 			}
 		},
 		"folder": {

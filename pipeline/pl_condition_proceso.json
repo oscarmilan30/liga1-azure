@@ -50,6 +50,11 @@
 									"TablaParametro": {
 										"value": "@pipeline().parameters.TablaParametro",
 										"type": "Expression"
+									},
+									"pipeline_type": "HIJO",
+									"execution_id": {
+										"value": "@pipeline().RunId",
+										"type": "Expression"
 									}
 								}
 							}
@@ -85,6 +90,11 @@
 									},
 									"IdEjecucion": {
 										"value": "@pipeline().parameters.IdEjecucion",
+										"type": "Expression"
+									},
+									"pipeline_type": "HIJO",
+									"execution_id": {
+										"value": "@pipeline().RunId",
 										"type": "Expression"
 									}
 								}
@@ -123,6 +133,12 @@
 			},
 			"IdEjecucion": {
 				"type": "int"
+			},
+			"pipeline_type": {
+				"type": "string"
+			},
+			"execution_id": {
+				"type": "string"
 			}
 		},
 		"variables": {

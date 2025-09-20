@@ -24,6 +24,12 @@
 			},
 			"IdEjecucion": {
 				"type": "int"
+			},
+			"pipeline_type": {
+				"type": "string"
+			},
+			"execution_id": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
