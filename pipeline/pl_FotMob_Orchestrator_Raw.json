@@ -53,12 +53,6 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
-					},
-					{
-						"activity": "IdEjecucion",
-						"dependencyConditions": [
-							"Succeeded"
-						]
 					}
 				],
 				"userProperties": [],
@@ -135,245 +129,20 @@
 									"TablaParametro": {
 										"value": "@pipeline().parameters.TablaParametro",
 										"type": "Expression"
-									},
-									"IdEjecucion": {
-										"value": "@variables('IdEjecucion')",
-										"type": "Expression"
-									},
-									"pipeline_type": "HIJO",
-									"execution_id": {
-										"value": "@pipeline().RunId",
-										"type": "Expression"
 									}
 								}
 							}
 						}
 					]
 				}
-			},
-			{
-				"name": "IdEjecucion",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "lkp_sp_start",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "IdEjecucion",
-					"value": {
-						"value": "@activity('lkp_sp_start').output.firstRow.IdEjecucion",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "lkp_sp_start",
-				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "lkp_parametros",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "[dbo].[sp_log_start]",
-						"storedProcedureParameters": {
-							"execution_id": {
-								"type": "Guid",
-								"value": {
-									"value": "@pipeline().RunId",
-									"type": "Expression"
-								}
-							},
-							"pipeline_name": {
-								"type": "String",
-								"value": {
-									"value": "@pipeline().Pipeline",
-									"type": "Expression"
-								}
-							},
-							"pipeline_type": {
-								"type": "String",
-								"value": "PADRE"
-							},
-							"PipelineId": {
-								"type": "Int32",
-								"value": {
-									"value": "@pipeline().parameters.PipelineId",
-									"type": "Expression"
-								}
-							}
-						},
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "ds_sql_generic",
-						"type": "DatasetReference",
-						"parameters": {
-							"TableName": {
-								"value": "@pipeline().parameters.TablaParametro",
-								"type": "Expression"
-							},
-							"SchemaName": "dbo"
-						}
-					}
-				}
-			},
-			{
-				"name": "sp_end_succeeded_padre",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "If_validar_reproceso",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp_log_end]",
-					"storedProcedureParameters": {
-						"ExecutionId": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"IdEjecucion": {
-							"value": {
-								"value": "@variables('IdEjecucion')",
-								"type": "Expression"
-							},
-							"type": "Int32"
-						},
-						"MensajeError": {
-							"value": null,
-							"type": "String"
-						},
-						"PipelineId": {
-							"value": {
-								"value": "@pipeline().Pipeline",
-								"type": "Expression"
-							},
-							"type": "Int32"
-						},
-						"Status": {
-							"value": "SUCCEEDED",
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sql_liga1",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "sp_end_error_padre",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "If_validar_reproceso",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp_log_end]",
-					"storedProcedureParameters": {
-						"ExecutionId": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"IdEjecucion": {
-							"value": {
-								"value": "@variables('IdEjecucion')",
-								"type": "Expression"
-							},
-							"type": "Int32"
-						},
-						"MensajeError": {
-							"value": {
-								"value": "@activity('If_validar_reproceso').error.message",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"PipelineId": {
-							"value": {
-								"value": "@pipeline().parameters.PipelineId",
-								"type": "Expression"
-							},
-							"type": "Int32"
-						},
-						"Status": {
-							"value": "ERROR",
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sql_liga1",
-					"type": "LinkedServiceReference"
-				}
 			}
 		],
 		"parameters": {
 			"PipelineId": {
-				"type": "int",
-				"defaultValue": 1
+				"type": "int"
 			},
 			"TablaParametro": {
-				"type": "string",
-				"defaultValue": "tbl_pipeline_parametros"
-			}
-		},
-		"variables": {
-			"IdEjecucion": {
-				"type": "String"
+				"type": "string"
 			}
 		},
 		"folder": {

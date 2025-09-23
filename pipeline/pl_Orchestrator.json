@@ -12,15 +12,27 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_ctrl_start_pipeline",
+						"referenceName": "pl_ctrl_start",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
-				"name": "Execute Pipeline1",
+				"name": "tb_Orchestrator",
 				"type": "ExecutePipeline",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "tb_ctrl_start",
@@ -38,15 +50,27 @@
 						"referenceName": "pl_FotMob_Orchestrator_Raw",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
-				"name": "tb_ctrl_end",
+				"name": "tb_ctrl_end_success",
 				"type": "ExecutePipeline",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
-						"activity": "Execute Pipeline1",
+						"activity": "tb_Orchestrator",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -57,14 +81,61 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_end_success",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "pl_ctrl_end_pipeline_fail",
+				"type": "ExecutePipeline",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [
+					{
+						"activity": "tb_Orchestrator",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_end_fail",
+						"type": "PipelineReference"
+					},
 					"waitOnCompletion": true
 				}
 			}
 		],
 		"parameters": {
 			"PipelineId": {
+				"type": "int",
+				"defaultValue": 1
+			},
+			"TablaParametro": {
 				"type": "string",
-				"defaultValue": "1"
+				"defaultValue": "tbl_pipeline_parametros"
+			}
+		},
+		"variables": {
+			"IdEjecucion": {
+				"type": "Integer"
+			},
+			"var_error_msg": {
+				"type": "String"
 			}
 		},
 		"annotations": []

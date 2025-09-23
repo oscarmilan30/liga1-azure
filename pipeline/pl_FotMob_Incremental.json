@@ -13,9 +13,6 @@
 			}
 		],
 		"parameters": {
-			"IdEjecucion": {
-				"type": "int"
-			},
 			"Parametros_Json": {
 				"type": "string"
 			},
@@ -23,12 +20,6 @@
 				"type": "int"
 			},
 			"TablaParametro": {
-				"type": "string"
-			},
-			"pipeline_type": {
-				"type": "string"
-			},
-			"execution_id": {
 				"type": "string"
 			}
 		},

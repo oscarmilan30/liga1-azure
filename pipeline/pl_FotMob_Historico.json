@@ -122,30 +122,6 @@
 								"referenceName": "ls_databricks",
 								"type": "LinkedServiceReference"
 							}
-						},
-						{
-							"name": "set_error_message",
-							"type": "SetVariable",
-							"dependsOn": [
-								{
-									"activity": "web scpraping",
-									"dependencyConditions": [
-										"Failed"
-									]
-								}
-							],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "var_error_msg",
-								"value": {
-									"value": "@concat('Error en año ', item().Anio, ': ', activity('web scpraping').error.message)\n",
-									"type": "Expression"
-								}
-							}
 						}
 					]
 				}
@@ -192,130 +168,11 @@
 				}
 			},
 			{
-				"name": "sp_end_succeeds",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "foreach_procesar_anios",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp_log_end]",
-					"storedProcedureParameters": {
-						"ExecutionId": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"IdEjecucion": {
-							"value": {
-								"value": "@pipeline().parameters.IdEjecucion",
-								"type": "Expression"
-							},
-							"type": "Int32"
-						},
-						"MensajeError": {
-							"value": null,
-							"type": "String"
-						},
-						"PipelineId": {
-							"value": {
-								"value": "@pipeline().parameters.Pipeline_Id",
-								"type": "Expression"
-							},
-							"type": "Int32"
-						},
-						"Status": {
-							"value": "SUCCEDED",
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sql_liga1",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "sp_end_error",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "foreach_procesar_anios",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp_log_end]",
-					"storedProcedureParameters": {
-						"ExecutionId": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"IdEjecucion": {
-							"value": {
-								"value": "@pipeline().parameters.IdEjecucion",
-								"type": "Expression"
-							},
-							"type": "Int32"
-						},
-						"MensajeError": {
-							"value": {
-								"value": "@variables('var_error_msg')",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"PipelineId": {
-							"value": {
-								"value": "@pipeline().parameters.Pipeline_Id",
-								"type": "Expression"
-							},
-							"type": "Int32"
-						},
-						"Status": {
-							"value": "ERROR",
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sql_liga1",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
 				"name": "sp_act_estado",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "sp_end_succeeds",
+						"activity": "foreach_procesar_anios",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -330,11 +187,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp_update_execution_mode]",
+					"storedProcedureName": "[dbo].[sp_actualizar_modo_ejecucion]",
 					"storedProcedureParameters": {
-						"NewMode": {
+						"NuevoModo": {
 							"value": "INCREMENTAL",
-							"type": "Int32"
+							"type": "String"
 						},
 						"PipelineId": {
 							"value": {
@@ -359,15 +216,6 @@
 				"type": "int"
 			},
 			"TablaParametro": {
-				"type": "string"
-			},
-			"IdEjecucion": {
-				"type": "int"
-			},
-			"pipeline_type": {
-				"type": "string"
-			},
-			"execution_id": {
 				"type": "string"
 			}
 		},

@@ -1,10 +1,10 @@
 {
-	"name": "pl_ctrl_start_pipeline",
+	"name": "pl_ctrl_start",
 	"properties": {
 		"activities": [
 			{
-				"name": "sp_tart",
-				"type": "SqlServerStoredProcedure",
+				"name": "lkp_sp_start",
+				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -15,47 +15,90 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp_log_start]",
-					"storedProcedureParameters": {
-						"execution_id": {
-							"value": {
-								"value": "@pipeline()?.TriggeredByPipelineRunId",
-								"type": "Expression"
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[sp_log_start]",
+						"storedProcedureParameters": {
+							"execution_id": {
+								"type": "Guid"
 							},
-							"type": "Guid"
+							"pipeline_name": {
+								"type": "String"
+							},
+							"pipeline_type": {
+								"type": "String"
+							},
+							"PipelineId": {
+								"type": "Int32"
+							}
 						},
-						"pipeline_name": {
-							"value": {
-								"value": "@pipeline()?.TriggeredByPipelineName",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sql_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TablaParametro",
 								"type": "Expression"
 							},
-							"type": "String"
-						},
-						"pipeline_type": {
-							"value": {
-								"value": "@pipeline().DataFactory",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"PipelineId": {
-							"value": {
-								"value": "@pipeline().parameters.PipelineId",
-								"type": "Expression"
-							},
-							"type": "Int32"
+							"SchemaName": "dbo"
 						}
 					}
+				}
+			},
+			{
+				"name": "Set_IdEjecucion",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "lkp_sp_start",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
 				},
-				"linkedServiceName": {
-					"referenceName": "ls_sql_liga1",
-					"type": "LinkedServiceReference"
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "pipelineReturnValue",
+					"value": [
+						{
+							"key": "IdEjecucion",
+							"value": {
+								"type": "Expression",
+								"content": "@activity('lkp_sp_start').output.firstRow.IdEjecucion"
+							}
+						}
+					],
+					"setSystemVariable": true
 				}
 			}
 		],
 		"parameters": {
 			"PipelineId": {
 				"type": "int"
+			},
+			"TablaParametro": {
+				"type": "string"
+			},
+			"ExecutionId": {
+				"type": "string"
+			},
+			"pipeline_name": {
+				"type": "string"
+			},
+			"pipeline_type": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"IdEjecucion": {
+				"type": "Integer"
 			}
 		},
 		"annotations": []
