@@ -33,7 +33,10 @@
 							"value": "@pipeline().Pipeline",
 							"type": "Expression"
 						},
-						"pipeline_type": "PADRE"
+						"pipeline_type": {
+							"value": "@pipeline().parameters.pipeline_type",
+							"type": "Expression"
+						}
 					}
 				}
 			},
@@ -143,6 +146,10 @@
 			"TablaParametro": {
 				"type": "string",
 				"defaultValue": "tbl_pipeline_parametros"
+			},
+			"pipeline_type": {
+				"type": "string",
+				"defaultValue": "PADRE"
 			}
 		},
 		"variables": {
