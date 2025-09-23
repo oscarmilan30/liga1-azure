@@ -22,7 +22,7 @@
 								"value": "@pipeline()?.TriggeredByPipelineRunId",
 								"type": "Expression"
 							},
-							"type": "Guid"
+							"type": "String"
 						},
 						"IdEjecucion": {
 							"value": "",

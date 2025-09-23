@@ -20,7 +20,7 @@
 						"sqlReaderStoredProcedureName": "[dbo].[sp_log_start]",
 						"storedProcedureParameters": {
 							"execution_id": {
-								"type": "Guid"
+								"type": "String"
 							},
 							"pipeline_name": {
 								"type": "String"

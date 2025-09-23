@@ -125,7 +125,13 @@
 						"referenceName": "pl_ctrl_end_fail",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						}
+					}
 				}
 			}
 		],
