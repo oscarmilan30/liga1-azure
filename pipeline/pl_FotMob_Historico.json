@@ -122,6 +122,30 @@
 								"referenceName": "ls_databricks",
 								"type": "LinkedServiceReference"
 							}
+						},
+						{
+							"name": "set_error_message",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "web scpraping",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "var_error_msg",
+								"value": {
+									"value": "@concat('Error en año ', item().Anio, ': ', activity('web scpraping').error.message)\n",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
@@ -189,9 +213,12 @@
 				"typeProperties": {
 					"storedProcedureName": "[dbo].[sp_log_end]",
 					"storedProcedureParameters": {
-						"Estado": {
-							"value": "COMPLETADO",
-							"type": "String"
+						"ExecutionId": {
+							"value": {
+								"value": "@pipeline().parameters.execution_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
 						},
 						"IdEjecucion": {
 							"value": {
@@ -200,17 +227,23 @@
 							},
 							"type": "Int32"
 						},
-						"Observaciones": {
-							"value": "Carga Historica Completada",
+						"MensajeError": {
+							"value": {
+								"value": "@variables('var_error_msg')",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
-						"RegistrosEscritos": {
-							"value": null,
+						"PipelineId": {
+							"value": {
+								"value": "@pipeline().parameters.Pipeline_Id",
+								"type": "Expression"
+							},
 							"type": "Int32"
 						},
-						"RegistrosLeidos": {
-							"value": null,
-							"type": "Int32"
+						"Status": {
+							"value": "SUCCCEDED",
+							"type": "String"
 						}
 					}
 				},
@@ -241,9 +274,12 @@
 				"typeProperties": {
 					"storedProcedureName": "[dbo].[sp_log_end]",
 					"storedProcedureParameters": {
-						"Estado": {
-							"value": "ERROR",
-							"type": "String"
+						"ExecutionId": {
+							"value": {
+								"value": "@pipeline().parameters.execution_id",
+								"type": "Expression"
+							},
+							"type": "Guid"
 						},
 						"IdEjecucion": {
 							"value": {
@@ -252,20 +288,23 @@
 							},
 							"type": "Int32"
 						},
-						"Observaciones": {
+						"MensajeError": {
 							"value": {
-								"value": "@concat('Error en ForEach: ',activity('web scpraping').error.message)",
+								"value": "@variables('var_error_msg')",
 								"type": "Expression"
 							},
 							"type": "String"
 						},
-						"RegistrosEscritos": {
-							"value": null,
+						"PipelineId": {
+							"value": {
+								"value": "@pipeline().parameters.Pipeline_Id",
+								"type": "Expression"
+							},
 							"type": "Int32"
 						},
-						"RegistrosLeidos": {
-							"value": null,
-							"type": "Int32"
+						"Status": {
+							"value": "ERROR",
+							"type": "String"
 						}
 					}
 				},
@@ -333,6 +372,11 @@
 			},
 			"execution_id": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"var_error_msg": {
+				"type": "String"
 			}
 		},
 		"annotations": [],
