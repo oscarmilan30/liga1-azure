@@ -38,5 +38,11 @@
 			"newClusterInitScripts": [],
 			"dataSecurityMode": "NONE"
 		}
+	},
+	"newCluster": {
+		"spark_version": "@linkedService().sparkVersion",
+		"node_type_id": "@linkedService().nodeType",
+		"num_workers": "@linkedService().numWorkers",
+		"autotermination_minutes": "@linkedService().autotermination"
 	}
 }
