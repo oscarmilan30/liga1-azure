@@ -1,0 +1,42 @@
+{
+	"name": "ls_databricks_kv_clusterparam",
+	"properties": {
+		"parameters": {
+			"sparkVersion": {
+				"type": "string"
+			},
+			"nodeType": {
+				"type": "string"
+			},
+			"numWorkers": {
+				"type": "string"
+			},
+			"autotermination": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-1226152484357259.19.azuredatabricks.net",
+			"accessToken": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_azure_keyvault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "databricks-token",
+				"secretVersion": "a37866e3ba714ea8ab3adbec18d8b816"
+			},
+			"newClusterNodeType": "@linkedService().nodeType",
+			"newClusterNumOfWorker": "@linkedService().numWorkers",
+			"newClusterSparkEnvVars": {
+				"PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+			},
+			"newClusterVersion": "@linkedService().sparkVersion",
+			"clusterOption": "Fixed",
+			"newClusterInitScripts": [],
+			"dataSecurityMode": "NONE"
+		}
+	}
+}
