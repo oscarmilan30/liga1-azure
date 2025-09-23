@@ -112,6 +112,9 @@
 			},
 			"TablaParametro": {
 				"type": "string"
+			},
+			"Cluster": {
+				"type": "string"
 			}
 		},
 		"variables": {
