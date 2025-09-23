@@ -5,6 +5,8 @@
 			{
 				"name": "lkp_parametros",
 				"type": "Lookup",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -47,9 +49,17 @@
 			{
 				"name": "If_validar_reproceso",
 				"type": "IfCondition",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "IdEjecucion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "lkp_parametros",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -146,65 +156,11 @@
 				}
 			},
 			{
-				"name": "sp_start",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "lkp_parametros",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": true,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp_log_start]",
-					"storedProcedureParameters": {
-						"execution_id": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "Guid"
-						},
-						"pipeline_name": {
-							"value": {
-								"value": "@pipeline().Pipeline",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"pipeline_type": {
-							"value": "PADRE",
-							"type": "String"
-						},
-						"PipelineId": {
-							"value": {
-								"value": "@pipeline().parameters.PipelineId",
-								"type": "Expression"
-							},
-							"type": "Int32"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sql_liga1",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
 				"name": "IdEjecucion",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
-						"activity": "sp_start",
+						"activity": "lkp_sp_start",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -218,8 +174,74 @@
 				"typeProperties": {
 					"variableName": "IdEjecucion",
 					"value": {
-						"value": "@activity('sp_start').output.firstRow.IdEjecucion",
+						"value": "@activity('lkp_sp_start').output.firstRow.IdEjecucion",
 						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "lkp_sp_start",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "lkp_parametros",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[sp_log_start]",
+						"storedProcedureParameters": {
+							"execution_id": {
+								"type": "Guid",
+								"value": {
+									"value": "@pipeline().RunId",
+									"type": "Expression"
+								}
+							},
+							"pipeline_name": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().Pipeline",
+									"type": "Expression"
+								}
+							},
+							"pipeline_type": {
+								"type": "String",
+								"value": "PADRE"
+							},
+							"PipelineId": {
+								"type": "Int32",
+								"value": {
+									"value": "@pipeline().parameters.PipelineId",
+									"type": "Expression"
+								}
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sql_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TablaParametro",
+								"type": "Expression"
+							},
+							"SchemaName": "dbo"
+						}
 					}
 				}
 			}
