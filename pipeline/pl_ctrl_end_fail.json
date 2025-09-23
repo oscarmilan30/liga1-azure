@@ -25,7 +25,10 @@
 							"type": "String"
 						},
 						"IdEjecucion": {
-							"value": "",
+							"value": {
+								"value": "@pipeline().parameters.IdEjecucion",
+								"type": "Expression"
+							},
 							"type": "Int32"
 						},
 						"MensajeError": {
@@ -54,6 +57,12 @@
 		"parameters": {
 			"PipelineId": {
 				"type": "int"
+			},
+			"IdEjecucion": {
+				"type": "int"
+			},
+			"MensajeError": {
+				"type": "string"
 			}
 		},
 		"annotations": []

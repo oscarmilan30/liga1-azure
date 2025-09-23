@@ -43,8 +43,6 @@
 			{
 				"name": "tb_Orchestrator",
 				"type": "ExecutePipeline",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "tb_ctrl_start",
@@ -78,8 +76,6 @@
 			{
 				"name": "tb_ctrl_end_success",
 				"type": "ExecutePipeline",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "tb_Orchestrator",
@@ -102,15 +98,17 @@
 						"PipelineId": {
 							"value": "@pipeline().parameters.PipelineId",
 							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
 						}
 					}
 				}
 			},
 			{
-				"name": "pl_ctrl_end_pipeline_fail",
+				"name": "pl_ctrl_end_fail",
 				"type": "ExecutePipeline",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "tb_Orchestrator",
@@ -132,6 +130,14 @@
 					"parameters": {
 						"PipelineId": {
 							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						},
+						"MensajeError": {
+							"value": "@activity('tb_Orchestrator').Error.Message",
 							"type": "Expression"
 						}
 					}
@@ -155,9 +161,6 @@
 		"variables": {
 			"IdEjecucion": {
 				"type": "Integer"
-			},
-			"var_error_msg": {
-				"type": "String"
 			}
 		},
 		"annotations": []

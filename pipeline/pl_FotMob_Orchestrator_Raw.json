@@ -88,15 +88,6 @@
 									"TablaParametro": {
 										"value": "@pipeline().parameters.TablaParametro",
 										"type": "Expression"
-									},
-									"IdEjecucion": {
-										"value": "@variables('IdEjecucion')",
-										"type": "Expression"
-									},
-									"pipeline_type": "HIJO",
-									"execution_id": {
-										"value": "@pipeline().RunId",
-										"type": "Expression"
 									}
 								}
 							}
