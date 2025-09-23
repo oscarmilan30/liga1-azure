@@ -35,10 +35,6 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"IdEjecucion": {
-										"value": "@pipeline().parameters.IdEjecucion",
-										"type": "Expression"
-									},
 									"Parametros_Json": {
 										"value": "@pipeline().parameters.Parametros_Json",
 										"type": "Expression"
@@ -49,11 +45,6 @@
 									},
 									"TablaParametro": {
 										"value": "@pipeline().parameters.TablaParametro",
-										"type": "Expression"
-									},
-									"pipeline_type": "HIJO",
-									"execution_id": {
-										"value": "@pipeline().RunId",
 										"type": "Expression"
 									}
 								}
@@ -86,15 +77,6 @@
 									},
 									"TablaParametro": {
 										"value": "@pipeline().parameters.TablaParametro",
-										"type": "Expression"
-									},
-									"IdEjecucion": {
-										"value": "@pipeline().parameters.IdEjecucion",
-										"type": "Expression"
-									},
-									"pipeline_type": "HIJO",
-									"execution_id": {
-										"value": "@pipeline().RunId",
 										"type": "Expression"
 									}
 								}
