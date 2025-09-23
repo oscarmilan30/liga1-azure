@@ -20,16 +20,32 @@
 						"sqlReaderStoredProcedureName": "[dbo].[sp_log_start]",
 						"storedProcedureParameters": {
 							"execution_id": {
-								"type": "String"
+								"type": "String",
+								"value": {
+									"value": "@pipeline().parameters.ExecutionId",
+									"type": "Expression"
+								}
 							},
 							"pipeline_name": {
-								"type": "String"
+								"type": "String",
+								"value": {
+									"value": "@pipeline().parameters.pipeline_name",
+									"type": "Expression"
+								}
 							},
 							"pipeline_type": {
-								"type": "String"
+								"type": "String",
+								"value": {
+									"value": "@pipeline().parameters.pipeline_type",
+									"type": "Expression"
+								}
 							},
 							"PipelineId": {
-								"type": "Int32"
+								"type": "Int32",
+								"value": {
+									"value": "@pipeline().parameters.PipelineId",
+									"type": "Expression"
+								}
 							}
 						},
 						"queryTimeout": "02:00:00",
