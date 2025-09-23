@@ -24,7 +24,16 @@
 						"TablaParametro": {
 							"value": "@pipeline().parameters.TablaParametro",
 							"type": "Expression"
-						}
+						},
+						"ExecutionId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"pipeline_name": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"pipeline_type": "PADRE"
 					}
 				}
 			},
