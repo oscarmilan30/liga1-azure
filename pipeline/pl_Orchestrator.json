@@ -45,7 +45,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "tb_ctrl_start",
+						"activity": "Set_IdEjecucion",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -140,6 +140,30 @@
 							"value": "@activity('tb_Orchestrator').Error.Message",
 							"type": "Expression"
 						}
+					}
+				}
+			},
+			{
+				"name": "Set_IdEjecucion",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "tb_ctrl_start",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "IdEjecucion",
+					"value": {
+						"value": "@activity('tb_ctrl_start').output.pipelineReturnValue.IdEjecucion",
+						"type": "Expression"
 					}
 				}
 			}

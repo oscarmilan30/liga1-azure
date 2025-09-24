@@ -120,7 +120,13 @@
 							},
 							"linkedServiceName": {
 								"referenceName": "ls_databricks",
-								"type": "LinkedServiceReference"
+								"type": "LinkedServiceReference",
+								"parameters": {
+									"CLUSTER_ID": {
+										"value": "@pipeline().parameters.Parametros_Json['CLUSTER_ID']",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					]
