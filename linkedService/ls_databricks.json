@@ -19,7 +19,7 @@
 				"secretName": "databricks-token",
 				"secretVersion": "a37866e3ba714ea8ab3adbec18d8b816"
 			},
-			"existingClusterId": "0919-172542-yodzh4ch"
+			"existingClusterId": "@linkedService().CLUSTER_ID"
 		}
 	}
 }
