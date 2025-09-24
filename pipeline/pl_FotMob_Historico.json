@@ -119,26 +119,8 @@
 								}
 							},
 							"linkedServiceName": {
-								"referenceName": "ls_databricks_kv_clusterparam",
-								"type": "LinkedServiceReference",
-								"parameters": {
-									"sparkVersion": {
-										"value": "@string(pipeline().parameters.Parametros_Json['SPARK_VERSION'])",
-										"type": "Expression"
-									},
-									"nodeType": {
-										"value": "@string(pipeline().parameters.Parametros_Json['NODE_TYPE'])",
-										"type": "Expression"
-									},
-									"numWorkers": {
-										"value": "@int(pipeline().parameters.Parametros_Json['NUM_WORKERS'])",
-										"type": "Expression"
-									},
-									"autotermination": {
-										"value": "@int(pipeline().parameters.Parametros_Json['AUTOTERMINATION'])",
-										"type": "Expression"
-									}
-								}
+								"referenceName": "ls_databricks",
+								"type": "LinkedServiceReference"
 							}
 						}
 					]
