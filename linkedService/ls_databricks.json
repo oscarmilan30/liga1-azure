@@ -1,6 +1,11 @@
 {
 	"name": "ls_databricks",
 	"properties": {
+		"parameters": {
+			"CLUSTER_ID": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "AzureDatabricks",
 		"typeProperties": {
