@@ -1,5 +1,5 @@
 {
-	"name": "ds_adls_parquet",
+	"name": "ds_adls_json",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_adls",
@@ -17,7 +17,7 @@
 			"name": "ds_api_football/liga1"
 		},
 		"annotations": [],
-		"type": "Parquet",
+		"type": "Json",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
@@ -29,10 +29,9 @@
 					"value": "@dataset().folderPath",
 					"type": "Expression"
 				},
-				"fileSystem": "RAW"
-			},
-			"compressionCodec": "snappy"
+				"fileSystem": "LANDING"
+			}
 		},
-		"schema": []
+		"schema": {}
 	}
 }
