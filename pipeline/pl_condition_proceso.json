@@ -30,7 +30,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_FotMob_Incremental",
+									"referenceName": "pl_ligaperuana_Incremental",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
@@ -62,7 +62,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_FotMob_Historico",
+									"referenceName": "pl_ligaperuana_Historico",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,

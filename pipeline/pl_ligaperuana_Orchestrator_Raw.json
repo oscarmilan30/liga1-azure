@@ -1,5 +1,5 @@
 {
-	"name": "pl_FotMob_Orchestrator_Raw",
+	"name": "pl_ligaperuana_Orchestrator_Raw",
 	"properties": {
 		"activities": [
 			{
@@ -104,7 +104,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_FotMob_Reproceso",
+									"referenceName": "pl_ligaperuana_Reproceso",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
