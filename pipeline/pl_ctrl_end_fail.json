@@ -65,6 +65,9 @@
 				"type": "string"
 			}
 		},
+		"folder": {
+			"name": "pl_pipeline_control"
+		},
 		"annotations": []
 	}
 }

@@ -117,6 +117,9 @@
 				"type": "Integer"
 			}
 		},
+		"folder": {
+			"name": "pl_pipeline_control"
+		},
 		"annotations": []
 	}
 }
