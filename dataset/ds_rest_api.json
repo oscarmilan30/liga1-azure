@@ -1,10 +1,6 @@
 {
 	"name": "ds_rest_api",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "ls_rest_fotmob",
-			"type": "LinkedServiceReference"
-		},
 		"parameters": {
 			"relativeUrl": {
 				"type": "string"
