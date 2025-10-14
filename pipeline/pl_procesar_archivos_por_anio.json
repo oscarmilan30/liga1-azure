@@ -71,11 +71,11 @@
 														"type": "Expression"
 													},
 													"folderPath": {
-														"value": "@string(pipeline().parameters.anio)",
+														"value": "@concat(pipeline().parameters.capa_landing,'/',string(pipeline().parameters.anio))",
 														"type": "Expression"
 													},
 													"filesystem": {
-														"value": "@pipeline().parameters.capa_landing",
+														"value": "@pipeline().parameters.filesystem",
 														"type": "Expression"
 													}
 												}
@@ -91,11 +91,11 @@
 														"type": "Expression"
 													},
 													"folderPath": {
-														"value": "@concat(trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))",
+														"value": "@concat(pipeline().parameters.capa_raw,trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))",
 														"type": "Expression"
 													},
 													"filesystem": {
-														"value": "@pipeline().parameters.capa_raw",
+														"value": "@pipeline().parameters.filesystem",
 														"type": "Expression"
 													}
 												}
@@ -158,11 +158,11 @@
 														"type": "Expression"
 													},
 													"folderPath": {
-														"value": "@string(pipeline().parameters.anio)",
+														"value": "@concat(pipeline().parameters.capa_landing,'/',string(pipeline().parameters.anio))",
 														"type": "Expression"
 													},
-													"capa": {
-														"value": "@pipeline().parameters.capa_landing",
+													"filesystem": {
+														"value": "@pipeline().parameters.filesystem",
 														"type": "Expression"
 													}
 												}
@@ -178,11 +178,11 @@
 														"type": "Expression"
 													},
 													"folderPath": {
-														"value": "@concat(trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))",
+														"value": "@concat(pipeline().parameters.capa_raw,trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))",
 														"type": "Expression"
 													},
 													"filesystem": {
-														"value": "@pipeline().parameters.capa_raw",
+														"value": "@pipeline().parameters.filesystem",
 														"type": "Expression"
 													}
 												}
