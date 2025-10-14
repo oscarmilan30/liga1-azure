@@ -91,7 +91,7 @@
 														"type": "Expression"
 													},
 													"folderPath": {
-														"value": "@concat(pipeline().parameters.capa_raw,trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))",
+														"value": "@concat(pipeline().parameters.capa_raw,trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio),'/',item().nombre)",
 														"type": "Expression"
 													},
 													"filesystem": {
@@ -178,7 +178,7 @@
 														"type": "Expression"
 													},
 													"folderPath": {
-														"value": "@concat(pipeline().parameters.capa_raw,trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))",
+														"value": "@concat(pipeline().parameters.capa_raw,trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio),'/',item().nombre)",
 														"type": "Expression"
 													},
 													"filesystem": {
