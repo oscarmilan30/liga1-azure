@@ -12,7 +12,8 @@
 						"value": "@pipeline().parameters.lista_archivos",
 						"type": "Expression"
 					},
-					"isSequential": true,
+					"isSequential": false,
+					"batchCount": 5,
 					"activities": [
 						{
 							"name": "If Condition1",
@@ -52,7 +53,8 @@
 											"sink": {
 												"type": "ParquetSink",
 												"storeSettings": {
-													"type": "AzureBlobFSWriteSettings"
+													"type": "AzureBlobFSWriteSettings",
+													"copyBehavior": "MergeFiles"
 												},
 												"formatSettings": {
 													"type": "ParquetWriteSettings"
@@ -122,7 +124,8 @@
 											"sink": {
 												"type": "ParquetSink",
 												"storeSettings": {
-													"type": "AzureBlobFSWriteSettings"
+													"type": "AzureBlobFSWriteSettings",
+													"copyBehavior": "MergeFiles"
 												},
 												"formatSettings": {
 													"type": "ParquetWriteSettings"

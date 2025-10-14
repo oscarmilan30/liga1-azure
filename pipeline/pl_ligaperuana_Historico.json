@@ -96,7 +96,21 @@
 									"referenceName": "pl_procesar_archivos_por_anio",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"anio": {
+										"value": "@item().Anio",
+										"type": "Expression"
+									},
+									"rutaBase": {
+										"value": "@activity('lkp_datos_entidad').output.firstRow.RutaBase",
+										"type": "Expression"
+									},
+									"lista_archivos": {
+										"value": "@json(activity('lkp_lista_archivos').output.value[0].lista_archivos)",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					]
