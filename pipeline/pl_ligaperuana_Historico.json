@@ -107,7 +107,7 @@
 										"type": "Expression"
 									},
 									"lista_archivos": {
-										"value": "@json(activity('lkp_lista_archivos').output.value[0].lista_archivos)",
+										"value": "@json(activity('lkp_lista_archivos').output.firstRow.lista_archivos)\n",
 										"type": "Expression"
 									}
 								}
