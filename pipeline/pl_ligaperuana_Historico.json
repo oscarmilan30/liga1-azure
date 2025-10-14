@@ -55,8 +55,6 @@
 				"name": "foreach_procesar_anios",
 				"description": "",
 				"type": "ForEach",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "lkp_anios_historicos",
@@ -83,86 +81,7 @@
 						"value": "@activity('lkp_anios_historicos').output.value",
 						"type": "Expression"
 					},
-					"isSequential": true,
-					"activities": [
-						{
-							"name": "web scpraping",
-							"type": "DatabricksNotebook",
-							"state": "Inactive",
-							"onInactiveMarkAs": "Succeeded",
-							"dependsOn": [
-								{
-									"activity": "Copy data1",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"notebookPath": "/Repos/FOTMOB/liga1-azure/frm_landing/scraping/fotmob_scraping_piloto",
-								"baseParameters": {
-									"temporada": {
-										"value": "@string(item().Anio)",
-										"type": "Expression"
-									},
-									"liga_id": {
-										"value": "@string(pipeline().parameters.Parametros_Json['LEAGUE_ID'])",
-										"type": "Expression"
-									},
-									"liga_nombre": {
-										"value": "@pipeline().parameters.Parametros_Json['URL_SEASON_PARAM']",
-										"type": "Expression"
-									},
-									"rutabase": {
-										"value": "@activity('lkp_datos_entidad').output.firstRow.RutaBase",
-										"type": "Expression"
-									},
-									"url_base": {
-										"value": "@pipeline().parameters.Parametros_Json['URL_BASE']",
-										"type": "Expression"
-									},
-									"container_temp": {
-										"value": "@pipeline().parameters.Parametros_Json['CONTAINER_TEMP']",
-										"type": "Expression"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_databricks",
-								"type": "LinkedServiceReference",
-								"parameters": {
-									"CLUSTER_ID": {
-										"value": "@pipeline().parameters.Parametros_Json['CLUSTER_ID']",
-										"type": "Expression"
-									}
-								}
-							}
-						},
-						{
-							"name": "Copy data1",
-							"type": "Copy",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"enableStaging": false
-							}
-						}
-					]
+					"isSequential": true
 				}
 			},
 			{
@@ -209,8 +128,6 @@
 			{
 				"name": "sp_act_estado",
 				"type": "SqlServerStoredProcedure",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "foreach_procesar_anios",
@@ -278,7 +195,7 @@
 							"SchemaName": "dbo"
 						}
 					},
-					"firstRowOnly": false
+					"firstRowOnly": true
 				}
 			}
 		],
@@ -291,6 +208,11 @@
 			},
 			"TablaParametro": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"var_archivos": {
+				"type": "Array"
 			}
 		},
 		"folder": {
