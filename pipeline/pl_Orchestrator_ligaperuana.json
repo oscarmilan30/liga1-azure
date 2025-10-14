@@ -41,7 +41,7 @@
 				}
 			},
 			{
-				"name": "tb_Orchestrator_Raw",
+				"name": "tb_Orchestrator",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -78,7 +78,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "tb_Orchestrator_Raw",
+						"activity": "tb_Orchestrator",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -111,7 +111,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "tb_Orchestrator_Raw",
+						"activity": "tb_Orchestrator",
 						"dependencyConditions": [
 							"Failed"
 						]
