@@ -11,6 +11,9 @@
 			},
 			"folderPath": {
 				"type": "string"
+			},
+			"capa": {
+				"type": "string"
 			}
 		},
 		"folder": {
@@ -29,7 +32,10 @@
 					"value": "@dataset().folderPath",
 					"type": "Expression"
 				},
-				"fileSystem": "RAW"
+				"fileSystem": {
+					"value": "@dataset().capa",
+					"type": "Expression"
+				}
 			},
 			"compressionCodec": "snappy"
 		},

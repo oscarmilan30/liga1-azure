@@ -67,11 +67,11 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"fileName": {
-														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio),'.json')",
+														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.json')",
 														"type": "Expression"
 													},
 													"folderPath": {
-														"value": "@string(pipeline().parameters.anio)",
+														"value": "@concat('LANDING/', string(pipeline().parameters.anio))",
 														"type": "Expression"
 													}
 												}
