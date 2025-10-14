@@ -3,15 +3,192 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Wait1",
-				"type": "Wait",
+				"name": "ForEachArchivos",
+				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"waitTimeInSeconds": 1
+					"items": {
+						"value": "@pipeline().parameters.lista_archivos",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "If Condition1",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@equals(item().tipo, 'csv')",
+									"type": "Expression"
+								},
+								"ifFalseActivities": [
+									{
+										"name": "copy_json_to_parquet",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "JsonSource",
+												"storeSettings": {
+													"type": "AzureBlobFSReadSettings",
+													"recursive": true,
+													"enablePartitionDiscovery": false
+												},
+												"formatSettings": {
+													"type": "JsonReadSettings"
+												}
+											},
+											"sink": {
+												"type": "ParquetSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "ParquetWriteSettings"
+												}
+											},
+											"enableStaging": false
+										},
+										"inputs": [
+											{
+												"referenceName": "ds_adls_json",
+												"type": "DatasetReference",
+												"parameters": {
+													"fileName": {
+														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.json')",
+														"type": "Expression"
+													},
+													"folderPath": {
+														"value": "@concat('LANDING/', string(pipeline().parameters.anio))",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "ds_adls_parquet",
+												"type": "DatasetReference",
+												"parameters": {
+													"fileName": {
+														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.parquet')",
+														"type": "Expression"
+													},
+													"folderPath": {
+														"value": "@concat('RAW', trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))\n",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									}
+								],
+								"ifTrueActivities": [
+									{
+										"name": "copy_csv_to_parquet",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "DelimitedTextSource",
+												"storeSettings": {
+													"type": "AzureBlobFSReadSettings",
+													"recursive": true,
+													"enablePartitionDiscovery": false
+												},
+												"formatSettings": {
+													"type": "DelimitedTextReadSettings"
+												}
+											},
+											"sink": {
+												"type": "ParquetSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "ParquetWriteSettings"
+												}
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"typeConversion": true,
+												"typeConversionSettings": {
+													"allowDataTruncation": true,
+													"treatBooleanAsNumber": false
+												}
+											}
+										},
+										"inputs": [
+											{
+												"referenceName": "ds_adls_csv",
+												"type": "DatasetReference",
+												"parameters": {
+													"fileName": {
+														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.csv')",
+														"type": "Expression"
+													},
+													"folderPath": {
+														"value": "@concat('LANDING/', string(pipeline().parameters.anio))",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "ds_adls_parquet",
+												"type": "DatasetReference",
+												"parameters": {
+													"fileName": {
+														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.parquet')\n",
+														"type": "Expression"
+													},
+													"folderPath": {
+														"value": "@concat('RAW', trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))\n",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									}
+								]
+							}
+						}
+					]
 				}
 			}
 		],
+		"parameters": {
+			"anio": {
+				"type": "int"
+			},
+			"rutaBase": {
+				"type": "string"
+			},
+			"lista_archivos": {
+				"type": "array"
+			}
+		},
 		"folder": {
 			"name": "pl_hijos_ligaperuana/pl_inner_procesos"
 		},
