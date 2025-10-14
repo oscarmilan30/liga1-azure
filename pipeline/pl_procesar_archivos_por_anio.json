@@ -12,8 +12,7 @@
 						"value": "@pipeline().parameters.lista_archivos",
 						"type": "Expression"
 					},
-					"isSequential": false,
-					"batchCount": 5,
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "If Condition1",
@@ -68,7 +67,7 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"fileName": {
-														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.json')",
+														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio),'.json')",
 														"type": "Expression"
 													},
 													"folderPath": {
@@ -88,7 +87,7 @@
 														"type": "Expression"
 													},
 													"folderPath": {
-														"value": "@concat('RAW', trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))\n",
+														"value": "@concat('RAW', trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))",
 														"type": "Expression"
 													}
 												}
@@ -147,7 +146,7 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"fileName": {
-														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.csv')",
+														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio),'.csv')",
 														"type": "Expression"
 													},
 													"folderPath": {
@@ -163,11 +162,11 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"fileName": {
-														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.parquet')\n",
+														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio),'.parquet')",
 														"type": "Expression"
 													},
 													"folderPath": {
-														"value": "@concat('RAW', trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))\n",
+														"value": "@concat('RAW', trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))",
 														"type": "Expression"
 													}
 												}
