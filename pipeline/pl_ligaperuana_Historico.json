@@ -109,6 +109,18 @@
 									"lista_archivos": {
 										"value": "@json(activity('lkp_lista_archivos').output.firstRow.lista_archivos)\n",
 										"type": "Expression"
+									},
+									"capa_raw": {
+										"value": "@pipeline().parameters.capa_raw",
+										"type": "Expression"
+									},
+									"capa_landing": {
+										"value": "@pipeline().parameters.capa_landing",
+										"type": "Expression"
+									},
+									"filesystem": {
+										"value": "@pipeline().parameters.filesystem",
+										"type": "Expression"
 									}
 								}
 							}
@@ -240,6 +252,18 @@
 			},
 			"TablaParametro": {
 				"type": "string"
+			},
+			"capa_raw": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"capa_landing": {
+				"type": "string",
+				"defaultValue": "landing"
+			},
+			"filesystem": {
+				"type": "string",
+				"defaultValue": "liga1"
 			}
 		},
 		"variables": {
