@@ -23,7 +23,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@json(concat('[{\\\"Anio\\\":\\\"', pipeline().parameters.Year_Reprocess, '\\\"}]'))",
+						"value": "@json(concat('[{\"Anio\":', pipeline().parameters.Year_Reprocess, '}]'))",
 						"type": "Expression"
 					},
 					"isSequential": true,
