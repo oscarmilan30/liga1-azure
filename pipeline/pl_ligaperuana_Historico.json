@@ -22,14 +22,14 @@
 							"EndYear": {
 								"type": "Int32",
 								"value": {
-									"value": "@pipeline().parameters.Parametros_Json['CURRENT_YEAR']",
+									"value": "@pipeline().parameters.EndYear",
 									"type": "Expression"
 								}
 							},
 							"StartYear": {
 								"type": "Int32",
 								"value": {
-									"value": "@pipeline().parameters.Parametros_Json['HISTORIC_START_YEAR']",
+									"value": "@pipeline().parameters.StartYear",
 									"type": "Expression"
 								}
 							}
@@ -103,7 +103,7 @@
 										"type": "Expression"
 									},
 									"rutaBase": {
-										"value": "@activity('lkp_datos_entidad').output.firstRow.RutaBase",
+										"value": "@pipeline().parameters.rutaBase",
 										"type": "Expression"
 									},
 									"lista_archivos": {
@@ -131,6 +131,8 @@
 			{
 				"name": "lkp_datos_entidad",
 				"type": "Lookup",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -244,9 +246,6 @@
 			}
 		],
 		"parameters": {
-			"Parametros_Json": {
-				"type": "object"
-			},
 			"Pipeline_Id": {
 				"type": "int"
 			},
@@ -260,6 +259,15 @@
 				"type": "string"
 			},
 			"filesystem": {
+				"type": "string"
+			},
+			"EndYear": {
+				"type": "string"
+			},
+			"StartYear": {
+				"type": "string"
+			},
+			"rutaBase": {
 				"type": "string"
 			}
 		},

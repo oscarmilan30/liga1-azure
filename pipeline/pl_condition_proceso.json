@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(variables('modo_ejecucion'),'HISTORICO')",
+						"value": "@equals(pipeline().parameters.Parametros_Json['MODO_EJECUCION'],'HISTORICO')",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -67,10 +67,6 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"Parametros_Json": {
-										"value": "@pipeline().parameters.Parametros_Json",
-										"type": "Expression"
-									},
 									"Pipeline_Id": {
 										"value": "@pipeline().parameters.PipelineId",
 										"type": "Expression"
@@ -78,7 +74,28 @@
 									"TablaParametro": {
 										"value": "@pipeline().parameters.TablaParametro",
 										"type": "Expression"
-									}
+									},
+									"capa_raw": {
+										"value": "@pipeline().parameters.Parametros_Json['CAPA_RAW']",
+										"type": "Expression"
+									},
+									"capa_landing": {
+										"value": "@pipeline().parameters.Parametros_Json['CAPA_LANDING']",
+										"type": "Expression"
+									},
+									"filesystem": {
+										"value": "@pipeline().parameters.Parametros_Json['FILESYSTEM']",
+										"type": "Expression"
+									},
+									"EndYear": {
+										"value": "@pipeline().parameters.Parametros_Json['CURRENT_YEAR']",
+										"type": "Expression"
+									},
+									"StartYear": {
+										"value": "@pipeline().parameters.Parametros_Json['HISTORIC_START_YEAR']",
+										"type": "Expression"
+									},
+									"rutaBase": "@pipeline().parameters.Parametros_Json['RUTABASE']"
 								}
 							}
 						}
@@ -88,6 +105,8 @@
 			{
 				"name": "Set_Variable_Modo",
 				"type": "SetVariable",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"secureOutput": false,
