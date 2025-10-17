@@ -109,12 +109,12 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"PipelineId": {
-										"value": "@pipeline().parameters.PipelineId",
-										"type": "Expression"
-									},
 									"Parametros_Json": {
 										"value": "@activity('lkp_parametros').output.firstRow",
+										"type": "Expression"
+									},
+									"Pipeline_Id": {
+										"value": "@pipeline().parameters.PipelineId",
 										"type": "Expression"
 									},
 									"TablaParametro": {
