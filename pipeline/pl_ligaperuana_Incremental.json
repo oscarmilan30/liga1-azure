@@ -121,46 +121,6 @@
 				}
 			},
 			{
-				"name": "sp_act_estado",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "foreach_procesar_anios",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp_actualizar_modo_ejecucion]",
-					"storedProcedureParameters": {
-						"NuevoModo": {
-							"value": "INCREMENTAL",
-							"type": "String"
-						},
-						"PipelineId": {
-							"value": {
-								"value": "@pipeline().parameters.Pipeline_Id",
-								"type": "Expression"
-							},
-							"type": "Int32"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sql_liga1",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
 				"name": "lkp_lista_archivos",
 				"type": "Lookup",
 				"dependsOn": [],
@@ -208,6 +168,46 @@
 						"value": "@formatDateTime(utcNow(), 'yyyy')",
 						"type": "Expression"
 					}
+				}
+			},
+			{
+				"name": "sp_act_estado",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "foreach_procesar_anios",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_actualizar_modo_ejecucion]",
+					"storedProcedureParameters": {
+						"NuevoModo": {
+							"value": "INCREMENTAL",
+							"type": "String"
+						},
+						"PipelineId": {
+							"value": {
+								"value": "@pipeline().parameters.Pipeline_Id",
+								"type": "Expression"
+							},
+							"type": "Int32"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sql_liga1",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],

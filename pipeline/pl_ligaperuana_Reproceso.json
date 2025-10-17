@@ -3,65 +3,10 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "lkp_anios_historicos",
-				"type": "Lookup",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_rango_anios]",
-						"storedProcedureParameters": {
-							"EndYear": {
-								"type": "Int32",
-								"value": {
-									"value": "@pipeline().parameters.Parametros_Json['CURRENT_YEAR']",
-									"type": "Expression"
-								}
-							},
-							"StartYear": {
-								"type": "Int32",
-								"value": {
-									"value": "@pipeline().parameters.Parametros_Json['HISTORIC_START_YEAR']",
-									"type": "Expression"
-								}
-							}
-						},
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "ds_sql_generic",
-						"type": "DatasetReference",
-						"parameters": {
-							"TableName": {
-								"value": "@pipeline().parameters.TablaParametro",
-								"type": "Expression"
-							},
-							"SchemaName": "dbo"
-						}
-					},
-					"firstRowOnly": false
-				}
-			},
-			{
 				"name": "foreach_procesar_anios",
 				"description": "",
 				"type": "ForEach",
 				"dependsOn": [
-					{
-						"activity": "lkp_anios_historicos",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
 					{
 						"activity": "lkp_datos_entidad",
 						"dependencyConditions": [
@@ -78,7 +23,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('lkp_anios_historicos').output.value",
+						"value": "@json(concat('[{\"Anio\":', pipeline().parameters.Parametros_Json['ANIO_REPROCESO'], '}]'))",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -180,7 +125,7 @@
 					"storedProcedureName": "[dbo].[sp_actualizar_modo_ejecucion]",
 					"storedProcedureParameters": {
 						"NuevoModo": {
-							"value": "INCREMENTAL",
+							"value": "REPROCESO",
 							"type": "String"
 						},
 						"PipelineId": {
