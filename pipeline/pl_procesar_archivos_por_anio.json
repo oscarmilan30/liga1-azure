@@ -15,179 +15,285 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "If Condition1",
-							"type": "IfCondition",
+							"name": "chk_archivo_existe",
+							"type": "GetMetadata",
 							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataset": {
+									"referenceName": "ds_adls_json",
+									"type": "DatasetReference",
+									"parameters": {
+										"fileName": {
+											"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo)",
+											"type": "Expression"
+										},
+										"folderPath": {
+											"value": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
+											"type": "Expression"
+										},
+										"filesystem": {
+											"value": "@pipeline().parameters.filesystem",
+											"type": "Expression"
+										}
+									}
+								},
+								"fieldList": [
+									"exists"
+								],
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							}
+						},
+						{
+							"name": "var_continuar",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "chk_archivo_existe",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "var_continuar",
+								"value": {
+									"value": "@or(activity('chk_archivo_existe').output.exists, equals(item().nombre, 'campeones'))",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "If Continuar",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "var_continuar",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@equals(item().tipo, 'csv')",
+									"value": "@variables('var_continuar')",
 									"type": "Expression"
 								},
 								"ifFalseActivities": [
 									{
-										"name": "copy_json_to_parquet",
-										"type": "Copy",
+										"name": "Fail1",
+										"type": "Fail",
 										"dependsOn": [],
-										"policy": {
-											"timeout": "0.12:00:00",
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
-										},
 										"userProperties": [],
 										"typeProperties": {
-											"source": {
-												"type": "JsonSource",
-												"storeSettings": {
-													"type": "AzureBlobFSReadSettings",
-													"recursive": true,
-													"enablePartitionDiscovery": false
-												},
-												"formatSettings": {
-													"type": "JsonReadSettings"
-												}
+											"message": {
+												"value": "@concat('El archivo ', item().nombre, ' no existe y no es campeones. Pipeline detenido.')",
+												"type": "Expression"
 											},
-											"sink": {
-												"type": "ParquetSink",
-												"storeSettings": {
-													"type": "AzureBlobFSWriteSettings",
-													"copyBehavior": "MergeFiles"
-												},
-												"formatSettings": {
-													"type": "ParquetWriteSettings"
-												}
-											},
-											"enableStaging": false
-										},
-										"inputs": [
-											{
-												"referenceName": "ds_adls_json",
-												"type": "DatasetReference",
-												"parameters": {
-													"fileName": {
-														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.json')",
-														"type": "Expression"
-													},
-													"folderPath": {
-														"value": "@concat(pipeline().parameters.capa_landing,'/',string(pipeline().parameters.anio))",
-														"type": "Expression"
-													},
-													"filesystem": {
-														"value": "@pipeline().parameters.filesystem",
-														"type": "Expression"
-													}
-												}
+											"errorCode": {
+												"value": "@concat('ArchivoNoEncontrado_', item().nombre)",
+												"type": "Expression"
 											}
-										],
-										"outputs": [
-											{
-												"referenceName": "ds_adls_parquet",
-												"type": "DatasetReference",
-												"parameters": {
-													"fileName": {
-														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.parquet')",
-														"type": "Expression"
-													},
-													"folderPath": {
-														"value": "@concat(pipeline().parameters.capa_raw,trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio),'/',item().nombre)",
-														"type": "Expression"
-													},
-													"filesystem": {
-														"value": "@pipeline().parameters.filesystem",
-														"type": "Expression"
-													}
-												}
-											}
-										]
+										}
 									}
 								],
 								"ifTrueActivities": [
 									{
-										"name": "copy_csv_to_parquet",
-										"type": "Copy",
+										"name": "If Condition1",
+										"type": "IfCondition",
 										"dependsOn": [],
-										"policy": {
-											"timeout": "0.12:00:00",
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
-										},
 										"userProperties": [],
 										"typeProperties": {
-											"source": {
-												"type": "DelimitedTextSource",
-												"storeSettings": {
-													"type": "AzureBlobFSReadSettings",
-													"recursive": true,
-													"enablePartitionDiscovery": false
-												},
-												"formatSettings": {
-													"type": "DelimitedTextReadSettings"
-												}
+											"expression": {
+												"value": "@equals(item().tipo, 'csv')",
+												"type": "Expression"
 											},
-											"sink": {
-												"type": "ParquetSink",
-												"storeSettings": {
-													"type": "AzureBlobFSWriteSettings",
-													"copyBehavior": "MergeFiles"
-												},
-												"formatSettings": {
-													"type": "ParquetWriteSettings"
-												}
-											},
-											"enableStaging": false,
-											"translator": {
-												"type": "TabularTranslator",
-												"typeConversion": true,
-												"typeConversionSettings": {
-													"allowDataTruncation": true,
-													"treatBooleanAsNumber": false
-												}
-											}
-										},
-										"inputs": [
-											{
-												"referenceName": "ds_adls_csv",
-												"type": "DatasetReference",
-												"parameters": {
-													"fileName": {
-														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio),'.csv')",
-														"type": "Expression"
+											"ifFalseActivities": [
+												{
+													"name": "copy_json_to_parquet",
+													"type": "Copy",
+													"dependsOn": [],
+													"policy": {
+														"timeout": "0.12:00:00",
+														"retry": 0,
+														"retryIntervalInSeconds": 30,
+														"secureOutput": false,
+														"secureInput": false
 													},
-													"folderPath": {
-														"value": "@concat(pipeline().parameters.capa_landing,'/',string(pipeline().parameters.anio))",
-														"type": "Expression"
+													"userProperties": [],
+													"typeProperties": {
+														"source": {
+															"type": "JsonSource",
+															"storeSettings": {
+																"type": "AzureBlobFSReadSettings",
+																"recursive": true,
+																"enablePartitionDiscovery": false
+															},
+															"formatSettings": {
+																"type": "JsonReadSettings"
+															}
+														},
+														"sink": {
+															"type": "ParquetSink",
+															"storeSettings": {
+																"type": "AzureBlobFSWriteSettings",
+																"copyBehavior": "MergeFiles"
+															},
+															"formatSettings": {
+																"type": "ParquetWriteSettings"
+															}
+														},
+														"enableStaging": false
 													},
-													"filesystem": {
-														"value": "@pipeline().parameters.filesystem",
-														"type": "Expression"
-													}
+													"inputs": [
+														{
+															"referenceName": "ds_adls_json",
+															"type": "DatasetReference",
+															"parameters": {
+																"fileName": {
+																	"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.json')",
+																	"type": "Expression"
+																},
+																"folderPath": {
+																	"value": "@concat(pipeline().parameters.capa_landing,'/',string(pipeline().parameters.anio))",
+																	"type": "Expression"
+																},
+																"filesystem": {
+																	"value": "@pipeline().parameters.filesystem",
+																	"type": "Expression"
+																}
+															}
+														}
+													],
+													"outputs": [
+														{
+															"referenceName": "ds_adls_parquet",
+															"type": "DatasetReference",
+															"parameters": {
+																"fileName": {
+																	"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.parquet')",
+																	"type": "Expression"
+																},
+																"folderPath": {
+																	"value": "@concat(pipeline().parameters.capa_raw,trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio),'/',item().nombre)",
+																	"type": "Expression"
+																},
+																"filesystem": {
+																	"value": "@pipeline().parameters.filesystem",
+																	"type": "Expression"
+																}
+															}
+														}
+													]
 												}
-											}
-										],
-										"outputs": [
-											{
-												"referenceName": "ds_adls_parquet",
-												"type": "DatasetReference",
-												"parameters": {
-													"fileName": {
-														"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio),'.parquet')",
-														"type": "Expression"
+											],
+											"ifTrueActivities": [
+												{
+													"name": "copy_csv_to_parquet",
+													"type": "Copy",
+													"dependsOn": [],
+													"policy": {
+														"timeout": "0.12:00:00",
+														"retry": 0,
+														"retryIntervalInSeconds": 30,
+														"secureOutput": false,
+														"secureInput": false
 													},
-													"folderPath": {
-														"value": "@concat(pipeline().parameters.capa_raw,trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio),'/',item().nombre)",
-														"type": "Expression"
+													"userProperties": [],
+													"typeProperties": {
+														"source": {
+															"type": "DelimitedTextSource",
+															"storeSettings": {
+																"type": "AzureBlobFSReadSettings",
+																"recursive": true,
+																"enablePartitionDiscovery": false
+															},
+															"formatSettings": {
+																"type": "DelimitedTextReadSettings"
+															}
+														},
+														"sink": {
+															"type": "ParquetSink",
+															"storeSettings": {
+																"type": "AzureBlobFSWriteSettings",
+																"copyBehavior": "MergeFiles"
+															},
+															"formatSettings": {
+																"type": "ParquetWriteSettings"
+															}
+														},
+														"enableStaging": false,
+														"translator": {
+															"type": "TabularTranslator",
+															"typeConversion": true,
+															"typeConversionSettings": {
+																"allowDataTruncation": true,
+																"treatBooleanAsNumber": false
+															}
+														}
 													},
-													"filesystem": {
-														"value": "@pipeline().parameters.filesystem",
-														"type": "Expression"
-													}
+													"inputs": [
+														{
+															"referenceName": "ds_adls_csv",
+															"type": "DatasetReference",
+															"parameters": {
+																"fileName": {
+																	"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio),'.csv')",
+																	"type": "Expression"
+																},
+																"folderPath": {
+																	"value": "@concat(pipeline().parameters.capa_landing,'/',string(pipeline().parameters.anio))",
+																	"type": "Expression"
+																},
+																"filesystem": {
+																	"value": "@pipeline().parameters.filesystem",
+																	"type": "Expression"
+																}
+															}
+														}
+													],
+													"outputs": [
+														{
+															"referenceName": "ds_adls_parquet",
+															"type": "DatasetReference",
+															"parameters": {
+																"fileName": {
+																	"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio),'.parquet')",
+																	"type": "Expression"
+																},
+																"folderPath": {
+																	"value": "@concat(pipeline().parameters.capa_raw,trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio),'/',item().nombre)",
+																	"type": "Expression"
+																},
+																"filesystem": {
+																	"value": "@pipeline().parameters.filesystem",
+																	"type": "Expression"
+																}
+															}
+														}
+													]
 												}
-											}
-										]
+											]
+										}
 									}
 								]
 							}
@@ -217,6 +323,11 @@
 			"filesystem": {
 				"type": "string",
 				"defaultValue": "liga1"
+			}
+		},
+		"variables": {
+			"var_continuar": {
+				"type": "Boolean"
 			}
 		},
 		"folder": {
