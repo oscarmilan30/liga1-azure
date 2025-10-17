@@ -202,16 +202,13 @@
 				"type": "string"
 			},
 			"capa_raw": {
-				"type": "string",
-				"defaultValue": "raw"
+				"type": "string"
 			},
 			"capa_landing": {
-				"type": "string",
-				"defaultValue": "landing"
+				"type": "string"
 			},
 			"filesystem": {
-				"type": "string",
-				"defaultValue": "liga1"
+				"type": "string"
 			}
 		},
 		"folder": {
