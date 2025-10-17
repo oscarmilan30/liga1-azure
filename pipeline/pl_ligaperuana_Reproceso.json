@@ -23,7 +23,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@json(concat('[{\"Anio\":', pipeline().parameters.Year_Reprocess, '}]'))",
+						"value": "@json(concat('[{\\\"Anio\\\":\\\"', pipeline().parameters.Year_Reprocess, '\\\"}]'))",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -52,7 +52,7 @@
 										"type": "Expression"
 									},
 									"lista_archivos": {
-										"value": "@json(activity('lkp_lista_archivos').output.firstRow.lista_archivos)\n",
+										"value": "@json(activity('lkp_lista_archivos').output.firstRow.lista_archivos)",
 										"type": "Expression"
 									},
 									"capa_raw": {
