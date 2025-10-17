@@ -23,7 +23,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@json(concat('[{\"Anio\":', pipeline().parameters.Parametros_Json['ANIO_REPROCESO'], '}]'))",
+						"value": "@json(concat('[{\"Anio\":', pipeline().parameters.Year_Reprocess, '}]'))",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -48,11 +48,23 @@
 										"type": "Expression"
 									},
 									"rutaBase": {
-										"value": "@activity('lkp_datos_entidad').output.firstRow.RutaBase",
+										"value": "@pipeline().parameters.rutaBase",
 										"type": "Expression"
 									},
 									"lista_archivos": {
 										"value": "@json(activity('lkp_lista_archivos').output.firstRow.lista_archivos)\n",
+										"type": "Expression"
+									},
+									"capa_raw": {
+										"value": "@pipeline().parameters.capa_raw",
+										"type": "Expression"
+									},
+									"capa_landing": {
+										"value": "@pipeline().parameters.capa_landing",
+										"type": "Expression"
+									},
+									"filesystem": {
+										"value": "@pipeline().parameters.filesystem",
 										"type": "Expression"
 									}
 								}
@@ -64,6 +76,8 @@
 			{
 				"name": "lkp_datos_entidad",
 				"type": "Lookup",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -177,13 +191,25 @@
 			}
 		],
 		"parameters": {
-			"Parametros_Json": {
-				"type": "object"
-			},
 			"Pipeline_Id": {
 				"type": "int"
 			},
 			"TablaParametro": {
+				"type": "string"
+			},
+			"capa_raw": {
+				"type": "string"
+			},
+			"capa_landing": {
+				"type": "string"
+			},
+			"filesystem": {
+				"type": "string"
+			},
+			"Year_Reprocess": {
+				"type": "string"
+			},
+			"rutaBase": {
 				"type": "string"
 			}
 		},

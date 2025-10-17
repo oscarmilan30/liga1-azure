@@ -109,16 +109,32 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"Parametros_Json": {
-										"value": "@activity('lkp_parametros').output.firstRow",
-										"type": "Expression"
-									},
 									"Pipeline_Id": {
 										"value": "@pipeline().parameters.PipelineId",
 										"type": "Expression"
 									},
 									"TablaParametro": {
 										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									},
+									"capa_raw": {
+										"value": "@activity('lkp_parametros').output.firstRow.CAPA_RAW",
+										"type": "Expression"
+									},
+									"capa_landing": {
+										"value": "@activity('lkp_parametros').output.firstRow.CAPA_LANDING",
+										"type": "Expression"
+									},
+									"filesystem": {
+										"value": "@activity('lkp_parametros').output.firstRow.FILESYSTEM",
+										"type": "Expression"
+									},
+									"Year_Reprocess": {
+										"value": "@activity('lkp_parametros').output.firstRow.ANIO_REPROCESO",
+										"type": "Expression"
+									},
+									"rutaBase": {
+										"value": "@activity('lkp_parametros').output.firstRow.RUTABASE",
 										"type": "Expression"
 									}
 								}
