@@ -35,16 +35,25 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"Parametros_Json": {
-										"value": "@pipeline().parameters.Parametros_Json",
-										"type": "Expression"
-									},
 									"Pipeline_Id": {
 										"value": "@pipeline().parameters.PipelineId",
 										"type": "Expression"
 									},
 									"TablaParametro": {
 										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									},
+									"capa_raw": "@pipeline().parameters.Parametros_Json['CAPA_RAW']",
+									"capa_landing": {
+										"value": "@pipeline().parameters.Parametros_Json['CAPA_LANDING']",
+										"type": "Expression"
+									},
+									"filesystem": {
+										"value": "@pipeline().parameters.Parametros_Json['FILESYSTEM']",
+										"type": "Expression"
+									},
+									"rutaBase": {
+										"value": "@pipeline().parameters.Parametros_Json['RUTABASE']",
 										"type": "Expression"
 									}
 								}

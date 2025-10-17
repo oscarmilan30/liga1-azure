@@ -54,7 +54,7 @@
 										"type": "Expression"
 									},
 									"rutaBase": {
-										"value": "@activity('lkp_datos_entidad').output.firstRow.RutaBase",
+										"value": "@pipeline().parameters.rutaBase",
 										"type": "Expression"
 									},
 									"lista_archivos": {
@@ -82,6 +82,8 @@
 			{
 				"name": "lkp_datos_entidad",
 				"type": "Lookup",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -212,9 +214,6 @@
 			}
 		],
 		"parameters": {
-			"Parametros_Json": {
-				"type": "object"
-			},
 			"Pipeline_Id": {
 				"type": "int"
 			},
@@ -222,16 +221,16 @@
 				"type": "string"
 			},
 			"capa_raw": {
-				"type": "string",
-				"defaultValue": "raw"
+				"type": "string"
 			},
 			"capa_landing": {
-				"type": "string",
-				"defaultValue": "landing"
+				"type": "string"
 			},
 			"filesystem": {
-				"type": "string",
-				"defaultValue": "liga1"
+				"type": "string"
+			},
+			"rutaBase": {
+				"type": "string"
 			}
 		},
 		"variables": {
