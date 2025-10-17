@@ -43,7 +43,10 @@
 										"value": "@pipeline().parameters.TablaParametro",
 										"type": "Expression"
 									},
-									"capa_raw": "@pipeline().parameters.Parametros_Json['CAPA_RAW']",
+									"capa_raw": {
+										"value": "@pipeline().parameters.Parametros_Json['CAPA_RAW']",
+										"type": "Expression"
+									},
 									"capa_landing": {
 										"value": "@pipeline().parameters.Parametros_Json['CAPA_LANDING']",
 										"type": "Expression"
@@ -104,7 +107,10 @@
 										"value": "@pipeline().parameters.Parametros_Json['HISTORIC_START_YEAR']",
 										"type": "Expression"
 									},
-									"rutaBase": "@pipeline().parameters.Parametros_Json['RUTABASE']"
+									"rutaBase": {
+										"value": "@pipeline().parameters.Parametros_Json['RUTABASE']",
+										"type": "Expression"
+									}
 								}
 							}
 						}
