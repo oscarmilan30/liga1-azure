@@ -139,7 +139,7 @@
 					"storedProcedureName": "[dbo].[sp_actualizar_modo_ejecucion]",
 					"storedProcedureParameters": {
 						"NuevoModo": {
-							"value": "REPROCESO",
+							"value": "INCREMENTAL",
 							"type": "String"
 						},
 						"PipelineId": {
