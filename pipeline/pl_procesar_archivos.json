@@ -1,0 +1,222 @@
+{
+	"name": "pl_procesar_archivos",
+	"properties": {
+		"activities": [
+			{
+				"name": "SwitchByFileType",
+				"type": "Switch",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"on": {
+						"value": "@pipeline().parameters.tipo_archivo",
+						"type": "Expression"
+					},
+					"cases": [
+						{
+							"value": "csv",
+							"activities": [
+								{
+									"name": "copy_csv_to_parquet",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings",
+												"copyBehavior": "MergeFiles"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_adls_csv",
+											"type": "DatasetReference",
+											"parameters": {
+												"fileName": {
+													"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.csv')",
+													"type": "Expression"
+												},
+												"folderPath": {
+													"value": "@concat(pipeline().parameters.capa_landing,'/',string(pipeline().parameters.anio))",
+													"type": "Expression"
+												},
+												"filesystem": {
+													"value": "@pipeline().parameters.filesystem",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_adls_parquet",
+											"type": "DatasetReference",
+											"parameters": {
+												"fileName": {
+													"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.parquet')",
+													"type": "Expression"
+												},
+												"folderPath": {
+													"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo)",
+													"type": "Expression"
+												},
+												"filesystem": {
+													"value": "@pipeline().parameters.filesystem",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						},
+						{
+							"value": "json",
+							"activities": [
+								{
+									"name": "copy_json_to_parquet",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"typeProperties": {
+										"source": {
+											"type": "JsonSource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "JsonReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings",
+												"copyBehavior": "MergeFiles"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_adls_json",
+											"type": "DatasetReference",
+											"parameters": {
+												"fileName": {
+													"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.json')",
+													"type": "Expression"
+												},
+												"folderPath": {
+													"value": "@concat(pipeline().parameters.capa_landing,'/',string(pipeline().parameters.anio))",
+													"type": "Expression"
+												},
+												"filesystem": {
+													"value": "@pipeline().parameters.filesystem",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_adls_parquet",
+											"type": "DatasetReference",
+											"parameters": {
+												"fileName": {
+													"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.parquet')",
+													"type": "Expression"
+												},
+												"folderPath": {
+													"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo)",
+													"type": "Expression"
+												},
+												"filesystem": {
+													"value": "@pipeline().parameters.filesystem",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"nombre_archivo": {
+				"type": "string"
+			},
+			"tipo_archivo": {
+				"type": "string"
+			},
+			"anio": {
+				"type": "int"
+			},
+			"rutaBase": {
+				"type": "string"
+			},
+			"capa_raw": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"capa_landing": {
+				"type": "string",
+				"defaultValue": "landing"
+			},
+			"filesystem": {
+				"type": "string",
+				"defaultValue": "liga1"
+			}
+		},
+		"folder": {
+			"name": "pl_hijos_ligaperuana/pl_inner_procesos"
+		},
+		"annotations": []
+	}
+}
