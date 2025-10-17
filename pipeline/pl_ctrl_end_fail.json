@@ -32,7 +32,10 @@
 							"type": "Int32"
 						},
 						"MensajeError": {
-							"value": "",
+							"value": {
+								"value": "@pipeline().parameters.MensajeError",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"PipelineId": {
