@@ -5,14 +5,7 @@
 			{
 				"name": "If_Validar_Modo_Ejecucion",
 				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "Set_Variable_Modo",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
@@ -115,25 +108,6 @@
 							}
 						}
 					]
-				}
-			},
-			{
-				"name": "Set_Variable_Modo",
-				"type": "SetVariable",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "modo_ejecucion",
-					"value": {
-						"value": "@pipeline().parameters.Parametros_Json['MODO_EJECUCION']",
-						"type": "Expression"
-					}
 				}
 			}
 		],
