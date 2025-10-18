@@ -119,7 +119,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ds_adls_json",
+						"referenceName": "ds_adls_binary",
 						"type": "DatasetReference",
 						"parameters": {
 							"folderPath": {
@@ -141,7 +141,7 @@
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
-						"type": "JsonReadSettings"
+						"type": "BinaryReadSettings"
 					}
 				}
 			},
@@ -159,7 +159,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ds_adls_csv",
+						"referenceName": "ds_adls_binary",
 						"type": "DatasetReference",
 						"parameters": {
 							"folderPath": {
@@ -181,7 +181,7 @@
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
-						"type": "DelimitedTextReadSettings"
+						"type": "BinaryReadSettings"
 					}
 				}
 			}
