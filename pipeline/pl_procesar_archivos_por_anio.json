@@ -5,7 +5,20 @@
 			{
 				"name": "ForEachArchivos",
 				"type": "ForEach",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "chk_existe_json",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "chk_existe_csv",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
@@ -15,136 +28,13 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "chk_existe_json",
-							"type": "GetMetadata",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"dataset": {
-									"referenceName": "ds_adls_json",
-									"type": "DatasetReference",
-									"parameters": {
-										"fileName": {
-											"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.json')",
-											"type": "Expression"
-										},
-										"folderPath": {
-											"value": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
-											"type": "Expression"
-										},
-										"filesystem": {
-											"value": "@pipeline().parameters.filesystem",
-											"type": "Expression"
-										}
-									}
-								},
-								"fieldList": [
-									"exists"
-								],
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "JsonReadSettings"
-								}
-							}
-						},
-						{
-							"name": "var_continuar",
-							"type": "SetVariable",
-							"dependsOn": [
-								{
-									"activity": "chk_existe_json",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								},
-								{
-									"activity": "chk_existe_csv",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "var_continuar",
-								"value": {
-									"value": "@if(equals(item().nombre, 'campeones'), true, if(equals(item().tipo, 'csv'), activity('chk_existe_csv').output.exists, activity('chk_existe_json').output.exists))",
-									"type": "Expression"
-								}
-							}
-						},
-						{
-							"name": "chk_existe_csv",
-							"type": "GetMetadata",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"dataset": {
-									"referenceName": "ds_adls_csv",
-									"type": "DatasetReference",
-									"parameters": {
-										"fileName": {
-											"value": "@concat(item().nombre, '_', string(pipeline().parameters.anio), '.csv')",
-											"type": "Expression"
-										},
-										"folderPath": {
-											"value": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
-											"type": "Expression"
-										},
-										"filesystem": {
-											"value": "@pipeline().parameters.filesystem",
-											"type": "Expression"
-										}
-									}
-								},
-								"fieldList": [
-									"exists"
-								],
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							}
-						},
-						{
 							"name": "CheckIfShouldFail",
 							"type": "IfCondition",
-							"dependsOn": [
-								{
-									"activity": "var_continuar",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@and(not(equals(item().nombre, 'campeones')), not(variables('var_continuar')))",
+									"value": "@and(\n  not(equals(item().nombre, 'campeones')),\n  if(\n    equals(item().tipo, 'csv'),\n    not(contains(activity('chk_existe_csv').output.childItems, concat(item().nombre, '_', string(pipeline().parameters.anio), '.csv'))),\n    not(contains(activity('chk_existe_json').output.childItems, concat(item().nombre, '_', string(pipeline().parameters.anio), '.json')))\n  )\n)",
 									"type": "Expression"
 								},
 								"ifFalseActivities": [
@@ -214,6 +104,86 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "chk_existe_json",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_adls_json",
+						"type": "DatasetReference",
+						"parameters": {
+							"folderPath": {
+								"value": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
+								"type": "Expression"
+							},
+							"filesystem": {
+								"value": "@pipeline().parameters.filesystem",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "JsonReadSettings"
+					}
+				}
+			},
+			{
+				"name": "chk_existe_csv",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_adls_csv",
+						"type": "DatasetReference",
+						"parameters": {
+							"folderPath": {
+								"value": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
+								"type": "Expression"
+							},
+							"filesystem": {
+								"value": "@pipeline().parameters.filesystem",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -234,11 +204,6 @@
 			},
 			"filesystem": {
 				"type": "string"
-			}
-		},
-		"variables": {
-			"var_continuar": {
-				"type": "Boolean"
 			}
 		},
 		"folder": {
