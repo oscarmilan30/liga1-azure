@@ -24,14 +24,7 @@
 						{
 							"name": "CheckIfShouldFail",
 							"type": "IfCondition",
-							"dependsOn": [
-								{
-									"activity": "DebugFileCheck",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
@@ -101,23 +94,6 @@
 										}
 									}
 								]
-							}
-						},
-						{
-							"name": "DebugFileCheck",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "DebugInfo",
-								"value": {
-									"value": "@concat(\n'ARCHIVO: ', item().nombre, \n' - AÑO: ', string(pipeline().parameters.anio),\n' - BUSCANDO: ', concat(item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo),\n' - EN LISTA: ', string(activity('chk_existen_archivos').output.childItems)\n)",
-									"type": "Expression"
-								}
 							}
 						}
 					]
