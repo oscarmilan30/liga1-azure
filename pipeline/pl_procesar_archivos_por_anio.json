@@ -33,7 +33,22 @@
 								},
 								"ifFalseActivities": [
 									{
-										"name": "Execute_Archivos",
+										"name": "FailMissingFile",
+										"type": "Fail",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"message": {
+												"value": "@concat('Archivo obligatorio no encontrado: ', item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo)",
+												"type": "Expression"
+											},
+											"errorCode": "FILE_NOT_FOUND"
+										}
+									}
+								],
+								"ifTrueActivities": [
+									{
+										"name": "Execute_Archivos_copy1",
 										"type": "ExecutePipeline",
 										"dependsOn": [],
 										"policy": {
@@ -76,21 +91,6 @@
 													"type": "Expression"
 												}
 											}
-										}
-									}
-								],
-								"ifTrueActivities": [
-									{
-										"name": "FailMissingFile",
-										"type": "Fail",
-										"dependsOn": [],
-										"userProperties": [],
-										"typeProperties": {
-											"message": {
-												"value": "@concat('Archivo obligatorio no encontrado: ', item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo)",
-												"type": "Expression"
-											},
-											"errorCode": "FILE_NOT_FOUND"
 										}
 									}
 								]
