@@ -28,7 +28,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@and(\n  not(equals(item().nombre, 'campeones')),\n  if(\n    equals(item().tipo, 'csv'),\n    not(contains(activity('chk_existe_csv').output.childItems, concat(item().nombre, '_', string(pipeline().parameters.anio), '.csv'))),\n    not(contains(activity('chk_existe_json').output.childItems, concat(item().nombre, '_', string(pipeline().parameters.anio), '.json')))\n  )\n)",
+									"value": "@and(\n  not(equals(item().nombre, 'campeones')),\n  not(contains(activity('chk_existen_archivos').output.childItems, concat(item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo)))\n)",
 									"type": "Expression"
 								},
 								"ifFalseActivities": [
