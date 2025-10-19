@@ -28,7 +28,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@and(\nnot(equals(item().nombre, 'campeones')),\nnot(contains(\n  string(activity('chk_existen_archivos').output.childItems),\n  concat(item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo)\n))\n)",
+									"value": "@or(\n  equals(item().nombre, 'campeones'),\n  contains(\n    string(activity('chk_existen_archivos').output.childItems),\n    concat(item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo)\n  )\n)",
 									"type": "Expression"
 								},
 								"ifFalseActivities": [
@@ -48,7 +48,7 @@
 								],
 								"ifTrueActivities": [
 									{
-										"name": "Execute_Archivos_copy1",
+										"name": "Execute_Archivos_copy1_copy1",
 										"type": "ExecutePipeline",
 										"dependsOn": [],
 										"policy": {
