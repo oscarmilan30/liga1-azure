@@ -58,7 +58,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(activity('lkp_parametros').output.firstRow.FLG_REPROCESO,1)",
+						"value": "@equals(activity('lkp_parametros').output.firstRow.FLG_REPROCESO,'1')",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
