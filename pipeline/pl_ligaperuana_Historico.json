@@ -55,8 +55,6 @@
 				"name": "foreach_procesar_anios",
 				"description": "",
 				"type": "ForEach",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "lkp_anios_historicos",
@@ -127,8 +125,6 @@
 			{
 				"name": "sp_act_estado",
 				"type": "SqlServerStoredProcedure",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "foreach_procesar_anios",

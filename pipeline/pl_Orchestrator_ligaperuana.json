@@ -76,8 +76,6 @@
 			{
 				"name": "tb_ctrl_end_success",
 				"type": "ExecutePipeline",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "pl_Orchestrator_Raw",
@@ -111,8 +109,6 @@
 			{
 				"name": "pl_ctrl_end_fail",
 				"type": "ExecutePipeline",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "pl_Orchestrator_Raw",
