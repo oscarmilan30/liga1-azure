@@ -5,14 +5,7 @@
 			{
 				"name": "CheckIfShouldProcess",
 				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "CleanStagingFolder",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
@@ -54,7 +47,7 @@
 										"value": "csv",
 										"activities": [
 											{
-												"name": "copy_csv_to_stg",
+												"name": "copy_csv_to_raw",
 												"type": "Copy",
 												"dependsOn": [],
 												"policy": {
@@ -119,90 +112,7 @@
 												],
 												"outputs": [
 													{
-														"referenceName": "ds_adls_parquet_stg",
-														"type": "DatasetReference",
-														"parameters": {
-															"fileName": "\"part\"",
-															"folderPath": "@concat('staging', trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo)",
-															"filesystem": {
-																"value": "@pipeline().parameters.filesystem",
-																"type": "Expression"
-															}
-														}
-													}
-												]
-											},
-											{
-												"name": "copy_stg_to_raw",
-												"type": "Copy",
-												"dependsOn": [
-													{
-														"activity": "copy_csv_to_stg",
-														"dependencyConditions": [
-															"Succeeded"
-														]
-													}
-												],
-												"policy": {
-													"timeout": "0.12:00:00",
-													"retry": 0,
-													"retryIntervalInSeconds": 30,
-													"secureOutput": false,
-													"secureInput": false
-												},
-												"userProperties": [],
-												"typeProperties": {
-													"source": {
-														"type": "ParquetSource",
-														"storeSettings": {
-															"type": "AzureBlobFSReadSettings",
-															"recursive": true,
-															"enablePartitionDiscovery": false
-														},
-														"formatSettings": {
-															"type": "ParquetReadSettings"
-														}
-													},
-													"sink": {
-														"type": "ParquetSink",
-														"storeSettings": {
-															"type": "AzureBlobFSWriteSettings",
-															"copyBehavior": "FlattenHierarchy"
-														},
-														"formatSettings": {
-															"type": "ParquetWriteSettings"
-														}
-													},
-													"enableStaging": false,
-													"translator": {
-														"type": "TabularTranslator",
-														"typeConversion": true,
-														"typeConversionSettings": {
-															"allowDataTruncation": true,
-															"treatBooleanAsNumber": false
-														}
-													}
-												},
-												"inputs": [
-													{
-														"referenceName": "ds_adls_parquet_stg",
-														"type": "DatasetReference",
-														"parameters": {
-															"fileName": "\"part\"",
-															"folderPath": {
-																"value": "@concat('staging', trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo)",
-																"type": "Expression"
-															},
-															"filesystem": {
-																"value": "@pipeline().parameters.filesystem",
-																"type": "Expression"
-															}
-														}
-													}
-												],
-												"outputs": [
-													{
-														"referenceName": "ds_adls_parquet_stg",
+														"referenceName": "ds_adls_parquet",
 														"type": "DatasetReference",
 														"parameters": {
 															"fileName": "\"part\"",
@@ -224,7 +134,7 @@
 										"value": "json",
 										"activities": [
 											{
-												"name": "copy_json_to_stg",
+												"name": "copy_json_to_raw",
 												"type": "Copy",
 												"dependsOn": [],
 												"policy": {
@@ -281,95 +191,6 @@
 												],
 												"outputs": [
 													{
-														"referenceName": "ds_adls_parquet_stg",
-														"type": "DatasetReference",
-														"parameters": {
-															"fileName": "\"part\"",
-															"folderPath": {
-																"value": "@concat('staging', trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo)",
-																"type": "Expression"
-															},
-															"filesystem": {
-																"value": "@pipeline().parameters.filesystem",
-																"type": "Expression"
-															}
-														}
-													}
-												]
-											},
-											{
-												"name": "copy_stg_to_parquet",
-												"type": "Copy",
-												"dependsOn": [
-													{
-														"activity": "copy_json_to_stg",
-														"dependencyConditions": [
-															"Succeeded"
-														]
-													}
-												],
-												"policy": {
-													"timeout": "0.12:00:00",
-													"retry": 0,
-													"retryIntervalInSeconds": 30,
-													"secureOutput": false,
-													"secureInput": false
-												},
-												"userProperties": [],
-												"typeProperties": {
-													"source": {
-														"type": "ParquetSource",
-														"storeSettings": {
-															"type": "AzureBlobFSReadSettings",
-															"recursive": true,
-															"enablePartitionDiscovery": false
-														},
-														"formatSettings": {
-															"type": "ParquetReadSettings"
-														}
-													},
-													"sink": {
-														"type": "ParquetSink",
-														"storeSettings": {
-															"type": "AzureBlobFSWriteSettings",
-															"copyBehavior": "FlattenHierarchy"
-														},
-														"formatSettings": {
-															"type": "ParquetWriteSettings"
-														}
-													},
-													"enableStaging": false,
-													"translator": {
-														"type": "TabularTranslator",
-														"typeConversion": true,
-														"typeConversionSettings": {
-															"allowDataTruncation": true,
-															"treatBooleanAsNumber": false
-														}
-													}
-												},
-												"inputs": [
-													{
-														"referenceName": "ds_adls_parquet_stg",
-														"type": "DatasetReference",
-														"parameters": {
-															"fileName": {
-																"value": "\"part\"",
-																"type": "Expression"
-															},
-															"folderPath": {
-																"value": "@concat('staging', trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo)",
-																"type": "Expression"
-															},
-															"filesystem": {
-																"value": "@pipeline().parameters.filesystem",
-																"type": "Expression"
-															}
-														}
-													}
-												],
-												"outputs": [
-													{
 														"referenceName": "ds_adls_parquet",
 														"type": "DatasetReference",
 														"parameters": {
@@ -387,47 +208,14 @@
 												]
 											}
 										]
+									},
+									{
+										"value": "Case3"
 									}
 								]
 							}
 						}
 					]
-				}
-			},
-			{
-				"name": "CleanStagingFolder",
-				"type": "Delete",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"dataset": {
-						"referenceName": "ds_adls_parquet_stg",
-						"type": "DatasetReference",
-						"parameters": {
-							"fileName": "*",
-							"folderPath": {
-								"value": "@concat('staging', trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo)",
-								"type": "Expression"
-							},
-							"filesystem": {
-								"value": "@pipeline().parameters.filesystem",
-								"type": "Expression"
-							}
-						}
-					},
-					"enableLogging": true,
-					"storeSettings": {
-						"type": "AzureBlobFSReadSettings",
-						"recursive": true,
-						"enablePartitionDiscovery": false
-					}
 				}
 			}
 		],
