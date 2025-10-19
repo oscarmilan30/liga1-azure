@@ -1,5 +1,5 @@
 {
-	"name": "ds_adls_binary",
+	"name": "ds_adls_parquet_stg",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_adls",
@@ -20,7 +20,7 @@
 			"name": "ds_api_football/liga1"
 		},
 		"annotations": [],
-		"type": "Binary",
+		"type": "Parquet",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
@@ -36,7 +36,9 @@
 					"value": "@dataset().filesystem",
 					"type": "Expression"
 				}
-			}
-		}
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
 	}
 }

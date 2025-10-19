@@ -5,7 +5,14 @@
 			{
 				"name": "CheckIfShouldProcess",
 				"type": "IfCondition",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "CleanDestinationFolder",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
@@ -74,7 +81,7 @@
 														"type": "ParquetSink",
 														"storeSettings": {
 															"type": "AzureBlobFSWriteSettings",
-															"copyBehavior": "MergeFiles"
+															"copyBehavior": "FlattenHierarchy"
 														},
 														"formatSettings": {
 															"type": "ParquetWriteSettings"
@@ -116,11 +123,11 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"fileName": {
-																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.parquet')",
+																"value": "\"part\"",
 																"type": "Expression"
 															},
 															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo)",
+																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo,'/data/')",
 																"type": "Expression"
 															},
 															"filesystem": {
@@ -164,7 +171,7 @@
 														"type": "ParquetSink",
 														"storeSettings": {
 															"type": "AzureBlobFSWriteSettings",
-															"copyBehavior": "MergeFiles"
+															"copyBehavior": "FlattenHierarchy"
 														},
 														"formatSettings": {
 															"type": "ParquetWriteSettings"
@@ -198,11 +205,11 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"fileName": {
-																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.parquet')",
+																"value": "\"part\"",
 																"type": "Expression"
 															},
 															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo)",
+																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo,'/data/')",
 																"type": "Expression"
 															},
 															"filesystem": {
@@ -219,6 +226,42 @@
 							}
 						}
 					]
+				}
+			},
+			{
+				"name": "CleanDestinationFolder",
+				"type": "Delete",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_adls_parquet",
+						"type": "DatasetReference",
+						"parameters": {
+							"fileName": "*",
+							"folderPath": {
+								"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo)",
+								"type": "Expression"
+							},
+							"filesystem": {
+								"value": "@pipeline().parameters.filesystem",
+								"type": "Expression"
+							}
+						}
+					},
+					"enableLogging": true,
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					}
 				}
 			}
 		],
