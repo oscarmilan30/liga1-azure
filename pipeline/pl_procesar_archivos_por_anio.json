@@ -24,11 +24,18 @@
 						{
 							"name": "CheckIfShouldFail",
 							"type": "IfCondition",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "DebugFileCheck",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@and(not(equals(item().nombre, 'campeones')), not(contains(string(activity('chk_existen_archivos').output.childItems), concat('\\\"name\\\":\\\"', item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo, '\\\"'))))",
+									"value": "@and(\nnot(equals(item().nombre, 'campeones')),\nnot(contains(\n  string(activity('chk_existen_archivos').output.childItems),\n  concat(item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo)\n))\n)",
 									"type": "Expression"
 								},
 								"ifFalseActivities": [
@@ -95,6 +102,23 @@
 									}
 								]
 							}
+						},
+						{
+							"name": "DebugFileCheck",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "DebugInfo",
+								"value": {
+									"value": "@concat(\n'ARCHIVO: ', item().nombre, \n' - AÑO: ', string(pipeline().parameters.anio),\n' - BUSCANDO: ', concat(item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo),\n' - EN LISTA: ', string(activity('chk_existen_archivos').output.childItems)\n)",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
@@ -159,6 +183,11 @@
 			},
 			"filesystem": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"DebugInfo": {
+				"type": "String"
 			}
 		},
 		"folder": {
