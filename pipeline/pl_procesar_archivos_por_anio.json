@@ -74,7 +74,8 @@
 												"filesystem": {
 													"value": "@pipeline().parameters.filesystem",
 													"type": "Expression"
-												}
+												},
+												"archivo_existe": "@contains(string(activity('chk_existen_archivos').output.childItems), concat(item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo))"
 											}
 										}
 									}

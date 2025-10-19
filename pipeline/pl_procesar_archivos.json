@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@or(\n  not(equals(pipeline().parameters.nombre_archivo, 'campeones')),\n  true\n)",
+						"value": "@or(\n  not(equals(pipeline().parameters.nombre_archivo, 'campeones')),\n  pipeline().parameters.archivo_existe\n)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -243,6 +243,9 @@
 			},
 			"filesystem": {
 				"type": "string"
+			},
+			"archivo_existe": {
+				"type": "bool"
 			}
 		},
 		"variables": {
