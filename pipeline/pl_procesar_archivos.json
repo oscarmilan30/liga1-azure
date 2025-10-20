@@ -64,6 +64,7 @@
 														"storeSettings": {
 															"type": "AzureBlobFSReadSettings",
 															"recursive": true,
+															"wildcardFileName": "*csv",
 															"enablePartitionDiscovery": false
 														},
 														"formatSettings": {
@@ -74,7 +75,7 @@
 														"type": "ParquetSink",
 														"storeSettings": {
 															"type": "AzureBlobFSWriteSettings",
-															"copyBehavior": "PreserveHierarchy"
+															"copyBehavior": "FlattenHierarchy"
 														},
 														"formatSettings": {
 															"type": "ParquetWriteSettings"
@@ -146,6 +147,7 @@
 														"storeSettings": {
 															"type": "AzureBlobFSReadSettings",
 															"recursive": true,
+															"wildcardFileName": "*json",
 															"enablePartitionDiscovery": false
 														},
 														"formatSettings": {
