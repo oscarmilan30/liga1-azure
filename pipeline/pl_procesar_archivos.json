@@ -74,7 +74,7 @@
 														"type": "ParquetSink",
 														"storeSettings": {
 															"type": "AzureBlobFSWriteSettings",
-															"copyBehavior": "FlattenHierarchy"
+															"copyBehavior": "PreserveHierarchy"
 														},
 														"formatSettings": {
 															"type": "ParquetWriteSettings"
@@ -95,10 +95,6 @@
 														"referenceName": "ds_adls_csv",
 														"type": "DatasetReference",
 														"parameters": {
-															"fileName": {
-																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.csv')",
-																"type": "Expression"
-															},
 															"folderPath": {
 																"value": "@concat(pipeline().parameters.capa_landing,'/',string(pipeline().parameters.anio))",
 																"type": "Expression"
@@ -160,7 +156,7 @@
 														"type": "ParquetSink",
 														"storeSettings": {
 															"type": "AzureBlobFSWriteSettings",
-															"copyBehavior": "FlattenHierarchy"
+															"copyBehavior": "PreserveHierarchy"
 														},
 														"formatSettings": {
 															"type": "ParquetWriteSettings"
@@ -173,10 +169,6 @@
 														"referenceName": "ds_adls_json",
 														"type": "DatasetReference",
 														"parameters": {
-															"fileName": {
-																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.json')",
-																"type": "Expression"
-															},
 															"folderPath": {
 																"value": "@concat(pipeline().parameters.capa_landing,'/',string(pipeline().parameters.anio))",
 																"type": "Expression"
