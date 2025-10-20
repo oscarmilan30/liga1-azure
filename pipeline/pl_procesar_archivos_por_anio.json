@@ -165,7 +165,6 @@
 						"referenceName": "ds_adls_parquet",
 						"type": "DatasetReference",
 						"parameters": {
-							"fileName": "*",
 							"folderPath": {
 								"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))",
 								"type": "Expression"

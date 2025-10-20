@@ -115,7 +115,6 @@
 														"referenceName": "ds_adls_parquet",
 														"type": "DatasetReference",
 														"parameters": {
-															"fileName": "\"part\"",
 															"folderPath": {
 																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo,'/data/')",
 																"type": "Expression"
@@ -194,7 +193,6 @@
 														"referenceName": "ds_adls_parquet",
 														"type": "DatasetReference",
 														"parameters": {
-															"fileName": "\"part\"",
 															"folderPath": {
 																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo,'/data/')",
 																"type": "Expression"
