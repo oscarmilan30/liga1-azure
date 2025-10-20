@@ -13,8 +13,7 @@
 				"type": "string"
 			},
 			"fileName": {
-				"type": "string",
-				"defaultValue": "*json"
+				"type": "string"
 			}
 		},
 		"folder": {

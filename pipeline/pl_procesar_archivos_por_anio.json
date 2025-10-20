@@ -7,7 +7,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "CleanRawYearFolder",
+						"activity": "chk_existen_archivos",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -35,7 +35,14 @@
 									{
 										"name": "Execute_Archivos",
 										"type": "ExecutePipeline",
-										"dependsOn": [],
+										"dependsOn": [
+											{
+												"activity": "CleanRawYearFolder",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
 										"policy": {
 											"secureInput": false
 										},
@@ -75,7 +82,49 @@
 													"value": "@pipeline().parameters.filesystem",
 													"type": "Expression"
 												},
-												"archivo_existe": "@contains(string(activity('chk_existen_archivos').output.childItems), concat(item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo))"
+												"archivo_existe": {
+													"value": "@contains(string(activity('chk_existen_archivos').output.childItems), concat(item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo))",
+													"type": "Expression"
+												}
+											}
+										}
+									},
+									{
+										"name": "CleanRawYearFolder",
+										"type": "Delete",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"dataset": {
+												"referenceName": "ds_adls_parquet",
+												"type": "DatasetReference",
+												"parameters": {
+													"folderPath": {
+														"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', item().nombre, '/', string(pipeline().parameters.anio), '/data')",
+														"type": "Expression"
+													},
+													"filesystem": {
+														"value": "@pipeline().parameters.filesystem",
+														"type": "Expression"
+													},
+													"fileName": {
+														"value": "@concat(item().nombre,'_', string(pipeline().parameters.anio), '.parquet')\n",
+														"type": "Expression"
+													}
+												}
+											},
+											"enableLogging": false,
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": false,
+												"enablePartitionDiscovery": false
 											}
 										}
 									}
@@ -138,48 +187,6 @@
 					},
 					"formatSettings": {
 						"type": "BinaryReadSettings"
-					}
-				}
-			},
-			{
-				"name": "CleanRawYearFolder",
-				"type": "Delete",
-				"dependsOn": [
-					{
-						"activity": "chk_existen_archivos",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"dataset": {
-						"referenceName": "ds_adls_parquet",
-						"type": "DatasetReference",
-						"parameters": {
-							"folderPath": {
-								"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio))",
-								"type": "Expression"
-							},
-							"filesystem": {
-								"value": "@pipeline().parameters.filesystem",
-								"type": "Expression"
-							}
-						}
-					},
-					"enableLogging": false,
-					"storeSettings": {
-						"type": "AzureBlobFSReadSettings",
-						"recursive": true,
-						"enablePartitionDiscovery": false
 					}
 				}
 			}

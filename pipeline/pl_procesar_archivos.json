@@ -96,14 +96,17 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"filePath": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/',string(pipeline().parameters.anio) ,'/data')",
+																"value": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
 																"type": "Expression"
 															},
 															"fileSystem": {
 																"value": "@pipeline().parameters.filesystem",
 																"type": "Expression"
 															},
-															"fileName": "*csv"
+															"fileName": {
+																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.', pipeline().parameters.tipo_archivo)\n",
+																"type": "Expression"
+															}
 														}
 													}
 												],
@@ -113,11 +116,15 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo,'/data/')",
+																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/',pipeline().parameters.nombre_archivo,'/', string(pipeline().parameters.anio), '/','data')",
 																"type": "Expression"
 															},
 															"filesystem": {
 																"value": "@pipeline().parameters.filesystem",
+																"type": "Expression"
+															},
+															"fileName": {
+																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.parquet')",
 																"type": "Expression"
 															}
 														}
@@ -157,7 +164,7 @@
 														"type": "ParquetSink",
 														"storeSettings": {
 															"type": "AzureBlobFSWriteSettings",
-															"copyBehavior": "PreserveHierarchy"
+															"copyBehavior": "FlattenHierarchy"
 														},
 														"formatSettings": {
 															"type": "ParquetWriteSettings"
@@ -170,7 +177,18 @@
 														"referenceName": "ds_adls_json",
 														"type": "DatasetReference",
 														"parameters": {
-															"fileName": "*json"
+															"filePath": {
+																"value": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
+																"type": "Expression"
+															},
+															"fileSystem": {
+																"value": "@pipeline().parameters.filesystem",
+																"type": "Expression"
+															},
+															"fileName": {
+																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.', pipeline().parameters.tipo_archivo)",
+																"type": "Expression"
+															}
 														}
 													}
 												],
@@ -180,11 +198,15 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', string(pipeline().parameters.anio), '/', pipeline().parameters.nombre_archivo,'/data/')",
+																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/',pipeline().parameters.nombre_archivo,'/', string(pipeline().parameters.anio), '/','data')",
 																"type": "Expression"
 															},
 															"filesystem": {
 																"value": "@pipeline().parameters.filesystem",
+																"type": "Expression"
+															},
+															"fileName": {
+																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.parquet')",
 																"type": "Expression"
 															}
 														}
