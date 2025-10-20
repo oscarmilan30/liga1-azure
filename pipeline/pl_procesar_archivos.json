@@ -64,7 +64,6 @@
 														"storeSettings": {
 															"type": "AzureBlobFSReadSettings",
 															"recursive": true,
-															"wildcardFileName": "*csv",
 															"enablePartitionDiscovery": false
 														},
 														"formatSettings": {
@@ -96,14 +95,15 @@
 														"referenceName": "ds_adls_csv",
 														"type": "DatasetReference",
 														"parameters": {
-															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_landing,'/',string(pipeline().parameters.anio))",
+															"filePath": {
+																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/',string(pipeline().parameters.anio) ,'/data')",
 																"type": "Expression"
 															},
-															"filesystem": {
+															"fileSystem": {
 																"value": "@pipeline().parameters.filesystem",
 																"type": "Expression"
-															}
+															},
+															"fileName": "*csv"
 														}
 													}
 												],
@@ -147,7 +147,6 @@
 														"storeSettings": {
 															"type": "AzureBlobFSReadSettings",
 															"recursive": true,
-															"wildcardFileName": "*json",
 															"enablePartitionDiscovery": false
 														},
 														"formatSettings": {
@@ -171,14 +170,7 @@
 														"referenceName": "ds_adls_json",
 														"type": "DatasetReference",
 														"parameters": {
-															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_landing,'/',string(pipeline().parameters.anio))",
-																"type": "Expression"
-															},
-															"filesystem": {
-																"value": "@pipeline().parameters.filesystem",
-																"type": "Expression"
-															}
+															"fileName": "*json"
 														}
 													}
 												],
