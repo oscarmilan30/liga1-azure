@@ -137,7 +137,7 @@
 										"value": "json",
 										"activities": [
 											{
-												"name": "copy__landing_json_to_raw",
+												"name": "copy_landing_json_to_raw",
 												"type": "Copy",
 												"dependsOn": [],
 												"policy": {
@@ -168,6 +168,10 @@
 														},
 														"formatSettings": {
 															"type": "ParquetWriteSettings"
+														},
+														"translator": {
+															"type": "TabularTranslator",
+															"typeConversion": false
 														}
 													},
 													"enableStaging": false
