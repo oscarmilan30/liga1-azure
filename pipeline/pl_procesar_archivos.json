@@ -49,14 +49,7 @@
 											{
 												"name": "copy_csv_to_raw",
 												"type": "Copy",
-												"dependsOn": [
-													{
-														"activity": "capa_landing",
-														"dependencyConditions": [
-															"Succeeded"
-														]
-													}
-												],
+												"dependsOn": [],
 												"policy": {
 													"timeout": "0.12:00:00",
 													"retry": 0,
@@ -137,23 +130,6 @@
 														}
 													}
 												]
-											},
-											{
-												"name": "capa_landing",
-												"type": "SetVariable",
-												"dependsOn": [],
-												"policy": {
-													"secureOutput": false,
-													"secureInput": false
-												},
-												"userProperties": [],
-												"typeProperties": {
-													"variableName": "DebugInfo",
-													"value": {
-														"value": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
-														"type": "Expression"
-													}
-												}
 											}
 										]
 									},
@@ -163,14 +139,7 @@
 											{
 												"name": "copy_json_to_raw",
 												"type": "Copy",
-												"dependsOn": [
-													{
-														"activity": "capa_landing_json",
-														"dependencyConditions": [
-															"Succeeded"
-														]
-													}
-												],
+												"dependsOn": [],
 												"policy": {
 													"timeout": "0.12:00:00",
 													"retry": 0,
@@ -243,20 +212,6 @@
 														}
 													}
 												]
-											},
-											{
-												"name": "capa_landing_json",
-												"type": "SetVariable",
-												"dependsOn": [],
-												"policy": {
-													"secureOutput": false,
-													"secureInput": false
-												},
-												"userProperties": [],
-												"typeProperties": {
-													"variableName": "DebugInfo",
-													"value": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))"
-												}
 											}
 										]
 									}
