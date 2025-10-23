@@ -5,11 +5,18 @@
 			{
 				"name": "IfConditionDelete",
 				"type": "IfCondition",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "chk_folder_exists",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@not(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'))",
+						"value": "@and(\n    not(equals(pipeline().parameters.ModoEjecucion,'HISTORICO')),\n    not(empty(activity('chk_folder_exists').output.childItems))\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
@@ -31,7 +38,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"folderPath": {
-											"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', pipeline().parameters.FechaCarga, '/data')",
+											"value": "@concat(\n    pipeline().parameters.capa_raw,\n    trim(pipeline().parameters.rutaBase),\n    '/',\n    pipeline().parameters.nombre_archivo,\n    '/',\n    formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'),\n    '/data'\n)",
 											"type": "Expression"
 										},
 										"filesystem": {
@@ -44,7 +51,14 @@
 										}
 									}
 								},
-								"enableLogging": false,
+								"logStorageSettings": {
+									"linkedServiceName": {
+										"referenceName": "ls_adls",
+										"type": "LinkedServiceReference"
+									},
+									"path": "liga1"
+								},
+								"enableLogging": true,
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
 									"recursive": true,
@@ -53,6 +67,46 @@
 							}
 						}
 					]
+				}
+			},
+			{
+				"name": "chk_folder_exists",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_adls_parquet",
+						"type": "DatasetReference",
+						"parameters": {
+							"folderPath": {
+								"value": "@concat(\n    pipeline().parameters.capa_raw,\n    trim(pipeline().parameters.rutaBase),\n    '/',\n    pipeline().parameters.nombre_archivo,\n    '/',\n    formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'),\n    '/data'\n)",
+								"type": "Expression"
+							},
+							"filesystem": {
+								"value": "@pipeline().parameters.filesystem",
+								"type": "Expression"
+							},
+							"fileName": "*.parquet"
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "ParquetReadSettings"
+					}
 				}
 			}
 		],
