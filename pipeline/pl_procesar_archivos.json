@@ -250,6 +250,12 @@
 			},
 			"archivo_existe": {
 				"type": "bool"
+			},
+			"ModoEjecucion": {
+				"type": "string"
+			},
+			"FechaCarga": {
+				"type": "string"
 			}
 		},
 		"variables": {

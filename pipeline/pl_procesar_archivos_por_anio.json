@@ -85,6 +85,14 @@
 												"archivo_existe": {
 													"value": "@contains(string(activity('chk_existen_archivos').output.childItems), concat(item().nombre, '_', string(pipeline().parameters.anio), '.', item().tipo))",
 													"type": "Expression"
+												},
+												"ModoEjecucion": {
+													"value": "@pipeline().parameters.ModoEjecucion",
+													"type": "Expression"
+												},
+												"FechaCarga": {
+													"value": "@pipeline().parameters.FechaCarga",
+													"type": "Expression"
 												}
 											}
 										}
@@ -208,6 +216,12 @@
 				"type": "string"
 			},
 			"filesystem": {
+				"type": "string"
+			},
+			"ModoEjecucion": {
+				"type": "string"
+			},
+			"FechaCarga": {
 				"type": "string"
 			}
 		},

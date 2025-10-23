@@ -60,6 +60,14 @@
 									"filesystem": {
 										"value": "@pipeline().parameters.filesystem",
 										"type": "Expression"
+									},
+									"ModoEjecucion": {
+										"value": "@pipeline().parameters.ModoEjecucion",
+										"type": "Expression"
+									},
+									"FechaCarga": {
+										"value": "@pipeline().parameters.FechaCarga",
+										"type": "Expression"
 									}
 								}
 							}
