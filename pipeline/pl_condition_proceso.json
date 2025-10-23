@@ -51,6 +51,14 @@
 									"rutaBase": {
 										"value": "@pipeline().parameters.Parametros_Json['RUTABASE']",
 										"type": "Expression"
+									},
+									"ModoEjecucion": {
+										"value": "@pipeline().parameters.Parametros_Json['MODO_EJECUCION']",
+										"type": "Expression"
+									},
+									"FechaCarga": {
+										"value": "@formatDateTime(utcNow(),'yyyy/MM/dd')",
+										"type": "Expression"
 									}
 								}
 							}
@@ -102,6 +110,14 @@
 									},
 									"rutaBase": {
 										"value": "@pipeline().parameters.Parametros_Json['RUTABASE']",
+										"type": "Expression"
+									},
+									"ModoEjecucion": {
+										"value": "@pipeline().parameters.Parametros_Json['MODO_EJECUCION']",
+										"type": "Expression"
+									},
+									"FechaCarga": {
+										"value": "@formatDateTime(utcNow(),'yyyy/MM/dd')",
 										"type": "Expression"
 									}
 								}

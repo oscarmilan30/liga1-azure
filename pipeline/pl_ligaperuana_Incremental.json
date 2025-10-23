@@ -182,6 +182,12 @@
 			},
 			"rutaBase": {
 				"type": "string"
+			},
+			"ModoEjecucion": {
+				"type": "string"
+			},
+			"FechaCarga": {
+				"type": "string"
 			}
 		},
 		"variables": {

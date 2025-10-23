@@ -136,6 +136,14 @@
 									"rutaBase": {
 										"value": "@activity('lkp_parametros').output.firstRow.RUTABASE",
 										"type": "Expression"
+									},
+									"ModoEjecucion": {
+										"value": "@activity('lkp_parametros').output.firstRow.MODO_EJECUCION",
+										"type": "Expression"
+									},
+									"FechaCarga": {
+										"value": "@formatDateTime(utcNow(),'yyyy/MM/dd')",
+										"type": "Expression"
 									}
 								}
 							}
