@@ -61,10 +61,29 @@
 												"typeProperties": {
 													"source": {
 														"type": "DelimitedTextSource",
-														"additionalColumns": {
-															"type": "Expression",
-															"value": "@string(pipeline().parameters.anio)"
-														},
+														"additionalColumns": [
+															{
+																"name": "periodoinformacion",
+																"value": {
+																	"value": "@string(pipeline().parameters.anio)",
+																	"type": "Expression"
+																}
+															},
+															{
+																"name": "fecha_carga",
+																"value": {
+																	"value": "@pipeline().parameters.FechaCarga",
+																	"type": "Expression"
+																}
+															},
+															{
+																"name": "modo_ejecucion",
+																"value": {
+																	"value": "@pipeline().parameters.ModoEjecucion",
+																	"type": "Expression"
+																}
+															}
+														],
 														"storeSettings": {
 															"type": "AzureBlobFSReadSettings",
 															"recursive": true,
@@ -78,7 +97,7 @@
 														"type": "ParquetSink",
 														"storeSettings": {
 															"type": "AzureBlobFSWriteSettings",
-															"copyBehavior": "FlattenHierarchy"
+															"copyBehavior": "MergeFiles"
 														},
 														"formatSettings": {
 															"type": "ParquetWriteSettings"
@@ -108,7 +127,7 @@
 																"type": "Expression"
 															},
 															"fileName": {
-																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.csv')\n",
+																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.csv')",
 																"type": "Expression"
 															}
 														}
@@ -120,7 +139,7 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/',pipeline().parameters.nombre_archivo,'/', string(pipeline().parameters.anio), '/','data')",
+																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')",
 																"type": "Expression"
 															},
 															"filesystem": {
@@ -128,12 +147,69 @@
 																"type": "Expression"
 															},
 															"fileName": {
-																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.parquet')",
+																"value": "@concat(pipeline().parameters.nombre_archivo, '.parquet')",
 																"type": "Expression"
 															}
 														}
 													}
 												]
+											},
+											{
+												"name": "RegistrarRutaRaw_CSV",
+												"type": "SqlServerStoredProcedure",
+												"dependsOn": [
+													{
+														"activity": "copy_csv_to_raw",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"storedProcedureName": "[dbo].[sp_registrar_path]",
+													"storedProcedureParameters": {
+														"Anio": {
+															"value": "@pipeline().parameters.anio",
+															"type": "Int32"
+														},
+														"Entidad": {
+															"value": "@pipeline().parameters.nombre_archivo",
+															"type": "String"
+														},
+														"FechaCarga": {
+															"value": "@pipeline().parameters.FechaCarga",
+															"type": "DateTime"
+														},
+														"ModoEjecucion": {
+															"value": "@pipeline().parameters.ModoEjecucion",
+															"type": "String"
+														},
+														"Periodo": {
+															"value": "@formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd')",
+															"type": "String"
+														},
+														"PipelineId": {
+															"value": "@pipeline().RunId",
+															"type": "Int32"
+														},
+														"RutaRaw": {
+															"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data/', pipeline().parameters.nombre_archivo, '.parquet')",
+															"type": "String"
+														}
+													}
+												},
+												"linkedServiceName": {
+													"referenceName": "ls_sql_liga1",
+													"type": "LinkedServiceReference"
+												}
 											}
 										]
 									},
@@ -155,6 +231,29 @@
 												"typeProperties": {
 													"source": {
 														"type": "JsonSource",
+														"additionalColumns": [
+															{
+																"name": "periodoinformacion",
+																"value": {
+																	"value": "@string(pipeline().parameters.anio)",
+																	"type": "Expression"
+																}
+															},
+															{
+																"name": "fecha_carga",
+																"value": {
+																	"value": "@pipeline().parameters.FechaCarga",
+																	"type": "Expression"
+																}
+															},
+															{
+																"name": "modo_ejecucion",
+																"value": {
+																	"value": "@pipeline().parameters.ModoEjecucion",
+																	"type": "Expression"
+																}
+															}
+														],
 														"storeSettings": {
 															"type": "AzureBlobFSReadSettings",
 															"recursive": true,
@@ -168,7 +267,7 @@
 														"type": "ParquetSink",
 														"storeSettings": {
 															"type": "AzureBlobFSWriteSettings",
-															"copyBehavior": "FlattenHierarchy"
+															"copyBehavior": "MergeFiles"
 														},
 														"formatSettings": {
 															"type": "ParquetWriteSettings"
@@ -206,7 +305,7 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/',pipeline().parameters.nombre_archivo,'/', string(pipeline().parameters.anio), '/','data')",
+																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')",
 																"type": "Expression"
 															},
 															"filesystem": {
@@ -214,12 +313,69 @@
 																"type": "Expression"
 															},
 															"fileName": {
-																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.parquet')",
+																"value": "@concat(pipeline().parameters.nombre_archivo, '.parquet')",
 																"type": "Expression"
 															}
 														}
 													}
 												]
+											},
+											{
+												"name": "RegistrarRutaRaw_JSON",
+												"type": "SqlServerStoredProcedure",
+												"dependsOn": [
+													{
+														"activity": "copy_landing_json_to_raw",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"storedProcedureName": "[dbo].[sp_registrar_path]",
+													"storedProcedureParameters": {
+														"Anio": {
+															"value": "@pipeline().parameters.anio",
+															"type": "Int32"
+														},
+														"Entidad": {
+															"value": "@pipeline().parameters.nombre_archivo",
+															"type": "String"
+														},
+														"FechaCarga": {
+															"value": "@pipeline().parameters.FechaCarga",
+															"type": "DateTime"
+														},
+														"ModoEjecucion": {
+															"value": "@pipeline().parameters.ModoEjecucion",
+															"type": "String"
+														},
+														"Periodo": {
+															"value": "@formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd')",
+															"type": "String"
+														},
+														"PipelineId": {
+															"value": "@pipeline().RunId",
+															"type": "Int32"
+														},
+														"RutaRaw": {
+															"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data/', pipeline().parameters.nombre_archivo, '.parquet')",
+															"type": "String"
+														}
+													}
+												},
+												"linkedServiceName": {
+													"referenceName": "ls_sql_liga1",
+													"type": "LinkedServiceReference"
+												}
 											}
 										]
 									}

@@ -102,6 +102,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -129,6 +130,9 @@
 			"ModoEjecucion": {
 				"type": "string"
 			}
+		},
+		"folder": {
+			"name": "pl_pipeline_control"
 		},
 		"annotations": []
 	}
