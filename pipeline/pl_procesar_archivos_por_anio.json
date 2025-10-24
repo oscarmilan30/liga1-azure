@@ -135,6 +135,10 @@
 												"ModoEjecucion": {
 													"value": "@pipeline().parameters.ModoEjecucion",
 													"type": "Expression"
+												},
+												"anio": {
+													"value": "@pipeline().parameters.anio",
+													"type": "Expression"
 												}
 											}
 										}
