@@ -51,7 +51,6 @@
 												"type": "Copy",
 												"dependsOn": [],
 												"policy": {
-													"timeout": "0.12:00:00",
 													"retry": 0,
 													"retryIntervalInSeconds": 30,
 													"secureOutput": false,
@@ -61,6 +60,29 @@
 												"typeProperties": {
 													"source": {
 														"type": "DelimitedTextSource",
+														"additionalColumns": [
+															{
+																"name": "periodoinformacion",
+																"value": {
+																	"value": "@string(pipeline().parameters.anio)",
+																	"type": "Expression"
+																}
+															},
+															{
+																"name": "fecha_carga",
+																"value": {
+																	"value": "@pipeline().parameters.FechaCarga",
+																	"type": "Expression"
+																}
+															},
+															{
+																"name": "modo_ejecucion",
+																"value": {
+																	"value": "@pipeline().parameters.ModoEjecucion",
+																	"type": "Expression"
+																}
+															}
+														],
 														"storeSettings": {
 															"type": "AzureBlobFSReadSettings",
 															"recursive": true,
@@ -143,7 +165,6 @@
 													}
 												],
 												"policy": {
-													"timeout": "0.12:00:00",
 													"retry": 0,
 													"retryIntervalInSeconds": 30,
 													"secureOutput": false,
@@ -154,31 +175,52 @@
 													"storedProcedureName": "[dbo].[sp_registrar_path]",
 													"storedProcedureParameters": {
 														"Anio": {
-															"value": "@pipeline().parameters.anio",
+															"value": {
+																"value": "@pipeline().parameters.anio",
+																"type": "Expression"
+															},
 															"type": "Int32"
 														},
 														"Entidad": {
-															"value": "@pipeline().parameters.nombre_archivo",
+															"value": {
+																"value": "@pipeline().parameters.nombre_archivo",
+																"type": "Expression"
+															},
 															"type": "String"
 														},
 														"FechaCarga": {
-															"value": "@pipeline().parameters.FechaCarga",
+															"value": {
+																"value": "@pipeline().parameters.FechaCarga",
+																"type": "Expression"
+															},
 															"type": "DateTime"
 														},
 														"ModoEjecucion": {
-															"value": "@pipeline().parameters.ModoEjecucion",
+															"value": {
+																"value": "@pipeline().parameters.ModoEjecucion",
+																"type": "Expression"
+															},
 															"type": "String"
 														},
 														"Periodo": {
-															"value": "@formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd')",
+															"value": {
+																"value": "@formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd')",
+																"type": "Expression"
+															},
 															"type": "String"
 														},
 														"PipelineId": {
-															"value": "@pipeline().RunId",
-															"type": "Int32"
+															"value": {
+																"value": "@pipeline().RunId",
+																"type": "Expression"
+															},
+															"type": "String"
 														},
 														"RutaRaw": {
-															"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data/', pipeline().parameters.nombre_archivo, '.parquet')",
+															"value": {
+																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data/', pipeline().parameters.nombre_archivo, '.parquet')",
+																"type": "Expression"
+															},
 															"type": "String"
 														}
 													}
@@ -198,7 +240,6 @@
 												"type": "Copy",
 												"dependsOn": [],
 												"policy": {
-													"timeout": "0.12:00:00",
 													"retry": 0,
 													"retryIntervalInSeconds": 30,
 													"secureOutput": false,
@@ -208,6 +249,29 @@
 												"typeProperties": {
 													"source": {
 														"type": "JsonSource",
+														"additionalColumns": [
+															{
+																"name": "periodoinformacion",
+																"value": {
+																	"value": "@string(pipeline().parameters.anio)",
+																	"type": "Expression"
+																}
+															},
+															{
+																"name": "fecha_carga",
+																"value": {
+																	"value": "@pipeline().parameters.FechaCarga",
+																	"type": "Expression"
+																}
+															},
+															{
+																"name": "modo_ejecucion",
+																"value": {
+																	"value": "@pipeline().parameters.ModoEjecucion",
+																	"type": "Expression"
+																}
+															}
+														],
 														"storeSettings": {
 															"type": "AzureBlobFSReadSettings",
 															"recursive": true,
@@ -286,7 +350,6 @@
 													}
 												],
 												"policy": {
-													"timeout": "0.12:00:00",
 													"retry": 0,
 													"retryIntervalInSeconds": 30,
 													"secureOutput": false,
@@ -297,31 +360,52 @@
 													"storedProcedureName": "[dbo].[sp_registrar_path]",
 													"storedProcedureParameters": {
 														"Anio": {
-															"value": "@pipeline().parameters.anio",
+															"value": {
+																"value": "@pipeline().parameters.anio",
+																"type": "Expression"
+															},
 															"type": "Int32"
 														},
 														"Entidad": {
-															"value": "@pipeline().parameters.nombre_archivo",
+															"value": {
+																"value": "@pipeline().parameters.nombre_archivo",
+																"type": "Expression"
+															},
 															"type": "String"
 														},
 														"FechaCarga": {
-															"value": "@pipeline().parameters.FechaCarga",
+															"value": {
+																"value": "@pipeline().parameters.FechaCarga",
+																"type": "Expression"
+															},
 															"type": "DateTime"
 														},
 														"ModoEjecucion": {
-															"value": "@pipeline().parameters.ModoEjecucion",
+															"value": {
+																"value": "@pipeline().parameters.ModoEjecucion",
+																"type": "Expression"
+															},
 															"type": "String"
 														},
 														"Periodo": {
-															"value": "@formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd')",
+															"value": {
+																"value": "@formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd')",
+																"type": "Expression"
+															},
 															"type": "String"
 														},
 														"PipelineId": {
-															"value": "@pipeline().RunId",
-															"type": "Int32"
+															"value": {
+																"value": "@pipeline().RunId",
+																"type": "Expression"
+															},
+															"type": "String"
 														},
 														"RutaRaw": {
-															"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data/', pipeline().parameters.nombre_archivo, '.parquet')",
+															"value": {
+																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data/', pipeline().parameters.nombre_archivo, '.parquet')",
+																"type": "Expression"
+															},
 															"type": "String"
 														}
 													}
