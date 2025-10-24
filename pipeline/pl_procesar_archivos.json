@@ -61,29 +61,6 @@
 												"typeProperties": {
 													"source": {
 														"type": "DelimitedTextSource",
-														"additionalColumns": [
-															{
-																"name": "periodoinformacion",
-																"value": {
-																	"value": "@string(pipeline().parameters.anio)",
-																	"type": "Expression"
-																}
-															},
-															{
-																"name": "fecha_carga",
-																"value": {
-																	"value": "@pipeline().parameters.FechaCarga",
-																	"type": "Expression"
-																}
-															},
-															{
-																"name": "modo_ejecucion",
-																"value": {
-																	"value": "@pipeline().parameters.ModoEjecucion",
-																	"type": "Expression"
-																}
-															}
-														],
 														"storeSettings": {
 															"type": "AzureBlobFSReadSettings",
 															"recursive": true,
