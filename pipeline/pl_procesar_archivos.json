@@ -138,7 +138,7 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')",
+																"value": "@concat(\n    pipeline().parameters.capa_raw,\n    trim(pipeline().parameters.rutaBase),\n    '/',\n    pipeline().parameters.nombre_archivo,\n    '/',\n    if(\n        equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n        '1FL',\n        if(\n            equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n            concat(string(pipeline().parameters.anio), '/01/01'),\n            formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd')\n        )\n    ),\n    '/data'\n)",
 																"type": "Expression"
 															},
 															"filesystem": {
@@ -323,7 +323,7 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')",
+																"value": "@concat(\n    pipeline().parameters.capa_raw,\n    trim(pipeline().parameters.rutaBase),\n    '/',\n    pipeline().parameters.nombre_archivo,\n    '/',\n    if(\n        equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n        '1FL',\n        if(\n            equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n            concat(string(pipeline().parameters.anio), '/01/01'),\n            formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd')\n        )\n    ),\n    '/data'\n)",
 																"type": "Expression"
 															},
 															"filesystem": {
