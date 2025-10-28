@@ -123,6 +123,10 @@
 									"FechaCarga": {
 										"value": "@pipeline().parameters.FechaCarga",
 										"type": "Expression"
+									},
+									"PipelineId": {
+										"value": "@pipeline().parameters.Pipeline_Id",
+										"type": "Expression"
 									}
 								}
 							}
