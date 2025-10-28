@@ -204,12 +204,16 @@
 														},
 														"Periodo": {
 															"value": {
-																"value": "@formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd')",
+																"value": "@pipeline().parameters.anio",
 																"type": "Expression"
 															},
 															"type": "String"
 														},
 														"PipelineId": {
+															"value": "1",
+															"type": "Int32"
+														},
+														"RunId": {
 															"value": {
 																"value": "@pipeline().RunId",
 																"type": "Expression"
@@ -218,7 +222,7 @@
 														},
 														"RutaRaw": {
 															"value": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data/', pipeline().parameters.nombre_archivo, '.parquet')",
+																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),'1FL', if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01'), formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'))), '/data/', pipeline().parameters.nombre_archivo, '.parquet')",
 																"type": "Expression"
 															},
 															"type": "String"
@@ -453,6 +457,9 @@
 				"type": "string"
 			},
 			"FechaCarga": {
+				"type": "string"
+			},
+			"PipelineId": {
 				"type": "string"
 			}
 		},
