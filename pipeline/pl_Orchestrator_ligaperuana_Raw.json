@@ -1,5 +1,5 @@
 {
-	"name": "pl_Orchestrator_ligaperuana",
+	"name": "pl_Orchestrator_ligaperuana_Raw",
 	"properties": {
 		"activities": [
 			{
@@ -57,7 +57,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_ligaperuana_Orchestrator_Raw",
+						"referenceName": "pl_ligaperuana_Raw",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true,
