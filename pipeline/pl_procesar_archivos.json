@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@or(\n  not(equals(pipeline().parameters.nombre_archivo, 'campeones')),\n  pipeline().parameters.archivo_existe\n)",
+						"value": "@or(\n not(equals(pipeline().parameters.nombre_archivo, 'campeones')),\n pipeline().parameters.archivo_existe\n)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -94,9 +94,18 @@
 														"referenceName": "ds_adls_csv",
 														"type": "DatasetReference",
 														"parameters": {
-															"folderPath": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
-															"filesystem": "@pipeline().parameters.filesystem",
-															"fileName": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.csv')"
+															"folderPath": {
+																"value": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
+																"type": "Expression"
+															},
+															"filesystem": {
+																"value": "@pipeline().parameters.filesystem",
+																"type": "Expression"
+															},
+															"fileName": {
+																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.csv')",
+																"type": "Expression"
+															}
 														}
 													}
 												],
@@ -105,9 +114,18 @@
 														"referenceName": "ds_adls_parquet",
 														"type": "DatasetReference",
 														"parameters": {
-															"folderPath": "@concat(\n    pipeline().parameters.capa_raw,\n    trim(pipeline().parameters.rutaBase), '/',\n    pipeline().parameters.nombre_archivo, '/',\n    if(\n        equals(pipeline().parameters.ModoEjecucion,'HISTORICO'), concat('1FL/data/', string(pipeline().parameters.anio)),\n        if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'),\n        concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data'))\n    )\n)",
-															"filesystem": "@pipeline().parameters.filesystem",
-															"fileName": "@concat(pipeline().parameters.nombre_archivo, '.parquet')"
+															"folderPath": {
+																"value": "@concat(\n pipeline().parameters.capa_raw,\n trim(pipeline().parameters.rutaBase),\n '/',\n pipeline().parameters.nombre_archivo,\n '/',\n if(\n equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n concat('1FL/data/', string(pipeline().parameters.anio)),\n if(\n equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n concat(string(pipeline().parameters.anio), '/01/01/data'),\n concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n )\n )\n)",
+																"type": "Expression"
+															},
+															"filesystem": {
+																"value": "@pipeline().parameters.filesystem",
+																"type": "Expression"
+															},
+															"fileName": {
+																"value": "@concat(pipeline().parameters.nombre_archivo, '.parquet')",
+																"type": "Expression"
+															}
 														}
 													}
 												]
@@ -184,7 +202,7 @@
 														},
 														"RutaRaw": {
 															"value": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),'1FL/data/', if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data'))), pipeline().parameters.nombre_archivo, '.parquet')",
+																"value": "@concat(\n pipeline().parameters.capa_raw,\n trim(pipeline().parameters.rutaBase), '/',\n pipeline().parameters.nombre_archivo, '/',\n if(\n equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n concat('1FL/data/', string(pipeline().parameters.anio)),\n if(\n equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n concat(string(pipeline().parameters.anio), '/01/01/data'),\n concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n )\n ),\n '/',\n pipeline().parameters.nombre_archivo,\n '.parquet'\n)",
 																"type": "Expression"
 															},
 															"type": "String"
@@ -236,13 +254,7 @@
 														"translator": {
 															"type": "TabularTranslator",
 															"typeConversion": false
-														},
-														"additionalColumns": [
-															{
-																"name": "json_raw",
-																"value": "@string(activity('copy_landing_json_to_raw').input)"
-															}
-														]
+														}
 													},
 													"enableStaging": false
 												},
@@ -251,9 +263,18 @@
 														"referenceName": "ds_adls_json",
 														"type": "DatasetReference",
 														"parameters": {
-															"folderPath": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
-															"filesystem": "@pipeline().parameters.filesystem",
-															"fileName": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.json')"
+															"folderPath": {
+																"value": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
+																"type": "Expression"
+															},
+															"filesystem": {
+																"value": "@pipeline().parameters.filesystem",
+																"type": "Expression"
+															},
+															"fileName": {
+																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.json')",
+																"type": "Expression"
+															}
 														}
 													}
 												],
@@ -262,9 +283,18 @@
 														"referenceName": "ds_adls_parquet",
 														"type": "DatasetReference",
 														"parameters": {
-															"folderPath": "@concat(\n    pipeline().parameters.capa_raw,\n    trim(pipeline().parameters.rutaBase), '/',\n    pipeline().parameters.nombre_archivo, '/',\n    if(\n        equals(pipeline().parameters.ModoEjecucion,'HISTORICO'), concat('1FL/data/', string(pipeline().parameters.anio)),\n        if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'),\n        concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data'))\n    )\n)",
-															"filesystem": "@pipeline().parameters.filesystem",
-															"fileName": "@concat(pipeline().parameters.nombre_archivo, '.parquet')"
+															"folderPath": {
+																"value": "@concat(\n pipeline().parameters.capa_raw,\n trim(pipeline().parameters.rutaBase),\n '/',\n pipeline().parameters.nombre_archivo,\n '/',\n if(\n equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n concat('1FL/data/', string(pipeline().parameters.anio)),\n if(\n equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n concat(string(pipeline().parameters.anio), '/01/01/data'),\n concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n )\n )\n)",
+																"type": "Expression"
+															},
+															"filesystem": {
+																"value": "@pipeline().parameters.filesystem",
+																"type": "Expression"
+															},
+															"fileName": {
+																"value": "@concat(pipeline().parameters.nombre_archivo, '.parquet')",
+																"type": "Expression"
+															}
 														}
 													}
 												]
@@ -341,7 +371,7 @@
 														},
 														"RutaRaw": {
 															"value": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),'1FL/data/', if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data'))), pipeline().parameters.nombre_archivo, '.parquet')",
+																"value": "@concat(\n pipeline().parameters.capa_raw,\n trim(pipeline().parameters.rutaBase), '/',\n pipeline().parameters.nombre_archivo, '/',\n if(\n equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n concat('1FL/data/', string(pipeline().parameters.anio)),\n if(\n equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n concat(string(pipeline().parameters.anio), '/01/01/data'),\n concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n )\n ),\n '/',\n pipeline().parameters.nombre_archivo,\n '.parquet'\n)",
 																"type": "Expression"
 															},
 															"type": "String"
