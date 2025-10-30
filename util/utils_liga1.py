@@ -24,7 +24,7 @@ def setup_adls():
     dbutils = get_dbutils()
     try:
         # Carga de los secretos
-        adls_account_name = dbutils.secrets.get(scope="secretliga1", key="adlsstorage")
+        adls_account_name = dbutils.secrets.get(scope="secretliga1", key="storageaccount")
         client_id = dbutils.secrets.get(scope="secretliga1", key="clientid")
         client_secret = dbutils.secrets.get(scope="secretliga1", key="secretidt")
         tenant_id = dbutils.secrets.get(scope="secretliga1", key="tenantidt")
@@ -50,8 +50,8 @@ def get_abfss_path(carpeta=""):
     """
     dbutils = get_dbutils()
     try:
-        container_name = dbutils.secrets.get(scope="secretliga1", key="adlscontenedor")
-        adls_account_name = dbutils.secrets.get(scope="secretliga1", key="adlsstorage")
+        container_name = dbutils.secrets.get(scope="secretliga1", key="filesystemname")
+        adls_account_name = dbutils.secrets.get(scope="secretliga1", key="storageaccount")
        
         base_path = f"abfss://{container_name}@{adls_account_name}.dfs.core.windows.net/"
         return base_path + f"{carpeta}" if carpeta else base_path
