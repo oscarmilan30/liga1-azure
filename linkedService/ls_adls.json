@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "AzureBlobFS",
 		"typeProperties": {
-			"url": "https://staliga1peru.dfs.core.windows.net/",
+			"url": "https://staliga1peruadls.dfs.core.windows.net/",
 			"accountKey": {
 				"type": "AzureKeyVaultSecret",
 				"store": {
@@ -12,7 +12,7 @@
 					"type": "LinkedServiceReference"
 				},
 				"secretName": "storageaccountkey",
-				"secretVersion": "7e2b07a6f0d141b2b07b79bf47f6268b"
+				"secretVersion": "7973bbda2a684889a7294d543582d1d3"
 			}
 		}
 	}
