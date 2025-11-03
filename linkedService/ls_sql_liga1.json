@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"server": "serverligafutbol.database.windows.net",
+			"server": "serverliga1futbol.database.windows.net",
 			"database": "ligafutbol",
 			"encrypt": "mandatory",
 			"trustServerCertificate": false,
@@ -17,7 +17,7 @@
 					"type": "LinkedServiceReference"
 				},
 				"secretName": "kv-sql-password",
-				"secretVersion": "958478c96c404570921bb610ca6113ed"
+				"secretVersion": "db1c81974d1b440ab807f82566454f81"
 			}
 		}
 	},
