@@ -84,35 +84,39 @@
 								"value": "@pipeline().parameters.PipelineId",
 								"type": "Expression"
 							},
-							"type": "Expression"
+							"type": "Int32"
 						},
 						"RunId": {
 							"value": {
 								"value": "@pipeline().RunId",
 								"type": "Expression"
 							},
-							"type": "Expression"
+							"type": "String"
 						},
 						"Entidad": {
 							"value": {
 								"value": "@pipeline().parameters.nombre_archivo",
 								"type": "Expression"
 							},
-							"type": "Expression"
+							"type": "String"
+						},
+						"ModoEjecucion": {
+							"value": "'HISTORICO'",
+							"type": "String"
 						},
 						"Periodo": {
 							"value": {
 								"value": "@concat(string(pipeline().parameters.historical_start_year), '-', string(pipeline().parameters.current_year))",
 								"type": "Expression"
 							},
-							"type": "Expression"
+							"type": "String"
 						},
 						"RutaRaw": {
 							"value": {
 								"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/1FL/data/', pipeline().parameters.nombre_archivo, '.parquet')",
 								"type": "Expression"
 							},
-							"type": "Expression"
+							"type": "String"
 						}
 					}
 				},
