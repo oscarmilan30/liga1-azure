@@ -25,7 +25,7 @@
 							"typeProperties": {
 								"variableName": "DebugInfo",
 								"value": {
-									"value": "\"Archivo campeones no existe - Skip\"",
+									"value": "@'Archivo campeones no existe - Skip'",
 									"type": "Expression"
 								}
 							}
