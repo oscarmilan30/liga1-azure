@@ -114,6 +114,90 @@
 														}
 													}
 												]
+											},
+											{
+												"name": "RegistrarRutaRaw_CSV",
+												"type": "IfCondition",
+												"dependsOn": [
+													{
+														"activity": "copy_csv_to_raw",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"userProperties": [],
+												"typeProperties": {
+													"expression": {
+														"value": "@not(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'))",
+														"type": "Expression"
+													},
+													"ifTrueActivities": [
+														{
+															"name": "Ejecutar_SP_RegistrarPath_CSV",
+															"type": "SqlServerStoredProcedure",
+															"dependsOn": [],
+															"policy": {
+																"retry": 0,
+																"retryIntervalInSeconds": 30,
+																"secureOutput": false,
+																"secureInput": false
+															},
+															"userProperties": [],
+															"typeProperties": {
+																"storedProcedureName": "[dbo].[sp_registrar_path]",
+																"storedProcedureParameters": {
+																	"PipelineId": {
+																		"value": {
+																			"value": "@pipeline().parameters.PipelineId",
+																			"type": "Expression"
+																		},
+																		"type": "Expression"
+																	},
+																	"RunId": {
+																		"value": {
+																			"value": "@pipeline().RunId",
+																			"type": "Expression"
+																		},
+																		"type": "Expression"
+																	},
+																	"Entidad": {
+																		"value": {
+																			"value": "@pipeline().parameters.nombre_archivo",
+																			"type": "Expression"
+																		},
+																		"type": "Expression"
+																	},
+																	"ModoEjecucion": {
+																		"value": {
+																			"value": "@pipeline().parameters.ModoEjecucion",
+																			"type": "Expression"
+																		},
+																		"type": "Expression"
+																	},
+																	"Periodo": {
+																		"value": {
+																			"value": "@string(pipeline().parameters.anio)",
+																			"type": "Expression"
+																		},
+																		"type": "Expression"
+																	},
+																	"RutaRaw": {
+																		"value": {
+																			"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')), '/', pipeline().parameters.nombre_archivo, '.parquet')",
+																			"type": "Expression"
+																		},
+																		"type": "Expression"
+																	}
+																}
+															},
+															"linkedServiceName": {
+																"referenceName": "ls_sql_liga1",
+																"type": "LinkedServiceReference"
+															}
+														}
+													]
+												}
 											}
 										]
 									},
@@ -188,92 +272,92 @@
 														}
 													}
 												]
-											}
-										]
-									}
-								]
-							}
-						},
-						{
-							"name": "RegistrarRutaRaw_Global",
-							"type": "IfCondition",
-							"dependsOn": [
-								{
-									"activity": "SwitchByFileType",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"userProperties": [],
-							"typeProperties": {
-								"expression": {
-									"value": "@not(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'))",
-									"type": "Expression"
-								},
-								"ifTrueActivities": [
-									{
-										"name": "Ejecutar_SP_RegistrarPath_Global",
-										"type": "SqlServerStoredProcedure",
-										"dependsOn": [],
-										"policy": {
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
-										},
-										"userProperties": [],
-										"typeProperties": {
-											"storedProcedureName": "[dbo].[sp_registrar_path]",
-											"storedProcedureParameters": {
-												"PipelineId": {
-													"value": {
-														"value": "@pipeline().parameters.PipelineId",
+											},
+											{
+												"name": "RegistrarRutaRaw_JSON",
+												"type": "IfCondition",
+												"dependsOn": [
+													{
+														"activity": "copy_landing_json_to_raw",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"userProperties": [],
+												"typeProperties": {
+													"expression": {
+														"value": "@not(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'))",
 														"type": "Expression"
 													},
-													"type": "Expression"
-												},
-												"RunId": {
-													"value": {
-														"value": "@pipeline().RunId",
-														"type": "Expression"
-													},
-													"type": "Expression"
-												},
-												"Entidad": {
-													"value": {
-														"value": "@pipeline().parameters.nombre_archivo",
-														"type": "Expression"
-													},
-													"type": "Expression"
-												},
-												"ModoEjecucion": {
-													"value": {
-														"value": "@pipeline().parameters.ModoEjecucion",
-														"type": "Expression"
-													},
-													"type": "Expression"
-												},
-												"Periodo": {
-													"value": {
-														"value": "@string(pipeline().parameters.anio)",
-														"type": "Expression"
-													},
-													"type": "Expression"
-												},
-												"RutaRaw": {
-													"value": {
-														"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')), '/', pipeline().parameters.nombre_archivo, '.parquet')",
-														"type": "Expression"
-													},
-													"type": "Expression"
+													"ifTrueActivities": [
+														{
+															"name": "Ejecutar_SP_RegistrarPath_JSON",
+															"type": "SqlServerStoredProcedure",
+															"dependsOn": [],
+															"policy": {
+																"retry": 0,
+																"retryIntervalInSeconds": 30,
+																"secureOutput": false,
+																"secureInput": false
+															},
+															"userProperties": [],
+															"typeProperties": {
+																"storedProcedureName": "[dbo].[sp_registrar_path]",
+																"storedProcedureParameters": {
+																	"PipelineId": {
+																		"value": {
+																			"value": "@pipeline().parameters.PipelineId",
+																			"type": "Expression"
+																		},
+																		"type": "Expression"
+																	},
+																	"RunId": {
+																		"value": {
+																			"value": "@pipeline().RunId",
+																			"type": "Expression"
+																		},
+																		"type": "Expression"
+																	},
+																	"Entidad": {
+																		"value": {
+																			"value": "@pipeline().parameters.nombre_archivo",
+																			"type": "Expression"
+																		},
+																		"type": "Expression"
+																	},
+																	"ModoEjecucion": {
+																		"value": {
+																			"value": "@pipeline().parameters.ModoEjecucion",
+																			"type": "Expression"
+																		},
+																		"type": "Expression"
+																	},
+																	"Periodo": {
+																		"value": {
+																			"value": "@string(pipeline().parameters.anio)",
+																			"type": "Expression"
+																		},
+																		"type": "Expression"
+																	},
+																	"RutaRaw": {
+																		"value": {
+																			"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')), '/', pipeline().parameters.nombre_archivo, '.parquet')",
+																			"type": "Expression"
+																		},
+																		"type": "Expression"
+																	}
+																}
+															},
+															"linkedServiceName": {
+																"referenceName": "ls_sql_liga1",
+																"type": "LinkedServiceReference"
+															}
+														}
+													]
 												}
 											}
-										},
-										"linkedServiceName": {
-											"referenceName": "ls_sql_liga1",
-											"type": "LinkedServiceReference"
-										}
+										]
 									}
 								]
 							}
