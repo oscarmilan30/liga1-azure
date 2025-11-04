@@ -4,6 +4,9 @@
 		"parameters": {
 			"CLUSTER_ID": {
 				"type": "string"
+			},
+			"AREA": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
