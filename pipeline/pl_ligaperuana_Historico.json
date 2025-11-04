@@ -139,7 +139,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "foreach_procesar_anios",
+						"activity": "Execute Unificar Historico",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -205,6 +205,29 @@
 						}
 					},
 					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "Execute Unificar Historico",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "foreach_procesar_anios",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_historico_unificador",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
 				}
 			}
 		],
