@@ -1,0 +1,75 @@
+{
+	"name": "pl_historico_unificador",
+	"properties": {
+		"activities": [
+			{
+				"name": "Unificar_Parquet_1FL",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/unificar_parquet_1FL",
+					"baseParameters": {
+						"filesystem": {
+							"value": "@pipeline().parameters.filesystem",
+							"type": "Expression"
+						},
+						"capa_raw": {
+							"value": "@pipeline().parameters.capa_raw",
+							"type": "Expression"
+						},
+						"rutaBase": {
+							"value": "@pipeline().parameters.rutaBase",
+							"type": "Expression"
+						},
+						"nombre_archivo": {
+							"value": "@pipeline().parameters.nombre_archivo",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks_kv_clusterparam",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"filesystem": {
+				"type": "string"
+			},
+			"capa_raw": {
+				"type": "string"
+			},
+			"rutaBase": {
+				"type": "string"
+			},
+			"nombre_archivo": {
+				"type": "string"
+			},
+			"sparkVersion": {
+				"type": "string"
+			},
+			"nodeType": {
+				"type": "string"
+			},
+			"numWorkers": {
+				"type": "string"
+			},
+			"autotermination": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "pl_hijos_ligaperuana/pl_control_historico"
+		},
+		"annotations": []
+	}
+}
