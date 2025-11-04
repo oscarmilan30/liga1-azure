@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Shared/unificar_y_limpiar_parquet_1FL",
+					"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_curated/unificar_y_limpiar_parquet_1FL",
 					"baseParameters": {
 						"filesystem": {
 							"value": "@pipeline().parameters.filesystem",
