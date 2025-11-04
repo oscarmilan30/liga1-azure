@@ -77,7 +77,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp_registrar_path]",
+					"storedProcedureName": "[dbo].[sp_registrar_path_historico]",
 					"storedProcedureParameters": {
 						"PipelineId": {
 							"value": {
@@ -100,10 +100,6 @@
 							},
 							"type": "Expression"
 						},
-						"ModoEjecucion": {
-							"value": "'HISTORICO'",
-							"type": "Expression"
-						},
 						"Periodo": {
 							"value": {
 								"value": "@concat(string(pipeline().parameters.historical_start_year), '-', string(pipeline().parameters.current_year))",
@@ -123,30 +119,6 @@
 				"linkedServiceName": {
 					"referenceName": "ls_sql_liga1",
 					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "Set_DebugInfo",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "RegistrarRutaRaw_Historico",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "DebugInfo",
-					"value": {
-						"value": "@concat('Ruta histórica registrada correctamente para ', pipeline().parameters.nombre_archivo)",
-						"type": "Expression"
-					}
 				}
 			}
 		],
