@@ -44,8 +44,18 @@
 					}
 				},
 				"linkedServiceName": {
-					"referenceName": "ls_databricks_kv_clusterparam",
-					"type": "LinkedServiceReference"
+					"referenceName": "ls_databricks",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"CLUSTER_ID": {
+							"value": "@pipeline().parameters.cluster_id",
+							"type": "Expression"
+						},
+						"AREA": {
+							"value": "@pipeline().parameters.area",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -156,8 +166,18 @@
 					}
 				},
 				"linkedServiceName": {
-					"referenceName": "ls_databricks_kv_clusterparam",
-					"type": "LinkedServiceReference"
+					"referenceName": "ls_databricks",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"CLUSTER_ID": {
+							"value": "@pipeline().parameters.cluster_id",
+							"type": "Expression"
+						},
+						"AREA": {
+							"value": "@pipeline().parameters.area",
+							"type": "Expression"
+						}
+					}
 				}
 			}
 		],
@@ -178,10 +198,19 @@
 				"type": "int"
 			},
 			"historical_start_year": {
-				"type": "int"
+				"type": "string"
 			},
 			"current_year": {
-				"type": "int"
+				"type": "string"
+			},
+			"ModoEjecucion": {
+				"type": "string"
+			},
+			"cluster_id": {
+				"type": "string"
+			},
+			"area": {
+				"type": "string"
 			}
 		},
 		"folder": {
