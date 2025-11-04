@@ -39,8 +39,7 @@
 			},
 			"format": {
 				"type": "JsonFormat",
-				"filePattern": "setOfFiles",
-				"jsonNodeReference": "$"
+				"filePattern": "setOfFiles"
 			}
 		},
 		"schema": {}
