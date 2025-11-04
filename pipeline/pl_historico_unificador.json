@@ -71,7 +71,9 @@
 				],
 				"policy": {
 					"retry": 0,
-					"retryIntervalInSeconds": 30
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
 				},
 				"userProperties": [],
 				"typeProperties": {
@@ -122,6 +124,30 @@
 					"referenceName": "ls_sql_liga1",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Set_DebugInfo",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "RegistrarRutaRaw_Historico",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "DebugInfo",
+					"value": {
+						"value": "@concat('Ruta histórica registrada correctamente para ', pipeline().parameters.nombre_archivo)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -154,6 +180,11 @@
 			},
 			"area": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"DebugInfo": {
+				"type": "String"
 			}
 		},
 		"folder": {
