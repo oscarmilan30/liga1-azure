@@ -9,9 +9,7 @@
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
+					"retryIntervalInSeconds": 30
 				},
 				"userProperties": [],
 				"typeProperties": {
@@ -34,7 +32,6 @@
 								}
 							}
 						},
-						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
@@ -58,16 +55,13 @@
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
+					"retryIntervalInSeconds": 30
 				},
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_archivos]",
-						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
@@ -257,9 +251,10 @@
 					}
 				],
 				"policy": {
-					"timeout": "0.12:00:00",
 					"retry": 0,
-					"retryIntervalInSeconds": 30
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
 				},
 				"userProperties": [],
 				"typeProperties": {

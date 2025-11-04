@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Unificar_Parquet_1FL",
+				"name": "UnificarYLimpiar_Parquet_1FL",
 				"type": "DatabricksNotebook",
 				"dependsOn": [],
 				"policy": {
-					"timeout": "0.12:00:00",
+					"timeout": "0.20:00:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Shared/unificar_parquet_1FL",
+					"notebookPath": "/Shared/unificar_y_limpiar_parquet_1FL",
 					"baseParameters": {
 						"filesystem": {
 							"value": "@pipeline().parameters.filesystem",
@@ -63,7 +63,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Unificar_Parquet_1FL",
+						"activity": "UnificarYLimpiar_Parquet_1FL",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -71,9 +71,7 @@
 				],
 				"policy": {
 					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
+					"retryIntervalInSeconds": 30
 				},
 				"userProperties": [],
 				"typeProperties": {
@@ -123,61 +121,6 @@
 				"linkedServiceName": {
 					"referenceName": "ls_sql_liga1",
 					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "Eliminar_Temporales",
-				"type": "DatabricksNotebook",
-				"dependsOn": [
-					{
-						"activity": "RegistrarRutaRaw_Historico",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.06:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"notebookPath": "/Shared/eliminar_temporales_1FL",
-					"baseParameters": {
-						"filesystem": {
-							"value": "@pipeline().parameters.filesystem",
-							"type": "Expression"
-						},
-						"capa_raw": {
-							"value": "@pipeline().parameters.capa_raw",
-							"type": "Expression"
-						},
-						"rutaBase": {
-							"value": "@pipeline().parameters.rutaBase",
-							"type": "Expression"
-						},
-						"nombre_archivo": {
-							"value": "@pipeline().parameters.nombre_archivo",
-							"type": "Expression"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_databricks",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"CLUSTER_ID": {
-							"value": "@pipeline().parameters.cluster_id",
-							"type": "Expression"
-						},
-						"AREA": {
-							"value": "@pipeline().parameters.area",
-							"type": "Expression"
-						}
-					}
 				}
 			}
 		],
