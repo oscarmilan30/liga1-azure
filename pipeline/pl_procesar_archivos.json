@@ -188,7 +188,7 @@
 														},
 														"RutaRaw": {
 															"value": {
-																"value": "@concat(\n pipeline().parameters.capa_raw,\n trim(pipeline().parameters.rutaBase), '/',\n pipeline().parameters.nombre_archivo, '/',\n if(\n   equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n   concat(string(pipeline().parameters.anio), '/01/01/data'),\n   concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n ),\n '/',\n pipeline().parameters.nombre_archivo,\n '.parquet'\n)",
+																"value": "@concat(\n        pipeline().parameters.capa_raw,\n        trim(pipeline().parameters.rutaBase), '/',\n        pipeline().parameters.nombre_archivo, '/',\n        if(\n            equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n            concat(string(pipeline().parameters.anio), '/01/01/data/'),\n            concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data/')\n        )\n    )",
 																"type": "Expression"
 															},
 															"type": "String"
@@ -263,7 +263,7 @@
 														},
 														"RutaRaw": {
 															"value": {
-																"value": "@concat(\n pipeline().parameters.capa_raw,\n trim(pipeline().parameters.rutaBase), '/',\n pipeline().parameters.nombre_archivo, '/',\n if(\n   equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n   concat(string(pipeline().parameters.anio), '/01/01/data'),\n   concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n ),\n '/',\n pipeline().parameters.nombre_archivo,\n '.parquet'\n)",
+																"value": "@concat(\n        pipeline().parameters.capa_raw,\n        trim(pipeline().parameters.rutaBase), '/',\n        pipeline().parameters.nombre_archivo, '/',\n        if(\n            equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n            concat(string(pipeline().parameters.anio), '/01/01/data/'),\n            concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data/')\n        )\n    )",
 																"type": "Expression"
 															},
 															"type": "String"
