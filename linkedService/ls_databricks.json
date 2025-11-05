@@ -4,12 +4,15 @@
 		"parameters": {
 			"CLUSTER_ID": {
 				"type": "string"
+			},
+			"AREA": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
 		"type": "AzureDatabricks",
 		"typeProperties": {
-			"domain": "https://adb-1226152484357259.19.azuredatabricks.net/",
+			"domain": "@linkedService().AREA",
 			"accessToken": {
 				"type": "AzureKeyVaultSecret",
 				"store": {
@@ -17,7 +20,7 @@
 					"type": "LinkedServiceReference"
 				},
 				"secretName": "databricks-token",
-				"secretVersion": "a37866e3ba714ea8ab3adbec18d8b816"
+				"secretVersion": "14ee7427f3624bfea585dc0cd1daceb4"
 			},
 			"existingClusterId": "@linkedService().CLUSTER_ID"
 		}
