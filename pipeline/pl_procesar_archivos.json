@@ -106,7 +106,7 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), if(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'), concat('temp/', string(pipeline().parameters.anio), '/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data'))))",
+																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'), concat('temp/', string(pipeline().parameters.anio), '/data'), if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data'))))",
 																"type": "Expression"
 															},
 															"filesystem": {
@@ -122,7 +122,7 @@
 												]
 											},
 											{
-												"name": "RegistrarRutaRaw_CSV",
+												"name": "Ejecutar_SP_RegistrarPath_CSV",
 												"type": "SqlServerStoredProcedure",
 												"dependsOn": [
 													{
@@ -294,7 +294,7 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), if(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'), concat('temp/', string(pipeline().parameters.anio), '/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data'))))",
+																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'), concat('temp/', string(pipeline().parameters.anio), '/data'), if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data'))))",
 																"type": "Expression"
 															},
 															"filesystem": {
@@ -310,7 +310,7 @@
 												]
 											},
 											{
-												"name": "RegistrarRutaRaw_JSON",
+												"name": "Ejecutar_SP_RegistrarPath_JSON_copy1",
 												"type": "SqlServerStoredProcedure",
 												"dependsOn": [
 													{
