@@ -51,14 +51,7 @@
 										}
 									}
 								},
-								"logStorageSettings": {
-									"linkedServiceName": {
-										"referenceName": "ls_adls",
-										"type": "LinkedServiceReference"
-									},
-									"path": "liga1"
-								},
-								"enableLogging": true,
+								"enableLogging": false,
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
 									"recursive": true,
