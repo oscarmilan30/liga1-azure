@@ -287,6 +287,9 @@
 													"secureInput": false
 												},
 												"userProperties": [],
+												"typeProperties": {
+													"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_curated/unificar_json"
+												},
 												"linkedServiceName": {
 													"referenceName": "ls_databricks",
 													"type": "LinkedServiceReference"
