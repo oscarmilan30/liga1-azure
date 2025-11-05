@@ -9,9 +9,7 @@
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
+					"retryIntervalInSeconds": 30
 				},
 				"userProperties": [],
 				"typeProperties": {
@@ -34,7 +32,6 @@
 								}
 							}
 						},
-						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
@@ -52,8 +49,37 @@
 				}
 			},
 			{
+				"name": "lkp_lista_archivos",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_archivos]",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sql_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TablaParametro",
+								"type": "Expression"
+							},
+							"SchemaName": "dbo"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
 				"name": "foreach_procesar_anios",
-				"description": "",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -135,8 +161,8 @@
 				}
 			},
 			{
-				"name": "sp_act_estado",
-				"type": "SqlServerStoredProcedure",
+				"name": "foreach_unificar_por_archivo",
+				"type": "ForEach",
 				"dependsOn": [
 					{
 						"activity": "foreach_procesar_anios",
@@ -145,8 +171,86 @@
 						]
 					}
 				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@json(activity('lkp_lista_archivos').output.firstRow.lista_archivos)",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "pl_historico_unificador",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_historico_unificador",
+									"type": "PipelineReference"
+								},
+								"parameters": {
+									"filesystem": {
+										"value": "@pipeline().parameters.filesystem",
+										"type": "Expression"
+									},
+									"capa_raw": {
+										"value": "@pipeline().parameters.capa_raw",
+										"type": "Expression"
+									},
+									"rutaBase": {
+										"value": "@pipeline().parameters.rutaBase",
+										"type": "Expression"
+									},
+									"nombre_archivo": {
+										"value": "@item().nombre",
+										"type": "Expression"
+									},
+									"PipelineId": {
+										"value": "@pipeline().parameters.Pipeline_Id",
+										"type": "Expression"
+									},
+									"historical_start_year": {
+										"value": "@pipeline().parameters.StartYear",
+										"type": "Expression"
+									},
+									"current_year": {
+										"value": "@pipeline().parameters.EndYear",
+										"type": "Expression"
+									},
+									"ModoEjecucion": {
+										"value": "@pipeline().parameters.ModoEjecucion",
+										"type": "Expression"
+									},
+									"cluster_id": {
+										"value": "@pipeline().parameters.cluster_id",
+										"type": "Expression"
+									},
+									"area": {
+										"value": "@pipeline().parameters.area",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "sp_act_estado",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "foreach_unificar_por_archivo",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
-					"timeout": "0.12:00:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
@@ -172,39 +276,6 @@
 				"linkedServiceName": {
 					"referenceName": "ls_sql_liga1",
 					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "lkp_lista_archivos",
-				"type": "Lookup",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_archivos]",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "ds_sql_generic",
-						"type": "DatasetReference",
-						"parameters": {
-							"TableName": {
-								"value": "@pipeline().parameters.TablaParametro",
-								"type": "Expression"
-							},
-							"SchemaName": "dbo"
-						}
-					},
-					"firstRowOnly": true
 				}
 			}
 		],
@@ -238,6 +309,12 @@
 			},
 			"FechaCarga": {
 				"type": "string"
+			},
+			"cluster_id": {
+				"type": "string"
+			},
+			"area": {
+				"type": "string"
 			}
 		},
 		"variables": {
@@ -248,8 +325,7 @@
 		"folder": {
 			"name": "pl_hijos_ligaperuana/pl_inner_procesos"
 		},
-		"annotations": [],
-		"lastPublishTime": "2025-09-16T23:08:01Z"
+		"annotations": []
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
