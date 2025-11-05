@@ -272,7 +272,7 @@
 															},
 															{
 																"source": {
-																	"path": "$.data"
+																	"path": "$['data']"
 																},
 																"sink": {
 																	"name": "data",
