@@ -237,13 +237,51 @@
 														},
 														"formatSettings": {
 															"type": "ParquetWriteSettings"
-														},
-														"translator": {
-															"type": "TabularTranslator",
-															"typeConversion": false
 														}
 													},
-													"enableStaging": false
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"mappings": [
+															{
+																"source": {
+																	"path": "$.fuente"
+																},
+																"sink": {
+																	"name": "fuente",
+																	"type": "String"
+																}
+															},
+															{
+																"source": {
+																	"path": "$.temporada"
+																},
+																"sink": {
+																	"name": "temporada",
+																	"type": "String"
+																}
+															},
+															{
+																"source": {
+																	"path": "$.fecha_carga"
+																},
+																"sink": {
+																	"name": "fecha_carga",
+																	"type": "String"
+																}
+															},
+															{
+																"source": {
+																	"path": "$.data"
+																},
+																"sink": {
+																	"name": "data",
+																	"type": "String"
+																}
+															}
+														],
+														"mapComplexValuesToString": true
+													}
 												},
 												"inputs": [
 													{

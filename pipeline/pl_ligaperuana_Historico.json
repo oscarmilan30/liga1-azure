@@ -192,6 +192,7 @@
 									"referenceName": "pl_historico_unificador",
 									"type": "PipelineReference"
 								},
+								"waitOnCompletion": false,
 								"parameters": {
 									"filesystem": {
 										"value": "@pipeline().parameters.filesystem",
