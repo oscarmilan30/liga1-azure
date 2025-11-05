@@ -144,6 +144,14 @@
 									"FechaCarga": {
 										"value": "@formatDateTime(utcNow(),'yyyy/MM/dd')",
 										"type": "Expression"
+									},
+									"cluster_id": {
+										"value": "@activity('lkp_parametros').output.firstRow.CLUSTER_ID",
+										"type": "Expression"
+									},
+									"area": {
+										"value": "@activity('lkp_parametros').output.firstRow.AREA",
+										"type": "Expression"
 									}
 								}
 							}
