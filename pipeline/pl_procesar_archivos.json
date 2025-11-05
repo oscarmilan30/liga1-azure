@@ -24,10 +24,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "DebugInfo",
-								"value": {
-									"value": "\"Archivo campeones no existe - Skip\"",
-									"type": "Expression"
-								}
+								"value": "'Archivo campeones no existe - Skip'"
 							}
 						}
 					],
@@ -231,7 +228,7 @@
 													"enableStaging": false,
 													"translator": {
 														"type": "TabularTranslator",
-														"mapComplexValuesToString": false
+														"mapComplexValuesToString": true
 													}
 												},
 												"inputs": [
@@ -276,7 +273,7 @@
 												]
 											},
 											{
-												"name": "Ejecutar_SP_RegistrarPath_JSON_copy1",
+												"name": "Ejecutar_SP_RegistrarPath_JSON",
 												"type": "SqlServerStoredProcedure",
 												"dependsOn": [
 													{
