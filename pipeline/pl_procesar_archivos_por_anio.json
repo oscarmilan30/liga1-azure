@@ -97,6 +97,14 @@
 												"PipelineId": {
 													"value": "@pipeline().parameters.PipelineId",
 													"type": "Expression"
+												},
+												"cluster_id": {
+													"value": "@pipeline().parameters.cluster_id",
+													"type": "Expression"
+												},
+												"area": {
+													"value": "@pipeline().parameters.area",
+													"type": "Expression"
 												}
 											}
 										}
@@ -237,6 +245,12 @@
 			},
 			"PipelineId": {
 				"type": "int"
+			},
+			"cluster_id": {
+				"type": "string"
+			},
+			"area": {
+				"type": "string"
 			}
 		},
 		"variables": {

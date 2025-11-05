@@ -292,7 +292,17 @@
 												},
 												"linkedServiceName": {
 													"referenceName": "ls_databricks",
-													"type": "LinkedServiceReference"
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"CLUSTER_ID": {
+															"value": "@pipeline().parameters.cluster_id",
+															"type": "Expression"
+														},
+														"AREA": {
+															"value": "@pipeline().parameters.area",
+															"type": "Expression"
+														}
+													}
 												}
 											}
 										]

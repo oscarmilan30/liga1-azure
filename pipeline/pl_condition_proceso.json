@@ -59,6 +59,14 @@
 									"FechaCarga": {
 										"value": "@formatDateTime(utcNow(),'yyyy/MM/dd')",
 										"type": "Expression"
+									},
+									"cluster_id": {
+										"value": "@pipeline().parameters.Parametros_Json['CLUSTER_ID']",
+										"type": "Expression"
+									},
+									"area": {
+										"value": "@pipeline().parameters.Parametros_Json['AREA']",
+										"type": "Expression"
 									}
 								}
 							}
