@@ -206,130 +206,11 @@
 										"value": "json",
 										"activities": [
 											{
-												"name": "copy_landing_json_to_raw",
-												"type": "Copy",
-												"dependsOn": [],
-												"policy": {
-													"retry": 0,
-													"retryIntervalInSeconds": 30,
-													"secureOutput": false,
-													"secureInput": false
-												},
-												"userProperties": [],
-												"typeProperties": {
-													"source": {
-														"type": "JsonSource",
-														"storeSettings": {
-															"type": "AzureBlobFSReadSettings",
-															"recursive": false,
-															"enablePartitionDiscovery": false
-														},
-														"formatSettings": {
-															"type": "JsonReadSettings",
-															"jsonPathDefinition": "$"
-														}
-													},
-													"sink": {
-														"type": "ParquetSink",
-														"storeSettings": {
-															"type": "AzureBlobFSWriteSettings",
-															"copyBehavior": "MergeFiles"
-														},
-														"formatSettings": {
-															"type": "ParquetWriteSettings"
-														}
-													},
-													"enableStaging": false,
-													"translator": {
-														"type": "TabularTranslator",
-														"mappings": [
-															{
-																"source": {
-																	"path": "$.fuente"
-																},
-																"sink": {
-																	"name": "fuente",
-																	"type": "String"
-																}
-															},
-															{
-																"source": {
-																	"path": "$.temporada"
-																},
-																"sink": {
-																	"name": "temporada",
-																	"type": "String"
-																}
-															},
-															{
-																"source": {
-																	"path": "$.fecha_carga"
-																},
-																"sink": {
-																	"name": "fecha_carga",
-																	"type": "String"
-																}
-															},
-															{
-																"source": {
-																	"path": "$['data']"
-																},
-																"sink": {
-																	"name": "data",
-																	"type": "String"
-																}
-															}
-														],
-														"mapComplexValuesToString": true
-													}
-												},
-												"inputs": [
-													{
-														"referenceName": "ds_adls_json",
-														"type": "DatasetReference",
-														"parameters": {
-															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
-																"type": "Expression"
-															},
-															"filesystem": {
-																"value": "@pipeline().parameters.filesystem",
-																"type": "Expression"
-															},
-															"fileName": {
-																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.json')",
-																"type": "Expression"
-															}
-														}
-													}
-												],
-												"outputs": [
-													{
-														"referenceName": "ds_adls_parquet",
-														"type": "DatasetReference",
-														"parameters": {
-															"folderPath": {
-																"value": "@concat(\n  pipeline().parameters.capa_raw,\n  trim(pipeline().parameters.rutaBase), '/',\n  pipeline().parameters.nombre_archivo, '/',\n  if(\n    equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n    concat('temp/', string(pipeline().parameters.anio), '/data'),\n    if(\n      equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n      concat(string(pipeline().parameters.anio), '/01/01/data'),\n      concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n    )\n  )\n)",
-																"type": "Expression"
-															},
-															"filesystem": {
-																"value": "@pipeline().parameters.filesystem",
-																"type": "Expression"
-															},
-															"fileName": {
-																"value": "@concat(pipeline().parameters.nombre_archivo, '.parquet')",
-																"type": "Expression"
-															}
-														}
-													}
-												]
-											},
-											{
 												"name": "RegistrarRutaRaw_JSON",
 												"type": "SqlServerStoredProcedure",
 												"dependsOn": [
 													{
-														"activity": "copy_landing_json_to_raw",
+														"activity": "nbk_json_to_raw",
 														"dependencyConditions": [
 															"Succeeded"
 														]
@@ -393,6 +274,23 @@
 													"referenceName": "ls_sql_liga1",
 													"type": "LinkedServiceReference"
 												}
+											},
+											{
+												"name": "nbk_json_to_raw",
+												"type": "DatabricksNotebook",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"linkedServiceName": {
+													"referenceName": "ls_databricks",
+													"type": "LinkedServiceReference"
+												}
 											}
 										]
 									}
@@ -436,6 +334,12 @@
 			},
 			"PipelineId": {
 				"type": "int"
+			},
+			"cluster_id": {
+				"type": "string"
+			},
+			"area": {
+				"type": "string"
 			}
 		},
 		"variables": {

@@ -38,22 +38,6 @@
 				}
 			}
 		},
-		"schema": {
-			"type": "object",
-			"properties": {
-				"fuente": {
-					"type": "string"
-				},
-				"temporada": {
-					"type": "string"
-				},
-				"fecha_carga": {
-					"type": "string"
-				},
-				"data": {
-					"type": "string"
-				}
-			}
-		}
+		"schema": {}
 	}
 }
