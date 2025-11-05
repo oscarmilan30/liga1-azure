@@ -225,7 +225,8 @@
 															"enablePartitionDiscovery": false
 														},
 														"formatSettings": {
-															"type": "JsonReadSettings"
+															"type": "JsonReadSettings",
+															"jsonPathDefinition": "$"
 														}
 													},
 													"sink": {

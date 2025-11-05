@@ -113,7 +113,7 @@
 						},
 						"RutaRaw": {
 							"value": {
-								"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/1FL/data/', pipeline().parameters.nombre_archivo, '.parquet')",
+								"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/1FL/data/')",
 								"type": "Expression"
 							},
 							"type": "String"
