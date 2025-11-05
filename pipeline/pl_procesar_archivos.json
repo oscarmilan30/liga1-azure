@@ -231,41 +231,7 @@
 													"enableStaging": false,
 													"translator": {
 														"type": "TabularTranslator",
-														"mappings": [
-															{
-																"source": {
-																	"path": "$['data']"
-																},
-																"sink": {
-																	"name": "data"
-																}
-															},
-															{
-																"source": {
-																	"path": "$['fuente']"
-																},
-																"sink": {
-																	"name": "fuente"
-																}
-															},
-															{
-																"source": {
-																	"path": "$['temporada']"
-																},
-																"sink": {
-																	"name": "temporada"
-																}
-															},
-															{
-																"source": {
-																	"path": "$['fecha_carga']"
-																},
-																"sink": {
-																	"name": "fecha_carga"
-																}
-															}
-														],
-														"mapComplexValuesToString": true
+														"mapComplexValuesToString": false
 													}
 												},
 												"inputs": [
