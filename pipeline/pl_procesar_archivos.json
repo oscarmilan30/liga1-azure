@@ -288,7 +288,17 @@
 												},
 												"userProperties": [],
 												"typeProperties": {
-													"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_curated/unificar_json"
+													"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_curated/unificar_json",
+													"baseParameters": {
+														"nombre_archivo": "@pipeline().parameters.nombre_archivo",
+														"anio": "@pipeline().parameters.anio",
+														"filesystem": "@pipeline().parameters.filesystem",
+														"capa_landing": "@pipeline().parameters.capa_landing",
+														"capa_raw": "@pipeline().parameters.capa_raw",
+														"rutaBase": "@pipeline().parameters.rutaBase",
+														"ModoEjecucion": "@pipeline().parameters.ModoEjecucion",
+														"FechaCarga": "@pipeline().parameters.FechaCarga"
+													}
 												},
 												"linkedServiceName": {
 													"referenceName": "ls_databricks",
