@@ -36,10 +36,6 @@
 					"value": "@dataset().filesystem",
 					"type": "Expression"
 				}
-			},
-			"format": {
-				"type": "JsonFormat",
-				"filePattern": "setOfFiles"
 			}
 		},
 		"schema": {}

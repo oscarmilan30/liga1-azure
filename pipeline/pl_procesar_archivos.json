@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@or(not(equals(pipeline().parameters.nombre_archivo, 'campeones')), pipeline().parameters.archivo_existe)",
+						"value": "@or(\n not(equals(pipeline().parameters.nombre_archivo, 'campeones')),\n pipeline().parameters.archivo_existe\n)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -24,7 +24,10 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "DebugInfo",
-								"value": "'Archivo campeones no existe - Skip'"
+								"value": {
+									"value": "\"Archivo campeones no existe - Skip\"",
+									"type": "Expression"
+								}
 							}
 						}
 					],
@@ -59,7 +62,8 @@
 														"type": "DelimitedTextSource",
 														"storeSettings": {
 															"type": "AzureBlobFSReadSettings",
-															"recursive": true
+															"recursive": true,
+															"enablePartitionDiscovery": false
 														},
 														"formatSettings": {
 															"type": "DelimitedTextReadSettings"
@@ -75,7 +79,15 @@
 															"type": "ParquetWriteSettings"
 														}
 													},
-													"enableStaging": false
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
 												},
 												"inputs": [
 													{
@@ -103,7 +115,7 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'), concat('temp/', string(pipeline().parameters.anio), '/data'), if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data'))))",
+																"value": "@concat(\n pipeline().parameters.capa_raw,\n trim(pipeline().parameters.rutaBase),\n '/',\n pipeline().parameters.nombre_archivo,\n '/',\n if(\n equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n concat('1FL/data/', string(pipeline().parameters.anio)),\n if(\n equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n concat(string(pipeline().parameters.anio), '/01/01/data'),\n concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n )\n )\n)",
 																"type": "Expression"
 															},
 															"filesystem": {
@@ -119,7 +131,7 @@
 												]
 											},
 											{
-												"name": "Ejecutar_SP_RegistrarPath_CSV",
+												"name": "RegistrarRutaRaw_CSV",
 												"type": "SqlServerStoredProcedure",
 												"dependsOn": [
 													{
@@ -139,47 +151,61 @@
 												"typeProperties": {
 													"storedProcedureName": "[dbo].[sp_registrar_path]",
 													"storedProcedureParameters": {
-														"PipelineId": {
+														"Anio": {
 															"value": {
-																"value": "@pipeline().parameters.PipelineId",
+																"value": "@pipeline().parameters.anio",
 																"type": "Expression"
 															},
-															"type": "Expression"
-														},
-														"RunId": {
-															"value": {
-																"value": "@pipeline().RunId",
-																"type": "Expression"
-															},
-															"type": "Expression"
+															"type": "Int32"
 														},
 														"Entidad": {
 															"value": {
 																"value": "@pipeline().parameters.nombre_archivo",
 																"type": "Expression"
 															},
-															"type": "Expression"
+															"type": "String"
+														},
+														"FechaCarga": {
+															"value": {
+																"value": "@pipeline().parameters.FechaCarga",
+																"type": "Expression"
+															},
+															"type": "DateTime"
 														},
 														"ModoEjecucion": {
 															"value": {
 																"value": "@pipeline().parameters.ModoEjecucion",
 																"type": "Expression"
 															},
-															"type": "Expression"
+															"type": "String"
 														},
 														"Periodo": {
 															"value": {
-																"value": "@string(pipeline().parameters.anio)",
+																"value": "@pipeline().parameters.anio",
 																"type": "Expression"
 															},
-															"type": "Expression"
+															"type": "String"
+														},
+														"PipelineId": {
+															"value": {
+																"value": "@pipeline().parameters.PipelineId",
+																"type": "Expression"
+															},
+															"type": "Int32"
+														},
+														"RunId": {
+															"value": {
+																"value": "@pipeline().RunId",
+																"type": "Expression"
+															},
+															"type": "String"
 														},
 														"RutaRaw": {
 															"value": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')), '/', pipeline().parameters.nombre_archivo, '.parquet')",
+																"value": "@concat(\n pipeline().parameters.capa_raw,\n trim(pipeline().parameters.rutaBase), '/',\n pipeline().parameters.nombre_archivo, '/',\n if(\n equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n concat('1FL/data/', string(pipeline().parameters.anio)),\n if(\n equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n concat(string(pipeline().parameters.anio), '/01/01/data'),\n concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n )\n ),\n '/',\n pipeline().parameters.nombre_archivo,\n '.parquet'\n)",
 																"type": "Expression"
 															},
-															"type": "Expression"
+															"type": "String"
 														}
 													}
 												},
@@ -209,7 +235,8 @@
 														"type": "JsonSource",
 														"storeSettings": {
 															"type": "AzureBlobFSReadSettings",
-															"recursive": false
+															"recursive": false,
+															"enablePartitionDiscovery": false
 														},
 														"formatSettings": {
 															"type": "JsonReadSettings"
@@ -223,13 +250,13 @@
 														},
 														"formatSettings": {
 															"type": "ParquetWriteSettings"
+														},
+														"translator": {
+															"type": "TabularTranslator",
+															"typeConversion": false
 														}
 													},
-													"enableStaging": false,
-													"translator": {
-														"type": "TabularTranslator",
-														"mapComplexValuesToString": true
-													}
+													"enableStaging": false
 												},
 												"inputs": [
 													{
@@ -257,7 +284,7 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"folderPath": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'), concat('temp/', string(pipeline().parameters.anio), '/data'), if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data'))))",
+																"value": "@concat(\n pipeline().parameters.capa_raw,\n trim(pipeline().parameters.rutaBase),\n '/',\n pipeline().parameters.nombre_archivo,\n '/',\n if(\n equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n concat('1FL/data/', string(pipeline().parameters.anio)),\n if(\n equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n concat(string(pipeline().parameters.anio), '/01/01/data'),\n concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n )\n )\n)",
 																"type": "Expression"
 															},
 															"filesystem": {
@@ -273,7 +300,7 @@
 												]
 											},
 											{
-												"name": "Ejecutar_SP_RegistrarPath_JSON",
+												"name": "RegistrarRutaRaw_JSON",
 												"type": "SqlServerStoredProcedure",
 												"dependsOn": [
 													{
@@ -293,47 +320,61 @@
 												"typeProperties": {
 													"storedProcedureName": "[dbo].[sp_registrar_path]",
 													"storedProcedureParameters": {
-														"PipelineId": {
+														"Anio": {
 															"value": {
-																"value": "@pipeline().parameters.PipelineId",
+																"value": "@pipeline().parameters.anio",
 																"type": "Expression"
 															},
-															"type": "Expression"
-														},
-														"RunId": {
-															"value": {
-																"value": "@pipeline().RunId",
-																"type": "Expression"
-															},
-															"type": "Expression"
+															"type": "Int32"
 														},
 														"Entidad": {
 															"value": {
 																"value": "@pipeline().parameters.nombre_archivo",
 																"type": "Expression"
 															},
-															"type": "Expression"
+															"type": "String"
+														},
+														"FechaCarga": {
+															"value": {
+																"value": "@pipeline().parameters.FechaCarga",
+																"type": "Expression"
+															},
+															"type": "DateTime"
 														},
 														"ModoEjecucion": {
 															"value": {
 																"value": "@pipeline().parameters.ModoEjecucion",
 																"type": "Expression"
 															},
-															"type": "Expression"
+															"type": "String"
 														},
 														"Periodo": {
 															"value": {
-																"value": "@string(pipeline().parameters.anio)",
+																"value": "@pipeline().parameters.anio",
 																"type": "Expression"
 															},
-															"type": "Expression"
+															"type": "String"
+														},
+														"PipelineId": {
+															"value": {
+																"value": "@pipeline().parameters.PipelineId",
+																"type": "Expression"
+															},
+															"type": "Int32"
+														},
+														"RunId": {
+															"value": {
+																"value": "@pipeline().RunId",
+																"type": "Expression"
+															},
+															"type": "String"
 														},
 														"RutaRaw": {
 															"value": {
-																"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')), '/', pipeline().parameters.nombre_archivo, '.parquet')",
+																"value": "@concat(\n pipeline().parameters.capa_raw,\n trim(pipeline().parameters.rutaBase), '/',\n pipeline().parameters.nombre_archivo, '/',\n if(\n equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n concat('1FL/data/', string(pipeline().parameters.anio)),\n if(\n equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n concat(string(pipeline().parameters.anio), '/01/01/data'),\n concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n )\n ),\n '/',\n pipeline().parameters.nombre_archivo,\n '.parquet'\n)",
 																"type": "Expression"
 															},
-															"type": "Expression"
+															"type": "String"
 														}
 													}
 												},

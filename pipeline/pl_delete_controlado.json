@@ -3,46 +3,6 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "chk_folder_exists",
-				"type": "GetMetadata",
-				"dependsOn": [],
-				"policy": {
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"dataset": {
-						"referenceName": "ds_adls_parquet",
-						"type": "DatasetReference",
-						"parameters": {
-							"folderPath": {
-								"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),'1FL/data', if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data'))))",
-								"type": "Expression"
-							},
-							"filesystem": {
-								"value": "@pipeline().parameters.filesystem",
-								"type": "Expression"
-							},
-							"fileName": "@''"
-						}
-					},
-					"fieldList": [
-						"exists",
-						"childItems"
-					],
-					"storeSettings": {
-						"type": "AzureBlobFSReadSettings",
-						"recursive": true
-					},
-					"formatSettings": {
-						"type": "ParquetReadSettings"
-					}
-				}
-			},
-			{
 				"name": "IfConditionDelete",
 				"type": "IfCondition",
 				"dependsOn": [
@@ -56,15 +16,16 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@and(not(equals(pipeline().parameters.ModoEjecucion,'HISTORICO')), activity('chk_folder_exists').output.exists)",
+						"value": "@and(\n  not(equals(pipeline().parameters.ModoEjecucion,'HISTORICO')),\n  and(\n    activity('chk_folder_exists').output.exists,\n    greaterOrEquals(\n      length(\n        coalesce(\n          activity('chk_folder_exists').output.childItems,\n          json('[]')\n        )\n      ),\n      1\n    )\n  )\n)",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
 						{
-							"name": "CleanRawFolder",
+							"name": "CleanRawYearFolder",
 							"type": "Delete",
 							"dependsOn": [],
 							"policy": {
+								"timeout": "0.12:00:00",
 								"retry": 0,
 								"retryIntervalInSeconds": 30,
 								"secureOutput": false,
@@ -77,7 +38,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"folderPath": {
-											"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/', if(equals(pipeline().parameters.ModoEjecucion,'REPROCESO'), concat(string(pipeline().parameters.anio), '/01/01/data'), concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')))",
+											"value": "@concat(\n    pipeline().parameters.capa_raw,\n    trim(pipeline().parameters.rutaBase), '/',\n    pipeline().parameters.nombre_archivo, '/',\n    if(\n        equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n        concat('1FL/data/', string(pipeline().parameters.anio)),\n        if(\n            equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n            concat(string(pipeline().parameters.anio), '/01/01/data'),\n            concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n        )\n    )\n)",
 											"type": "Expression"
 										},
 										"filesystem": {
@@ -100,11 +61,54 @@
 								"enableLogging": true,
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
-									"recursive": true
+									"recursive": true,
+									"enablePartitionDiscovery": false
 								}
 							}
 						}
 					]
+				}
+			},
+			{
+				"name": "chk_folder_exists",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_adls_parquet",
+						"type": "DatasetReference",
+						"parameters": {
+							"folderPath": {
+								"value": "@concat(\n    pipeline().parameters.capa_raw,\n    trim(pipeline().parameters.rutaBase), '/',\n    pipeline().parameters.nombre_archivo, '/',\n    if(\n        equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n        concat('1FL/data/', string(pipeline().parameters.anio)),\n        if(\n            equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n            concat(string(pipeline().parameters.anio), '/01/01/data'),\n            concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n        )\n    )\n)",
+								"type": "Expression"
+							},
+							"filesystem": {
+								"value": "@pipeline().parameters.filesystem",
+								"type": "Expression"
+							},
+							"fileName": "@''"
+						}
+					},
+					"fieldList": [
+						"exists",
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "ParquetReadSettings"
+					}
 				}
 			}
 		],
