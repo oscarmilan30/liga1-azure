@@ -1,4 +1,3 @@
-# Databricks notebook source
 # ==========================================================
 # UTILITARIOS
 # Proyecto: Liga 1 Perú
