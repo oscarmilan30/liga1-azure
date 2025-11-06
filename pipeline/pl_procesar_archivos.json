@@ -291,7 +291,10 @@
 													"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_curated/unificar_json",
 													"baseParameters": {
 														"nombre_archivo": "@pipeline().parameters.nombre_archivo",
-														"anio": "@pipeline().parameters.anio",
+														"anio": {
+															"value": "@string(pipeline().parameters.anio)",
+															"type": "Expression"
+														},
 														"filesystem": "@pipeline().parameters.filesystem",
 														"capa_landing": "@pipeline().parameters.capa_landing",
 														"capa_raw": "@pipeline().parameters.capa_raw",
