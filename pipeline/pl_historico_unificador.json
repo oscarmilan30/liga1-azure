@@ -101,7 +101,7 @@
 							"type": "String"
 						},
 						"ModoEjecucion": {
-							"value": "'HISTORICO'",
+							"value": "HISTORICO",
 							"type": "String"
 						},
 						"Periodo": {
