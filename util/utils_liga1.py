@@ -1,3 +1,10 @@
+# Databricks notebook source
+# ==========================================================
+# UTILITARIOS
+# Proyecto: Liga 1 Perú
+# Autor: Oscar García Del Águila
+# ==========================================================
+
 # utils_adls.py
 from pyspark.sql import SparkSession
 
