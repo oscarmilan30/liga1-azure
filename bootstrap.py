@@ -1,61 +1,60 @@
 # ==========================================================
-# BOOTSTRAP CONFIG - Proyecto: Liga 1 Perú (Databricks + ADF)
-# Autor: Oscar García Del Águila
+# BOOTSTRAP - Configuración de entorno Liga 1 Perú
 # ==========================================================
-"""
-Este módulo garantiza que los notebooks y scripts del proyecto
-puedan importar correctamente los paquetes internos (ej. util/, frm_raw/),
-sin importar si se ejecutan desde:
-    - Workspace personal (Users/)
-    - Repositorios Git (Repos/)
-    - Integraciones ADF / Jobs
-    - Entornos locales (VSCode, spark-submit)
-
-Debe ser importado al inicio de cada notebook:
-    import bootstrap
-"""
+# Autor: Oscar García Del Águila
+# Descripción:
+#   - Detecta automáticamente la raíz del proyecto
+#   - Configura sys.path para imports locales
+#   - Distribuye el paquete del proyecto a todos los ejecutores
+#     (solo si SparkContext está disponible, evitando errores en modo Connect)
+# ==========================================================
 
 import sys
 import os
+import shutil
+import tempfile
+from pyspark.sql import SparkSession
 
 try:
-    # Detecta el directorio actual del notebook
+    # ------------------------------------------------------
+    # 1️⃣ DETECCIÓN DE RUTA RAÍZ DEL PROYECTO
+    # ------------------------------------------------------
     notebook_dir = os.getcwd()
+    root = os.path.abspath(os.path.join(notebook_dir, ".."))
 
-    # Posibles ubicaciones raíz del proyecto
-    root_candidates = [
-        notebook_dir,
-        os.path.abspath(os.path.join(notebook_dir, "..")),
-        os.path.abspath(os.path.join(notebook_dir, "../..")),
-        "/Workspace/Users/garciadoscar1994@outlook.com/liga1-azure",
-        "/Workspace/Repos/garciadoscar1994@outlook.com/liga1-azure",
-        os.path.expanduser("~/liga1-azure")  # fallback local
-    ]
+    # Si no encuentra "util", sube otro nivel
+    if not os.path.exists(os.path.join(root, "util")):
+        root = os.path.abspath(os.path.join(root, ".."))
 
-    # Busca la carpeta raíz que contiene 'util'
-    root_found = None
-    for candidate in root_candidates:
-        if os.path.exists(os.path.join(candidate, "util")):
-            root_found = candidate
-            break
+    # Evitar duplicados
+    if root not in sys.path:
+        sys.path.append(root)
 
-    # Agrega al sys.path si no está ya presente
-    if root_found:
-        if root_found not in sys.path:
-            sys.path.append(root_found)
-        print(f"[BOOTSTRAP] Path raíz agregado: {root_found}")
+    print(f"[BOOTSTRAP] Path raíz agregado: {root}")
+
+    # ------------------------------------------------------
+    # 2️⃣ CONFIGURACIÓN DE SPARK Y DISTRIBUCIÓN OPCIONAL
+    # ------------------------------------------------------
+    spark = SparkSession.builder.getOrCreate()
+
+    # Verificar si se ejecuta en modo Connect
+    if hasattr(spark, "sparkContext"):
+        try:
+            sc = spark.sparkContext
+            # Crear ZIP temporal con todo el proyecto
+            tmp_zip = tempfile.NamedTemporaryFile(suffix=".zip", delete=False)
+            base_name = tmp_zip.name.replace(".zip", "")
+            shutil.make_archive(base_name, "zip", root)
+
+            # Distribuir paquete completo a los ejecutores
+            sc.addPyFile(tmp_zip.name)
+
+            print(f"[BOOTSTRAP] Paquete distribuido a ejecutores desde: {root}")
+
+        except Exception as e:
+            print(f"[BOOTSTRAP WARNING] No se pudo distribuir módulos a ejecutores: {e}")
     else:
-        print("[BOOTSTRAP WARNING] No se encontró carpeta raíz con 'util'.")
+        print("[BOOTSTRAP] Modo Spark Connect detectado → se omite distribución a ejecutores.")
 
 except Exception as e:
-    print(f"[BOOTSTRAP ERROR] No se pudo configurar el path: {e}")
-
-# ==========================================================
-# NOTAS DE USO
-# ==========================================================
-# Este bootstrap garantiza la carga correcta de módulos internos como:
-#   from util.utils_liga1 import setup_adls
-#   from frm_raw.curated_json.curated_json import procesar_curated_json
-#
-# No es necesario modificar sys.path manualmente en los notebooks.
-# ==========================================================
+    print(f"[BOOTSTRAP WARNING] No se pudo configurar el entorno correctamente: {e}")
