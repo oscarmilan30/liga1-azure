@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_curated/unificar_1FL",
+					"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_raw/unificar_1FL",
 					"baseParameters": {
 						"filesystem": {
 							"value": "@pipeline().parameters.filesystem",
@@ -164,7 +164,7 @@
 			}
 		},
 		"folder": {
-			"name": "pl_hijos_ligaperuana/pl_control_historico"
+			"name": "pl_hijos_ligaperuana/pl_inner_procesos"
 		},
 		"annotations": []
 	}
