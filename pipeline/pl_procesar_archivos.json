@@ -47,7 +47,7 @@
 										"value": "csv",
 										"activities": [
 											{
-												"name": "copy_csv_to_raw",
+												"name": "copy_csv_to_stg",
 												"type": "Copy",
 												"dependsOn": [],
 												"policy": {
@@ -115,7 +115,7 @@
 														"type": "DatasetReference",
 														"parameters": {
 															"folderPath": {
-																"value": "@concat(\n  pipeline().parameters.capa_raw,\n  trim(pipeline().parameters.rutaBase), '/',\n  pipeline().parameters.nombre_archivo, '/',\n  if(\n    equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n    concat('temp/', string(pipeline().parameters.anio), '/data'),\n    if(\n      equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n      concat(string(pipeline().parameters.anio), '/01/01/data'),\n      concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n    )\n  )\n)",
+																"value": "@concat(\n    pipeline().parameters.capa_raw,\n    trim(pipeline().parameters.rutaBase), '/',\n    pipeline().parameters.nombre_archivo, '/',\n    if(\n      equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n      concat('stg/', string(pipeline().parameters.anio), '/data'),\n      if(\n        equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n        concat('stg/', string(pipeline().parameters.anio), '/01/01/data'),\n        concat('stg/', formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n      )\n    )\n  )",
 																"type": "Expression"
 															},
 															"filesystem": {
@@ -135,7 +135,7 @@
 												"type": "SqlServerStoredProcedure",
 												"dependsOn": [
 													{
-														"activity": "copy_csv_to_raw",
+														"activity": "nbk_csv_to_raw",
 														"dependencyConditions": [
 															"Succeeded"
 														]
@@ -198,6 +198,73 @@
 												"linkedServiceName": {
 													"referenceName": "ls_sql_liga1",
 													"type": "LinkedServiceReference"
+												}
+											},
+											{
+												"name": "nbk_csv_to_raw",
+												"type": "DatabricksNotebook",
+												"dependsOn": [
+													{
+														"activity": "copy_csv_to_stg",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_raw/nb_unificar_csv",
+													"baseParameters": {
+														"nombre_archivo": {
+															"value": "@pipeline().parameters.nombre_archivo",
+															"type": "Expression"
+														},
+														"anio": {
+															"value": "@string(pipeline().parameters.anio)",
+															"type": "Expression"
+														},
+														"filesystem": {
+															"value": "@pipeline().parameters.filesystem",
+															"type": "Expression"
+														},
+														"capa_raw": {
+															"value": "@pipeline().parameters.capa_raw",
+															"type": "Expression"
+														},
+														"rutaBase": {
+															"value": "@pipeline().parameters.rutaBase",
+															"type": "Expression"
+														},
+														"ModoEjecucion": {
+															"value": "@pipeline().parameters.ModoEjecucion",
+															"type": "Expression"
+														},
+														"FechaCarga": {
+															"value": "@pipeline().parameters.FechaCarga",
+															"type": "Expression"
+														}
+													}
+												},
+												"linkedServiceName": {
+													"referenceName": "ls_databricks",
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"CLUSTER_ID": {
+															"value": "@pipeline().parameters.cluster_id",
+															"type": "Expression"
+														},
+														"AREA": {
+															"value": "@pipeline().parameters.area",
+															"type": "Expression"
+														}
+													}
 												}
 											}
 										]
