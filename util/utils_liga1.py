@@ -9,6 +9,7 @@ from pyspark.sql.functions import col, row_number, desc
 from pyspark.sql.window import Window
 from pyspark.sql import Row
 
+
 # ==========================================================
 # FUNCIONES DE UTILIDAD GENERAL
 # ==========================================================
@@ -97,6 +98,23 @@ def test_conexion_adls():
         print(f"Error en conexión ADLS: {e}")
         return False
 
+# ==========================================================
+# LECTURA DE ARCHIVOS ADLS
+# ==========================================================
+def read_json_adls(spark, path: str):
+    print(f"Leyendo JSON desde {path}")
+    return spark.read.option("multiLine", True).json(path)
+
+
+def read_parquet_adls(spark, path: str):
+    print(f"Leyendo Parquet desde {path}")
+    return spark.read.parquet(path)
+
+
+def write_parquet_adls(df, path: str, mode="overwrite"):
+    print(f"Escribiendo Parquet en {path}")
+    df.write.mode(mode).parquet(path)
+    print("Archivo guardado correctamente.")
 
 # ==========================================================
 # CONEXIÓN A AZURE SQL DATABASE
@@ -137,11 +155,6 @@ def get_sql_connection():
 # ==========================================================
 # LECTURA DE ENTIDAD DESDE PATHS (FLG_UDV = 'N')
 # ==========================================================
-
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, row_number, desc
-from pyspark.sql.window import Window
-from pyspark.sql import Row
 
 def get_entity_data(entidad: str):
     """
