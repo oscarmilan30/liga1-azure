@@ -288,7 +288,7 @@
 												},
 												"userProperties": [],
 												"typeProperties": {
-													"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_raw/unificar_json",
+													"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_raw/nb_unificar_json",
 													"baseParameters": {
 														"nombre_archivo": {
 															"value": "@pipeline().parameters.nombre_archivo",
