@@ -120,33 +120,22 @@ def write_parquet_adls(df, path: str, mode="overwrite"):
     print("Archivo guardado correctamente.")
 
 
-def write_parquet_adls_seguro(df, path: str, mode="overwrite"):
+def write_parquet_adls_single(df, path: str, mode="overwrite"):
     """
-    Escritura controlada y ligera hacia ADLS:
-    - Reduce el número de particiones (1)
-    - Evalúa DataFrame antes de escribir
-    - Limpia memoria después
+    Escribe un único archivo Parquet en ADLS (coalesce(1)).
+    Usado solo para STG, imitando el comportamiento del CopyData CSV.
     """
+    print(f"Escribiendo un solo archivo Parquet consolidado en {path}")
     try:
-        print(f"Escribiendo Parquet en {path}")
-
-        # Reparticionar y evaluar para evitar cuelgues de memoria
-        df_safe = df.coalesce(1)
-        _ = df_safe.count()  # fuerza evaluación
-
-        # Escritura controlada
-        df_safe.write.mode(mode).parquet(path)
-
-        print("✅ Archivo guardado correctamente en ADLS.")
-
-        # Limpieza explícita
-        df_safe.unpersist(blocking=False)
-        del df_safe
-        import gc
-        gc.collect()
-
+        (
+            df.coalesce(1)
+              .write
+              .mode(mode)
+              .parquet(path)
+        )
+        print("Archivo único Parquet guardado correctamente ✅")
     except Exception as e:
-        print(f"❌ Error escribiendo Parquet: {e}")
+        print(f"❌ Error escribiendo archivo único Parquet: {e}")
         raise
 
 
