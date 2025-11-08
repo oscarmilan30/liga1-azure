@@ -120,23 +120,17 @@ def write_parquet_adls(df, path: str, mode="overwrite"):
     print("Archivo guardado correctamente.")
 
 
-def write_parquet_adls_single(df, path: str, mode="overwrite"):
-    """
-    Escribe un único archivo Parquet en ADLS (coalesce(1)).
-    Usado solo para STG, imitando el comportamiento del CopyData CSV.
-    """
-    print(f"Escribiendo un solo archivo Parquet consolidado en {path}")
-    try:
-        (
-            df.coalesce(1)
-              .write
-              .mode(mode)
-              .parquet(path)
-        )
-        print("Archivo único Parquet guardado correctamente ✅")
-    except Exception as e:
-        print(f"❌ Error escribiendo archivo único Parquet: {e}")
-        raise
+def write_parquet_adls_single(df, path, nombre_archivo):
+    temp_path = path + "_tmp"
+    df.coalesce(1).write.mode("overwrite").parquet(temp_path)
+    dbutils = get_dbutils()
+    files = [f.path for f in dbutils.fs.ls(temp_path) if f.path.endswith(".parquet")]
+    if files:
+        dbutils.fs.mkdirs(path)
+        dbutils.fs.mv(files[0], f"{path}/{nombre_archivo}.parquet")
+    dbutils.fs.rm(temp_path, recurse=True)
+    print(f"Archivo único: {path}/{nombre_archivo}.parquet")
+
 
 
 # ==========================================================
