@@ -1,8 +1,10 @@
 # ==========================================================
 # BOOTSTRAP - Configuración básica Liga 1 Perú
 # ==========================================================
-# Compatible con Spark Connect y clusters ADF (sin UDFs)
+# Compatible con ejecución desde ADF y Databricks Cluster
+# (sin necesidad de Spark Connect ni empaquetado de módulos)
 # ==========================================================
+
 import sys
 import os
 from pyspark.sql import SparkSession
@@ -18,14 +20,15 @@ try:
         sys.path.append(root)
     print(f"[BOOTSTRAP] Path raíz agregado: {root}")
 
-    # Inicializar sesión Spark
-    spark = SparkSession.builder.getOrCreate()
+    # Crear sesión Spark en modo CLUSTER clásico
+    spark = (
+        SparkSession.builder
+        .config("spark.databricks.connect.enabled", "false")  # Desactiva Spark Connect
+        .config("spark.databricks.session.share", "false")
+        .getOrCreate()
+    )
 
-    # Confirmar entorno
-    if hasattr(spark, "sparkContext"):
-        print("[BOOTSTRAP] Modo Cluster / ADF detectado")
-    else:
-        print("[BOOTSTRAP] Modo Spark Connect detectado")
+    print("[BOOTSTRAP] Sesión Spark inicializada en modo Cluster (ADF compatible)")
 
 except Exception as e:
     print(f"[BOOTSTRAP WARNING] No se pudo configurar el entorno correctamente: {e}")
