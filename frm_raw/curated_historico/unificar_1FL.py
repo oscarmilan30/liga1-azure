@@ -75,7 +75,7 @@ def unificar_dataframes(spark: SparkSession, rutas: list) -> DataFrame:
     if df_final is None:
         raise Exception("No se pudo generar el DataFrame consolidado.")
     
-    print(f"Unificación completada: {df_final.count()} registros totales.")
+    print(f"Unificación completada")
     return df_final
 
 # ----------------------------------------------------------
