@@ -8,6 +8,9 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, row_number, desc
 from pyspark.sql.window import Window
 from pyspark.sql import Row
+import gc
+import time
+from pyspark.sql import DataFrame
 
 
 # ==========================================================
@@ -115,6 +118,54 @@ def write_parquet_adls(df, path: str, mode="overwrite"):
     print(f"Escribiendo Parquet en {path}")
     df.write.mode(mode).parquet(path)
     print("Archivo guardado correctamente.")
+
+
+def write_parquet_adls_seguro(df: DataFrame, path: str, mode: str = "overwrite"):
+    """
+    Escritura segura optimizada para clústeres pequeños:
+    - Reparte en 1 partición para evitar múltiples conexiones ADLS
+    - Escribe temporalmente en disco local (/local_disk0)
+    - Copia solo el archivo final al destino en ADLS
+    - Libera memoria después de la escritura
+    """
+    from pyspark.sql import SparkSession
+    dbutils = get_dbutils()
+    spark = SparkSession.getActiveSession()
+
+    temp_dir = f"/local_disk0/tmp/liga1_tmp_{int(time.time())}"
+    print(f"[WRITE] Escribiendo temporalmente en: {temp_dir}")
+
+    try:
+        # Escribir localmente (1 partición)
+        df.repartition(1).write.mode(mode).parquet(temp_dir)
+
+        # Detectar el único parquet generado
+        parquet_files = [f.path for f in dbutils.fs.ls(temp_dir) if f.path.endswith(".parquet")]
+        if not parquet_files:
+            raise Exception("No se generó ningún archivo Parquet temporal.")
+        file_local = parquet_files[0]
+
+        # Crear carpeta destino si no existe y copiar
+        dbutils.fs.mkdirs(path)
+        dbutils.fs.cp(file_local, path, True)
+        print(f"[WRITE] Archivo movido correctamente a ADLS: {path}")
+
+    except Exception as e:
+        print(f"[WRITE ERROR] {e}")
+        raise
+    finally:
+        # Limpieza de temporales y liberación de memoria
+        try:
+            dbutils.fs.rm(temp_dir, True)
+        except Exception:
+            pass
+        try:
+            df.unpersist(blocking=False)
+        except Exception:
+            pass
+        gc.collect()
+        print("[WRITE] Limpieza de memoria completada.")
+
 
 # ==========================================================
 # CONEXIÓN A AZURE SQL DATABASE

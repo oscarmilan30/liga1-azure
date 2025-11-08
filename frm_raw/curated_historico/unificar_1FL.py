@@ -9,6 +9,7 @@ from pyspark.sql.utils import AnalysisException
 from pyspark.sql.functions import to_json
 from util.utils_liga1 import get_dbutils, get_abfss_path, read_parquet_adls, write_parquet_adls
 
+
 # ----------------------------------------------------------
 # FUNCIÓN: obtener rutas válidas
 # ----------------------------------------------------------
