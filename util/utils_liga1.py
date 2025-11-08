@@ -120,51 +120,34 @@ def write_parquet_adls(df, path: str, mode="overwrite"):
     print("Archivo guardado correctamente.")
 
 
-def write_parquet_adls_seguro(df: DataFrame, path: str, mode: str = "overwrite"):
+def write_parquet_adls_seguro(df, path: str, mode="overwrite"):
     """
-    Escritura segura optimizada para clústeres pequeños:
-    - Reparte en 1 partición para evitar múltiples conexiones ADLS
-    - Escribe temporalmente en disco local (/local_disk0)
-    - Copia solo el archivo final al destino en ADLS
-    - Libera memoria después de la escritura
+    Escritura controlada y ligera hacia ADLS:
+    - Reduce el número de particiones (1)
+    - Evalúa DataFrame antes de escribir
+    - Limpia memoria después
     """
-    from pyspark.sql import SparkSession
-    dbutils = get_dbutils()
-    spark = SparkSession.getActiveSession()
-
-    temp_dir = f"/local_disk0/tmp/liga1_tmp_{int(time.time())}"
-    print(f"[WRITE] Escribiendo temporalmente en: {temp_dir}")
-
     try:
-        # Escribir localmente (1 partición)
-        df.repartition(1).write.mode(mode).parquet(temp_dir)
+        print(f"Escribiendo Parquet en {path}")
 
-        # Detectar el único parquet generado
-        parquet_files = [f.path for f in dbutils.fs.ls(temp_dir) if f.path.endswith(".parquet")]
-        if not parquet_files:
-            raise Exception("No se generó ningún archivo Parquet temporal.")
-        file_local = parquet_files[0]
+        # Reparticionar y evaluar para evitar cuelgues de memoria
+        df_safe = df.coalesce(1)
+        _ = df_safe.count()  # fuerza evaluación
 
-        # Crear carpeta destino si no existe y copiar
-        dbutils.fs.mkdirs(path)
-        dbutils.fs.cp(file_local, path, True)
-        print(f"[WRITE] Archivo movido correctamente a ADLS: {path}")
+        # Escritura controlada
+        df_safe.write.mode(mode).parquet(path)
+
+        print("✅ Archivo guardado correctamente en ADLS.")
+
+        # Limpieza explícita
+        df_safe.unpersist(blocking=False)
+        del df_safe
+        import gc
+        gc.collect()
 
     except Exception as e:
-        print(f"[WRITE ERROR] {e}")
+        print(f"❌ Error escribiendo Parquet: {e}")
         raise
-    finally:
-        # Limpieza de temporales y liberación de memoria
-        try:
-            dbutils.fs.rm(temp_dir, True)
-        except Exception:
-            pass
-        try:
-            df.unpersist(blocking=False)
-        except Exception:
-            pass
-        gc.collect()
-        print("[WRITE] Limpieza de memoria completada.")
 
 
 # ==========================================================
