@@ -120,19 +120,6 @@ def write_parquet_adls(df, path: str, mode="overwrite"):
     print("Archivo guardado correctamente.")
 
 
-def write_parquet_adls_single(df, path, nombre_archivo):
-    temp_path = path + "_tmp"
-    df.coalesce(1).write.mode("overwrite").parquet(temp_path)
-    dbutils = get_dbutils()
-    files = [f.path for f in dbutils.fs.ls(temp_path) if f.path.endswith(".parquet")]
-    if files:
-        dbutils.fs.mkdirs(path)
-        dbutils.fs.mv(files[0], f"{path}/{nombre_archivo}.parquet")
-    dbutils.fs.rm(temp_path, recurse=True)
-    print(f"Archivo único: {path}/{nombre_archivo}.parquet")
-
-
-
 # ==========================================================
 # CONEXIÓN A AZURE SQL DATABASE
 # ==========================================================
