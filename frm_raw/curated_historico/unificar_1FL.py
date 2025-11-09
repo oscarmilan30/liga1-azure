@@ -7,8 +7,6 @@
 from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql.utils import AnalysisException
 from pyspark.sql.functions import to_json
-from util.utils_liga1 import get_dbutils, get_abfss_path, read_parquet_adls, write_parquet_adls
-
 
 # ----------------------------------------------------------
 # FUNCIÓN: obtener rutas válidas
@@ -18,7 +16,7 @@ def obtener_rutas_stg(dbutils, base_path: str, start_year: int, end_year: int):
     Retorna las rutas stg/{año}/curated que contengan archivos Parquet válidos.
     """
     rutas = []
-    for year in range(start_year, end_year):
+    for year in range(start_year, end_year + 1):
         ruta = f"{base_path}/stg/{year}/curated"
         try:
             archivos = dbutils.fs.ls(ruta)
@@ -31,7 +29,7 @@ def obtener_rutas_stg(dbutils, base_path: str, start_year: int, end_year: int):
 # ----------------------------------------------------------
 # FUNCIÓN: unificar múltiples DataFrames
 # ----------------------------------------------------------
-def unificar_dataframes(spark: SparkSession, rutas: list) -> DataFrame:
+def unificar_dataframes(spark: SparkSession, rutas: list, read_parquet_adls, get_abfss_path) -> DataFrame:
     """
     Une múltiples DataFrames parquet permitiendo diferencias de columnas.
     Convierte arrays/structs en JSON string para compatibilidad.
@@ -56,7 +54,6 @@ def unificar_dataframes(spark: SparkSession, rutas: list) -> DataFrame:
             if df_final is None:
                 df_final = df
             else:
-                # Alinear columnas faltantes
                 faltantes_actual = list(columnas_ref - columnas_actuales)
                 if faltantes_actual:
                     df = df.selectExpr(*df.columns, *[f"NULL as {c}" for c in faltantes_actual])
@@ -75,47 +72,48 @@ def unificar_dataframes(spark: SparkSession, rutas: list) -> DataFrame:
 
     if df_final is None:
         raise Exception("No se pudo generar el DataFrame consolidado.")
-    
-    print(f"Unificación completada")
+
+    print(f"Unificación completada con éxito")
     return df_final
 
 # ----------------------------------------------------------
-# FUNCIÓN PRINCIPAL: procesar unificación histórica
+# FUNCIÓN PRINCIPAL (solo lógica)
 # ----------------------------------------------------------
-def procesar_unificacion_1FL(spark: SparkSession, capa_raw: str, rutaBase: str, nombre_archivo: str,
-                             start_year: int, end_year: int):
+def procesar_unificacion_1FL(
+    spark: SparkSession,
+    dbutils,
+    capa_raw: str,
+    rutaBase: str,
+    nombre_archivo: str,
+    start_year: int,
+    end_year: int,
+    read_parquet_adls=None,
+    get_abfss_path=None
+) -> DataFrame:
     """
-    Unifica todos los Parquets 'curated' anuales en una sola carpeta 1FL/data.
+    Lógica pura: unifica los Parquets 'curated' por año.
+    No escribe en disco (lo hace el notebook).
     """
-    dbutils = get_dbutils()
     base_path = f"{capa_raw}/{rutaBase}/{nombre_archivo}"
-    ruta_abfss_base = get_abfss_path(base_path)
 
     print("===============================================")
-    print("UNIFICADOR HISTÓRICO DE PARQUETS (1FL)")
+    print("INICIO PROCESO UNIFICACIÓN 1FL")
     print("===============================================")
-    print(f"Entidad        : {nombre_archivo}")
-    print(f"Años procesados: {start_year} - {end_year}")
-    print(f"Ruta base RAW  : {ruta_abfss_base}")
+    print(f"Entidad: {nombre_archivo}")
+    print(f"Rango de años: {start_year} - {end_year}")
+    print(f"Base path: {base_path}")
     print("===============================================")
 
     rutas_stg = obtener_rutas_stg(dbutils, base_path, start_year, end_year)
-
     if not rutas_stg:
-        raise Exception("No se encontraron carpetas stg/{año}/curated para unificar.")
+        raise Exception("No se encontraron carpetas válidas para unificar.")
 
-    print(f"Carpetas detectadas: {len(rutas_stg)}")
+    print(f"Carpetas detectadas ({len(rutas_stg)}):")
     for r in rutas_stg:
         print(f" - {r}")
 
-    df_final = unificar_dataframes(spark, rutas_stg)
-
-    # Guardar resultado final
-    output_path = f"{base_path}/1FL/data"
+    df_final = unificar_dataframes(spark, rutas_stg, read_parquet_adls, get_abfss_path)
     print("===============================================")
-    print(f"Guardando consolidado final en carpeta: {output_path}")
+    print("FIN DEL PROCESO UNIFICACIÓN 1FL")
     print("===============================================")
-
-    write_parquet_adls(df_final, get_abfss_path(output_path))
-
-    print(f"Consolidado 1FL guardado con éxito ({df_final.count()} registros).")
+    return df_final

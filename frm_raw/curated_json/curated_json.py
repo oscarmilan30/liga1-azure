@@ -6,7 +6,7 @@
 
 from datetime import datetime
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import lit, to_json, colv
+from pyspark.sql.functions import lit, to_json, col
 
 # ----------------------------------------------------------
 # FUNCIONES AUXILIARES
