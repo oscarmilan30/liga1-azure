@@ -4,15 +4,13 @@
 # Autor: Oscar García Del Águila
 # ==========================================================
 
-from pyspark.sql import SparkSession, DataFrame
-from pyspark.sql.functions import col, from_json, explode_outer, when, lit, expr, trim, regexp_replace, instr
+from pyspark.sql import SparkSession, DataFrame, Row
+from pyspark.sql.functions import col, from_json, explode_outer, when, lit, expr, trim, regexp_replace, instr, desc, row_number
 from pyspark.sql.types import ArrayType, MapType, StringType
-import json
 from pyspark.sql.window import Window
-from pyspark.sql import Row
+import json
 import gc
 import time
-
 
 # ==========================================================
 # FUNCIONES DE UTILIDAD GENERAL
@@ -35,6 +33,31 @@ def get_dbutils():
 
 
 # ==========================================================
+# VALIDACIÓN UNIVERSAL DE DATAFRAMES
+# ==========================================================
+
+def is_dataframe_empty(df: DataFrame) -> bool:
+    """
+    Verifica si un DataFrame de Spark está vacío, de forma segura y portable.
+    Compatible con todas las versiones de Spark (>= 2.4) y entornos Databricks, Synapse, Fabric.
+
+    Retorna:
+        True  → si el DataFrame es None o no tiene filas
+        False → si contiene al menos 1 fila
+    """
+    if df is None:
+        return True
+
+    try:
+        if hasattr(df, "isEmpty"):
+            return df.isEmpty()
+        else:
+            return df.limit(1).count() == 0
+    except Exception:
+        return df.limit(1).count() == 0
+
+
+# ==========================================================
 # ADLS (Azure Data Lake Storage)
 # ==========================================================
 
@@ -54,15 +77,18 @@ def setup_adls():
 
         # Configuración de autenticación OAuth
         spark.conf.set(f"fs.azure.account.auth.type.{adls_account_name}.dfs.core.windows.net", "OAuth")
-        spark.conf.set(f"fs.azure.account.oauth.provider.type.{adls_account_name}.dfs.core.windows.net",
-                       "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider")
+        spark.conf.set(
+            f"fs.azure.account.oauth.provider.type.{adls_account_name}.dfs.core.windows.net",
+            "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider"
+        )
         spark.conf.set(f"fs.azure.account.oauth2.client.id.{adls_account_name}.dfs.core.windows.net", client_id)
         spark.conf.set(f"fs.azure.account.oauth2.client.secret.{adls_account_name}.dfs.core.windows.net", client_secret)
-        spark.conf.set(f"fs.azure.account.oauth2.client.endpoint.{adls_account_name}.dfs.core.windows.net",
-                       f"https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token")
+        spark.conf.set(
+            f"fs.azure.account.oauth2.client.endpoint.{adls_account_name}.dfs.core.windows.net",
+            f"https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token"
+        )
 
         print(f"Autenticación ADLS configurada para: {adls_account_name}")
-
     except Exception as e:
         print(f"Error configurando ADLS: {e}")
 
@@ -102,9 +128,11 @@ def test_conexion_adls():
         print(f"Error en conexión ADLS: {e}")
         return False
 
+
 # ==========================================================
-# LECTURA DE ARCHIVOS ADLS
+# LECTURA Y ESCRITURA DE ARCHIVOS ADLS
 # ==========================================================
+
 def read_json_adls(spark, path: str):
     print(f"Leyendo JSON desde {path}")
     return spark.read.option("multiLine", True).json(path)
@@ -116,6 +144,9 @@ def read_parquet_adls(spark, path: str):
 
 
 def write_parquet_adls(df, path: str, mode="overwrite"):
+    if is_dataframe_empty(df):
+        print(f"[WARN] No se escribirá en {path} porque el DataFrame está vacío.")
+        return
     print(f"Escribiendo Parquet en {path}")
     df.write.mode(mode).parquet(path)
     print("Archivo guardado correctamente.")
@@ -173,7 +204,6 @@ def get_entity_data(entidad: str):
     if not jdbc_url:
         raise Exception("No se pudo establecer conexión JDBC con Azure SQL Database.")
 
-    # Leer paths pendientes por entidad
     query = f"""
     (
         SELECT id, entidad, modoejecucion, rutaraw, flg_udv
@@ -182,66 +212,75 @@ def get_entity_data(entidad: str):
     ) AS t
     """
     df_paths = spark.read.jdbc(url=jdbc_url, table=query, properties=props)
-    total_paths = df_paths.count()
-
-    if total_paths == 0:
-        print(f"No hay rutas pendientes para la entidad '{entidad}'.")
+    if is_dataframe_empty(df_paths):
+        print(f"[INFO] No hay rutas pendientes para la entidad '{entidad}'.")
         return None
 
-    print(f"Se encontraron {total_paths} rutas pendientes para '{entidad}'.")
+    print("===============================================")
+    print(f"[INFO] Entidad           : {entidad}")
+    print(f"[INFO] Total de rutas    : {df_paths.count()}")
+    print("===============================================")
 
-    # Lectura de Parquets
     df_union = None
     for row in df_paths.toLocalIterator():
         path_rel = row["rutaraw"]
         path = get_abfss_path(path_rel)
-        print(f"Leyendo {path}")
+        print(f"[INFO] Leyendo datos desde: {path}")
+
         try:
             df_temp = spark.read.parquet(path)
-            if df_union is None:
-                df_union = df_temp
-            else:
-                df_union = df_union.unionByName(df_temp, allowMissingColumns=True)
-        except Exception as e:
-            print(f"Error leyendo {path}: {e}")
+            if is_dataframe_empty(df_temp):
+                print(f"[WARN] El archivo en {path} está vacío. Saltando...")
+                continue
 
-    if df_union is None:
-        print(f"No se pudo leer ninguna ruta válida para '{entidad}'.")
+            df_union = df_temp if df_union is None else df_union.unionByName(df_temp, allowMissingColumns=True)
+        except Exception as e:
+            print(f"[WARN] No se pudo leer {path}: {e}")
+
+    if is_dataframe_empty(df_union):
+        print(f"[ERROR] No se pudo generar DataFrame consolidado para '{entidad}'.")
         return None
 
-    # Eliminar duplicados por temporada
     lower_cols = [c.lower() for c in df_union.columns]
     cols = [col(c) for c in df_union.columns]
 
     if "temporada" in lower_cols:
-        print("Eliminando duplicados por temporada (última carga).")
+        print("[INFO] Eliminando duplicados por temporada (última fecha_carga).")
         w = Window.partitionBy("temporada").orderBy(desc("fecha_carga"))
         df_union = (
-            df_union
-            .select(*cols, row_number().over(w).alias("row_num"))
+            df_union.select(*cols, row_number().over(w).alias("row_num"))
             .filter(col("row_num") == 1)
             .drop("row_num")
         )
+    elif "fecha_carga" in lower_cols:
+        df_union = df_union.dropDuplicates(["fecha_carga"])
     else:
-        print("Eliminando duplicados globales.")
         df_union = df_union.dropDuplicates()
 
-    # Actualización por ID (via trigger SQL)
     try:
-        id_rows = [Row(id=int(r.id)) for r in df_paths.collect()]
-        df_trigger = spark.createDataFrame(id_rows)
-        df_trigger.write.jdbc(
-            url=jdbc_url,
-            table="dbo.tbl_flag_update_queue_id",
-            mode="append",
-            properties=props
+        print("[INFO] Enviando IDs a la cola de actualización tbl_flag_update_queue_id...")
+        (
+            df_paths
+            .select(col("id").cast("int"))
+            .write.jdbc(
+                url=jdbc_url,
+                table="dbo.tbl_flag_update_queue_id",
+                mode="append",
+                properties=props
+            )
         )
-        print(f"{len(id_rows)} IDs enviados a tbl_flag_update_queue_id (actualización automática en tbl_paths).")
+        print(f"[OK] {df_paths.count()} IDs enviados a tbl_flag_update_queue_id.")
     except Exception as e:
-        print(f"Error al enviar IDs al trigger de actualización: {e}")
+        print(f"[WARN] Error al actualizar flags en SQL: {e}")
+
+    print(f"[SUCCESS] Entidad '{entidad}' leída y consolidada correctamente.")
+    print(f"[SUCCESS] Registros finales: {df_union.count()}")
+    print("===============================================")
+    return df_union
+
 
 # ==========================================================
-# TRANSFORMACION JSON
+# TRANSFORMACIÓN JSON
 # ==========================================================
 
 def parsear_json(df, campo_json="data"):
@@ -313,24 +352,31 @@ def construir_columnas(df_exploded, claves, claves_anidadas, prefijo="json", lim
 
     return list(columnas.values()) + list(columnas_anidadas.values())
 
-def procesar_json_generico(df, campo="data", limite=50):
+def generar_udv_json(entidad: str, campo_json="data", limite=50):
     """
-    Procesa cualquier JSON almacenado como string (sin esquema fijo).
-    Infere claves y subclaves dinámicamente y retorna un DataFrame expandido.
+    Lee la entidad desde RAW (flg_udv = 'N'), procesa el campo JSON y genera un DataFrame UDV expandido.
+    - Llama internamente a get_entity_data()
+    - Explosiona y normaliza JSONs de estructura libre
+    - Devuelve un DataFrame expandido listo para escribir en UDV
     """
-    if campo not in df.columns:
-        raise ValueError(f"El campo '{campo}' no existe en el DataFrame.")
-    if df.rdd.isEmpty():
-        raise ValueError("El DataFrame de entrada está vacío.")
 
     print("===============================================")
-    print("INICIO CURATED JSON GENÉRICO")
-    print(f"Campo JSON: {campo}")
+    print(f"[INICIO] Generación de UDV para entidad '{entidad}'")
     print("===============================================")
 
-    # Limpieza y conversión
-    df_limpio = parsear_json(df, campo)
-    campo_limpio = f"{campo}_limpio"
+    # Leer data pendiente desde RAW
+    df = get_entity_data(entidad)
+    if df is None or is_dataframe_empty(df):
+        print(f"[INFO] No se encontró data pendiente para '{entidad}'.")
+        return None
+
+    # Validar existencia del campo JSON
+    if campo_json not in df.columns:
+        raise ValueError(f"El campo '{campo_json}' no existe en la entidad '{entidad}'.")
+
+    # Limpieza y conversión del JSON
+    df_limpio = parsear_json(df, campo_json)
+    campo_limpio = f"{campo_json}_limpio"
     df_array = convertir_array(df_limpio, campo_limpio)
 
     # Explosión del JSON
@@ -340,49 +386,19 @@ def procesar_json_generico(df, campo="data", limite=50):
         explode_outer(col("json_array")).alias("json_item")
     )
 
-    # Claves dinámicas
+    # Inferir claves dinámicas
     claves, claves_anidadas = extraer_claves_subclaves(df_exploded, campo="json_item", limite=limite)
     columnas_dinamicas = construir_columnas(df_exploded, claves, claves_anidadas, prefijo="json", limite=limite)
 
-    # Selección final
+    # Selección final (sin el campo original 'data')
+    columnas_finales = [c for c in df_array.columns if c not in [campo_json, f"{campo_json}_limpio", "json_array"]]
     df_final = df_exploded.select(
-        *columnas_base,
+        *[col(c) for c in columnas_finales],
         *columnas_dinamicas
     )
 
-    print(f"[INFO] Columnas finales generadas: {len(df_final.columns)}")
-    print("JSON genérico completado correctamente.")
+    print(f"[INFO] Columnas generadas: {len(df_final.columns)}")
+    print(f"[SUCCESS] UDV generado correctamente para '{entidad}'")
     print("===============================================")
 
     return df_final
-
-def generar_udv_json(entidad: str, campo_json="data", limite=50):
-    df = get_entity_data(entidad)
-    if not df:
-        print(f"No hay registros para {entidad}")
-        return None
-
-    df_proc = procesar_json_generico(df, campo_json, limite)
-    print(f"UDV generado para {entidad}")
-    return df_proc
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    print(f"Entidad '{entidad}' leída y consolidada correctamente.")
-    return df_union
