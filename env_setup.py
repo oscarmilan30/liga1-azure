@@ -1,10 +1,12 @@
 # ==========================================================
-# ENV_SETUP - Configuración dinámica de imports (ajustada)
+# ENV_SETUP - Configuración dinámica de imports
 # Proyecto: Liga 1 Perú
 # Autor: Oscar García Del Águila
 # ==========================================================
-# ✔ Detecta automáticamente todos los módulos .py
+# ✔ Detecta la raíz del proyecto automáticamente
+# ✔ Importa módulos .py de todas las carpetas
 # ✔ Ignora notebooks (nb_*.py)
+# ✔ Crea alias automáticos (utils_liga1, curated_json, etc.)
 # ✔ Compatible con Databricks y ADF
 # ==========================================================
 
@@ -13,6 +15,9 @@ import sys
 import importlib
 from pyspark.sql import SparkSession
 
+# ----------------------------------------------------------
+# AUTOIMPORTADOR DE MÓDULOS
+# ----------------------------------------------------------
 def auto_import_modules(base_dir, exclude_folders=None):
     """
     Detecta todos los módulos .py dentro del proyecto y los registra
@@ -30,7 +35,7 @@ def auto_import_modules(base_dir, exclude_folders=None):
             if not file.endswith(".py"):
                 continue
             if file == "__init__.py" or file.startswith("nb_"):
-                continue  # ignorar notebooks
+                continue
 
             module_name = file.replace(".py", "")
             rel_path = os.path.relpath(dirpath, base_dir).replace(os.sep, ".")
@@ -46,13 +51,18 @@ def auto_import_modules(base_dir, exclude_folders=None):
     return added_aliases
 
 
+# ----------------------------------------------------------
+# CONFIGURACIÓN GLOBAL DE ENTORNO
+# ----------------------------------------------------------
 try:
     # ------------------------------------------------------
     # DETECTAR RUTA RAÍZ DEL PROYECTO
     # ------------------------------------------------------
     notebook_dir = os.getcwd()
     root = os.path.abspath(os.path.join(notebook_dir, ".."))
-    if not os.path.exists(os.path.join(root, "util")):
+
+    # Subir hasta encontrar carpeta 'util'
+    while not os.path.exists(os.path.join(root, "util")) and len(root.split(os.sep)) > 3:
         root = os.path.abspath(os.path.join(root, ".."))
 
     if root not in sys.path:
@@ -71,12 +81,30 @@ try:
     print("[ENV_SETUP] Sesión Spark inicializada correctamente")
 
     # ------------------------------------------------------
-    # AUTOIMPORTAR TODOS LOS MÓDULOS
+    # AUTOIMPORTAR MÓDULOS DETECTADOS
     # ------------------------------------------------------
     added = auto_import_modules(root)
     print("[ENV_SETUP] Módulos detectados y alias creados:")
     for name, path in added:
         print(f"  - {name} → {path}")
+
+    # ------------------------------------------------------
+    # ALIAS ESPECÍFICOS RECONOCIDOS (para fácil import)
+    # ------------------------------------------------------
+    aliases = {
+        "utils_liga1": "util.utils_liga1",
+        "curated_json": "frm_raw.curated_json.curated_json",
+        "curated_csv": "frm_raw.curated_csv.curated_csv",
+        "unificar_1FL": "frm_raw.curated_historico.unificar_1FL"
+    }
+
+    for alias, full_path in aliases.items():
+        try:
+            module = importlib.import_module(full_path)
+            sys.modules[alias] = module
+            print(f"  [ALIAS] {alias} → {full_path}")
+        except Exception as e:
+            print(f"[ENV_SETUP WARNING] No se pudo registrar alias {alias}: {e}")
 
     print("[ENV_SETUP] Inicialización completa")
 

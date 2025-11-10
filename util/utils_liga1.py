@@ -4,13 +4,14 @@
 # Autor: Oscar García Del Águila
 # ==========================================================
 
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, row_number, desc
+from pyspark.sql import SparkSession, DataFrame
+from pyspark.sql.functions import col, from_json, explode_outer, when, lit, expr, trim, regexp_replace, instr
+from pyspark.sql.types import ArrayType, MapType, StringType
+import json
 from pyspark.sql.window import Window
 from pyspark.sql import Row
 import gc
 import time
-from pyspark.sql import DataFrame
 
 
 # ==========================================================
@@ -238,6 +239,150 @@ def get_entity_data(entidad: str):
         print(f"{len(id_rows)} IDs enviados a tbl_flag_update_queue_id (actualización automática en tbl_paths).")
     except Exception as e:
         print(f"Error al enviar IDs al trigger de actualización: {e}")
+
+# ==========================================================
+# TRANSFORMACION JSON
+# ==========================================================
+
+def parsear_json(df, campo_json="data"):
+    campo_limpio = f"{campo_json}_limpio"
+    return df.select(
+        *[col(c) for c in df.columns],
+        trim(regexp_replace(col(campo_json), r"^\d+\s+", "")).alias(campo_limpio)
+    )
+
+
+def convertir_array(df, campo_limpio):
+    return df.select(
+        *[col(c) for c in df.columns],
+        from_json(
+            when(col(campo_limpio).startswith("["), col(campo_limpio))
+            .otherwise(expr(f"concat('[', {campo_limpio}, ']')")),
+            ArrayType(MapType(StringType(), StringType()))
+        ).alias("json_array")
+    )
+
+
+def extraer_claves_subclaves(df_exploded, campo="json_item", limite=50):
+    claves, claves_anidadas = [], []
+
+    rows = df_exploded.select(campo).limit(limite).take(limite)
+    for row in rows:
+        item = row[campo]
+        if item:
+            for key, value in item.items():
+                if isinstance(value, str):
+                    try:
+                        parsed = json.loads(value)
+                        if isinstance(parsed, list) and all(isinstance(x, dict) for x in parsed):
+                            claves_anidadas.append(key)
+                    except:
+                        pass
+                claves.append(key)
+    return list(set(claves)), list(set(claves_anidadas))
+
+
+def construir_columnas(df_exploded, claves, claves_anidadas, prefijo="json", limite=50):
+    columnas = {}
+    columnas_anidadas = {}
+
+    for key in claves:
+        if key not in claves_anidadas:
+            alias = f"{prefijo}_{key.lower()}"
+            columnas[alias] = col("json_item").getItem(key).alias(alias)
+
+    for key in claves_anidadas:
+        alias_base = f"{prefijo}_{key.lower()}"
+        campo = col("json_item").getItem(key)
+        campo_array = from_json(
+            when(campo.startswith("[").cast("boolean") & (instr(campo, "{") > 0), campo)
+            .otherwise(lit(None)),
+            ArrayType(MapType(StringType(), StringType()))
+        )
+
+        df_anidado = df_exploded.select(explode_outer(campo_array).alias("submap"))
+        subkeys = set()
+        for row in df_anidado.select("submap").limit(limite).take(limite):
+            submap = row["submap"]
+            if isinstance(submap, dict):
+                subkeys.update(submap.keys())
+
+        for subkey in subkeys:
+            alias = f"{alias_base}_{subkey.lower()}"
+            columnas_anidadas[alias] = campo_array.getItem(0).getItem(subkey).alias(alias)
+
+    return list(columnas.values()) + list(columnas_anidadas.values())
+
+def procesar_json_generico(df, campo="data", limite=50):
+    """
+    Procesa cualquier JSON almacenado como string (sin esquema fijo).
+    Infere claves y subclaves dinámicamente y retorna un DataFrame expandido.
+    """
+    if campo not in df.columns:
+        raise ValueError(f"El campo '{campo}' no existe en el DataFrame.")
+    if df.rdd.isEmpty():
+        raise ValueError("El DataFrame de entrada está vacío.")
+
+    print("===============================================")
+    print("INICIO CURATED JSON GENÉRICO")
+    print(f"Campo JSON: {campo}")
+    print("===============================================")
+
+    # Limpieza y conversión
+    df_limpio = parsear_json(df, campo)
+    campo_limpio = f"{campo}_limpio"
+    df_array = convertir_array(df_limpio, campo_limpio)
+
+    # Explosión del JSON
+    columnas_base = [col(c) for c in df_array.columns if c not in [campo_limpio, "json_array"]]
+    df_exploded = df_array.select(
+        *columnas_base,
+        explode_outer(col("json_array")).alias("json_item")
+    )
+
+    # Claves dinámicas
+    claves, claves_anidadas = extraer_claves_subclaves(df_exploded, campo="json_item", limite=limite)
+    columnas_dinamicas = construir_columnas(df_exploded, claves, claves_anidadas, prefijo="json", limite=limite)
+
+    # Selección final
+    df_final = df_exploded.select(
+        *columnas_base,
+        *columnas_dinamicas
+    )
+
+    print(f"[INFO] Columnas finales generadas: {len(df_final.columns)}")
+    print("JSON genérico completado correctamente.")
+    print("===============================================")
+
+    return df_final
+
+def generar_udv_json(entidad: str, campo_json="data", limite=50):
+    df = get_entity_data(entidad)
+    if not df:
+        print(f"No hay registros para {entidad}")
+        return None
+
+    df_proc = procesar_json_generico(df, campo_json, limite)
+    print(f"UDV generado para {entidad}")
+    return df_proc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     print(f"Entidad '{entidad}' leída y consolidada correctamente.")
     return df_union
