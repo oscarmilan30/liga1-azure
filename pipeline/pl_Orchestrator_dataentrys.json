@@ -1,0 +1,195 @@
+{
+	"name": "pl_Orchestrator_dataentrys",
+	"properties": {
+		"activities": [
+			{
+				"name": "pl_Orchestrator_Dataentry",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set_IdEjecucion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_dataentry_equipos",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "tb_ctrl_start",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_start",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"ExecutionId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"pipeline_name": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"pipeline_type": {
+							"value": "@pipeline().parameters.pipeline_type",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set_IdEjecucion",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "tb_ctrl_start",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "IdEjecucion",
+					"value": {
+						"value": "@activity('tb_ctrl_start').output.pipelineReturnValue.IdEjecucion",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "tb_ctrl_end_success",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "pl_Orchestrator_Dataentry",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_end_success",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "pl_ctrl_end_fail",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "pl_Orchestrator_Dataentry",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_end_fail",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						},
+						"MensajeError": {
+							"value": "@activity('pl_Orchestrator_Dataentry').error.message",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"PipelineId": {
+				"type": "int",
+				"defaultValue": 3
+			},
+			"TablaParametro": {
+				"type": "string",
+				"defaultValue": "tbl_pipeline_parametros"
+			},
+			"pipeline_type": {
+				"type": "string",
+				"defaultValue": "DATAENTRY"
+			}
+		},
+		"variables": {
+			"IdEjecucion": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "pl_pipelines_dataentrys"
+		},
+		"annotations": []
+	}
+}
