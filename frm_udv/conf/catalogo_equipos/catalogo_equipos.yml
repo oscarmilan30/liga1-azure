@@ -1,0 +1,7 @@
+m_catalogo_equipos:
+  cols: 
+   - id_equipo
+   - nombre_equipo
+   - nombre_fotmob
+   - nombre_transfermarkt
+   - alias

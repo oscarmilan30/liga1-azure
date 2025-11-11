@@ -11,6 +11,10 @@ from pyspark.sql.window import Window
 import json
 import gc
 import time
+import yaml
+import os
+from datetime import datetime
+from env_setup import get_workspace_path
 
 # ==========================================================
 # FUNCIONES DE UTILIDAD GENERAL
@@ -30,6 +34,27 @@ def get_dbutils():
             return IPython.get_ipython().user_ns["dbutils"]
         except:
             raise Exception("No se pudo obtener dbutils")
+
+def get_yaml_from_param(relative_yaml_path: str) -> dict:
+    """
+    Lee un archivo YAML usando una ruta relativa (por ejemplo '/frm_udv/conf/catalogo_equipos/catalogo_equipos.yml').
+
+    - Usa get_workspace_path() para construir la ruta completa del Workspace.
+    - Devuelve el contenido del YAML como un diccionario.
+    """
+    try:
+        yaml_path = get_workspace_path(relative_yaml_path)
+        if not os.path.exists(yaml_path):
+            raise FileNotFoundError(f"No se encontró el archivo YAML en {yaml_path}")
+
+        with open(yaml_path, "r", encoding="utf-8") as f:
+            config = yaml.safe_load(f)
+
+        print(f"[OK] YAML leído correctamente desde: {yaml_path}")
+        return config
+
+    except Exception as e:
+        raise Exception(f"Error en get_yaml_from_param: {e}")
 
 
 # ==========================================================
@@ -187,6 +212,79 @@ def get_sql_connection():
         print(f"Error obteniendo conexión SQL: {e}")
         return None, None, None, None, None, None
 
+# ==========================================================
+# OBTENER INFORMACIÓN COMPLETA DEL PREDECESOR (SIN PANDAS)
+# ==========================================================
+
+def get_predecesor(pipeline_id_destino: int) -> dict:
+    """
+    Retorna un diccionario con la información completa del predecesor para un pipeline destino.
+
+    Tablas involucradas:
+      - tbl_predecesores
+
+    Retorna:
+      dict: con los campos principales o None si no hay coincidencias
+    """
+    spark = SparkSession.getActiveSession()
+    jdbc_url, props, _, _, _, _ = get_sql_connection()
+
+    if not jdbc_url:
+        raise Exception("No se pudo establecer conexión JDBC con Azure SQL Database.")
+
+    query = f"""
+    (
+         SELECT 
+            PipelineId_Predecesor,
+            Ruta_Predecesor
+        FROM dbo.tbl_predecesores 
+        WHERE PipelineId_Destino = {pipeline_id_destino}
+    ) AS info
+    """
+
+    df_info = spark.read.jdbc(url=jdbc_url, table=query, properties=props)
+
+    if is_dataframe_empty(df_info):
+        print(f"[WARN] No se encontró predecesor para PipelineId destino {pipeline_id_destino}")
+        return None
+
+    # Conversión segura sin pandas / sin collect
+    registro = df_info.head(1)[0].asDict()
+
+    print(f"[OK] Predecesor encontrado para PipelineId destino {pipeline_id_destino}")
+    return registro
+
+def get_pipeline_params(pipeline_id: int) -> dict:
+    """
+    Retorna todos los parámetros de un pipeline en formato dict {Parametro: Valor}.
+    
+    Fuente: dbo.tbl_pipeline_parametros
+    """
+    spark = SparkSession.getActiveSession()
+    jdbc_url, props, _, _, _, _ = get_sql_connection()
+
+    if not jdbc_url:
+        raise Exception("No se pudo establecer conexión JDBC con Azure SQL Database.")
+
+    query = f"""
+    (
+        SELECT Parametro, Valor
+        FROM dbo.tbl_pipeline_parametros
+        WHERE PipelineId = {pipeline_id}
+    ) AS params
+    """
+
+    df_params = spark.read.jdbc(url=jdbc_url, table=query, properties=props)
+
+    if is_dataframe_empty(df_params):
+        print(f"[WARN] No se encontraron parámetros para el PipelineId {pipeline_id}")
+        return {}
+
+    # Conversión nativa Spark → dict sin pandas
+    params_dict = {row["Parametro"]: row["Valor"] for row in df_params.collect()}
+
+    print(f"[OK] {len(params_dict)} parámetros cargados para PipelineId {pipeline_id}")
+    return params_dict
 
 # ==========================================================
 # LECTURA DE ENTIDAD DESDE PATHS (FLG_UDV = 'N')
