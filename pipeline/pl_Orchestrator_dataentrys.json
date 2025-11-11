@@ -184,7 +184,7 @@
 		},
 		"variables": {
 			"IdEjecucion": {
-				"type": "String"
+				"type": "Integer"
 			}
 		},
 		"folder": {

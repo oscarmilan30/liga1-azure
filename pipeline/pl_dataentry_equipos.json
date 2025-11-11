@@ -43,6 +43,157 @@
 					},
 					"firstRowOnly": true
 				}
+			},
+			{
+				"name": "copy_dataentry_to_stg",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "lkp_parametros",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "MergeFiles"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_adls_csv",
+						"type": "DatasetReference",
+						"parameters": {
+							"folderPath": {
+								"value": "@concat(activity('lkp_parametros').output.firstRow.CAPA_LANDING, '/dataentrys/', activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO)",
+								"type": "Expression"
+							},
+							"filesystem": {
+								"value": "@activity('lkp_parametros').output.firstRow.FILESYSTEM",
+								"type": "Expression"
+							},
+							"fileName": {
+								"value": "@concat(activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO, '.csv')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adls_parquet",
+						"type": "DatasetReference",
+						"parameters": {
+							"folderPath": {
+								"value": "@concat(activity('lkp_parametros').output.firstRow.CAPA_RAW, trim(activity('lkp_parametros').output.firstRow.RUTA_BASE), '/', activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO, '/stg/', activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO, '/data')",
+								"type": "Expression"
+							},
+							"filesystem": {
+								"value": "@activity('lkp_parametros').output.firstRow.FILESYSTEM",
+								"type": "Expression"
+							},
+							"fileName": {
+								"value": "@concat(activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO, '.parquet')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "nb_curated_dataentry_equipos",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "copy_dataentry_to_stg",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Repos/tu_usuario/proyecto_liga1/curated/nb_curated_dataentry_equipos",
+					"baseParameters": {
+						"nombre_archivo": {
+							"value": "@activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO",
+							"type": "Expression"
+						},
+						"filesystem": {
+							"value": "@activity('lkp_parametros').output.firstRow.FILESYSTEM",
+							"type": "Expression"
+						},
+						"capa_raw": {
+							"value": "@activity('lkp_parametros').output.firstRow.CAPA_RAW",
+							"type": "Expression"
+						},
+						"rutaBase": {
+							"value": "@activity('lkp_parametros').output.firstRow.RUTA_BASE",
+							"type": "Expression"
+						},
+						"ModoEjecucion": {
+							"value": "@activity('lkp_parametros').output.firstRow.TIPO_CARGA",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"CLUSTER_ID": {
+							"value": "@activity('lkp_parametros').output.firstRow.CLUSTER_ID",
+							"type": "Expression"
+						},
+						"AREA": {
+							"value": "@activity('lkp_parametros').output.firstRow.AREA",
+							"type": "Expression"
+						}
+					}
+				}
 			}
 		],
 		"parameters": {
