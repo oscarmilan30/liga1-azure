@@ -156,7 +156,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Repos/tu_usuario/proyecto_liga1/curated/nb_curated_dataentry_equipos",
+					"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_raw/curated_dataentry/nb_curated_dataentry",
 					"baseParameters": {
 						"nombre_archivo": {
 							"value": "@activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO",
