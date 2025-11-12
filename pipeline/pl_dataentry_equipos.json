@@ -97,7 +97,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_adls_csv",
+						"referenceName": "ds_adls_csv_dataentry",
 						"type": "DatasetReference",
 						"parameters": {
 							"folderPath": {
