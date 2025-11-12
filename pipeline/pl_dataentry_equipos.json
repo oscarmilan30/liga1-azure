@@ -216,7 +216,7 @@
 						"Content-Type": "application/json"
 					},
 					"url": {
-						"value": "@concat(activity('lkp_parametros').output.firstRow.AREA, '/api/2.1/jobs/run-now')",
+						"value": "@concat(activity('lkp_parametros').output.firstRow.AREA, 'api/2.1/jobs/run-now')",
 						"type": "Expression"
 					},
 					"body": {
