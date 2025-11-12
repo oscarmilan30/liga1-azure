@@ -298,7 +298,7 @@
 				"typeProperties": {
 					"variableName": "mapping_script",
 					"value": {
-						"value": "@concat('{\"type\": \"TabularTranslator\",\"mappings\": ', replace(replace(string(activity('Execute pl_get_csv_mapping').output.pipelineRunOutput.json_map),'\\\"{','{'),'}\\\"','}'), '}')",
+						"value": "@activity('tb_ctrl_start').output.pipelineReturnValue.IdEjecucion",
 						"type": "Expression"
 					}
 				}

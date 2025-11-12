@@ -202,6 +202,30 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "set_mapping_script",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "foreach_clean_headers",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "mapping_script",
+					"value": {
+						"value": "@concat(\n  '{\"type\": \"TabularTranslator\",\"mappings\": ',\n  replace(replace(string(variables('json_map')),'\\\"{','{'),'}\\\"','}'),\n  '}'\n)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -233,6 +257,9 @@
 			},
 			"json_map": {
 				"type": "Array"
+			},
+			"mapping_script": {
+				"type": "String"
 			}
 		},
 		"annotations": []
