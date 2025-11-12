@@ -14,7 +14,7 @@ import time
 import yaml
 import os
 from datetime import datetime
-from env_setup import get_workspace_path
+from env_setup import *
 
 # ==========================================================
 # FUNCIONES DE UTILIDAD GENERAL
