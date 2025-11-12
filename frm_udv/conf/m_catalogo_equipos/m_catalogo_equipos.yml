@@ -1,0 +1,48 @@
+m_catalogo_equipos:
+  cols: 
+   - id_equipo
+   - nombre_equipo
+   - nombre_fotmob
+   - nombre_transfermarkt
+   - alias
+
+  schema:
+    - id_equipo: int
+    - nombre_equipo: string
+    - nombre_fotmob: string
+    - nombre_transfermarkt: string
+    - alias: string
+    - fecha_carga: timestamp
+    - periododia: int
+  
+  columns_sql:
+    id_equipo:
+      tipo: int
+      nullable: false
+      comment: "Identificador único del equipo"
+    nombre_equipo:
+      tipo: string
+      nullable: false
+      comment: "Nombre oficial del equipo"
+    nombre_fotmob:
+      tipo: string
+      nullable: true
+      comment: "Nombre del equipo según FotMob"
+    nombre_transfermarkt:
+      tipo: string
+      nullable: true
+      comment: "Nombre del equipo según Transfermarkt"
+    alias:
+      tipo: string
+      nullable: true
+      comment: "Alias o abreviatura usada en prensa"
+    fecha_carga:
+      tipo: timestamp
+      nullable: false
+      comment: "Fecha y hora en que se cargó el registro"
+    periododia:
+      tipo: int
+      nullable: false
+      comment: "Periodo de carga en formato YYYYMMDD"
+  
+  table_comment: "Catálogo maestro de equipos de la Liga 1 Perú"

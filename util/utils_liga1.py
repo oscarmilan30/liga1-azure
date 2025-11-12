@@ -5,7 +5,7 @@
 # ==========================================================
 
 from pyspark.sql import SparkSession, DataFrame, Row
-from pyspark.sql.functions import col, from_json, explode_outer, when, lit, expr, trim, regexp_replace, instr, desc, row_number
+from pyspark.sql.functions import col, from_json, explode_outer, when, lit, expr, trim, regexp_replace, instr, desc, row_number, to_date
 from pyspark.sql.types import ArrayType, MapType, StringType
 from pyspark.sql.window import Window
 import json
@@ -56,7 +56,36 @@ def get_yaml_from_param(relative_yaml_path: str) -> dict:
     except Exception as e:
         raise Exception(f"Error en get_yaml_from_param: {e}")
 
+def cast_dataframe_schema(df: DataFrame, schema: dict, date_format: str = "yyyy-MM-dd") -> DataFrame:
+    """
+    Castea y ordena las columnas de un DataFrame según el diccionario 'schema'.
+    Selecciona solo las columnas definidas y en el mismo orden del schema.
 
+    Args:
+        df: DataFrame de entrada.
+        schema: Diccionario {columna: tipo}.
+        date_format: Formato para columnas tipo 'date'.
+
+    Returns:
+        DataFrame con columnas casteadas y ordenadas.
+    """
+
+    # Ajuste de política de parseo de fechas
+    spark = df.sparkSession
+    spark.sql("set spark.sql.legacy.timeParserPolicy=LEGACY")
+
+    # Construcción ordenada del select
+    select_exprs = []
+    for col_name, col_type in schema.items():
+        if col_name not in df.columns:
+            # Si la columna no existe, se agrega nula con tipo
+            select_exprs.append(lit(None).cast(col_type).alias(col_name))
+        elif col_type.lower() == "date":
+            select_exprs.append(to_date(col(col_name), date_format).alias(col_name))
+        else:
+            select_exprs.append(col(col_name).cast(col_type).alias(col_name))
+
+    return df.select(*select_exprs)
 # ==========================================================
 # VALIDACIÓN UNIVERSAL DE DATAFRAMES
 # ==========================================================
@@ -176,6 +205,153 @@ def write_parquet_adls(df, path: str, mode="overwrite"):
     df.write.mode(mode).parquet(path)
     print("Archivo guardado correctamente.")
 
+def write_delta_udv(
+    spark,
+    df,
+    schema: str,
+    table_name: str,
+    abfss_path: str,
+    formato: str = "delta",
+    mode: str = "overwrite",
+    catalog: str = None,
+    columns_sql: dict = None,
+    table_comment: str = None,
+    replace_where: str = None
+):
+    """
+    Escribe un DataFrame como tabla Delta en la capa UDV (Liga 1 Perú).
+
+    Características:
+      Crea carpeta física si no existe.
+      Detecta _delta_log (evita conflictos en reprocesos).
+      Crea tabla Delta si no existe, con comentarios de tabla y columnas.
+      Si existe, reescribe o agrega data según modo (append/overwrite/etc).
+      Admite 'replaceWhere' (para sobreescribir particiones específicas).
+      Aplica comentarios incluso si la tabla ya existía o fue registrada.
+
+    Args:
+        spark: sesión Spark.
+        df: DataFrame a escribir.
+        schema: esquema destino (ej. tb_udv).
+        table_name: nombre de tabla (ej. m_catalogo_equipos).
+        abfss_path: ruta física en ADLS.
+        formato: formato base (default "delta").
+        mode: modo escritura: 'overwrite', 'append', etc.
+        catalog: catálogo (opcional).
+        columns_sql: definición de columnas desde YAML.
+        table_comment: comentario general de la tabla.
+        replace_where: condición para 'overwrite' selectivo.
+    """
+
+    # ----------------------------------------------------
+    # Validaciones
+    # ----------------------------------------------------
+    if is_dataframe_empty(df):
+        print(f"[WARN] No se escribirá la tabla {table_name} porque el DataFrame está vacío.")
+        return
+
+    if not catalog:
+        try:
+            catalog = spark.catalog.currentCatalog()
+        except:
+            catalog = "hive_metastore"
+
+    full_schema = f"{catalog}.{schema}"
+    full_table = f"{catalog}.{schema}.{table_name}"
+
+    # ----------------------------------------------------
+    # Crear esquema físico
+    # ----------------------------------------------------
+    spark.sql(f"CREATE SCHEMA IF NOT EXISTS {full_schema}")
+    print(f"[INFO] Catálogo activo: {catalog}, esquema: {schema}")
+
+    dbutils = get_dbutils()
+    try:
+        files = [f.name for f in dbutils.fs.ls(abfss_path)]
+        delta_log_exists = any("_delta_log" in f for f in files)
+        print(f"[INFO] Carpeta detectada en ADLS: {abfss_path}")
+    except Exception:
+        dbutils.fs.mkdirs(abfss_path)
+        delta_log_exists = False
+        print(f"[INFO] Carpeta creada en ADLS: {abfss_path}")
+
+    # ----------------------------------------------------
+    # Validar existencia en catálogo
+    # ----------------------------------------------------
+    existe_catalogo = spark.catalog.tableExists(full_table)
+
+    # ----------------------------------------------------
+    # Crear o registrar tabla Delta
+    # ----------------------------------------------------
+    if not existe_catalogo and not delta_log_exists:
+        print(f"[INFO] Creando nueva tabla Delta: {full_table}")
+
+        if not columns_sql:
+            raise ValueError("Bloque 'columns_sql' requerido para crear tabla Delta.")
+
+        columnas_def = []
+        for col_name, props in columns_sql.items():
+            tipo = props.get("tipo", "string")
+            nullable = "NOT NULL" if not props.get("nullable", True) else ""
+            columnas_def.append(f"  {col_name} {tipo} {nullable}")
+
+        columnas_str = ",\n".join(columnas_def)
+        comment_clause = f"COMMENT '{table_comment}'" if table_comment else ""
+
+        create_sql = f"""
+        CREATE TABLE {full_table} (
+        {columnas_str}
+        )
+        USING {formato}
+        LOCATION '{abfss_path}'
+        {comment_clause}
+        """
+
+        spark.sql(create_sql)
+        print(f"[OK] Tabla creada: {full_table}")
+
+    elif not existe_catalogo and delta_log_exists:
+        print(f"[INFO] Detectado _delta_log. Registrando tabla {full_table}.")
+        spark.sql(f"CREATE TABLE IF NOT EXISTS {full_table} USING DELTA LOCATION '{abfss_path}'")
+        existe_catalogo = True
+        print(f"[OK] Tabla registrada correctamente en catálogo.")
+    else:
+        print(f"[INFO] La tabla {full_table} ya existe. No se recreará.")
+
+    # ----------------------------------------------------
+    # Aplicar comentarios (tabla + columnas)
+    # ----------------------------------------------------
+    if table_comment:
+        spark.sql(f"COMMENT ON TABLE {full_table} IS '{table_comment}'")
+
+    if columns_sql:
+        for col_name, props in columns_sql.items():
+            comment = props.get("comment", None)
+            if comment:
+                spark.sql(f"COMMENT ON COLUMN {full_table}.{col_name} IS '{comment}'")
+
+    print(f"[OK] Comentarios aplicados a tabla y columnas.")
+
+    # ----------------------------------------------------
+    # Escritura flexible (overwrite, append, replaceWhere)
+    # ----------------------------------------------------
+    writer = (
+        df.write
+        .format(formato)
+        .mode(mode)
+        .option("overwriteSchema", "true")
+    )
+
+    if replace_where and mode == "overwrite":
+        writer = writer.option("replaceWhere", replace_where)
+        print(f"[INFO] Reemplazo condicional habilitado: {replace_where}")
+
+    print(f"[INFO] Guardando data en {full_table} (modo={mode})")
+    writer.saveAsTable(full_table)
+    print(f"[SUCCESS] Data escrita correctamente en {full_table}")
+
+
+
 
 # ==========================================================
 # CONEXIÓN A AZURE SQL DATABASE
@@ -212,9 +388,41 @@ def get_sql_connection():
         print(f"Error obteniendo conexión SQL: {e}")
         return None, None, None, None, None, None
 
-# ==========================================================
-# OBTENER INFORMACIÓN COMPLETA DEL PREDECESOR (SIN PANDAS)
-# ==========================================================
+def get_pipeline(pipeline_name: str) -> dict:
+    """
+    Retorna PipelineId de pipeline destino.
+
+    Tablas involucradas:
+      - tbl_pipeline
+
+    Retorna:
+      valor: con PipelineId
+    """
+    spark = SparkSession.getActiveSession()
+    jdbc_url, props, _, _, _, _ = get_sql_connection()
+
+    if not jdbc_url:
+        raise Exception("No se pudo establecer conexión JDBC con Azure SQL Database.")
+
+    query = f"""
+    (
+         SELECT PipelineId,Nombre as pipeline
+            FROM tbl_pipeline
+            where Nombre='{pipeline_name}'
+    ) AS info
+    """
+
+    df_info = spark.read.jdbc(url=jdbc_url, table=query, properties=props)
+
+    if is_dataframe_empty(df_info):
+        print(f"[WARN] No se encontró Pipeline {pipeline_name}")
+        return None
+
+    # Conversión segura sin pandas / sin collect
+    registro = df_info.head(1)[0].asDict()
+
+    print(f"[OK] PipelineId destino {pipeline_name}")
+    return registro
 
 def get_predecesor(pipeline_id_destino: int) -> dict:
     """
