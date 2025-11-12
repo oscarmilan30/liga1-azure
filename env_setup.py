@@ -1,94 +1,72 @@
 # ==========================================================
-# ENV_SETUP - Configuración dinámica de imports
-# Proyecto: Liga 1 Perú
+# ENV_SETUP.PY
+# Proyecto: Liga 1 Perú - Configuración Universal Inteligente
 # Autor: Oscar García Del Águila
+# Versión: 3.0 (Hybrid Smart Mode)
 # ==========================================================
-# Detecta automáticamente si está dentro de /Workspace/Repos
-# Ajusta sys.path al repo raíz (funciona en ADF, jobs, local y manual)
-# Autoimporta módulos .py de todas las carpetas
-# Ignora notebooks (nb_*.py)
-# Crea alias automáticos (utils_liga1, curated_json, etc.)
-# Incluye get_workspace_path() para rutas relativas seguras
+# Compatible con notebooks interactivos y Jobs Git-linked (.internal)
+# Inicializa Spark solo si no existe
+# Detecta automáticamente el root del repo (sin hardcodear)
+# Prepara sys.path con subcarpetas clave (utils, frm_udv, etc.)
+# Compatible con lectura dinámica de YAML (get_workspace_path)
 # ==========================================================
 
-import os
-import sys
-import importlib
+import os, sys
 from pyspark.sql import SparkSession
 
-# ----------------------------------------------------------
-# DETECTAR Y CONFIGURAR RUTA DEL REPO
-# ----------------------------------------------------------
-def detect_repo_root():
-    """
-    Detecta automáticamente el root del repo Databricks,
-    incluso cuando se ejecuta como Job desde ADF.
-    """
-    cwd = os.getcwd()
+# ==========================================================
+# DETECCIÓN AUTOMÁTICA DE REPO
+# ==========================================================
 
-    # Si el path contiene /Workspace/Repos/, sube hasta el repo raíz
-    if "/Workspace/Repos/" in cwd:
-        parts = cwd.split("/Workspace/Repos/")[1].split("/")
-        # /Workspace/Repos/usuario/repositorio
-        if len(parts) >= 2:
+def detect_repo_root() -> str:
+    """
+    Detecta automáticamente la raíz del repositorio:
+      - /Workspace/Repos/<user>/<repo>
+      - /Workspace/Repos/.internal/<commit_hash>/<repo>
+      - Fallback: cwd()
+    """
+    try:
+        cwd = os.getcwd()
+
+        # Caso 1: Job Git (.internal)
+        if "/Repos/.internal" in cwd:
+            parts = cwd.split("/Repos/.internal/")[1].split("/")
+            commit_hash = parts[0]
+            repo_root = f"/Workspace/Repos/.internal/{commit_hash}"
+
+            # Buscar automáticamente el nombre real del repo
+            subdirs = [d for d in os.listdir(repo_root) if os.path.isdir(os.path.join(repo_root, d))]
+            if subdirs:
+                repo_root = os.path.join(repo_root, subdirs[0])
+
+            print(f"[ENV_SETUP] Modo Job Git detectado (.internal). Repo raíz: {repo_root}")
+            return repo_root
+
+        # Caso 2: Modo usuario / Repositorio normal
+        elif "/Repos/" in cwd:
+            parts = cwd.split("/Repos/")[1].split("/")
             repo_root = f"/Workspace/Repos/{parts[0]}/{parts[1]}"
-            if os.path.exists(repo_root):
-                print(f"[ENV_SETUP] Repo raíz detectado automáticamente: {repo_root}")
-                return repo_root
+            print(f"[ENV_SETUP] Modo interactivo detectado. Repo raíz: {repo_root}")
+            return repo_root
 
-    # Si no lo detecta, intenta subir hasta encontrar la carpeta 'util'
-    project_root = cwd
-    while not os.path.exists(os.path.join(project_root, "util")) and len(project_root.split(os.sep)) > 3:
-        project_root = os.path.abspath(os.path.join(project_root, ".."))
+        # Caso 3: Fallback genérico
+        else:
+            print(f"[ENV_SETUP] Ruta base genérica usada: {cwd}")
+            return cwd
 
-    print(f"[ENV_SETUP] Path raíz asumido: {project_root}")
-    return project_root
-
-
-# ----------------------------------------------------------
-# AUTOIMPORTADOR DE MÓDULOS
-# ----------------------------------------------------------
-def auto_import_modules(base_dir, exclude_folders=None):
-    """
-    Importa dinámicamente todos los módulos .py del proyecto,
-    excluyendo carpetas no deseadas y notebooks (nb_*).
-    """
-    exclude_folders = exclude_folders or [".git", "__pycache__", ".ipynb_checkpoints", ".venv"]
-    added_aliases = []
-
-    for dirpath, _, filenames in os.walk(base_dir):
-        if any(skip in dirpath for skip in exclude_folders):
-            continue
-        for file in filenames:
-            if not file.endswith(".py"):
-                continue
-            if file == "__init__.py" or file.startswith("nb_"):
-                continue
-
-            module_name = file.replace(".py", "")
-            rel_path = os.path.relpath(dirpath, base_dir).replace(os.sep, ".")
-            module_path = f"{rel_path}.{module_name}" if rel_path != "." else module_name
-
-            try:
-                module = importlib.import_module(module_path)
-                sys.modules[module_name] = module
-                added_aliases.append((module_name, module_path))
-            except Exception as e:
-                print(f"[ENV_SETUP WARNING] No se pudo importar {module_path}: {e}")
-
-    return added_aliases
+    except Exception as e:
+        raise Exception(f"[ENV_SETUP ERROR] No se pudo detectar la raíz del repo: {e}")
 
 
-# ----------------------------------------------------------
-# RESOLVER RUTA COMPLETA EN WORKSPACE / REPO
-# ----------------------------------------------------------
+# ==========================================================
+# CONSTRUCCIÓN DE RUTA WORKSPACE
+# ==========================================================
+
 def get_workspace_path(relative_path: str) -> str:
     """
-    Convierte una ruta relativa (por ejemplo '/frm_udv/conf/...') 
-    en una ruta absoluta dentro del Workspace o Repo actual.
-
-    🔹 Funciona igual desde ADF, Databricks Job o sesión manual.
-    🔹 Usa la raíz detectada del repo (detect_repo_root()).
+    Construye una ruta absoluta a partir de una ruta relativa dentro del repo.
+    Ejemplo:
+        get_workspace_path('/frm_udv/conf/m_catalogo_equipos/m_catalogo_equipos.yml')
     """
     try:
         repo_root = detect_repo_root()
@@ -100,30 +78,81 @@ def get_workspace_path(relative_path: str) -> str:
         raise Exception(f"[ENV_SETUP ERROR] Error generando ruta para {relative_path}: {e}")
 
 
-# ----------------------------------------------------------
-# CONFIGURACIÓN GLOBAL DE ENTORNO
-# ----------------------------------------------------------
+# ==========================================================
+# AUTO IMPORTACIÓN DE MÓDULOS
+# ==========================================================
+
+def auto_import_modules(repo_root: str):
+    """
+    Agrega subcarpetas del repo a sys.path para habilitar imports absolutos.
+    Devuelve una lista con las carpetas agregadas.
+    """
+    added = []
+
+    def add_path_if_exists(folder_name):
+        path = os.path.join(repo_root, folder_name)
+        if os.path.isdir(path) and path not in sys.path:
+            sys.path.append(path)
+            added.append((folder_name, path))
+
+    # carpetas típicas del proyecto
+    for folder in ["util", "frm_udv", "frm_curated", "frm_raw", "notebooks"]:
+        add_path_if_exists(folder)
+
+    return added
+
+
+# ==========================================================
+# INICIALIZACIÓN SPARK SEGURA
+# ==========================================================
+
+def get_or_create_spark():
+    """
+    Obtiene o crea una sesión Spark segura.
+    No crea una nueva si ya existe.
+    """
+    try:
+        spark = SparkSession.getActiveSession()
+        if spark is None:
+            spark = (
+                SparkSession.builder
+                .config("spark.databricks.connect.enabled", "false")
+                .config("spark.databricks.session.share", "false")
+                .getOrCreate()
+            )
+            print("[ENV_SETUP] Nueva sesión Spark creada.")
+        else:
+            print("[ENV_SETUP] Sesión Spark existente reutilizada.")
+        return spark
+    except Exception as e:
+        raise Exception(f"[ENV_SETUP ERROR] No se pudo crear/obtener SparkSession: {e}")
+
+
+# ==========================================================
+# AUTO-EJECUCIÓN AL IMPORTAR
+# ==========================================================
+
 try:
     repo_root = detect_repo_root()
 
+    # Insertar el repo raíz al sys.path
     if repo_root not in sys.path:
         sys.path.append(repo_root)
         print(f"[ENV_SETUP] Path raíz agregado a sys.path: {repo_root}")
 
-    spark = (
-        SparkSession.builder
-        .config("spark.databricks.connect.enabled", "false")
-        .config("spark.databricks.session.share", "false")
-        .getOrCreate()
-    )
-    print("[ENV_SETUP] Sesión Spark inicializada correctamente")
+    # Inicializar Spark de forma segura (solo si hace falta)
+    spark = get_or_create_spark()
 
+    # Registrar subcarpetas del repo
     added = auto_import_modules(repo_root)
-    print("[ENV_SETUP] Módulos detectados y alias creados:")
-    for name, path in added:
-        print(f"  - {name} → {path}")
+    if added:
+        print("[ENV_SETUP] Carpetas agregadas al sys.path:")
+        for name, path in added:
+            print(f"  - {name} → {path}")
+    else:
+        print("[ENV_SETUP] No se agregaron nuevas carpetas (ya estaban registradas).")
 
-    print("[ENV_SETUP] Inicialización completa")
+    print("[ENV_SETUP] Inicialización completa (Smart Mode).")
 
 except Exception as e:
-    print(f"[ENV_SETUP ERROR] Error durante configuración: {e}")
+    print(f"[ENV_SETUP WARNING] Error durante setup inicial: {e}")
