@@ -47,8 +47,6 @@
 			{
 				"name": "copy_dataentry_to_stg",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "set_mapping_script",
@@ -109,7 +107,8 @@
 							"fileName": {
 								"value": "@concat(activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO, '.csv')",
 								"type": "Expression"
-							}
+							},
+							"useHeader": "True"
 						}
 					}
 				],
@@ -133,102 +132,6 @@
 						}
 					}
 				]
-			},
-			{
-				"name": "kv_get_dbrx_token",
-				"type": "WebActivity",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [
-					{
-						"activity": "copy_dataentry_to_stg",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": true,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"method": "GET",
-					"url": "https://kv-liga1-secreto.vault.azure.net/secrets/databricks-token?api-version=7.3",
-					"authentication": {
-						"type": "MSI",
-						"resource": "https://vault.azure.net"
-					}
-				}
-			},
-			{
-				"name": "set_dbrx_token",
-				"type": "SetVariable",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [
-					{
-						"activity": "kv_get_dbrx_token",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"secureOutput": true,
-					"secureInput": true
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "dbrx_token",
-					"value": {
-						"value": "@activity('kv_get_dbrx_token').output.value",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "sch_m_catalogo_equipos",
-				"type": "WebActivity",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [
-					{
-						"activity": "set_dbrx_token",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": true,
-					"secureInput": true
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"method": "POST",
-					"headers": {
-						"Authorization": {
-							"value": "@concat('Bearer ', variables('dbrx_token'))",
-							"type": "Expression"
-						},
-						"Content-Type": "application/json"
-					},
-					"url": {
-						"value": "@concat(activity('lkp_parametros').output.firstRow.AREA, 'api/2.1/jobs/run-now')",
-						"type": "Expression"
-					},
-					"body": {
-						"value": "@concat('{\"job_id\": ', string(activity('lkp_parametros').output.firstRow.JOB_ID), ', \"idempotency_token\": \"', pipeline().RunId, '\"}')",
-						"type": "Expression"
-					}
-				}
 			},
 			{
 				"name": "Execute pl_get_csv_mapping",
@@ -298,6 +201,39 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "Execute Jobs Databricks",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "copy_dataentry_to_stg",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_execute_jobs_databricks",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"area": {
+							"value": "@activity('lkp_parametros').output.firstRow.AREA",
+							"type": "Expression"
+						},
+						"job_id": {
+							"value": "@activity('lkp_parametros').output.firstRow.JOB_ID",
+							"type": "Expression"
+						}
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -312,9 +248,6 @@
 			}
 		},
 		"variables": {
-			"dbrx_token": {
-				"type": "String"
-			},
 			"mapping_script": {
 				"type": "String"
 			}

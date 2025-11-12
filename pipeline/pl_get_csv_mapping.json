@@ -41,7 +41,8 @@
 							"fileName": {
 								"value": "@concat(pipeline().parameters.fileName, '.csv')",
 								"type": "Expression"
-							}
+							},
+							"useHeader": "False"
 						}
 					},
 					"firstRowOnly": true

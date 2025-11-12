@@ -1,0 +1,104 @@
+{
+	"name": "pl_execute_jobs_databricks",
+	"properties": {
+		"activities": [
+			{
+				"name": "kv_get_dbrx_token",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://kv-liga1-secreto.vault.azure.net/secrets/databricks-token?api-version=7.3",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net"
+					}
+				}
+			},
+			{
+				"name": "set_dbrx_token",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "kv_get_dbrx_token",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": true,
+					"secureInput": true
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "dbrx_token",
+					"value": {
+						"value": "@activity('kv_get_dbrx_token').output.value",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "sch_jobs_databricks",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "set_dbrx_token",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": true
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"headers": {
+						"Authorization": {
+							"value": "@concat('Bearer ', variables('dbrx_token'))",
+							"type": "Expression"
+						},
+						"Content-Type": "application/json"
+					},
+					"url": {
+						"value": "@concat(pipeline().parameters.area, 'api/2.1/jobs/run-now')",
+						"type": "Expression"
+					},
+					"body": {
+						"value": "@concat('{\"job_id\": ', string(pipeline().parameters.job_id), ', \"idempotency_token\": \"', pipeline().RunId, '\"}')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"area": {
+				"type": "string"
+			},
+			"job_id": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"dbrx_token": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
