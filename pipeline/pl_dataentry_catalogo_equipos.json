@@ -1,5 +1,5 @@
 {
-	"name": "pl_dataentry_equipos",
+	"name": "pl_dataentry_catalogo_equipos",
 	"properties": {
 		"activities": [
 			{
@@ -277,6 +277,9 @@
 				"type": "int"
 			},
 			"TablaParametro": {
+				"type": "string"
+			},
+			"MappingScript": {
 				"type": "string"
 			}
 		},
