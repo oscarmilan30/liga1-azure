@@ -19,7 +19,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_dataentry_equipos",
+						"referenceName": "pl_dataentry_catalogo_equipos",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true,
