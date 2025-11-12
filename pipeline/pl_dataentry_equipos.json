@@ -137,18 +137,24 @@
 				]
 			},
 			{
-				"name": "nb_curated_dataentry_equipos",
-				"type": "DatabricksNotebook",
+				"name": "sch_m_catalogo_equipos",
+				"type": "WebActivity",
 				"dependsOn": [
 					{
 						"activity": "copy_dataentry_to_stg",
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "set_dbrx_token",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"policy": {
-					"timeout": "1.00:00:00",
+					"timeout": "0.12:00:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
@@ -156,42 +162,59 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_raw/curated_dataentry/nb_curated_dataentry",
-					"baseParameters": {
-						"nombre_archivo": {
-							"value": "@activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO",
-							"type": "Expression"
-						},
-						"filesystem": {
-							"value": "@activity('lkp_parametros').output.firstRow.FILESYSTEM",
-							"type": "Expression"
-						},
-						"capa_raw": {
-							"value": "@activity('lkp_parametros').output.firstRow.CAPA_RAW",
-							"type": "Expression"
-						},
-						"rutaBase": {
-							"value": "@activity('lkp_parametros').output.firstRow.RUTA_BASE",
-							"type": "Expression"
-						},
-						"ModoEjecucion": {
-							"value": "@activity('lkp_parametros').output.firstRow.TIPO_CARGA",
-							"type": "Expression"
-						}
+					"method": "POST",
+					"url": {
+						"value": "@concat(activity('lkp_parametros').output.firstRow.AREA,'api/2.1/jobs/run-now')",
+						"type": "Expression"
+					},
+					"body": {
+						"value": "{\n    \"job_id\": 612739497183835\n}\n",
+						"type": "Expression"
 					}
+				}
+			},
+			{
+				"name": "kv_get_dbrx_token",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
 				},
-				"linkedServiceName": {
-					"referenceName": "ls_databricks",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"CLUSTER_ID": {
-							"value": "@activity('lkp_parametros').output.firstRow.CLUSTER_ID",
-							"type": "Expression"
-						},
-						"AREA": {
-							"value": "@activity('lkp_parametros').output.firstRow.AREA",
-							"type": "Expression"
-						}
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://kv-liga1-secreto.vault.azure.net/secrets/databricks-token?api-version=7.3",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net"
+					}
+				}
+			},
+			{
+				"name": "set_dbrx_token",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "kv_get_dbrx_token",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "dbrx_token",
+					"value": {
+						"value": "@activity('kv_get_dbrx_token').output.value",
+						"type": "Expression"
 					}
 				}
 			}
@@ -202,6 +225,11 @@
 			},
 			"TablaParametro": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"dbrx_token": {
+				"type": "String"
 			}
 		},
 		"folder": {
