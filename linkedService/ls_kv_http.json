@@ -6,7 +6,7 @@
 		"typeProperties": {
 			"url": "https://kv-liga1-secreto.vault.azure.net/",
 			"enableServerCertificateValidation": true,
-			"authenticationType": "Anonymous"
+			"authenticationType": "ManagedServiceIdentity"
 		}
 	}
 }
