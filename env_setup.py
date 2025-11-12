@@ -123,7 +123,7 @@ try:
     for name, path in added:
         print(f"  - {name} → {path}")
 
-    print("[ENV_SETUP] Inicialización completa ✅")
+    print("[ENV_SETUP] Inicialización completa")
 
 except Exception as e:
     print(f"[ENV_SETUP ERROR] Error durante configuración: {e}")
