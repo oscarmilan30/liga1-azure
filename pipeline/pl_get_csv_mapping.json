@@ -5,14 +5,7 @@
 			{
 				"name": "lkp_header_csv",
 				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "lkp_parametros",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -49,48 +42,6 @@
 								"value": "@concat(pipeline().parameters.fileName, '.csv')",
 								"type": "Expression"
 							}
-						}
-					},
-					"firstRowOnly": true
-				}
-			},
-			{
-				"name": "lkp_parametros",
-				"type": "Lookup",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_parametros]",
-						"storedProcedureParameters": {
-							"PipelineId": {
-								"type": "Int32",
-								"value": {
-									"value": "@pipeline().parameters.PipelineId",
-									"type": "Expression"
-								}
-							}
-						},
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "ds_sql_generic",
-						"type": "DatasetReference",
-						"parameters": {
-							"TableName": {
-								"value": "@pipeline().parameters.TablaParametro",
-								"type": "Expression"
-							},
-							"SchemaName": "dbo"
 						}
 					},
 					"firstRowOnly": true
