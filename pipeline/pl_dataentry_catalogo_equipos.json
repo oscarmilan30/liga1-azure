@@ -47,8 +47,6 @@
 			{
 				"name": "copy_dataentry_to_stg",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "set_mapping_script",
@@ -141,8 +139,6 @@
 			{
 				"name": "kv_get_dbrx_token",
 				"type": "WebActivity",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "copy_dataentry_to_stg",
@@ -171,8 +167,6 @@
 			{
 				"name": "set_dbrx_token",
 				"type": "SetVariable",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "kv_get_dbrx_token",
@@ -197,8 +191,6 @@
 			{
 				"name": "sch_m_catalogo_equipos",
 				"type": "WebActivity",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "set_dbrx_token",
@@ -298,7 +290,7 @@
 				"typeProperties": {
 					"variableName": "mapping_script",
 					"value": {
-						"value": "@activity('tb_ctrl_start').output.pipelineReturnValue.IdEjecucion",
+						"value": "@activity('Execute pl_get_csv_mapping').output.pipelineReturnValue.mapping_script",
 						"type": "Expression"
 					}
 				}

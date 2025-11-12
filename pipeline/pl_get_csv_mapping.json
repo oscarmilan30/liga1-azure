@@ -220,11 +220,17 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "mapping_script",
-					"value": {
-						"value": "@concat(\n  '{\"type\": \"TabularTranslator\",\"mappings\": ',\n  replace(replace(string(variables('json_map')),'\\\"{','{'),'}\\\"','}'),\n  '}'\n)",
-						"type": "Expression"
-					}
+					"variableName": "pipelineReturnValue",
+					"value": [
+						{
+							"key": "mapping_script",
+							"value": {
+								"type": "Expression",
+								"content": "@concat(\n  '{\"type\": \"TabularTranslator\",\"mappings\": ',\n  replace(replace(string(variables('json_map')),'\\\"{','{'),'}\\\"','}'),\n  '}'\n)"
+							}
+						}
+					],
+					"setSystemVariable": true
 				}
 			}
 		],
@@ -257,9 +263,6 @@
 			},
 			"json_map": {
 				"type": "Array"
-			},
-			"mapping_script": {
-				"type": "String"
 			}
 		},
 		"annotations": []
