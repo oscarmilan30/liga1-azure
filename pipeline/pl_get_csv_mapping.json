@@ -1,0 +1,267 @@
+{
+	"name": "pl_get_csv_mapping",
+	"properties": {
+		"activities": [
+			{
+				"name": "lkp_header_csv",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "lkp_parametros",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ds_adls_csv_dataentry",
+						"type": "DatasetReference",
+						"parameters": {
+							"folderPath": {
+								"value": "@concat(pipeline().parameters.capa_landing, '/dataentrys/',pipeline().parameters.fileName)",
+								"type": "Expression"
+							},
+							"filesystem": {
+								"value": "@pipeline().parameters.filesystem",
+								"type": "Expression"
+							},
+							"fileName": {
+								"value": "@concat(pipeline().parameters.fileName, '.csv')",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "lkp_parametros",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_parametros]",
+						"storedProcedureParameters": {
+							"PipelineId": {
+								"type": "Int32",
+								"value": {
+									"value": "@pipeline().parameters.PipelineId",
+									"type": "Expression"
+								}
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sql_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TablaParametro",
+								"type": "Expression"
+							},
+							"SchemaName": "dbo"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "set_header_names",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "lkp_header_csv",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "header_names",
+					"value": {
+						"value": "@split(\n    replace(\n        replace(\n            replace(\n                replace(\n                    string(activity('lkp_header_csv').output.firstRow),\n                    '{',''\n                ),\n                '}',''\n            ),\n            '\"',''\n        ),\n        '\\\\',''\n    ),\n    ','\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "foreach_clean_headers",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "set_header_names",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('header_names')",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "original_header",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "original_header",
+								"value": {
+									"value": "@split(item(), ':')[1]",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "new_header",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "original_header",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "new_header",
+								"value": {
+									"value": "@replace(replace(trim(variables('original_header')),' ','_'),'\\\\t','')",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "json_map",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "new_header",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "json_map",
+								"value": {
+									"value": "@json(concat('{\n  \"source\": { \"name\": \"', variables('original_header'), '\" },\n  \"sink\":   { \"name\": \"', variables('new_header'), '\" }\n}'))",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "set_mapping_script",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "foreach_clean_headers",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "mapping_script",
+					"value": {
+						"value": "@concat('{\\n\\\"type\\\": \\\"TabularTranslator\\\",\\n\\\"mappings\\\":',replace(replace(string(variables('json_map')),'\\\"{','{'),'}\\\"','}'),'}')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"TablaParametro": {
+				"type": "string"
+			},
+			"PipelineId": {
+				"type": "string"
+			},
+			"filesystem": {
+				"type": "string"
+			},
+			"capa_landing": {
+				"type": "string"
+			},
+			"fileName": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"header_names": {
+				"type": "Array"
+			},
+			"original_header": {
+				"type": "String"
+			},
+			"new_header": {
+				"type": "String"
+			},
+			"json_map": {
+				"type": "Array"
+			},
+			"mapping_script": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}

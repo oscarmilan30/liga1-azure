@@ -49,7 +49,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "lkp_parametros",
+						"activity": "Execute pl_get_csv_mapping",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -223,6 +223,51 @@
 					"body": {
 						"value": "@concat('{\"job_id\": ', string(activity('lkp_parametros').output.firstRow.JOB_ID), ', \"idempotency_token\": \"', pipeline().RunId, '\"}')",
 						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Execute pl_get_csv_mapping",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "lkp_parametros",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_get_csv_mapping",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"filesystem": {
+							"value": "@activity('lkp_parametros').output.firstRow.FILESYSTEM",
+							"type": "Expression"
+						},
+						"capa_landing": {
+							"value": "@activity('lkp_parametros').output.firstRow.CAPA_LANDING",
+							"type": "Expression"
+						},
+						"fileName": {
+							"value": "@activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO",
+							"type": "Expression"
+						}
 					}
 				}
 			}
