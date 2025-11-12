@@ -17,7 +17,7 @@
 			},
 			"useHeader": {
 				"type": "bool",
-				"defaultValue": "True"
+				"defaultValue": true
 			}
 		},
 		"folder": {

@@ -108,7 +108,7 @@
 								"value": "@concat(activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO, '.csv')",
 								"type": "Expression"
 							},
-							"useHeader": "True"
+							"useHeader": true
 						}
 					}
 				],
