@@ -139,7 +139,14 @@
 			{
 				"name": "kv_get_dbrx_token",
 				"type": "WebActivity",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "copy_dataentry_to_stg",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -185,12 +192,6 @@
 				"name": "sch_m_catalogo_equipos",
 				"type": "WebActivity",
 				"dependsOn": [
-					{
-						"activity": "copy_dataentry_to_stg",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
 					{
 						"activity": "set_dbrx_token",
 						"dependencyConditions": [
