@@ -232,14 +232,35 @@ def write_delta_udv(
     catalog: str = None,
     columns_sql: dict = None,
     table_comment: str = None,
-    replace_where: str = None
+    replace_where: str = None,
+    force_recreate: bool = False
 ):
     """
     Escribe un DataFrame como tabla Delta en la capa UDV (Liga 1 Perú).
+
+    - Crea el esquema (schema) si no existe.
+    - Crea o registra la tabla Delta con LOCATION explícito.
+    - Aplica comentarios de tabla y columnas desde YAML.
+    - Escribe los datos con saveAsTable (overwrite/append).
+    - force_recreate=True -> CREATE OR REPLACE TABLE.
+
+    Args:
+        spark: sesión Spark.
+        df: DataFrame a escribir.
+        schema: esquema destino (ej. 'tb_udv').
+        table_name: nombre de tabla (ej. 'm_catalogo_equipos').
+        abfss_path: ruta física en ADLS.
+        formato: formato base (por defecto 'delta').
+        mode: modo de escritura: 'overwrite', 'append', etc.
+        catalog: catálogo UC (si None usa currentCatalog()).
+        columns_sql: definición de columnas desde YAML.
+        table_comment: comentario general de la tabla.
+        replace_where: condición para overwrite selectivo.
+        force_recreate: si True, hace CREATE OR REPLACE TABLE.
     """
 
     # ----------------------------------------------------
-    # Validaciones
+    # Validaciones iniciales
     # ----------------------------------------------------
     if is_dataframe_empty(df):
         print(f"[WARN] No se escribirá la tabla {table_name} porque el DataFrame está vacío.")
@@ -248,18 +269,21 @@ def write_delta_udv(
     if not catalog:
         try:
             catalog = spark.catalog.currentCatalog()
-        except:
+        except Exception:
             catalog = "hive_metastore"
 
     full_schema = f"{catalog}.{schema}"
-    full_table = f"{catalog}.{schema}.{table_name}"
+    full_table  = f"{catalog}.{schema}.{table_name}"
 
     # ----------------------------------------------------
-    # Crear esquema físico
+    # Asegurar esquema (namespace) en UC
     # ----------------------------------------------------
     spark.sql(f"CREATE SCHEMA IF NOT EXISTS {full_schema}")
     print(f"[INFO] Catálogo activo: {catalog}, esquema: {schema}")
 
+    # ----------------------------------------------------
+    # Comprobar carpeta física y existencia de Delta
+    # ----------------------------------------------------
     dbutils = get_dbutils()
     try:
         files = [f.name for f in dbutils.fs.ls(abfss_path)]
@@ -270,19 +294,19 @@ def write_delta_udv(
         delta_log_exists = False
         print(f"[INFO] Carpeta creada en ADLS: {abfss_path}")
 
-    # ----------------------------------------------------
-    # Validar existencia en catálogo
-    # ----------------------------------------------------
     existe_catalogo = spark.catalog.tableExists(full_table)
 
     # ----------------------------------------------------
-    # Crear o registrar tabla Delta (con comments inline)
+    # Construir definición de columnas (si hace falta CREATE/REPLACE)
     # ----------------------------------------------------
-    if not existe_catalogo and not delta_log_exists:
-        print(f"[INFO] Creando nueva tabla Delta: {full_table}")
+    columnas_str = None
+    table_comment_clause = ""
 
+    if (not existe_catalogo and not delta_log_exists) or force_recreate:
         if not columns_sql:
-            raise ValueError("Bloque 'columns_sql' requerido para crear tabla Delta.")
+            raise ValueError(
+                "Bloque 'columns_sql' requerido para crear o reemplazar la tabla Delta."
+            )
 
         columnas_def = []
         for col_name, props in columns_sql.items():
@@ -293,13 +317,21 @@ def write_delta_udv(
             safe_comment = comment.replace("'", "''") if comment else None
             comment_clause = f" COMMENT '{safe_comment}'" if safe_comment else ""
 
-            # Ejemplo final:  "id_equipo int NOT NULL COMMENT 'Identificador único del equipo'"
+            #  ej: "id_equipo int NOT NULL COMMENT 'Identificador único del equipo'"
             columnas_def.append(f"  {col_name} {tipo} {nullable}{comment_clause}")
 
         columnas_str = ",\n".join(columnas_def)
 
-        safe_table_comment = table_comment.replace("'", "''") if table_comment else None
-        table_comment_clause = f"COMMENT '{safe_table_comment}'" if safe_table_comment else ""
+        if table_comment:
+            safe_table_comment = table_comment.replace("'", "''")
+            table_comment_clause = f"COMMENT '{safe_table_comment}'"
+
+    # ----------------------------------------------------
+    # Crear / reemplazar / registrar tabla Delta
+    # ----------------------------------------------------
+    if not existe_catalogo and not delta_log_exists:
+        # Primera vez: crear tabla nueva
+        print(f"[INFO] Creando nueva tabla Delta: {full_table}")
 
         create_sql = f"""
         CREATE TABLE {full_table} (
@@ -310,30 +342,70 @@ def write_delta_udv(
         {table_comment_clause}
         """
 
-        print("CREATE TABLE que se ejecutará:\n", create_sql)
+        print("CREATE TABLE a ejecutar:\n", create_sql)
         spark.sql(create_sql)
         print(f"[OK] Tabla creada: {full_table}")
 
+    elif force_recreate:
+        # Forzar recreación de la tabla (sin borrar datos en la ruta)
+        print(f"[INFO] Reemplazando definición de tabla Delta: {full_table}")
+
+        create_sql = f"""
+        CREATE OR REPLACE TABLE {full_table} (
+        {columnas_str}
+        )
+        USING {formato}
+        LOCATION '{abfss_path}'
+        {table_comment_clause}
+        """
+
+        print("CREATE OR REPLACE TABLE a ejecutar:\n", create_sql)
+        spark.sql(create_sql)
+        print(f"[OK] Tabla reemplazada: {full_table}")
+
     elif not existe_catalogo and delta_log_exists:
+        # Ya hay _delta_log en ruta: solo registrar
         print(f"[INFO] Detectado _delta_log. Registrando tabla {full_table}.")
         spark.sql(f"CREATE TABLE IF NOT EXISTS {full_table} USING DELTA LOCATION '{abfss_path}'")
-        existe_catalogo = True
         print(f"[OK] Tabla registrada correctamente en catálogo.")
+
     else:
+        # Tabla ya existe en catálogo y no queremos reemplazarla
         print(f"[INFO] La tabla {full_table} ya existe. No se recreará.")
 
-        # Opcional: actualizar solo comentario de tabla si cambió
-        if table_comment:
-            safe_table_comment = table_comment.replace("'", "''")
-            try:
-                spark.sql(f"COMMENT ON TABLE {full_table} IS '{safe_table_comment}'")
-            except Exception as e:
-                print(f"[WARN] No se pudo actualizar comentario de tabla {full_table}: {e}")
-
-    print(f"[OK] Comentarios aplicados (inline en CREATE TABLE; tabla actualizable).")
+    # ----------------------------------------------------
+    # Comentario de tabla (se asegura incluso si ya existía)
+    # ----------------------------------------------------
+    if table_comment:
+        safe_table_comment = table_comment.replace("'", "''")
+        try:
+            spark.sql(f"COMMENT ON TABLE {full_table} IS '{safe_table_comment}'")
+        except Exception as e:
+            print(f"[WARN] No se pudo aplicar comentario a la tabla {full_table}: {e}")
 
     # ----------------------------------------------------
-    # Escritura flexible (overwrite, append, replaceWhere)
+    # Comentarios de columnas (para tablas nuevas o existentes)
+    # ----------------------------------------------------
+    if columns_sql:
+        for col_name, props in columns_sql.items():
+            comment = props.get("comment", None)
+            if not comment:
+                continue
+
+            safe_comment = comment.replace("'", "''")
+            alter_col_sql = f"""
+                ALTER TABLE {full_table}
+                ALTER COLUMN {col_name} COMMENT '{safe_comment}'
+            """
+            try:
+                spark.sql(alter_col_sql)
+            except Exception as e:
+                print(f"[WARN] No se pudo aplicar comentario a la columna {col_name}: {e}")
+
+    print(f"[OK] Comentarios aplicados a tabla y columnas (cuando ha sido posible).")
+
+    # ----------------------------------------------------
+    # Escritura flexible de datos
     # ----------------------------------------------------
     writer = (
         df.write
