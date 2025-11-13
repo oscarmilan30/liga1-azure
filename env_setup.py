@@ -2,16 +2,17 @@
 # ENV_SETUP.PY
 # Proyecto: Liga 1 Perú - Configuración Universal Inteligente
 # Autor: Oscar García Del Águila
-# Versión: 3.0 (Hybrid Smart Mode)
+# Versión: 3.1 (Hybrid Smart Mode + Git Auto Refresh)
 # ==========================================================
 # Compatible con notebooks interactivos y Jobs Git-linked (.internal)
 # Inicializa Spark solo si no existe
 # Detecta automáticamente el root del repo (sin hardcodear)
 # Prepara sys.path con subcarpetas clave (utils, frm_udv, etc.)
 # Compatible con lectura dinámica de YAML (get_workspace_path)
+# Incluye actualización automática del repo Git en modo Job
 # ==========================================================
 
-import os, sys
+import os, sys, subprocess
 from pyspark.sql import SparkSession
 
 # ==========================================================
@@ -57,6 +58,32 @@ def detect_repo_root() -> str:
     except Exception as e:
         raise Exception(f"[ENV_SETUP ERROR] No se pudo detectar la raíz del repo: {e}")
 
+# ==========================================================
+# REFRESCO AUTOMÁTICO DEL REPO (Jobs .internal)
+# ==========================================================
+
+def refresh_repo_if_needed():
+    """
+    Fuerza la actualización del repo Git si se está ejecutando en un entorno .internal
+    (Databricks Lakeflow Job). Realiza git fetch + reset a origin/main.
+    """
+    try:
+        cwd = os.getcwd()
+        if "/Repos/.internal" not in cwd:
+            print("[ENV_SETUP] Repositorio Workspace normal, no se requiere refresh Git.")
+            return
+
+        repo_root = detect_repo_root()
+        print(f"[ENV_SETUP] Repositorio interno detectado: {repo_root}")
+        print("[ENV_SETUP] Actualizando desde GitHub (origin/main)...")
+
+        subprocess.run(["git", "-C", repo_root, "fetch", "--all"], check=False)
+        subprocess.run(["git", "-C", repo_root, "reset", "--hard", "origin/main"], check=False)
+
+        print("[ENV_SETUP] Repositorio sincronizado correctamente con origin/main ✅")
+
+    except Exception as e:
+        print(f"[ENV_SETUP WARN] No se pudo refrescar el repo Git: {e}")
 
 # ==========================================================
 # CONSTRUCCIÓN DE RUTA WORKSPACE
@@ -76,7 +103,6 @@ def get_workspace_path(relative_path: str) -> str:
         return full_path
     except Exception as e:
         raise Exception(f"[ENV_SETUP ERROR] Error generando ruta para {relative_path}: {e}")
-
 
 # ==========================================================
 # AUTO IMPORTACIÓN DE MÓDULOS
@@ -100,7 +126,6 @@ def auto_import_modules(repo_root: str):
         add_path_if_exists(folder)
 
     return added
-
 
 # ==========================================================
 # INICIALIZACIÓN SPARK SEGURA
@@ -127,23 +152,26 @@ def get_or_create_spark():
     except Exception as e:
         raise Exception(f"[ENV_SETUP ERROR] No se pudo crear/obtener SparkSession: {e}")
 
-
 # ==========================================================
 # AUTO-EJECUCIÓN AL IMPORTAR
 # ==========================================================
 
 try:
+    # Paso 1: detectar raíz
     repo_root = detect_repo_root()
 
-    # Insertar el repo raíz al sys.path
+    # Paso 2: refrescar repo si es modo Job Git
+    refresh_repo_if_needed()
+
+    # Paso 3: agregar repo raíz al sys.path
     if repo_root not in sys.path:
         sys.path.append(repo_root)
         print(f"[ENV_SETUP] Path raíz agregado a sys.path: {repo_root}")
 
-    # Inicializar Spark de forma segura (solo si hace falta)
+    # Paso 4: inicializar Spark
     spark = get_or_create_spark()
 
-    # Registrar subcarpetas del repo
+    # Paso 5: agregar subcarpetas del proyecto
     added = auto_import_modules(repo_root)
     if added:
         print("[ENV_SETUP] Carpetas agregadas al sys.path:")
@@ -152,7 +180,7 @@ try:
     else:
         print("[ENV_SETUP] No se agregaron nuevas carpetas (ya estaban registradas).")
 
-    print("[ENV_SETUP] Inicialización completa (Smart Mode).")
+    print("[ENV_SETUP] Inicialización completa (Smart Mode + AutoRefresh).")
 
 except Exception as e:
     print(f"[ENV_SETUP WARNING] Error durante setup inicial: {e}")
