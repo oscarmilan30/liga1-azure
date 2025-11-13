@@ -101,7 +101,7 @@ def log(msg: str, level: str = "INFO", entity: str = None):
     if entity:
         prefix += f" [{entity}]"
     print(f"{prefix} {msg}")
-        
+
 # ==========================================================
 # VALIDACIÓN UNIVERSAL DE DATAFRAMES
 # ==========================================================
