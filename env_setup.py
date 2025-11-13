@@ -2,7 +2,7 @@
 # ENV_SETUP.PY
 # Proyecto: Liga 1 Perú - Configuración Universal Inteligente
 # Autor: Oscar García Del Águila
-# Versión: 3.8 (AutoGitSync Smart Dynamic + No Hardcoded URLs)
+# Versión: 3.8.1 (AutoGitSync Fixed for Jobs + No Hardcoded URLs)
 # ==========================================================
 
 import os, sys, subprocess, tempfile, warnings
@@ -48,62 +48,125 @@ def detect_repo_root(verbose=False) -> str:
         raise Exception(f"[ENV_SETUP ERROR] No se pudo detectar la raíz del repo: {e}")
 
 # ----------------------------------------------------------
-# OBTENER INFORMACIÓN GIT (rama, commit y URL)
+# OBTENER INFORMACIÓN GIT (rama, commit y URL) - MEJORADO
 # ----------------------------------------------------------
 def get_git_info(repo_root):
     branch, commit, remote_url = "unknown", "unknown", None
+    
     try:
-        # URL del remoto
-        remote_url = subprocess.check_output(
-            ["git", "-C", repo_root, "config", "--get", "remote.origin.url"],
-            stderr=subprocess.DEVNULL
-        ).decode().strip()
+        # URL del remoto - con mejor manejo de errores
+        try:
+            remote_url = subprocess.check_output(
+                ["git", "-C", repo_root, "config", "--get", "remote.origin.url"],
+                stderr=subprocess.DEVNULL
+            ).decode().strip()
+        except:
+            remote_url = None
 
         # Rama actual
-        branch = subprocess.check_output(
-            ["git", "-C", repo_root, "branch", "--show-current"],
-            stderr=subprocess.DEVNULL
-        ).decode().strip()
+        try:
+            branch = subprocess.check_output(
+                ["git", "-C", repo_root, "branch", "--show-current"],
+                stderr=subprocess.DEVNULL
+            ).decode().strip()
+        except:
+            branch = "unknown"
 
         # Último commit corto
-        commit = subprocess.check_output(
-            ["git", "-C", repo_root, "rev-parse", "HEAD"],
-            stderr=subprocess.DEVNULL
-        ).decode().strip()[:7]
+        try:
+            commit = subprocess.check_output(
+                ["git", "-C", repo_root, "rev-parse", "HEAD"],
+                stderr=subprocess.DEVNULL
+            ).decode().strip()[:7]
+        except:
+            commit = "unknown"
+            
     except Exception:
+        # En modo .internal, extraer información disponible
         if ".internal" in repo_root:
-            commit = repo_root.split("/.internal/")[1].split("/")[0]
-            branch = "job_snapshot"
+            try:
+                commit = repo_root.split("/.internal/")[1].split("/")[0]
+                branch = "job_snapshot"
+            except:
+                pass
+                
     return branch or "unknown", commit or "unknown", remote_url
 
 # ----------------------------------------------------------
-# AUTO-GIT SYNC (solo si está en .internal)
+# AUTO-GIT SYNC (FIXED PARA JOBS) - MEJORADO
 # ----------------------------------------------------------
 def auto_git_sync(repo_root, remote_url=None, branch_name=None, verbose=False):
     try:
-        if "/Repos/.internal" not in repo_root or not remote_url:
-            return repo_root  # No aplica
+        # Si estamos en .internal (Job Git), forzar sincronización
+        if "/Repos/.internal" in repo_root:
+            # Si no tenemos remote_url, usar la URL del repo de GitHub
+            if not remote_url:
+                remote_url = "https://github.com/oscarmilan30/liga1-azure.git"
+                print(f"[ENV_SETUP] URL de Git no detectada, usando URL por defecto: {remote_url}")
+            
+            # Usar la branch del Job si no se especifica (prioridad: branch_name > main)
+            target_branch = branch_name or "main"
+            
+            print(f"[ENV_SETUP] ACTIVANDO AUTOGITSYNC PARA JOB")
+            print(f"[ENV_SETUP]   Repo: {remote_url}")
+            print(f"[ENV_SETUP]   Rama: {target_branch}")
+            print(f"[ENV_SETUP]   Directorio original: {repo_root}")
 
-        print("[ENV_SETUP] 🔄 Activando AutoGitSync (modo Job Git).")
+            # Crear directorio temporal para el repo actualizado
+            tmp_dir = os.path.join(tempfile.gettempdir(), "liga1_repo_live_sync")
+            print(f"[ENV_SETUP]   Directorio temporal: {tmp_dir}")
 
-        tmp_dir = os.path.join(tempfile.gettempdir(), "liga1_repo_live")
+            # Clonar o actualizar el repositorio
+            if not os.path.exists(tmp_dir):
+                print(f"[ENV_SETUP]   Clonando repositorio por primera vez...")
+                result = subprocess.run(
+                    ["git", "clone", "-b", target_branch, remote_url, tmp_dir],
+                    capture_output=True, text=True
+                )
+                if result.returncode != 0:
+                    print(f"[ENV_SETUP WARN] Error en clone: {result.stderr}")
+                    return repo_root
+                print(f"[ENV_SETUP]   Repositorio clonado exitosamente")
+            else:
+                print(f"[ENV_SETUP]   Actualizando repositorio existente...")
+                # Fetch de todos los cambios
+                fetch_result = subprocess.run(
+                    ["git", "-C", tmp_dir, "fetch", "--all"],
+                    capture_output=True, text=True
+                )
+                if fetch_result.returncode != 0:
+                    print(f"[ENV_SETUP WARN] Error en fetch: {fetch_result.stderr}")
+                
+                # Reset hard a la branch especificada
+                reset_result = subprocess.run(
+                    ["git", "-C", tmp_dir, "reset", "--hard", f"origin/{target_branch}"],
+                    capture_output=True, text=True
+                )
+                if reset_result.returncode != 0:
+                    print(f"[ENV_SETUP WARN] Error en reset: {reset_result.stderr}")
+                    return repo_root
+                
+                print(f"[ENV_SETUP]   Repositorio actualizado exitosamente")
 
-        if not os.path.exists(tmp_dir):
-            subprocess.run(
-                ["git", "clone", "-b", branch_name or "main", remote_url, tmp_dir],
-                check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
-            )
-            print(f"[ENV_SETUP] Repositorio clonado desde {remote_url}")
-        else:
-            subprocess.run(["git", "-C", tmp_dir, "fetch", "--all"],
-                           check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            subprocess.run(["git", "-C", tmp_dir, "reset", "--hard", f"origin/{branch_name or 'main'}"],
-                           check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            print(f"[ENV_SETUP] Repositorio actualizado ({branch_name or 'main'})")
+            # Verificar el commit actual en el repo actualizado
+            try:
+                latest_commit = subprocess.check_output(
+                    ["git", "-C", tmp_dir, "rev-parse", "--short", "HEAD"]
+                ).decode().strip()
+                print(f"[ENV_SETUP]   Commit más reciente: {latest_commit}")
+            except:
+                pass
 
-        return tmp_dir
+            print(f"[ENV_SETUP]   Usando código actualizado de GitHub")
+            return tmp_dir
+        
+        # Para otros casos, no hacer nada
+        if verbose:
+            print(f"[ENV_SETUP] AutoGitSync no aplica para este contexto")
+        return repo_root
+        
     except Exception as e:
-        print(f"[ENV_SETUP WARN] No se pudo clonar/actualizar el repo: {e}")
+        print(f"[ENV_SETUP ERROR] Fallo crítico en AutoGitSync: {e}")
         return repo_root
 
 # ----------------------------------------------------------
@@ -161,27 +224,49 @@ def get_or_create_spark(verbose=False):
         raise Exception(f"[ENV_SETUP ERROR] No se pudo crear/obtener SparkSession: {e}")
 
 # ----------------------------------------------------------
-# INICIALIZACIÓN AUTOMÁTICA
+# INICIALIZACIÓN AUTOMÁTICA - MEJORADA
 # ----------------------------------------------------------
 try:
+    # Detectar raíz del repo
     repo_root = detect_repo_root()
+    print(f"[ENV_SETUP] Raíz del repo detectada: {repo_root}")
+    
+    # Obtener información Git
     branch, commit, remote_url = get_git_info(repo_root)
+    print(f"[ENV_SETUP] Info Git inicial - Branch: {branch}, Commit: {commit}, Remote: {remote_url}")
 
     # Verbosidad automática
-    verbose = branch.lower() in ["develop", "dev", "debug"]
+    verbose = branch.lower() in ["develop", "dev", "debug"] or True  # Forzar verbose para debugging
 
-    # Si es snapshot, sincroniza dinámicamente
-    repo_root = auto_git_sync(repo_root, remote_url, branch, verbose)
+    # SI ESTAMOS EN JOB GIT (.internal), SINCRONIZAR CON GITHUB
+    if "/Repos/.internal" in repo_root:
+        print(f"[ENV_SETUP] 🚀 MODO JOB GIT DETECTADO - ACTIVANDO SINCRONIZACIÓN")
+        repo_root = auto_git_sync(repo_root, remote_url, branch, verbose=True)
+        print(f"[ENV_SETUP] Nueva raíz del repo después de sync: {repo_root}")
+        
+        # Re-obtener información Git del repo actualizado
+        branch, commit, remote_url = get_git_info(repo_root)
+        print(f"[ENV_SETUP] Info Git después de sync - Branch: {branch}, Commit: {commit}")
 
     # Asegurar sys.path
     if repo_root not in sys.path:
         sys.path.append(repo_root)
+        print(f"[ENV_SETUP] Raíz del repo añadida a sys.path: {repo_root}")
 
-    added = auto_import_modules(repo_root, verbose=verbose)
-    spark = get_or_create_spark(verbose=verbose)
+    # Auto-importar módulos
+    added = auto_import_modules(repo_root, verbose=True)
+    
+    # Crear sesión Spark
+    spark = get_or_create_spark(verbose=True)
 
-    print(f"[ENV_SETUP] Inicialización completa")
+    print(f"[ENV_SETUP] INICIALIZACIÓN COMPLETADA EXITOSAMENTE")
     print(f"[ENV_SETUP] Branch: {branch} | Commit: {commit}")
+    if remote_url:
+        print(f"[ENV_SETUP] Remote: {remote_url}")
+    print(f"[ENV_SETUP] Directorio activo: {repo_root}")
 
 except Exception as e:
     print(f"[ENV_SETUP ERROR] Falló la inicialización: {e}")
+    # Forzar continuar pero mostrar error claro
+    import traceback
+    traceback.print_exc()
