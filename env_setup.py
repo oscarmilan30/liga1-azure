@@ -2,7 +2,7 @@
 # ENV_SETUP.PY
 # Proyecto: Liga 1 Perú - Configuración Universal Inteligente
 # Autor: Oscar García Del Águila
-# Versión: 3.8.1 (AutoGitSync Fixed for Jobs + No Hardcoded URLs)
+# Versión: 3.8.2 (AutoGitSync Fixed - Always Use Main)
 # ==========================================================
 
 import os, sys, subprocess, tempfile, warnings
@@ -93,7 +93,7 @@ def get_git_info(repo_root):
     return branch or "unknown", commit or "unknown", remote_url
 
 # ----------------------------------------------------------
-# AUTO-GIT SYNC (FIXED PARA JOBS) - MEJORADO
+# AUTO-GIT SYNC (SIEMPRE USA MAIN) - CORREGIDO
 # ----------------------------------------------------------
 def auto_git_sync(repo_root, remote_url=None, branch_name=None, verbose=False):
     try:
@@ -102,10 +102,11 @@ def auto_git_sync(repo_root, remote_url=None, branch_name=None, verbose=False):
             # Si no tenemos remote_url, usar la URL del repo de GitHub
             if not remote_url:
                 remote_url = "https://github.com/oscarmilan30/liga1-azure.git"
-                print(f"[ENV_SETUP] URL de Git no detectada, usando URL por defecto: {remote_url}")
+                print(f"[ENV_SETUP] 🔧 URL de Git no detectada, usando URL por defecto: {remote_url}")
             
-            # Usar la branch del Job si no se especifica (prioridad: branch_name > main)
-            target_branch = branch_name or "main"
+            # FORZAR SIEMPRE LA RAMA MAIN - IGNORAR branch_name
+            target_branch = "main"
+            print(f"[ENV_SETUP] FORZANDO RAMA: {target_branch} (ignorando branch detectada: {branch_name})")
             
             print(f"[ENV_SETUP] ACTIVANDO AUTOGITSYNC PARA JOB")
             print(f"[ENV_SETUP]   Repo: {remote_url}")
@@ -113,7 +114,7 @@ def auto_git_sync(repo_root, remote_url=None, branch_name=None, verbose=False):
             print(f"[ENV_SETUP]   Directorio original: {repo_root}")
 
             # Crear directorio temporal para el repo actualizado
-            tmp_dir = os.path.join(tempfile.gettempdir(), "liga1_repo_live_sync")
+            tmp_dir = os.path.join(tempfile.gettempdir(), "liga1_repo_live_main")
             print(f"[ENV_SETUP]   Directorio temporal: {tmp_dir}")
 
             # Clonar o actualizar el repositorio
@@ -124,8 +125,25 @@ def auto_git_sync(repo_root, remote_url=None, branch_name=None, verbose=False):
                     capture_output=True, text=True
                 )
                 if result.returncode != 0:
-                    print(f"[ENV_SETUP WARN] Error en clone: {result.stderr}")
-                    return repo_root
+                    print(f"[ENV_SETUP ERROR] Error en clone: {result.stderr}")
+                    print(f"[ENV_SETUP] Reintentando clone sin branch específica...")
+                    # Reintentar sin branch específica
+                    result = subprocess.run(
+                        ["git", "clone", remote_url, tmp_dir],
+                        capture_output=True, text=True
+                    )
+                    if result.returncode != 0:
+                        print(f"[ENV_SETUP ERROR] Error en clone sin branch: {result.stderr}")
+                        return repo_root
+                    
+                    # Después de clonar, checkout a main
+                    checkout_result = subprocess.run(
+                        ["git", "-C", tmp_dir, "checkout", "main"],
+                        capture_output=True, text=True
+                    )
+                    if checkout_result.returncode != 0:
+                        print(f"[ENV_SETUP WARN] No se pudo hacer checkout a main: {checkout_result.stderr}")
+                
                 print(f"[ENV_SETUP]   Repositorio clonado exitosamente")
             else:
                 print(f"[ENV_SETUP]   Actualizando repositorio existente...")
@@ -137,14 +155,21 @@ def auto_git_sync(repo_root, remote_url=None, branch_name=None, verbose=False):
                 if fetch_result.returncode != 0:
                     print(f"[ENV_SETUP WARN] Error en fetch: {fetch_result.stderr}")
                 
-                # Reset hard a la branch especificada
+                # Reset hard a main
                 reset_result = subprocess.run(
-                    ["git", "-C", tmp_dir, "reset", "--hard", f"origin/{target_branch}"],
+                    ["git", "-C", tmp_dir, "reset", "--hard", "origin/main"],
                     capture_output=True, text=True
                 )
                 if reset_result.returncode != 0:
-                    print(f"[ENV_SETUP WARN] Error en reset: {reset_result.stderr}")
-                    return repo_root
+                    print(f"[ENV_SETUP WARN] Error en reset a main: {reset_result.stderr}")
+                    # Intentar checkout simple
+                    checkout_result = subprocess.run(
+                        ["git", "-C", tmp_dir, "checkout", "main"],
+                        capture_output=True, text=True
+                    )
+                    if checkout_result.returncode != 0:
+                        print(f"[ENV_SETUP ERROR] Fallo crítico al cambiar a main")
+                        return repo_root
                 
                 print(f"[ENV_SETUP]   Repositorio actualizado exitosamente")
 
@@ -153,11 +178,18 @@ def auto_git_sync(repo_root, remote_url=None, branch_name=None, verbose=False):
                 latest_commit = subprocess.check_output(
                     ["git", "-C", tmp_dir, "rev-parse", "--short", "HEAD"]
                 ).decode().strip()
-                print(f"[ENV_SETUP]   Commit más reciente: {latest_commit}")
-            except:
-                pass
+                print(f"[ENV_SETUP]   Commit más reciente en main: {latest_commit}")
+                
+                # Verificar también el mensaje del commit
+                commit_msg = subprocess.check_output(
+                    ["git", "-C", tmp_dir, "log", "-1", "--pretty=%B"]
+                ).decode().strip()
+                print(f"[ENV_SETUP]   Mensaje del commit: {commit_msg}")
+                
+            except Exception as e:
+                print(f"[ENV_SETUP WARN] No se pudo obtener info del commit: {e}")
 
-            print(f"[ENV_SETUP]   Usando código actualizado de GitHub")
+            print(f"[ENV_SETUP]   Usando código actualizado de GitHub/main")
             return tmp_dir
         
         # Para otros casos, no hacer nada
@@ -235,12 +267,9 @@ try:
     branch, commit, remote_url = get_git_info(repo_root)
     print(f"[ENV_SETUP] Info Git inicial - Branch: {branch}, Commit: {commit}, Remote: {remote_url}")
 
-    # Verbosidad automática
-    verbose = branch.lower() in ["develop", "dev", "debug"] or True  # Forzar verbose para debugging
-
-    # SI ESTAMOS EN JOB GIT (.internal), SINCRONIZAR CON GITHUB
+    # SI ESTAMOS EN JOB GIT (.internal), SINCRONIZAR CON GITHUB MAIN
     if "/Repos/.internal" in repo_root:
-        print(f"[ENV_SETUP] 🚀 MODO JOB GIT DETECTADO - ACTIVANDO SINCRONIZACIÓN")
+        print(f"[ENV_SETUP] MODO JOB GIT DETECTADO - ACTIVANDO SINCRONIZACIÓN CON MAIN")
         repo_root = auto_git_sync(repo_root, remote_url, branch, verbose=True)
         print(f"[ENV_SETUP] Nueva raíz del repo después de sync: {repo_root}")
         
