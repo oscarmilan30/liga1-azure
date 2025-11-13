@@ -3,7 +3,7 @@
 # Proyecto: Liga 1 Perú
 # Autor: Oscar García Del Águila
 # ==========================================================
-
+from env_setup import *
 from pyspark.sql import SparkSession, DataFrame, Row
 from pyspark.sql.functions import col, from_json, explode_outer, when, lit, expr, trim, regexp_replace, instr, desc, row_number, to_date
 from pyspark.sql.types import ArrayType, MapType, StringType
@@ -14,7 +14,7 @@ import time
 import yaml
 import os
 from datetime import datetime
-from env_setup import *
+
 
 # ==========================================================
 # FUNCIONES DE UTILIDAD GENERAL
