@@ -86,6 +86,22 @@ def cast_dataframe_schema(df: DataFrame, schema: dict, date_format: str = "yyyy-
             select_exprs.append(col(col_name).cast(col_type).alias(col_name))
 
     return df.select(*select_exprs)
+
+def log(msg: str, level: str = "INFO", entity: str = None):
+    """
+    Muestra mensajes uniformes en el log de Databricks Jobs.
+
+    Args:
+        msg (str): Mensaje a mostrar
+        level (str): Nivel del log (INFO, WARN, ERROR, SUCCESS)
+        entity (str): Nombre opcional de entidad o proceso
+    """
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    prefix = f"[{timestamp}] [{level.upper()}]"
+    if entity:
+        prefix += f" [{entity}]"
+    print(f"{prefix} {msg}")
+        
 # ==========================================================
 # VALIDACIÓN UNIVERSAL DE DATAFRAMES
 # ==========================================================
