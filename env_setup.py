@@ -2,7 +2,7 @@
 # ENV_SETUP.PY
 # Proyecto: Liga 1 Perú - Configuración Universal Inteligente
 # Autor: Oscar García Del Águila
-# Versión: 3.8.2 (AutoGitSync Fixed - Always Use Main)
+# Versión: 3.8.3 (Usa Git Snapshot Commit + Auto Update)
 # ==========================================================
 
 import os, sys, subprocess, tempfile, warnings
@@ -48,157 +48,107 @@ def detect_repo_root(verbose=False) -> str:
         raise Exception(f"[ENV_SETUP ERROR] No se pudo detectar la raíz del repo: {e}")
 
 # ----------------------------------------------------------
-# OBTENER INFORMACIÓN GIT (rama, commit y URL) - MEJORADO
+# OBTENER COMMIT DEL SNAPSHOT DEL JOB
 # ----------------------------------------------------------
-def get_git_info(repo_root):
-    branch, commit, remote_url = "unknown", "unknown", None
-    
+def get_job_snapshot_commit(repo_root):
+    """Obtiene el commit del snapshot que Databricks está usando"""
     try:
-        # URL del remoto - con mejor manejo de errores
-        try:
-            remote_url = subprocess.check_output(
-                ["git", "-C", repo_root, "config", "--get", "remote.origin.url"],
-                stderr=subprocess.DEVNULL
-            ).decode().strip()
-        except:
-            remote_url = None
-
-        # Rama actual
-        try:
-            branch = subprocess.check_output(
-                ["git", "-C", repo_root, "branch", "--show-current"],
-                stderr=subprocess.DEVNULL
-            ).decode().strip()
-        except:
-            branch = "unknown"
-
-        # Último commit corto
-        try:
-            commit = subprocess.check_output(
-                ["git", "-C", repo_root, "rev-parse", "HEAD"],
-                stderr=subprocess.DEVNULL
-            ).decode().strip()[:7]
-        except:
-            commit = "unknown"
-            
-    except Exception:
-        # En modo .internal, extraer información disponible
-        if ".internal" in repo_root:
-            try:
-                commit = repo_root.split("/.internal/")[1].split("/")[0]
-                branch = "job_snapshot"
-            except:
-                pass
-                
-    return branch or "unknown", commit or "unknown", remote_url
-
-# ----------------------------------------------------------
-# AUTO-GIT SYNC (SIEMPRE USA MAIN) - CORREGIDO
-# ----------------------------------------------------------
-def auto_git_sync(repo_root, remote_url=None, branch_name=None, verbose=False):
-    try:
-        # Si estamos en .internal (Job Git), forzar sincronización
         if "/Repos/.internal" in repo_root:
-            # Si no tenemos remote_url, usar la URL del repo de GitHub
-            if not remote_url:
-                remote_url = "https://github.com/oscarmilan30/liga1-azure.git"
-                print(f"[ENV_SETUP] 🔧 URL de Git no detectada, usando URL por defecto: {remote_url}")
-            
-            # FORZAR SIEMPRE LA RAMA MAIN - IGNORAR branch_name
-            target_branch = "main"
-            print(f"[ENV_SETUP] FORZANDO RAMA: {target_branch} (ignorando branch detectada: {branch_name})")
-            
-            print(f"[ENV_SETUP] ACTIVANDO AUTOGITSYNC PARA JOB")
-            print(f"[ENV_SETUP]   Repo: {remote_url}")
-            print(f"[ENV_SETUP]   Rama: {target_branch}")
-            print(f"[ENV_SETUP]   Directorio original: {repo_root}")
+            # Extraer el commit del path del snapshot
+            commit_hash = repo_root.split("/.internal/")[1].split("/")[0]
+            print(f"[ENV_SETUP] Commit del Snapshot del Job: {commit_hash}")
+            return commit_hash
+        return None
+    except Exception as e:
+        print(f"[ENV_SETUP WARN] No se pudo obtener commit del snapshot: {e}")
+        return None
 
-            # Crear directorio temporal para el repo actualizado
-            tmp_dir = os.path.join(tempfile.gettempdir(), "liga1_repo_live_main")
-            print(f"[ENV_SETUP]   Directorio temporal: {tmp_dir}")
+# ----------------------------------------------------------
+# OBTENER ÚLTIMO COMMIT DE GITHUB
+# ----------------------------------------------------------
+def get_latest_github_commit(remote_url="https://github.com/oscarmilan30/liga1-azure.git", branch="main"):
+    """Obtiene el último commit de GitHub sin clonar el repo completo"""
+    try:
+        print(f"[ENV_SETUP] Obteniendo último commit de GitHub...")
+        print(f"[ENV_SETUP]   Repo: {remote_url}")
+        print(f"[ENV_SETUP]   Rama: {branch}")
+        
+        # Usar git ls-remote para obtener el último commit sin clonar
+        result = subprocess.run(
+            ["git", "ls-remote", remote_url, f"refs/heads/{branch}"],
+            capture_output=True, text=True, timeout=30
+        )
+        
+        if result.returncode == 0:
+            latest_commit = result.stdout.split()[0]
+            short_commit = latest_commit[:7]
+            print(f"[ENV_SETUP]   Último commit en GitHub: {short_commit}")
+            return latest_commit, short_commit
+        else:
+            print(f"[ENV_SETUP WARN] Error al obtener último commit: {result.stderr}")
+            return None, None
+    except Exception as e:
+        print(f"[ENV_SETUP WARN] No se pudo obtener último commit de GitHub: {e}")
+        return None, None
 
-            # Clonar o actualizar el repositorio
+# ----------------------------------------------------------
+# SINCRONIZACIÓN INTELIGENTE CON GITHUB
+# ----------------------------------------------------------
+def smart_git_sync(repo_root, verbose=False):
+    """Sincroniza solo si el snapshot está desactualizado"""
+    try:
+        if "/Repos/.internal" not in repo_root:
+            return repo_root  # No aplica
+        
+        remote_url = "https://github.com/oscarmilan30/liga1-azure.git"
+        branch = "main"
+        
+        # Obtener información de commits
+        snapshot_commit = get_job_snapshot_commit(repo_root)
+        latest_commit, latest_short = get_latest_github_commit(remote_url, branch)
+        
+        if not latest_commit:
+            print(f"[ENV_SETUP] No se pudo verificar GitHub, usando snapshot del Job")
+            return repo_root
+        
+        # Verificar si el snapshot está actualizado
+        if snapshot_commit and latest_commit.startswith(snapshot_commit):
+            print(f"[ENV_SETUP] El snapshot del Job está ACTUALIZADO (commit: {snapshot_commit})")
+            return repo_root
+        else:
+            print(f"[ENV_SETUP] El snapshot está DESACTUALIZADO")
+            print(f"[ENV_SETUP]   Snapshot: {snapshot_commit}")
+            print(f"[ENV_SETUP]   GitHub:   {latest_short}")
+            print(f"[ENV_SETUP]   Actualizando código...")
+            
+            # Clonar/actualizar el repo
+            tmp_dir = os.path.join(tempfile.gettempdir(), f"liga1_github_{latest_short}")
+            
             if not os.path.exists(tmp_dir):
-                print(f"[ENV_SETUP]   Clonando repositorio por primera vez...")
+                print(f"[ENV_SETUP]   Clonando último código de GitHub...")
                 result = subprocess.run(
-                    ["git", "clone", "-b", target_branch, remote_url, tmp_dir],
-                    capture_output=True, text=True
+                    ["git", "clone", "-b", branch, remote_url, tmp_dir],
+                    capture_output=True, text=True, timeout=120
                 )
                 if result.returncode != 0:
-                    print(f"[ENV_SETUP ERROR] Error en clone: {result.stderr}")
-                    print(f"[ENV_SETUP] Reintentando clone sin branch específica...")
-                    # Reintentar sin branch específica
-                    result = subprocess.run(
-                        ["git", "clone", remote_url, tmp_dir],
-                        capture_output=True, text=True
-                    )
-                    if result.returncode != 0:
-                        print(f"[ENV_SETUP ERROR] Error en clone sin branch: {result.stderr}")
-                        return repo_root
-                    
-                    # Después de clonar, checkout a main
-                    checkout_result = subprocess.run(
-                        ["git", "-C", tmp_dir, "checkout", "main"],
-                        capture_output=True, text=True
-                    )
-                    if checkout_result.returncode != 0:
-                        print(f"[ENV_SETUP WARN] No se pudo hacer checkout a main: {checkout_result.stderr}")
-                
-                print(f"[ENV_SETUP]   Repositorio clonado exitosamente")
+                    print(f"[ENV_SETUP ERROR] Clone falló: {result.stderr}")
+                    return repo_root
             else:
-                print(f"[ENV_SETUP]   Actualizando repositorio existente...")
-                # Fetch de todos los cambios
-                fetch_result = subprocess.run(
-                    ["git", "-C", tmp_dir, "fetch", "--all"],
-                    capture_output=True, text=True
-                )
-                if fetch_result.returncode != 0:
-                    print(f"[ENV_SETUP WARN] Error en fetch: {fetch_result.stderr}")
-                
-                # Reset hard a main
-                reset_result = subprocess.run(
-                    ["git", "-C", tmp_dir, "reset", "--hard", "origin/main"],
-                    capture_output=True, text=True
-                )
-                if reset_result.returncode != 0:
-                    print(f"[ENV_SETUP WARN] Error en reset a main: {reset_result.stderr}")
-                    # Intentar checkout simple
-                    checkout_result = subprocess.run(
-                        ["git", "-C", tmp_dir, "checkout", "main"],
-                        capture_output=True, text=True
-                    )
-                    if checkout_result.returncode != 0:
-                        print(f"[ENV_SETUP ERROR] Fallo crítico al cambiar a main")
-                        return repo_root
-                
-                print(f"[ENV_SETUP]   Repositorio actualizado exitosamente")
-
-            # Verificar el commit actual en el repo actualizado
-            try:
-                latest_commit = subprocess.check_output(
-                    ["git", "-C", tmp_dir, "rev-parse", "--short", "HEAD"]
-                ).decode().strip()
-                print(f"[ENV_SETUP]   Commit más reciente en main: {latest_commit}")
-                
-                # Verificar también el mensaje del commit
-                commit_msg = subprocess.check_output(
-                    ["git", "-C", tmp_dir, "log", "-1", "--pretty=%B"]
-                ).decode().strip()
-                print(f"[ENV_SETUP]   Mensaje del commit: {commit_msg}")
-                
-            except Exception as e:
-                print(f"[ENV_SETUP WARN] No se pudo obtener info del commit: {e}")
-
-            print(f"[ENV_SETUP]   Usando código actualizado de GitHub/main")
+                print(f"[ENV_SETUP]   Actualizando repo existente...")
+                # Reset al último commit
+                subprocess.run(["git", "-C", tmp_dir, "fetch"], capture_output=True)
+                subprocess.run(["git", "-C", tmp_dir, "reset", "--hard", f"origin/{branch}"], capture_output=True)
+            
+            # Verificar el commit actual
+            current_commit = subprocess.check_output(
+                ["git", "-C", tmp_dir, "rev-parse", "--short", "HEAD"]
+            ).decode().strip()
+            
+            print(f"[ENV_SETUP]   Código actualizado a commit: {current_commit}")
             return tmp_dir
-        
-        # Para otros casos, no hacer nada
-        if verbose:
-            print(f"[ENV_SETUP] AutoGitSync no aplica para este contexto")
-        return repo_root
-        
+            
     except Exception as e:
-        print(f"[ENV_SETUP ERROR] Fallo crítico en AutoGitSync: {e}")
+        print(f"[ENV_SETUP ERROR] Error en sincronización: {e}")
         return repo_root
 
 # ----------------------------------------------------------
@@ -263,24 +213,18 @@ try:
     repo_root = detect_repo_root()
     print(f"[ENV_SETUP] Raíz del repo detectada: {repo_root}")
     
-    # Obtener información Git
-    branch, commit, remote_url = get_git_info(repo_root)
-    print(f"[ENV_SETUP] Info Git inicial - Branch: {branch}, Commit: {commit}, Remote: {remote_url}")
+    # Obtener información del snapshot
+    snapshot_commit = get_job_snapshot_commit(repo_root)
 
-    # SI ESTAMOS EN JOB GIT (.internal), SINCRONIZAR CON GITHUB MAIN
+    # SINCRONIZACIÓN INTELIGENTE
     if "/Repos/.internal" in repo_root:
-        print(f"[ENV_SETUP] MODO JOB GIT DETECTADO - ACTIVANDO SINCRONIZACIÓN CON MAIN")
-        repo_root = auto_git_sync(repo_root, remote_url, branch, verbose=True)
-        print(f"[ENV_SETUP] Nueva raíz del repo después de sync: {repo_root}")
-        
-        # Re-obtener información Git del repo actualizado
-        branch, commit, remote_url = get_git_info(repo_root)
-        print(f"[ENV_SETUP] Info Git después de sync - Branch: {branch}, Commit: {commit}")
+        print(f"[ENV_SETUP] 🚀 MODO JOB GIT DETECTADO")
+        repo_root = smart_git_sync(repo_root, verbose=True)
+        print(f"[ENV_SETUP] Nueva raíz del repo: {repo_root}")
 
     # Asegurar sys.path
     if repo_root not in sys.path:
         sys.path.append(repo_root)
-        print(f"[ENV_SETUP] Raíz del repo añadida a sys.path: {repo_root}")
 
     # Auto-importar módulos
     added = auto_import_modules(repo_root, verbose=True)
@@ -289,13 +233,9 @@ try:
     spark = get_or_create_spark(verbose=True)
 
     print(f"[ENV_SETUP] INICIALIZACIÓN COMPLETADA EXITOSAMENTE")
-    print(f"[ENV_SETUP] Branch: {branch} | Commit: {commit}")
-    if remote_url:
-        print(f"[ENV_SETUP] Remote: {remote_url}")
     print(f"[ENV_SETUP] Directorio activo: {repo_root}")
 
 except Exception as e:
-    print(f"[ENV_SETUP ERROR] Falló la inicialización: {e}")
-    # Forzar continuar pero mostrar error claro
+    print(f"[ENV_SETUP ERROR] ❌ Falló la inicialización: {e}")
     import traceback
     traceback.print_exc()
