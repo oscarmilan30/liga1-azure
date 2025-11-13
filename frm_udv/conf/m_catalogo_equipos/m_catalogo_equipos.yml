@@ -7,13 +7,13 @@ m_catalogo_equipos:
    - alias
 
   schema:
-    - id_equipo: int
-    - nombre_equipo: string
-    - nombre_fotmob: string
-    - nombre_transfermarkt: string
-    - alias: string
-    - fecha_carga: timestamp
-    - periododia: int
+    id_equipo: int
+    nombre_equipo: string
+    nombre_fotmob: string
+    nombre_transfermarkt: string
+    alias: string
+    fecha_carga: timestamp
+    periododia: int
   
   columns_sql:
     id_equipo:
