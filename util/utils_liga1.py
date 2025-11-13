@@ -243,20 +243,6 @@ def write_delta_udv(
     - Aplica comentarios de tabla y columnas desde YAML.
     - Escribe los datos con saveAsTable (overwrite/append).
     - force_recreate=True -> CREATE OR REPLACE TABLE.
-
-    Args:
-        spark: sesión Spark.
-        df: DataFrame a escribir.
-        schema: esquema destino (ej. 'tb_udv').
-        table_name: nombre de tabla (ej. 'm_catalogo_equipos').
-        abfss_path: ruta física en ADLS.
-        formato: formato base (por defecto 'delta').
-        mode: modo de escritura: 'overwrite', 'append', etc.
-        catalog: catálogo UC (si None usa currentCatalog()).
-        columns_sql: definición de columnas desde YAML.
-        table_comment: comentario general de la tabla.
-        replace_where: condición para overwrite selectivo.
-        force_recreate: si True, hace CREATE OR REPLACE TABLE.
     """
 
     # ----------------------------------------------------
@@ -317,7 +303,6 @@ def write_delta_udv(
             safe_comment = comment.replace("'", "''") if comment else None
             comment_clause = f" COMMENT '{safe_comment}'" if safe_comment else ""
 
-            #  ej: "id_equipo int NOT NULL COMMENT 'Identificador único del equipo'"
             columnas_def.append(f"  {col_name} {tipo} {nullable}{comment_clause}")
 
         columnas_str = ",\n".join(columnas_def)
@@ -330,7 +315,6 @@ def write_delta_udv(
     # Crear / reemplazar / registrar tabla Delta
     # ----------------------------------------------------
     if not existe_catalogo and not delta_log_exists:
-        # Primera vez: crear tabla nueva
         print(f"[INFO] Creando nueva tabla Delta: {full_table}")
 
         create_sql = f"""
@@ -347,7 +331,6 @@ def write_delta_udv(
         print(f"[OK] Tabla creada: {full_table}")
 
     elif force_recreate:
-        # Forzar recreación de la tabla (sin borrar datos en la ruta)
         print(f"[INFO] Reemplazando definición de tabla Delta: {full_table}")
 
         create_sql = f"""
@@ -364,13 +347,11 @@ def write_delta_udv(
         print(f"[OK] Tabla reemplazada: {full_table}")
 
     elif not existe_catalogo and delta_log_exists:
-        # Ya hay _delta_log en ruta: solo registrar
         print(f"[INFO] Detectado _delta_log. Registrando tabla {full_table}.")
         spark.sql(f"CREATE TABLE IF NOT EXISTS {full_table} USING DELTA LOCATION '{abfss_path}'")
         print(f"[OK] Tabla registrada correctamente en catálogo.")
 
     else:
-        # Tabla ya existe en catálogo y no queremos reemplazarla
         print(f"[INFO] La tabla {full_table} ya existe. No se recreará.")
 
     # ----------------------------------------------------

@@ -46,3 +46,5 @@ m_catalogo_equipos:
       comment: "Periodo de carga en formato YYYYMMDD"
   
   table_comment: "Catálogo maestro de equipos de la Liga 1 Perú"
+
+  force_recreate: True
