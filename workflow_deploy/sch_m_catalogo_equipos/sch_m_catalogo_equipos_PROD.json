@@ -1,0 +1,82 @@
+{
+  "name": "sch_m_catalogo_equipos_PROD",
+  "email_notifications": {
+    "on_success": [
+      "garciadoscar1994@outlook.com"
+    ],
+    "on_failure": [
+      "garciadoscar1994@outlook.com"
+    ],
+    "on_duration_warning_threshold_exceeded": [
+      "garciadoscar1994@outlook.com"
+    ],
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {},
+  "notification_settings": {
+    "no_alert_for_skipped_runs": false,
+    "no_alert_for_canceled_runs": false
+  },
+  "timeout_seconds": 3600,
+  "health": {
+    "rules": [
+      {
+        "metric": "RUN_DURATION_SECONDS",
+        "op": "GREATER_THAN",
+        "value": 1800
+      }
+    ]
+  },
+  "max_concurrent_runs": 1,
+  "tasks": [
+    {
+      "task_key": "nb_curated_catalogo_equipos_dataentry_PROD",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "frm_raw/curated_dataentry/nb_curated_dataentry",
+        "base_parameters": {
+          "prm_pipelineid": "3"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "1104-003006-pihx9xuw",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {}
+    },
+    {
+      "task_key": "nb_m_catalogo_equipos_PROD",
+      "depends_on": [
+        {
+          "task_key": "nb_curated_catalogo_equipos_dataentry_PROD"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "frm_udv/notebooks/m_catalogo_equipos/nb_m_catalogo_equipos",
+        "base_parameters": {
+          "prm_pipelineid": "4"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "1104-003006-pihx9xuw",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {}
+    }
+  ],
+  "git_source": {
+    "git_url": "https://github.com/oscarmilan30/liga1-azure.git",
+    "git_provider": "gitHub",
+    "git_branch": "main"
+  },
+  "tags": {
+    "Env": "Prod",
+    "Proyecto": "Liga1",
+    "Unidad": "Catalogo_Equipos"
+  },
+  "queue": {
+    "enabled": true
+  },
+  "performance_target": "PERFORMANCE_OPTIMIZED"
+}

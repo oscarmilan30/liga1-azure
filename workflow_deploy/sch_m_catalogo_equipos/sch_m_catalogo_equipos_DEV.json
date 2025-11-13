@@ -1,5 +1,5 @@
 {
-  "name": "sch_m_catalogo_equipos",
+  "name": "sch_m_catalogo_equipos_DEV",
   "email_notifications": {
     "on_success": [
       "garciadoscar1994@outlook.com"
@@ -30,7 +30,7 @@
   "max_concurrent_runs": 1,
   "tasks": [
     {
-      "task_key": "nb_curated_catalogo_equipos_dataentry",
+      "task_key": "nb_curated_catalogo_equipos_dataentry_DEV",
       "run_if": "ALL_SUCCESS",
       "notebook_task": {
         "notebook_path": "/Repos/garciadoscar1994@outlook.com/liga1-azure/frm_raw/curated_dataentry/nb_curated_dataentry",
@@ -45,10 +45,10 @@
       "webhook_notifications": {}
     },
     {
-      "task_key": "nb_m_catalogo_equipos",
+      "task_key": "nb_m_catalogo_equipos_DEV",
       "depends_on": [
         {
-          "task_key": "nb_curated_catalogo_equipos_dataentry"
+          "task_key": "nb_curated_catalogo_equipos_dataentry_DEV"
         }
       ],
       "run_if": "ALL_SUCCESS",
@@ -66,7 +66,7 @@
     }
   ],
   "tags": {
-    "Env": "Prod",
+    "Env": "Dev",
     "Proyecto": "Liga1",
     "Unidad": "Catalogo_Equipos"
   },
