@@ -236,27 +236,6 @@ def write_delta_udv(
 ):
     """
     Escribe un DataFrame como tabla Delta en la capa UDV (Liga 1 Perú).
-
-    Características:
-      Crea carpeta física si no existe.
-      Detecta _delta_log (evita conflictos en reprocesos).
-      Crea tabla Delta si no existe, con comentarios de tabla y columnas.
-      Si existe, reescribe o agrega data según modo (append/overwrite/etc).
-      Admite 'replaceWhere' (para sobreescribir particiones específicas).
-      Aplica comentarios incluso si la tabla ya existía o fue registrada.
-
-    Args:
-        spark: sesión Spark.
-        df: DataFrame a escribir.
-        schema: esquema destino (ej. tb_udv).
-        table_name: nombre de tabla (ej. m_catalogo_equipos).
-        abfss_path: ruta física en ADLS.
-        formato: formato base (default "delta").
-        mode: modo escritura: 'overwrite', 'append', etc.
-        catalog: catálogo (opcional).
-        columns_sql: definición de columnas desde YAML.
-        table_comment: comentario general de la tabla.
-        replace_where: condición para 'overwrite' selectivo.
     """
 
     # ----------------------------------------------------
@@ -297,7 +276,7 @@ def write_delta_udv(
     existe_catalogo = spark.catalog.tableExists(full_table)
 
     # ----------------------------------------------------
-    # Crear o registrar tabla Delta
+    # Crear o registrar tabla Delta (con comments inline)
     # ----------------------------------------------------
     if not existe_catalogo and not delta_log_exists:
         print(f"[INFO] Creando nueva tabla Delta: {full_table}")
@@ -307,12 +286,20 @@ def write_delta_udv(
 
         columnas_def = []
         for col_name, props in columns_sql.items():
-            tipo = props.get("tipo", "string")
+            tipo     = props.get("tipo", "string")
             nullable = "NOT NULL" if not props.get("nullable", True) else ""
-            columnas_def.append(f"  {col_name} {tipo} {nullable}")
+            comment  = props.get("comment", None)
+
+            safe_comment = comment.replace("'", "''") if comment else None
+            comment_clause = f" COMMENT '{safe_comment}'" if safe_comment else ""
+
+            # Ejemplo final:  "id_equipo int NOT NULL COMMENT 'Identificador único del equipo'"
+            columnas_def.append(f"  {col_name} {tipo} {nullable}{comment_clause}")
 
         columnas_str = ",\n".join(columnas_def)
-        comment_clause = f"COMMENT '{table_comment}'" if table_comment else ""
+
+        safe_table_comment = table_comment.replace("'", "''") if table_comment else None
+        table_comment_clause = f"COMMENT '{safe_table_comment}'" if safe_table_comment else ""
 
         create_sql = f"""
         CREATE TABLE {full_table} (
@@ -320,9 +307,10 @@ def write_delta_udv(
         )
         USING {formato}
         LOCATION '{abfss_path}'
-        {comment_clause}
+        {table_comment_clause}
         """
 
+        print("CREATE TABLE que se ejecutará:\n", create_sql)
         spark.sql(create_sql)
         print(f"[OK] Tabla creada: {full_table}")
 
@@ -334,19 +322,15 @@ def write_delta_udv(
     else:
         print(f"[INFO] La tabla {full_table} ya existe. No se recreará.")
 
-    # ----------------------------------------------------
-    # Aplicar comentarios (tabla + columnas)
-    # ----------------------------------------------------
-    if table_comment:
-        spark.sql(f"COMMENT ON TABLE {full_table} IS '{table_comment}'")
+        # Opcional: actualizar solo comentario de tabla si cambió
+        if table_comment:
+            safe_table_comment = table_comment.replace("'", "''")
+            try:
+                spark.sql(f"COMMENT ON TABLE {full_table} IS '{safe_table_comment}'")
+            except Exception as e:
+                print(f"[WARN] No se pudo actualizar comentario de tabla {full_table}: {e}")
 
-    if columns_sql:
-        for col_name, props in columns_sql.items():
-            comment = props.get("comment", None)
-            if comment:
-                spark.sql(f"COMMENT ON COLUMN {full_table}.{col_name} IS '{comment}'")
-
-    print(f"[OK] Comentarios aplicados a tabla y columnas.")
+    print(f"[OK] Comentarios aplicados (inline en CREATE TABLE; tabla actualizable).")
 
     # ----------------------------------------------------
     # Escritura flexible (overwrite, append, replaceWhere)
@@ -365,9 +349,6 @@ def write_delta_udv(
     print(f"[INFO] Guardando data en {full_table} (modo={mode})")
     writer.saveAsTable(full_table)
     print(f"[SUCCESS] Data escrita correctamente en {full_table}")
-
-
-
 
 # ==========================================================
 # CONEXIÓN A AZURE SQL DATABASE
