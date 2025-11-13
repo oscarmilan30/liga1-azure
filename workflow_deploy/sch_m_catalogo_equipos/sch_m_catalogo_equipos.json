@@ -33,11 +33,11 @@
       "task_key": "nb_curated_catalogo_equipos_dataentry",
       "run_if": "ALL_SUCCESS",
       "notebook_task": {
-        "notebook_path": "frm_raw/curated_dataentry/nb_curated_dataentry",
+        "notebook_path": "/Repos/garciadoscar1994@outlook.com/liga1-azure/frm_raw/curated_dataentry/nb_curated_dataentry",
         "base_parameters": {
           "prm_pipelineid": "3"
         },
-        "source": "GIT"
+        "source": "WORKSPACE"
       },
       "existing_cluster_id": "1104-003006-pihx9xuw",
       "timeout_seconds": 0,
@@ -53,11 +53,11 @@
       ],
       "run_if": "ALL_SUCCESS",
       "notebook_task": {
-        "notebook_path": "frm_udv/notebooks/m_catalogo_equipos/nb_m_catalogo_equipos",
+        "notebook_path": "/Repos/garciadoscar1994@outlook.com/liga1-azure/frm_udv/notebooks/m_catalogo_equipos/nb_m_catalogo_equipos",
         "base_parameters": {
           "prm_pipelineid": "4"
         },
-        "source": "GIT"
+        "source": "WORKSPACE"
       },
       "existing_cluster_id": "1104-003006-pihx9xuw",
       "timeout_seconds": 0,
@@ -65,14 +65,6 @@
       "webhook_notifications": {}
     }
   ],
-  "git_source": {
-    "git_url": "https://github.com/oscarmilan30/liga1-azure.git",
-    "git_provider": "gitHub",
-    "git_branch": "main",
-    "git_snapshot": {
-      "use_most_recent_commit": true
-    }
-  },
   "tags": {
     "Env": "Prod",
     "Proyecto": "Liga1",
