@@ -2,14 +2,19 @@
 # ENV_SETUP.PY
 # Proyecto: Liga 1 Perú - Configuración Universal Inteligente
 # Autor: Oscar García Del Águila
-# Versión: 3.1 (Hybrid Smart Mode + Git Auto Refresh)
+# Versión: 3.2 (Hybrid Smart Mode + Git Auto Refresh + Diagnostics)
 # ==========================================================
-# Compatible con notebooks interactivos y Jobs Git-linked (.internal)
-# Inicializa Spark solo si no existe
-# Detecta automáticamente el root del repo (sin hardcodear)
-# Prepara sys.path con subcarpetas clave (utils, frm_udv, etc.)
-# Compatible con lectura dinámica de YAML (get_workspace_path)
-# Incluye actualización automática del repo Git en modo Job
+# Compatible con:
+#   - Notebooks interactivos (Workspace)
+#   - Jobs Git-linked (.internal)
+#
+# Características:
+#   Detecta automáticamente la raíz del repo (sin hardcodear)
+#   Refresca automáticamente el código desde origin/main (solo en Jobs Git)
+#   Muestra commit activo y carpeta .internal real
+#   Inicializa Spark solo si no existe
+#   Prepara sys.path con subcarpetas (util, frm_udv, frm_curated, frm_raw, notebooks)
+#   Compatible con lectura dinámica de YAML
 # ==========================================================
 
 import os, sys, subprocess
@@ -59,7 +64,7 @@ def detect_repo_root() -> str:
         raise Exception(f"[ENV_SETUP ERROR] No se pudo detectar la raíz del repo: {e}")
 
 # ==========================================================
-# REFRESCO AUTOMÁTICO DEL REPO (Jobs .internal)
+# REFRESCO AUTOMÁTICO DEL REPO (.internal)
 # ==========================================================
 
 def refresh_repo_if_needed():
@@ -75,8 +80,9 @@ def refresh_repo_if_needed():
 
         repo_root = detect_repo_root()
         print(f"[ENV_SETUP] Repositorio interno detectado: {repo_root}")
-        print("[ENV_SETUP] Actualizando desde GitHub (origin/main)...")
+        print("[ENV_SETUP] Intentando actualizar desde GitHub (origin/main)...")
 
+        # Ejecutar fetch/reset (no rompe si no hay .git)
         subprocess.run(["git", "-C", repo_root, "fetch", "--all"], check=False)
         subprocess.run(["git", "-C", repo_root, "reset", "--hard", "origin/main"], check=False)
 
@@ -84,6 +90,28 @@ def refresh_repo_if_needed():
 
     except Exception as e:
         print(f"[ENV_SETUP WARN] No se pudo refrescar el repo Git: {e}")
+
+# ==========================================================
+# DIAGNÓSTICO DEL COMMIT ACTIVO
+# ==========================================================
+
+def print_current_commit(repo_root: str):
+    """
+    Imprime el commit actual o la carpeta .internal activa.
+    """
+    try:
+        # Intentar detectar HEAD (solo si existe .git)
+        git_head = os.path.join(repo_root, ".git", "HEAD")
+        if os.path.exists(git_head):
+            with open(git_head, "r") as f:
+                ref = f.read().strip()
+            print(f"[ENV_SETUP] HEAD → {ref}")
+        else:
+            # En Jobs Git (.internal) no existe .git, mostrar hash del snapshot
+            internal_path = repo_root.split("/.internal/")[-1].split("/")[0]
+            print(f"[ENV_SETUP] Snapshot interno activo (.internal hash): {internal_path}")
+    except Exception as e:
+        print(f"[ENV_SETUP WARN] No se pudo obtener commit actual: {e}")
 
 # ==========================================================
 # CONSTRUCCIÓN DE RUTA WORKSPACE
@@ -180,7 +208,10 @@ try:
     else:
         print("[ENV_SETUP] No se agregaron nuevas carpetas (ya estaban registradas).")
 
-    print("[ENV_SETUP] Inicialización completa (Smart Mode + AutoRefresh).")
+    # Paso 6: mostrar commit o snapshot activo
+    print_current_commit(repo_root)
+
+    print("[ENV_SETUP] Inicialización completa (Smart Mode + AutoRefresh + Diagnostics).")
 
 except Exception as e:
     print(f"[ENV_SETUP WARNING] Error durante setup inicial: {e}")
