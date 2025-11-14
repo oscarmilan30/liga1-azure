@@ -94,7 +94,17 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Repos/garciadoscar1994@outlook.com/liga1-azure/workflow_deploy/execute_job_workflow"
+					"notebookPath": "/Repos/garciadoscar1994@outlook.com/liga1-azure/workflow_deploy/execute_job_workflow",
+					"baseParameters": {
+						"prm_job_name": {
+							"value": "@pipeline().parameters.prm_job_name",
+							"type": "Expression"
+						},
+						"prm_area": {
+							"value": "@activity('lkp_parametros').output.firstRow.AREA",
+							"type": "Expression"
+						}
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_databricks",
