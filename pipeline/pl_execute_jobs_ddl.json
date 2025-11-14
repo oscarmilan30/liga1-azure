@@ -87,7 +87,7 @@
 						"type": "Expression"
 					},
 					"body": {
-						"value": "{\n  \"job_id\": \"@{activity('lkp_parametros').output.firstRow.JOB_ID}\",\n  \"idempotency_token\": \"@{pipeline().RunId}\",\n  \"notebook_params\": {\n    \"ddl_file_name\": \"@{pipeline().parameters.prm_name_ddl}\"\n  }\n}",
+						"value": "{\n  \"job_id\": \"@{activity('lkp_parametros').output.firstRow.JOB_ID}\",\n  \"idempotency_token\": \"@{pipeline().RunId}\",\n  \"notebook_params\": {\n    \"prm_name_ddl\": \"@{pipeline().parameters.prm_name_ddl}\"\n  }\n}",
 						"type": "Expression"
 					}
 				}
