@@ -194,7 +194,7 @@
 				"typeProperties": {
 					"variableName": "set_job_id",
 					"value": {
-						"value": "@string(activity('Execute create_workflows').output.runOutput.job_id)",
+						"value": "@activity('Execute create_workflows').output.pipelineReturnValue.set_json_variable",
 						"type": "Expression"
 					}
 				}

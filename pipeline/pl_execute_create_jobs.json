@@ -90,6 +90,36 @@
 						}
 					}
 				}
+			},
+			{
+				"name": "Set_json_variable",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "execute_job_workflow",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "pipelineReturnValue",
+					"value": [
+						{
+							"key": "set_json_variable",
+							"value": {
+								"type": "Expression",
+								"content": "@string(activity('execute_job_workflow').output.runOutput.job_id)"
+							}
+						}
+					],
+					"setSystemVariable": true
+				}
 			}
 		],
 		"parameters": {
@@ -110,7 +140,7 @@
 			"dbrx_token": {
 				"type": "String"
 			},
-			"job_creation_result": {
+			"set_json_variable": {
 				"type": "String"
 			}
 		},
