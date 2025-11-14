@@ -45,36 +45,6 @@
 				}
 			},
 			{
-				"name": "set_job_result",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "execute_job_workflow",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "pipelineReturnValue",
-					"value": [
-						{
-							"key": "set_job_result",
-							"value": {
-								"type": "Expression",
-								"content": "@activity('execute_job_workflow').output"
-							}
-						}
-					],
-					"setSystemVariable": true
-				}
-			},
-			{
 				"name": "execute_job_workflow",
 				"type": "DatabricksNotebook",
 				"dependsOn": [
