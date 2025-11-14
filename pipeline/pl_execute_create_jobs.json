@@ -133,6 +133,36 @@
 					},
 					"firstRowOnly": true
 				}
+			},
+			{
+				"name": "set_job_result",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "sch_create_workflows",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "pipelineReturnValue",
+					"value": [
+						{
+							"key": "set_job_result",
+							"value": {
+								"type": "Expression",
+								"content": "@activity('sch_create_workflows').output"
+							}
+						}
+					],
+					"setSystemVariable": true
+				}
 			}
 		],
 		"parameters": {
@@ -151,6 +181,9 @@
 		},
 		"variables": {
 			"dbrx_token": {
+				"type": "String"
+			},
+			"job_creation_result": {
 				"type": "String"
 			}
 		},

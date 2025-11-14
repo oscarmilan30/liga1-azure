@@ -192,6 +192,9 @@
 		"variables": {
 			"IdEjecucion": {
 				"type": "Integer"
+			},
+			"job_creation_result": {
+				"type": "String"
 			}
 		},
 		"folder": {
