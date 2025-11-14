@@ -55,7 +55,7 @@
 				}
 			},
 			{
-				"name": "sch_jobs_databricks",
+				"name": "sch_create_workflows",
 				"type": "WebActivity",
 				"dependsOn": [
 					{
@@ -83,11 +83,11 @@
 						"Content-Type": "application/json"
 					},
 					"url": {
-						"value": "https://adb-1676851685217423.3.azuredatabricks.net/api/2.1/jobs/run-now",
+						"value": "@concat(activity('lkp_parametros').output.firstRow.AREA, 'api/2.1/jobs/run-now')",
 						"type": "Expression"
 					},
 					"body": {
-						"value": "{\n  \"job_id\": \"1234567890123456\",\n  \"idempotency_token\": \"@{pipeline().RunId}\",\n  \"notebook_params\": {\n    \"prm_job_name\": \"@{pipeline().parameters.job_name}\"\n  }\n}",
+						"value": "{\n  \"job_id\": \"@{activity('lkp_parametros').output.firstRow.JOB_ID}\",\n  \"idempotency_token\": \"@{pipeline().RunId}\",\n  \"notebook_params\": {\n    \"ddl_file_name\": \"@{pipeline().parameters.prm_job_name}\"\n  }\n}",
 						"type": "Expression"
 					}
 				}
@@ -143,6 +143,9 @@
 				"type": "string"
 			},
 			"pipeline_type": {
+				"type": "string"
+			},
+			"prm_job_name": {
 				"type": "string"
 			}
 		},

@@ -35,6 +35,10 @@
 						"pipeline_type": {
 							"value": "@pipeline().parameters.pipeline_type",
 							"type": "Expression"
+						},
+						"prm_job_name": {
+							"value": "@pipeline().parameters.prm_job_name",
+							"type": "Expression"
 						}
 					}
 				}
@@ -184,6 +188,9 @@
 			"pipeline_type": {
 				"type": "string",
 				"defaultValue": "WORKFLOW_JOBS"
+			},
+			"prm_job_name": {
+				"type": "string"
 			}
 		},
 		"variables": {

@@ -31,6 +31,10 @@
 						"TablaParametro": {
 							"value": "@pipeline().parameters.TablaParametro",
 							"type": "Expression"
+						},
+						"prm_name_ddl": {
+							"value": "@pipeline().parameters.prm_name_ddl",
+							"type": "Expression"
 						}
 					}
 				}
@@ -180,6 +184,9 @@
 			"pipeline_type": {
 				"type": "string",
 				"defaultValue": "WORKFLOW_DDL"
+			},
+			"prm_name_ddl": {
+				"type": "string"
 			}
 		},
 		"variables": {
