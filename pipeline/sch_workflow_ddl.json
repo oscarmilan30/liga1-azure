@@ -165,7 +165,7 @@
 							"type": "Expression"
 						},
 						"MensajeError": {
-							"value": "@activity('pl_Orchestrator_Dataentry').error.message",
+							"value": "@activity('Execute sch_workflow_ddl').error.message",
 							"type": "Expression"
 						}
 					}
