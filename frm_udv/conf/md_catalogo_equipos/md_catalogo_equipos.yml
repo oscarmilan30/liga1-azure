@@ -1,0 +1,16 @@
+md_catalogo_equipos:
+  cols: 
+   - id_equipo
+   - nombre_equipo
+   - nombre_fotmob
+   - nombre_transfermarkt
+   - alias
+
+  schema:
+    id_equipo: int
+    nombre_equipo: string
+    nombre_fotmob: string
+    nombre_transfermarkt: string
+    alias: string
+    fecha_carga: timestamp
+    periododia: int

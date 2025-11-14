@@ -1,5 +1,5 @@
 {
-  "name": "sch_m_catalogo_equipos",
+  "name": "schd_md_catalogo_equipos",
   "email_notifications": {
     "on_success": [
       "garciadoscar1994@outlook.com"
@@ -45,7 +45,7 @@
       "webhook_notifications": {}
     },
     {
-      "task_key": "nb_m_catalogo_equipos",
+      "task_key": "nb_md_catalogo_equipos",
       "depends_on": [
         {
           "task_key": "nb_curated_catalogo_equipos_dataentry"
@@ -53,7 +53,7 @@
       ],
       "run_if": "ALL_SUCCESS",
       "notebook_task": {
-        "notebook_path": "/Repos/garciadoscar1994@outlook.com/liga1-azure/frm_udv/notebooks/m_catalogo_equipos/nb_m_catalogo_equipos",
+        "notebook_path": "/Repos/garciadoscar1994@outlook.com/liga1-azure/frm_udv/notebooks/md_catalogo_equipos/nb_md_catalogo_equipos",
         "base_parameters": {
           "prm_pipelineid": "4"
         },
