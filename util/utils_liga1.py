@@ -14,6 +14,7 @@ import time
 import yaml
 import os
 from datetime import datetime
+from delta.tables import DeltaTable
 
 
 # ==========================================================
@@ -220,188 +221,100 @@ def write_parquet_adls(df, path: str, mode="overwrite"):
     print(f"Escribiendo Parquet en {path}")
     df.write.mode(mode).parquet(path)
     print("Archivo guardado correctamente.")
-
+    
 def write_delta_udv(
     spark,
     df,
     schema: str,
     table_name: str,
-    abfss_path: str,
     formato: str = "delta",
     mode: str = "overwrite",
     catalog: str = None,
-    columns_sql: dict = None,
-    table_comment: str = None,
     replace_where: str = None,
-    force_recreate: bool = False
+    merge_condition: str = None,
+    partition_by: list = None
 ):
     """
-    Escribe un DataFrame como tabla Delta en la capa UDV (Liga 1 Perú).
+    Escribe un DataFrame como tabla Delta con todos los modos integrados.
 
-    - Crea el esquema (schema) si no existe.
-    - Crea o registra la tabla Delta con LOCATION explícito.
-    - Aplica comentarios de tabla y columnas desde YAML.
-    - Escribe los datos con saveAsTable (overwrite/append).
-    - force_recreate=True -> CREATE OR REPLACE TABLE.
+    Parámetros:
+    -----------
+    mode: str
+        - "overwrite": Sobrescribe toda la tabla
+        - "append": Agrega datos
+        - "overwrite" + replace_where: Reemplazo condicional
+        - "merge": Realiza MERGE (UPSERT) con whenMatchedUpdateAll + whenNotMatchedInsertAll
+    
+    merge_condition: str
+        Condición para el MERGE (ej: "delta.id_equipo = df.id_equipo")
+    
+    partition_by: list
+        Lista de columnas para particionar (ej: ["periododia", "id_equipo"])
     """
-
-    # ----------------------------------------------------
+    
     # Validaciones iniciales
-    # ----------------------------------------------------
     if is_dataframe_empty(df):
-        print(f"[WARN] No se escribirá la tabla {table_name} porque el DataFrame está vacío.")
+        print(f"DataFrame vacío para {table_name} - omitiendo escritura.")
         return
 
     if not catalog:
+        catalog = spark.catalog.currentCatalog()
+
+    full_table = f"{catalog}.{schema}.{table_name}"
+
+    # Validar existencia de tabla
+    if not spark.catalog.tableExists(full_table):
+        raise ValueError(f"La tabla {full_table} no existe. Creala primero con DDL.")
+
+    print(f"Ejecutando en: {full_table} (modo: {mode})")
+
+    # MERGE operation (UPSERT)
+    if mode == "merge":
+        if not merge_condition:
+            raise ValueError("Para MERGE se requiere merge_condition")
+        
         try:
-            catalog = spark.catalog.currentCatalog()
-        except Exception:
-            catalog = "hive_metastore"
-
-    full_schema = f"{catalog}.{schema}"
-    full_table  = f"{catalog}.{schema}.{table_name}"
-
-    # ----------------------------------------------------
-    # Asegurar esquema (namespace) en UC
-    # ----------------------------------------------------
-    spark.sql(f"CREATE SCHEMA IF NOT EXISTS {full_schema}")
-    print(f"[INFO] Catálogo activo: {catalog}, esquema: {schema}")
-
-    # ----------------------------------------------------
-    # Comprobar carpeta física y existencia de Delta
-    # ----------------------------------------------------
-    dbutils = get_dbutils()
-    try:
-        files = [f.name for f in dbutils.fs.ls(abfss_path)]
-        delta_log_exists = any("_delta_log" in f for f in files)
-        print(f"[INFO] Carpeta detectada en ADLS: {abfss_path}")
-    except Exception:
-        dbutils.fs.mkdirs(abfss_path)
-        delta_log_exists = False
-        print(f"[INFO] Carpeta creada en ADLS: {abfss_path}")
-
-    existe_catalogo = spark.catalog.tableExists(full_table)
-
-    # ----------------------------------------------------
-    # Construir definición de columnas (si hace falta CREATE/REPLACE)
-    # ----------------------------------------------------
-    columnas_str = None
-    table_comment_clause = ""
-
-    if (not existe_catalogo and not delta_log_exists) or force_recreate:
-        if not columns_sql:
-            raise ValueError(
-                "Bloque 'columns_sql' requerido para crear o reemplazar la tabla Delta."
-            )
-
-        columnas_def = []
-        for col_name, props in columns_sql.items():
-            tipo     = props.get("tipo", "string")
-            nullable = "NOT NULL" if not props.get("nullable", True) else ""
-            comment  = props.get("comment", None)
-
-            safe_comment = comment.replace("'", "''") if comment else None
-            comment_clause = f" COMMENT '{safe_comment}'" if safe_comment else ""
-
-            columnas_def.append(f"  {col_name} {tipo} {nullable}{comment_clause}")
-
-        columnas_str = ",\n".join(columnas_def)
-
-        if table_comment:
-            safe_table_comment = table_comment.replace("'", "''")
-            table_comment_clause = f"COMMENT '{safe_table_comment}'"
-
-    # ----------------------------------------------------
-    # Crear / reemplazar / registrar tabla Delta
-    # ----------------------------------------------------
-    if not existe_catalogo and not delta_log_exists:
-        print(f"[INFO] Creando nueva tabla Delta: {full_table}")
-
-        create_sql = f"""
-        CREATE TABLE {full_table} (
-        {columnas_str}
-        )
-        USING {formato}
-        LOCATION '{abfss_path}'
-        {table_comment_clause}
-        """
-
-        print("CREATE TABLE a ejecutar:\n", create_sql)
-        spark.sql(create_sql)
-        print(f"[OK] Tabla creada: {full_table}")
-
-    elif force_recreate:
-        print(f"[INFO] Reemplazando definición de tabla Delta: {full_table}")
-
-        create_sql = f"""
-        CREATE OR REPLACE TABLE {full_table} (
-        {columnas_str}
-        )
-        USING {formato}
-        LOCATION '{abfss_path}'
-        {table_comment_clause}
-        """
-
-        print("CREATE OR REPLACE TABLE a ejecutar:\n", create_sql)
-        spark.sql(create_sql)
-        print(f"[OK] Tabla reemplazada: {full_table}")
-
-    elif not existe_catalogo and delta_log_exists:
-        print(f"[INFO] Detectado _delta_log. Registrando tabla {full_table}.")
-        spark.sql(f"CREATE TABLE IF NOT EXISTS {full_table} USING DELTA LOCATION '{abfss_path}'")
-        print(f"[OK] Tabla registrada correctamente en catálogo.")
-
-    else:
-        print(f"[INFO] La tabla {full_table} ya existe. No se recreará.")
-
-    # ----------------------------------------------------
-    # Comentario de tabla (se asegura incluso si ya existía)
-    # ----------------------------------------------------
-    if table_comment:
-        safe_table_comment = table_comment.replace("'", "''")
-        try:
-            spark.sql(f"COMMENT ON TABLE {full_table} IS '{safe_table_comment}'")
+            from delta.tables import DeltaTable
+            
+            # Cargar tabla Delta existente
+            delta_table = DeltaTable.forName(spark, full_table)
+            
+            # Ejecutar MERGE (UPSERT)
+            delta_table.alias('delta') \
+                .merge(
+                    df.alias('df'),
+                    merge_condition
+                ) \
+                .whenMatchedUpdateAll() \
+                .whenNotMatchedInsertAll() \
+                .execute()
+            
+            print(f"MERGE (UPSERT) ejecutado exitosamente en {full_table}")
+            
         except Exception as e:
-            print(f"[WARN] No se pudo aplicar comentario a la tabla {full_table}: {e}")
+            print(f"Error en MERGE: {str(e)}")
+            raise
 
-    # ----------------------------------------------------
-    # Comentarios de columnas (para tablas nuevas o existentes)
-    # ----------------------------------------------------
-    if columns_sql:
-        for col_name, props in columns_sql.items():
-            comment = props.get("comment", None)
-            if not comment:
-                continue
+    # Modos estándar (overwrite, append)
+    else:
+        writer = df.write.format(formato).mode(mode)
+        
+        # Aplicar particionamiento si se especifica
+        if partition_by:
+            writer = writer.partitionBy(*partition_by)
+            print(f"Particionamiento aplicado: {partition_by}")
+        
+        if replace_where and mode == "overwrite":
+            writer = writer.option("replaceWhere", replace_where)
+            print(f"Reemplazo condicional: {replace_where}")
 
-            safe_comment = comment.replace("'", "''")
-            alter_col_sql = f"""
-                ALTER TABLE {full_table}
-                ALTER COLUMN {col_name} COMMENT '{safe_comment}'
-            """
-            try:
-                spark.sql(alter_col_sql)
-            except Exception as e:
-                print(f"[WARN] No se pudo aplicar comentario a la columna {col_name}: {e}")
-
-    print(f"[OK] Comentarios aplicados a tabla y columnas (cuando ha sido posible).")
-
-    # ----------------------------------------------------
-    # Escritura flexible de datos
-    # ----------------------------------------------------
-    writer = (
-        df.write
-        .format(formato)
-        .mode(mode)
-        .option("overwriteSchema", "true")
-    )
-
-    if replace_where and mode == "overwrite":
-        writer = writer.option("replaceWhere", replace_where)
-        print(f"[INFO] Reemplazo condicional habilitado: {replace_where}")
-
-    print(f"[INFO] Guardando data en {full_table} (modo={mode})")
-    writer.saveAsTable(full_table)
-    print(f"[SUCCESS] Data escrita correctamente en {full_table}")
+        try:
+            writer.saveAsTable(full_table)
+            print(f"Datos guardados en {full_table}")
+            
+        except Exception as e:
+            print(f"Error guardando datos: {str(e)}")
+            raise
 
 # ==========================================================
 # CONEXIÓN A AZURE SQL DATABASE
