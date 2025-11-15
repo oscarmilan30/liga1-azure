@@ -13,5 +13,5 @@ CREATE OR REPLACE TABLE ${catalog_name}.tb_udv.md_catalogo_equipos (
   periododia int NOT NULL COMMENT 'Periodo de carga en formato YYYYMMDD'
 )
 USING delta
-LOCATION 'abfss://${container_name}@${storage_account}.dfs.core.windows.net/udv/Proyecto/liga1/tb_udv/md_catalogo_equipos'
+LOCATION 'abfss://${container_name}@${storage_account}.dfs.core.windows.net/udv/Proyecto/liga1/tb_udv/md_catalogo_equipos/data'
 COMMENT 'Catálogo maestro de equipos de la Liga 1 Perú';
