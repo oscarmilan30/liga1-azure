@@ -6,11 +6,11 @@
 CREATE OR REPLACE TABLE ${catalog_name}.tb_udv.md_equipos (
   id_equipo           INT NOT NULL COMMENT 'Identificador único del equipo (llave maestra del modelo)',
   nombre_equipo       STRING NOT NULL COMMENT 'Nombre oficial del equipo según el catálogo maestro',
-  alias               STRING COMMENT 'Alias o nombre corto usado en el catálogo',
+  alias_equipo        STRING COMMENT 'Alias o nombre corto usado en el catálogo',
   equipo_raw          STRING NOT NULL COMMENT 'Nombre del equipo tal como viene de la fuente (JSON equipos)',
-  url                 STRING COMMENT 'URL del equipo en la fuente (por ejemplo Transfermarkt)',
-  fuente_ultima       STRING NOT NULL COMMENT 'Fuente de la última extracción utilizada para este equipo',
-  fecha_carga_ultima  TIMESTAMP NOT NULL COMMENT 'Fecha y hora de la última carga efectiva en UDV para este equipo',
+  url_equipo          STRING COMMENT 'URL del equipo en la fuente (por ejemplo Transfermarkt)',
+  fuente_equipo       STRING NOT NULL COMMENT 'Fuente de la última extracción utilizada para este equipo',
+  fecha_carga         TIMESTAMP NOT NULL COMMENT 'Fecha y hora de la última carga efectiva en UDV para este equipo',
   periododia          INT NOT NULL COMMENT 'Periodo técnico de carga en formato YYYYMMDD, derivado de fecha_carga_ultima'
 )
 USING delta

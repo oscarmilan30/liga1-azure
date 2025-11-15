@@ -7,7 +7,7 @@
 from pyspark.sql.functions import col, current_timestamp, date_format
 from utils_liga1 import cast_dataframe_schema
 
-def select_final(df, prm_cols, prm_schema):
+def carga_final(df, prm_cols, prm_schema):
     """
     Selecciona las columnas del YAML, agrega campos de control (fecha_carga, periododia)
     y castea/ordena según el schema definido.

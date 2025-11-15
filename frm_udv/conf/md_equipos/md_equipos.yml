@@ -1,0 +1,34 @@
+md_equipos:
+    cols_catalogo_equipos:
+        - id_equipo
+        - nombre_equipo
+        - nombre_fotmob
+        - alias
+    
+    cols_equipos:
+        - fuente
+        - url
+        - equipo
+    
+    campo_json: data
+
+    drop_duplicates_equipos:
+        - fuente
+        - url
+        - equipo
+    
+    rename_columns:
+        alias: alias_equipo
+        equipo_lower: equipo_raw
+        url: url_equipo
+        fuente: fuente_equipo
+    
+    schema:
+        id_equipo: int
+        nombre_equipo: string
+        alias_equipo: string
+        equipo_raw: string
+        url_equipo: string
+        fuente_equipo: string
+        fecha_carga: timestamp
+        periododia: int

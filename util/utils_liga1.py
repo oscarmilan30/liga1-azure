@@ -88,6 +88,24 @@ def cast_dataframe_schema(df: DataFrame, schema: dict, date_format: str = "yyyy-
 
     return df.select(*select_exprs)
 
+
+def rename_columns(
+    df: DataFrame,
+    rename_dict: dict,
+) -> DataFrame:
+    """
+    Rename columns of DataFrame using a dictionary
+    Args:
+        df: DataFrame to be renamed
+        rename_dict: dictionary to use to rename the columns
+    Returns:
+        DataFrame with columns renamed
+    """
+    renamed = df.select(
+        *[col(column).alias(rename_dict.get(column, column)) for column in df.columns]
+    )
+    return renamed
+
 def log(msg: str, level: str = "INFO", entity: str = None):
     """
     Muestra mensajes uniformes en el log de Databricks Jobs.
@@ -103,6 +121,21 @@ def log(msg: str, level: str = "INFO", entity: str = None):
         prefix += f" [{entity}]"
     print(f"{prefix} {msg}")
 
+def extract_entity_name(full_name):
+    """
+    Extrae el nombre de la entidad removiendo el prefijo antes del primer guión bajo
+    
+    Args:
+        full_name (str): Nombre completo con prefijo (ej: 'md_equipos')
+    
+    Returns:
+        str: Nombre de la entidad sin prefijo (ej: 'equipos')
+    """
+    if '_' in full_name:
+        return full_name.split('_', 1)[1]
+    else:
+        return full_name
+    
 # ==========================================================
 # VALIDACIÓN UNIVERSAL DE DATAFRAMES
 # ==========================================================
@@ -376,7 +409,7 @@ def get_sql_connection():
         print(f"Error obteniendo conexión SQL: {e}")
         return None, None, None, None, None, None
 
-def get_pipeline(pipeline_name: str) -> dict:
+def get_pipeline(pipeline_id: int) -> dict:
     """
     Retorna PipelineId de pipeline destino.
 
@@ -396,20 +429,20 @@ def get_pipeline(pipeline_name: str) -> dict:
     (
          SELECT PipelineId,Nombre as pipeline
             FROM tbl_pipeline
-            where Nombre='{pipeline_name}'
+            where PipelineId='{pipeline_id}'
     ) AS info
     """
 
     df_info = spark.read.jdbc(url=jdbc_url, table=query, properties=props)
 
     if is_dataframe_empty(df_info):
-        print(f"[WARN] No se encontró Pipeline {pipeline_name}")
+        print(f"[WARN] No se encontró Pipeline {pipeline_id}")
         return None
 
     # Conversión segura sin pandas / sin collect
     registro = df_info.head(1)[0].asDict()
 
-    print(f"[OK] PipelineId destino {pipeline_name}")
+    print(f"[OK] PipelineId destino {pipeline_id}")
     return registro
 
 def get_predecesor(pipeline_id_destino: int) -> dict:
@@ -576,7 +609,6 @@ def get_entity_data(entidad: str):
 # ==========================================================
 # TRANSFORMACIÓN JSON
 # ==========================================================
-
 def parsear_json(df, campo_json="data"):
     campo_limpio = f"{campo_json}_limpio"
     return df.select(
@@ -615,17 +647,18 @@ def extraer_claves_subclaves(df_exploded, campo="json_item", limite=50):
     return list(set(claves)), list(set(claves_anidadas))
 
 
-def construir_columnas(df_exploded, claves, claves_anidadas, prefijo="json", limite=50):
+def construir_columnas(df_exploded, claves, claves_anidadas, prefijo="", limite=50):
     columnas = {}
     columnas_anidadas = {}
 
     for key in claves:
         if key not in claves_anidadas:
-            alias = f"{prefijo}_{key.lower()}"
+            # Sin prefijo - usa directamente el nombre de la clave
+            alias = key.lower()
             columnas[alias] = col("json_item").getItem(key).alias(alias)
 
     for key in claves_anidadas:
-        alias_base = f"{prefijo}_{key.lower()}"
+        alias_base = key.lower()
         campo = col("json_item").getItem(key)
         campo_array = from_json(
             when(campo.startswith("[").cast("boolean") & (instr(campo, "{") > 0), campo)
@@ -641,21 +674,24 @@ def construir_columnas(df_exploded, claves, claves_anidadas, prefijo="json", lim
                 subkeys.update(submap.keys())
 
         for subkey in subkeys:
+            # Sin prefijo - usa directamente los nombres de las claves
             alias = f"{alias_base}_{subkey.lower()}"
             columnas_anidadas[alias] = campo_array.getItem(0).getItem(subkey).alias(alias)
 
     return list(columnas.values()) + list(columnas_anidadas.values())
 
-def generar_udv_json(entidad: str, campo_json="data", limite=50):
+def generar_udv_json(entidad: str, campo_json: str, limite=50):
     """
     Lee la entidad desde RAW (flg_udv = 'N'), procesa el campo JSON y genera un DataFrame UDV expandido.
-    - Llama internamente a get_entity_data()
-    - Explosiona y normaliza JSONs de estructura libre
-    - Devuelve un DataFrame expandido listo para escribir en UDV
+    
+    Args:
+        entidad (str): Nombre de la entidad a procesar
+        campo_json (str): Nombre del campo que contiene el JSON (obligatorio)
+        limite (int): Límite de registros para inferir esquema
     """
-
     print("===============================================")
     print(f"[INICIO] Generación de UDV para entidad '{entidad}'")
+    print(f"[CONFIG] Campo JSON: '{campo_json}'")
     print("===============================================")
 
     # Leer data pendiente desde RAW
@@ -666,7 +702,7 @@ def generar_udv_json(entidad: str, campo_json="data", limite=50):
 
     # Validar existencia del campo JSON
     if campo_json not in df.columns:
-        raise ValueError(f"El campo '{campo_json}' no existe en la entidad '{entidad}'.")
+        raise ValueError(f"El campo '{campo_json}' no existe en la entidad '{entidad}'. Campos disponibles: {df.columns}")
 
     # Limpieza y conversión del JSON
     df_limpio = parsear_json(df, campo_json)
@@ -682,9 +718,11 @@ def generar_udv_json(entidad: str, campo_json="data", limite=50):
 
     # Inferir claves dinámicas
     claves, claves_anidadas = extraer_claves_subclaves(df_exploded, campo="json_item", limite=limite)
-    columnas_dinamicas = construir_columnas(df_exploded, claves, claves_anidadas, prefijo="json", limite=limite)
+    
+    # SIN PREFIJO - las columnas quedan con los nombres originales
+    columnas_dinamicas = construir_columnas(df_exploded, claves, claves_anidadas, prefijo="", limite=limite)
 
-    # Selección final (sin el campo original 'data')
+    # Selección final (sin el campo original del JSON)
     columnas_finales = [c for c in df_array.columns if c not in [campo_json, f"{campo_json}_limpio", "json_array"]]
     df_final = df_exploded.select(
         *[col(c) for c in columnas_finales],
@@ -696,3 +734,7 @@ def generar_udv_json(entidad: str, campo_json="data", limite=50):
     print("===============================================")
 
     return df_final
+
+
+
+
