@@ -213,6 +213,30 @@ def read_parquet_adls(spark, path: str):
     print(f"Leyendo Parquet desde {path}")
     return spark.read.parquet(path)
 
+from pyspark.sql import SparkSession, DataFrame
+
+def read_udv_table(
+    ruta_tabla: str,
+    catalog_name: str = None,
+) -> DataFrame:
+    """
+    Lee una tabla UDV a partir de RutaTabla ('schema.tabla') y el catálogo.
+
+    Ejemplo RutaTabla:
+      - 'tb_udv.md_catalogo_equipos'
+    
+    Si no se envía catalog_name, usa el catálogo actual de Spark.
+    """
+
+    # Resolver catálogo (si no se pasa, tomamos el actual)
+    if not catalog_name:
+        catalog_name = spark.catalog.currentCatalog()
+
+    full_table_name = f"{catalog_name}.{ruta_tabla}"  # ej: liga1_catalog.tb_udv.md_catalogo_equipos
+
+    print(f"[INFO] Leyendo tabla UDV: {full_table_name}")
+    return spark.table(full_table_name)
+
 
 def write_parquet_adls(df, path: str, mode="overwrite"):
     if is_dataframe_empty(df):
@@ -221,7 +245,8 @@ def write_parquet_adls(df, path: str, mode="overwrite"):
     print(f"Escribiendo Parquet en {path}")
     df.write.mode(mode).parquet(path)
     print("Archivo guardado correctamente.")
-    
+
+
 def write_delta_udv(
     spark,
     df,
@@ -389,13 +414,12 @@ def get_pipeline(pipeline_name: str) -> dict:
 
 def get_predecesor(pipeline_id_destino: int) -> dict:
     """
-    Retorna un diccionario con la información completa del predecesor para un pipeline destino.
+    Retorna info del predecesor para un pipeline destino.
 
-    Tablas involucradas:
-      - tbl_predecesores
-
-    Retorna:
-      dict: con los campos principales o None si no hay coincidencias
+    Ahora incluye:
+      - PipelineId_Predecesor
+      - Ruta_Predecesor   (path físico en ADLS)
+      - RutaTabla         (schema + nombre tabla Delta, ej: tb_udv.md_catalogo_equipos)
     """
     spark = SparkSession.getActiveSession()
     jdbc_url, props, _, _, _, _ = get_sql_connection()
@@ -407,7 +431,8 @@ def get_predecesor(pipeline_id_destino: int) -> dict:
     (
          SELECT 
             PipelineId_Predecesor,
-            Ruta_Predecesor
+            Ruta_Predecesor,
+            RutaTabla
         FROM dbo.tbl_predecesores 
         WHERE PipelineId_Destino = {pipeline_id_destino}
     ) AS info
@@ -419,11 +444,11 @@ def get_predecesor(pipeline_id_destino: int) -> dict:
         print(f"[WARN] No se encontró predecesor para PipelineId destino {pipeline_id_destino}")
         return None
 
-    # Conversión segura sin pandas / sin collect
     registro = df_info.head(1)[0].asDict()
 
     print(f"[OK] Predecesor encontrado para PipelineId destino {pipeline_id_destino}")
     return registro
+
 
 def get_pipeline_params(pipeline_id: int) -> dict:
     """
