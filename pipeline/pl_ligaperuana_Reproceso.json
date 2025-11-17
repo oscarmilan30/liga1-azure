@@ -20,7 +20,8 @@
 						"value": "@json(concat('[{\"Anio\":', pipeline().parameters.Year_Reprocess, '}]'))",
 						"type": "Expression"
 					},
-					"isSequential": true,
+					"isSequential": false,
+					"batchCount": 5,
 					"activities": [
 						{
 							"name": "pl_procesar_archivos_por_anio",
