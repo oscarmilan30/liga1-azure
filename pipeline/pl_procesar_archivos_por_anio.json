@@ -19,7 +19,8 @@
 						"value": "@pipeline().parameters.lista_archivos",
 						"type": "Expression"
 					},
-					"isSequential": true,
+					"isSequential": false,
+					"batchCount": 5,
 					"activities": [
 						{
 							"name": "CheckIfShouldFail",
