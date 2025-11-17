@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_raw/curated_historico/nb_unificar_1FL",
+					"notebookPath": "/Repos/garciadoscar1994@outlook.com/liga1-azure/frm_raw/curated_historico/nb_unificar_1FL",
 					"baseParameters": {
 						"filesystem": {
 							"value": "@pipeline().parameters.filesystem",

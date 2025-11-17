@@ -220,7 +220,7 @@
 												},
 												"userProperties": [],
 												"typeProperties": {
-													"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_raw/curated_csv/nb_curated_csv",
+													"notebookPath": "/Repos/garciadoscar1994@outlook.com/liga1-azure/frm_raw/curated_csv/nb_curated_csv",
 													"baseParameters": {
 														"nombre_archivo": {
 															"value": "@pipeline().parameters.nombre_archivo",
@@ -355,7 +355,7 @@
 												},
 												"userProperties": [],
 												"typeProperties": {
-													"notebookPath": "/Users/garciadoscar1994@outlook.com/liga1-azure/frm_raw/curated_json/nb_curated_json",
+													"notebookPath": "/Repos/garciadoscar1994@outlook.com/liga1-azure/frm_raw/curated_json/nb_curated_json",
 													"baseParameters": {
 														"nombre_archivo": {
 															"value": "@pipeline().parameters.nombre_archivo",
