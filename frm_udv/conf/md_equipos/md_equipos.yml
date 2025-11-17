@@ -16,6 +16,9 @@ md_equipos:
         - fuente
         - url
         - equipo
+
+    dedup_cols: 
+        - temporada
     
     rename_columns:
         alias: alias_equipo

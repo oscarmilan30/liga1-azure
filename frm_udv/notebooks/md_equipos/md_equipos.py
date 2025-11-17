@@ -4,7 +4,7 @@
 # Autor: Oscar García Del Águila
 # ==========================================================
 
-from pyspark.sql.functions import col, current_timestamp, date_format,lower
+from pyspark.sql.functions import col, current_timestamp, date_format,lower, trim
 from utils_liga1 import cast_dataframe_schema, rename_columns
 
 
@@ -32,7 +32,7 @@ def carga_final(df_catalogo_equipos, df_raw_equipos, prm_cols_catalogo_equipos, 
                                            )
     
     df_join=df_catalogo_equipos_select.alias("a")\
-                             .join(df_raw_equipos_select.alias("b"),col("a.nombre_fotmob")==col("b.equipo_lower"),"left")\
+                             .join(df_raw_equipos_select.alias("b"),trim(col("a.nombre_fotmob"))==trim(col("b.equipo_lower")),"left")\
                             .select(col("a.id_equipo"),
                                     col("a.nombre_equipo"),
                                     col("a.alias"),

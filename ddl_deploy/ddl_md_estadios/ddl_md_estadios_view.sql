@@ -1,0 +1,18 @@
+-- ==========================================================
+-- UDV - VW_MD_ESTADIOS_VW
+-- Proyecto: Liga 1 Perú
+-- ==========================================================
+
+CREATE OR REPLACE VIEW ${catalog_name}.vw_udv.md_estadios_vw
+AS
+SELECT
+    id_equipo,
+    nombre_equipo,
+    equipo_raw,
+    estadio,
+    capacidad,
+    aforo,
+    fuente_estadio,
+    fecha_carga,
+    periododia
+FROM ${catalog_name}.tb_udv.md_estadios;

@@ -519,11 +519,22 @@ def get_pipeline_params(pipeline_id: int) -> dict:
 # LECTURA DE ENTIDAD DESDE PATHS (FLG_UDV = 'N')
 # ==========================================================
 
-def get_entity_data(entidad: str):
+def get_entity_data(entidad: str, dedup_cols: list = None):
     """
     Lee todos los paths con flg_udv='N' para una entidad específica,
     combina los Parquets en un solo DataFrame,
-    elimina duplicados por temporada y actualiza flg_udv='S' solo para los IDs procesados.
+    aplica deduplicación opcional y actualiza flg_udv='S' solo para los IDs procesados.
+
+    Parámetros
+    ----------
+    entidad : str
+        Nombre de la entidad en tbl_paths (ej: 'estadios', 'equipos', 'liga1', etc.)
+    dedup_cols : list, opcional
+        Columnas para deduplicar:
+          - Si es None   -> dropDuplicates() global
+          - Si tiene cols -> se hace:
+                1) orderBy(desc('fecha_carga')) si existe esa columna
+                2) dropDuplicates(dedup_cols) para conservar la fila más reciente
     """
     spark = SparkSession.getActiveSession()
     jdbc_url, props, sql_server, sql_db, sql_user, sql_pass = get_sql_connection()
@@ -568,22 +579,27 @@ def get_entity_data(entidad: str):
         print(f"[ERROR] No se pudo generar DataFrame consolidado para '{entidad}'.")
         return None
 
+    # -------------------------------------------
+    # DEDUPLICACIÓN (sin withColumn)
+    # -------------------------------------------
     lower_cols = [c.lower() for c in df_union.columns]
-    cols = [col(c) for c in df_union.columns]
 
-    if "temporada" in lower_cols:
-        print("[INFO] Eliminando duplicados por temporada (última fecha_carga).")
-        w = Window.partitionBy("temporada").orderBy(desc("fecha_carga"))
-        df_union = (
-            df_union.select(*cols, row_number().over(w).alias("row_num"))
-            .filter(col("row_num") == 1)
-            .drop("row_num")
-        )
-    elif "fecha_carga" in lower_cols:
-        df_union = df_union.dropDuplicates(["fecha_carga"])
+    if dedup_cols:
+        print(f"[INFO] Eliminando duplicados por {dedup_cols} (manteniendo la última fecha_carga si existe).")
+
+        # Si existe fecha_carga (en cualquier case), ordenamos para que la más reciente quede primero
+        if "fecha_carga" in lower_cols:
+            df_union = df_union.orderBy(desc("fecha_carga"))
+
+        # dropDuplicates conserva la primera fila que encuentra por clave
+        df_union = df_union.dropDuplicates(dedup_cols)
     else:
+        print("[INFO] Aplicando dropDuplicates() global.")
         df_union = df_union.dropDuplicates()
 
+    # -------------------------------------------
+    # Actualización de flags en cola
+    # -------------------------------------------
     try:
         print("[INFO] Enviando IDs a la cola de actualización tbl_flag_update_queue_id...")
         (
@@ -604,7 +620,6 @@ def get_entity_data(entidad: str):
     print(f"[SUCCESS] Registros finales: {df_union.count()}")
     print("===============================================")
     return df_union
-
 
 # ==========================================================
 # TRANSFORMACIÓN JSON
@@ -680,22 +695,23 @@ def construir_columnas(df_exploded, claves, claves_anidadas, prefijo="", limite=
 
     return list(columnas.values()) + list(columnas_anidadas.values())
 
-def generar_udv_json(entidad: str, campo_json: str, limite=50):
+def generar_udv_json(entidad: str, campo_json: str, limite=50, dedup_cols: list = None):
     """
     Lee la entidad desde RAW (flg_udv = 'N'), procesa el campo JSON y genera un DataFrame UDV expandido.
     
     Args:
-        entidad (str): Nombre de la entidad a procesar
+        entidad (str): Nombre de la entidad a procesar (ej: 'equipos', 'partidos', etc.)
         campo_json (str): Nombre del campo que contiene el JSON (obligatorio)
-        limite (int): Límite de registros para inferir esquema
+        limite (int): Límite de registros para inferir claves
+        dedup_cols (list): Columnas para deduplicar en RAW antes de explotar el JSON
     """
     print("===============================================")
     print(f"[INICIO] Generación de UDV para entidad '{entidad}'")
-    print(f"[CONFIG] Campo JSON: '{campo_json}'")
+    print(f"[CONFIG] Campo JSON: '{campo_json}' | dedup_cols={dedup_cols}")
     print("===============================================")
 
-    # Leer data pendiente desde RAW
-    df = get_entity_data(entidad)
+    # Leer data pendiente desde RAW (con o sin deduplicación por claves)
+    df = get_entity_data(entidad, dedup_cols=dedup_cols)
     if df is None or is_dataframe_empty(df):
         print(f"[INFO] No se encontró data pendiente para '{entidad}'.")
         return None

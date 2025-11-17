@@ -8,7 +8,7 @@ import re
 import unicodedata
 from datetime import datetime
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import col, lower, trim, regexp_replace, when, lit
+from pyspark.sql.functions import col, lower, trim, regexp_replace, when, lit, translate
 
 
 # ----------------------------------------------------------
@@ -72,8 +72,6 @@ def limpiar_numero(valor: str):
         return float(valor) if "." in valor else int(valor)
 
     return None
-
-
 # ----------------------------------------------------------
 # CURATED CSV (sin pandas, sin withColumn)
 # ----------------------------------------------------------
@@ -96,25 +94,37 @@ def procesar_curated_csv(df: DataFrame) -> DataFrame:
     ]
     df = df.toDF(*columnas)
 
-    # Seleccionar columnas limpias
     columnas_limpias = []
     for c in df.columns:
         c_lower = c.lower()
 
-        # Limpieza texto base
+        # 1) Base: lower + trim
         expr_col = lower(trim(col(c)))
-        expr_col = regexp_replace(expr_col, "[áéíóú]", "a")
 
-        # Fechas
+        # 2) Normalizar tildes correctamente (NO todo a 'a')
+        #    á→a, é→e, í→i, ó→o, ú→u (y mayúsculas)
+        expr_col = translate(expr_col, "áéíóúÁÉÍÓÚ", "aeiouaeiou")
+
+        # 3) Quitar espacios repetidos
+        expr_col = regexp_replace(expr_col, r"\s+", " ")
+
+        # 4) Fechas dd/mm/yyyy → yyyy-mm-dd
         if "fecha" in c_lower:
-            expr_col = regexp_replace(expr_col, r"(\d{1,2})/(\d{1,2})/(\d{4})", r"\3-\2-\1")
+            expr_col = regexp_replace(
+                expr_col,
+                r"(\d{1,2})/(\d{1,2})/(\d{4})",
+                r"\3-\2-\1"
+            )
 
-        # Porcentajes → quitar símbolo
+        # 5) Porcentajes → quitar símbolo %
         if any(x in c_lower for x in ["porc", "porcentaje", "ratio", "ppp"]):
             expr_col = regexp_replace(expr_col, "%", "")
 
-        # Nulos vacíos
-        expr_col = when(expr_col.isin("", "-", "n/a", "none"), lit(None)).otherwise(expr_col).alias(c)
+        # 6) Nulos vacíos
+        expr_col = when(
+            expr_col.isin("", "-", "n/a", "none"),
+            lit(None)
+        ).otherwise(expr_col).alias(c)
 
         columnas_limpias.append(expr_col)
 

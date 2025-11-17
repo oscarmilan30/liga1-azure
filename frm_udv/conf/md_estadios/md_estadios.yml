@@ -1,0 +1,34 @@
+md_estadios:
+  cols_catalogo_equipos:
+    - id_equipo
+    - nombre_equipo
+    - nombre_transfermarkt
+
+  cols_estadios:
+    - club
+    - estadio
+    - capacidad
+    - aforo
+    - fuente
+
+  dedup_cols:
+    - temporada
+    - club
+
+  drop_duplicates_estadios:
+    - club
+
+  rename_columns:
+    club_lower: equipo_raw
+    fuente: fuente_estadio
+
+  schema:
+    id_equipo: int
+    nombre_equipo: string
+    equipo_raw: string
+    estadio: string
+    capacidad: string
+    aforo: string
+    fuente_estadio: string
+    fecha_carga: timestamp
+    periododia: int
