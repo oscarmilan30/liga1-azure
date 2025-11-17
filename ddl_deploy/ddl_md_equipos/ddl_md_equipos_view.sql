@@ -8,10 +8,10 @@ AS
 SELECT
     id_equipo,
     nombre_equipo,
-    alias,
+    alias_equipo,
     equipo_raw,
-    url,
-    fuente_ultima,
-    fecha_carga_ultima,
+    url_equipo,
+    fuente_equipo,
+    fecha_carga,
     periododia
 FROM ${catalog_name}.tb_udv.md_equipos;
