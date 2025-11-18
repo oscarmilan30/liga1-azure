@@ -468,23 +468,14 @@ def get_pipeline(pipeline_id: int) -> dict:
     print(f"[OK] PipelineId destino {pipeline_id}")
     return registro
 
-def get_predecesores(pipeline_id_destino: int) -> list[dict]:
+def get_predecesor(pipeline_id_destino: int) -> dict:
     """
-    Retorna TODOS los predecesores para un PipelineId destino.
+    Retorna TODOS los predecesores para un PipelineId destino
+    en un diccionario indexado por un nombre lógico:
 
-    Devuelve una lista de diccionarios, por ejemplo:
-    [
-      {
-        "PipelineId_Predecesor": 8,
-        "Ruta_Predecesor": "udv/Proyecto/liga1/tb_udv/md_plantillas/data/",
-        "RutaTabla": "tb_udv.md_plantillas"
-      },
-      {
-        "PipelineId_Predecesor": 4,
-        "Ruta_Predecesor": "udv/Proyecto/liga1/tb_udv/md_catalogo_equipos/data/",
-        "RutaTabla": "tb_udv.md_catalogo_equipos"
-      }
-    ]
+    - Si RutaTabla = 'tb_udv.md_plantillas'     -> key = 'md_plantillas'
+    - Si RutaTabla = 'catalogo_equipos'         -> key = 'catalogo_equipos'
+    - Si RutaTabla es NULL                      -> key = '<PipelineId_Predecesor>'
     """
     spark = SparkSession.getActiveSession()
     jdbc_url, props, _, _, _, _ = get_sql_connection()
@@ -507,14 +498,30 @@ def get_predecesores(pipeline_id_destino: int) -> list[dict]:
 
     if is_dataframe_empty(df_info):
         print(f"[WARN] No se encontraron predecesores para PipelineId destino {pipeline_id_destino}")
-        return []
+        return {}
 
-    # Sin collect(): iteramos en el driver fila por fila
-    registros = [row.asDict() for row in df_info.toLocalIterator()]
+    resultado = {}
 
-    print(f"[OK] {len(registros)} predecesores encontrados para PipelineId destino {pipeline_id_destino}")
-    return registros
+    for row in df_info.toLocalIterator():
+        reg = row.asDict()
+        ruta_tabla = reg.get("RutaTabla")
 
+        if ruta_tabla:
+            # Caso UDV con schema: tb_udv.md_xxx  -> md_xxx
+            if "." in ruta_tabla:
+                key = ruta_tabla.split(".")[-1]
+            else:
+                # Caso RAW u otro sin schema: usamos el valor completo
+                # ej: 'catalogo_equipos'
+                key = ruta_tabla
+        else:
+            # Último fallback, casi nunca debería usarse con tu SP actual
+            key = str(reg.get("PipelineId_Predecesor"))
+
+        resultado[key] = reg
+
+    print(f"[OK] {len(resultado)} predecesores encontrados para PipelineId destino {pipeline_id_destino}")
+    return resultado
 
 
 def get_pipeline_params(pipeline_id: int) -> dict:
