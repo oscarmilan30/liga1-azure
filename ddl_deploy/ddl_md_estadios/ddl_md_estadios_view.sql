@@ -6,9 +6,8 @@
 CREATE OR REPLACE VIEW ${catalog_name}.vw_udv.md_estadios_vw
 AS
 SELECT
+    id_estadio,
     id_equipo,
-    nombre_equipo,
-    equipo_raw,
     estadio,
     capacidad,
     aforo,

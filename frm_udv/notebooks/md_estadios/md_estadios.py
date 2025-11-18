@@ -4,9 +4,8 @@
 # Autor: Oscar García Del Águila
 # ==========================================================
 
-from pyspark.sql.functions import col, current_timestamp, date_format, lower, trim
-from utils_liga1 import cast_dataframe_schema, rename_columns
-
+from pyspark.sql.functions import col, current_timestamp, date_format, lower,trim,sha2,concat_ws
+from utils_liga1 import cast_dataframe_schema, rename_columns, build_case_when
 
 def carga_final(
     df_catalogo_equipos,
@@ -15,7 +14,8 @@ def carga_final(
     prm_cols_estadios,
     prm_drop_duplicates_estadios,
     prm_rename_columns,
-    prm_schema
+    prm_schema,
+    prm_case_rules
 ):
     """
     Construye el maestro de estadios (md_estadios) a partir de:
@@ -43,35 +43,47 @@ def carga_final(
         .dropDuplicates(prm_drop_duplicates_estadios)
         .select(
             *[col(c) for c in prm_cols_estadios],
-            lower(col("club")).alias("club_lower")
+            lower(col("club") ).alias("club_lower")
         )
     )
 
-    # 3) JOIN catálogo vs estadios
+
+    # 3) configuracion logicas YAML
+    capacidad_expr = build_case_when("b.capacidad", "capacidad", prm_case_rules)
+    aforo_expr     = build_case_when("b.aforo", "aforo", prm_case_rules)
+
+    # 4) JOIN catálogo vs estadios
     df_join = (
         df_catalogo_equipos_select.alias("a")
         .join(
             df_raw_estadios_select.alias("b"),
-            lower(col("a.nombre_equipo")) == col("b.club_lower"),
+            trim(lower(col("a.nombre_transfermarkt"))) == trim(col("b.club_lower")),
             "left"
         )
         .select(
+            sha2(
+            concat_ws(
+                "-",                                
+                col("a.id_equipo").cast("string"),
+                trim(lower(col("b.estadio")))
+            ),
+            256
+        ).alias("id_estadio"),
             col("a.id_equipo"),
-            col("a.nombre_equipo"),
-            col("b.club_lower"),
             col("b.estadio"),
-            col("b.capacidad"),
-            col("b.aforo"),
+            capacidad_expr,
+            aforo_expr,
             col("b.fuente"),
             current_timestamp().alias("fecha_carga"),
             date_format(current_timestamp(), "yyyyMMdd").alias("periododia")
         )
     )
 
-    # 4) Renombrar columnas según YAML (club_lower → club_raw, fuente → fuente_estadio)
+    # 5) Renombrar columnas según YAML (club_lower → club_raw, fuente → fuente_estadio)
     df_rename = rename_columns(df_join, prm_rename_columns)
 
-    # 5) Castear y ordenar columnas según schema
+    # 6) Castear y ordenar columnas según schema
     df_cast = cast_dataframe_schema(df_rename, prm_schema)
+
 
     return df_cast

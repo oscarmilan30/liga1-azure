@@ -88,6 +88,29 @@ def cast_dataframe_schema(df: DataFrame, schema: dict, date_format: str = "yyyy-
 
     return df.select(*select_exprs)
 
+def build_case_when(raw_col_name: str, logical_name: str, case_rules: dict):
+    """
+    Construye una expresión basada en CASE WHEN a partir del YAML.
+
+    case_rules ejemplo:
+      capacidad:
+        expr: "CASE WHEN {col} IN ('0','0.0','0,0') THEN 'sin informacion' ELSE {col} END"
+    """
+    if not case_rules:
+        return col(raw_col_name).alias(logical_name)
+
+    conf = case_rules.get(logical_name)
+    if not conf:
+        return col(raw_col_name).alias(logical_name)
+
+    expr_tpl = conf.get("expr")
+    if not expr_tpl:
+        return col(raw_col_name).alias(logical_name)
+
+    # Reemplazamos {col} por el nombre físico (ej: 'b.capacidad')
+    expr_str = expr_tpl.replace("{col}", raw_col_name)
+
+    return expr(expr_str).alias(logical_name)
 
 def rename_columns(
     df: DataFrame,
@@ -427,7 +450,7 @@ def get_pipeline(pipeline_id: int) -> dict:
 
     query = f"""
     (
-         SELECT PipelineId,Nombre as pipeline
+         SELECT PipelineId,Nombre as pipeline,parent_pipelineid
             FROM tbl_pipeline
             where PipelineId='{pipeline_id}'
     ) AS info
@@ -445,14 +468,23 @@ def get_pipeline(pipeline_id: int) -> dict:
     print(f"[OK] PipelineId destino {pipeline_id}")
     return registro
 
-def get_predecesor(pipeline_id_destino: int) -> dict:
+def get_predecesores(pipeline_id_destino: int) -> list[dict]:
     """
-    Retorna info del predecesor para un pipeline destino.
+    Retorna TODOS los predecesores para un PipelineId destino.
 
-    Ahora incluye:
-      - PipelineId_Predecesor
-      - Ruta_Predecesor   (path físico en ADLS)
-      - RutaTabla         (schema + nombre tabla Delta, ej: tb_udv.md_catalogo_equipos)
+    Devuelve una lista de diccionarios, por ejemplo:
+    [
+      {
+        "PipelineId_Predecesor": 8,
+        "Ruta_Predecesor": "udv/Proyecto/liga1/tb_udv/md_plantillas/data/",
+        "RutaTabla": "tb_udv.md_plantillas"
+      },
+      {
+        "PipelineId_Predecesor": 4,
+        "Ruta_Predecesor": "udv/Proyecto/liga1/tb_udv/md_catalogo_equipos/data/",
+        "RutaTabla": "tb_udv.md_catalogo_equipos"
+      }
+    ]
     """
     spark = SparkSession.getActiveSession()
     jdbc_url, props, _, _, _, _ = get_sql_connection()
@@ -474,13 +506,15 @@ def get_predecesor(pipeline_id_destino: int) -> dict:
     df_info = spark.read.jdbc(url=jdbc_url, table=query, properties=props)
 
     if is_dataframe_empty(df_info):
-        print(f"[WARN] No se encontró predecesor para PipelineId destino {pipeline_id_destino}")
-        return None
+        print(f"[WARN] No se encontraron predecesores para PipelineId destino {pipeline_id_destino}")
+        return []
 
-    registro = df_info.head(1)[0].asDict()
+    # Sin collect(): iteramos en el driver fila por fila
+    registros = [row.asDict() for row in df_info.toLocalIterator()]
 
-    print(f"[OK] Predecesor encontrado para PipelineId destino {pipeline_id_destino}")
-    return registro
+    print(f"[OK] {len(registros)} predecesores encontrados para PipelineId destino {pipeline_id_destino}")
+    return registros
+
 
 
 def get_pipeline_params(pipeline_id: int) -> dict:

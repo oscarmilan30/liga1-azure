@@ -4,9 +4,8 @@
 -- ==========================================================
 
 CREATE OR REPLACE TABLE ${catalog_name}.tb_udv.md_estadios (
+  id_estadio     STRING NOT NULL COMMENT 'Identificador único del estadio (hash determinístico del nombre)',
   id_equipo      INT NOT NULL COMMENT 'Identificador único del equipo asociado al estadio',
-  nombre_equipo  STRING NOT NULL COMMENT 'Nombre oficial del equipo según el catálogo maestro',
-  equipo_raw     STRING NOT NULL COMMENT 'Nombre del club tal como viene de la fuente de estadios',
   estadio        STRING NOT NULL COMMENT 'Nombre del estadio principal del club según la fuente',
   capacidad      STRING COMMENT 'Capacidad del estadio según la fuente (texto original)',
   aforo          STRING COMMENT 'Aforo oficial del estadio según la fuente (texto original)',
