@@ -1,5 +1,4 @@
 # Databricks notebook source
-# Databricks notebook source
 # ==========================================================
 # UNIFICAR ARCHIVOS CSV
 # Proyecto: Liga 1 Perú
@@ -89,12 +88,12 @@ try:
     # ------------------------------------------------------
     # LIMPIEZA DE CARPETA STG/DATA (solo si existe)
     # ------------------------------------------------------
-    try:
-        print(f"Eliminando carpeta temporal: {ruta_abfss_origen}")
-        dbutils.fs.rm(ruta_abfss_origen, recurse=True)
-        print("Carpeta stg/data eliminada correctamente.")
-    except Exception as e:
-        print(f"No se pudo eliminar carpeta {ruta_abfss_origen}: {str(e)}")
+    # try:
+    #     print(f"Eliminando carpeta temporal: {ruta_abfss_origen}")
+    #     dbutils.fs.rm(ruta_abfss_origen, recurse=True)
+    #     print("Carpeta stg/data eliminada correctamente.")
+    # except Exception as e:
+    #     print(f"No se pudo eliminar carpeta {ruta_abfss_origen}: {str(e)}")
 
 except Exception as e:
     print("Error en Curated CSV:", str(e))

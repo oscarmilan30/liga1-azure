@@ -274,7 +274,7 @@ from pyspark.sql import SparkSession, DataFrame
 def read_udv_table(
     ruta_tabla: str,
     catalog_name: str = None,
-) -> DataFrame:
+) -> DataFrame | None:
     """
     Lee una tabla UDV a partir de RutaTabla ('schema.tabla') y el catálogo.
 
@@ -282,17 +282,27 @@ def read_udv_table(
       - 'tb_udv.md_catalogo_equipos'
     
     Si no se envía catalog_name, usa el catálogo actual de Spark.
+
+    Si la tabla no existe, devuelve None.
     """
+
+    # Obtener sesión de Spark
+    spark = SparkSession.builder.getOrCreate()
 
     # Resolver catálogo (si no se pasa, tomamos el actual)
     if not catalog_name:
         catalog_name = spark.catalog.currentCatalog()
 
-    full_table_name = f"{catalog_name}.{ruta_tabla}"  # ej: liga1_catalog.tb_udv.md_catalogo_equipos
+    full_table_name = f"{catalog_name}.{ruta_tabla}"  # ej: adbliga1futbol.tb_udv.md_catalogo_equipos
 
     print(f"[INFO] Leyendo tabla UDV: {full_table_name}")
-    return spark.table(full_table_name)
 
+    # Validar existencia antes de leer
+    if not spark.catalog.tableExists(full_table_name):
+        print(f"[WARN] La tabla {full_table_name} no existe en el catálogo. Se devolverá None.")
+        return None
+
+    return spark.table(full_table_name)
 
 def write_parquet_adls(df, path: str, mode="overwrite"):
     if is_dataframe_empty(df):

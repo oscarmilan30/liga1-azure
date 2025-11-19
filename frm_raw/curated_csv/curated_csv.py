@@ -78,9 +78,9 @@ def limpiar_numero(valor: str):
 def procesar_curated_csv(df: DataFrame) -> DataFrame:
     """
     Limpieza genérica CSV:
-    - Limpia nombres de columnas
-    - Normaliza texto, fechas y porcentajes
-    - No usa pandas ni withColumn
+    - Normaliza encabezados
+    - Normaliza texto
+    - NO modifica el formato de las columnas que contienen 'fecha' en el nombre
     """
 
     # Normalizar encabezados
@@ -98,29 +98,24 @@ def procesar_curated_csv(df: DataFrame) -> DataFrame:
     for c in df.columns:
         c_lower = c.lower()
 
-        # 1) Base: lower + trim
-        expr_col = lower(trim(col(c)))
-
-        # 2) Normalizar tildes correctamente (NO todo a 'a')
-        #    á→a, é→e, í→i, ó→o, ú→u (y mayúsculas)
-        expr_col = translate(expr_col, "áéíóúÁÉÍÓÚ", "aeiouaeiou")
-
-        # 3) Quitar espacios repetidos
-        expr_col = regexp_replace(expr_col, r"\s+", " ")
-
-        # 4) Fechas dd/mm/yyyy → yyyy-mm-dd
+        # 🔒 Columnas de fecha: solo TRIM, nada más
         if "fecha" in c_lower:
-            expr_col = regexp_replace(
-                expr_col,
-                r"(\d{1,2})/(\d{1,2})/(\d{4})",
-                r"\3-\2-\1"
-            )
+            expr_col = trim(col(c))
+        else:
+            # 1) Base: lower + trim
+            expr_col = lower(trim(col(c)))
 
-        # 5) Porcentajes → quitar símbolo %
-        if any(x in c_lower for x in ["porc", "porcentaje", "ratio", "ppp"]):
-            expr_col = regexp_replace(expr_col, "%", "")
+            # 2) Normalizar tildes
+            expr_col = translate(expr_col, "áéíóúÁÉÍÓÚ", "aeiouaeiou")
 
-        # 6) Nulos vacíos
+            # 3) Quitar espacios repetidos
+            expr_col = regexp_replace(expr_col, r"\s+", " ")
+
+            # 4) Porcentajes → quitar símbolo %
+            if any(x in c_lower for x in ["porc", "porcentaje", "ratio", "ppp"]):
+                expr_col = regexp_replace(expr_col, "%", "")
+
+        # 5) Nulos vacíos
         expr_col = when(
             expr_col.isin("", "-", "n/a", "none"),
             lit(None)

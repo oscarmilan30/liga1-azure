@@ -1,5 +1,4 @@
 # Databricks notebook source
-# Databricks notebook source
 # ==========================================================
 # UDV - JUGADORES
 # Proyecto: Liga 1 Perú
@@ -7,7 +6,7 @@
 # ==========================================================
 
 from env_setup import *
-from utils_liga1 import setup_adls, get_dbutils, get_entity_data, get_abfss_path, is_dataframe_empty, get_predecesor,get_pipeline_params, get_yaml_from_param, write_delta_udv, log, read_udv_table, get_pipeline, extract_entity_name
+from utils_liga1 import setup_adls, get_dbutils, get_entity_data, is_dataframe_empty, get_predecesor,get_pipeline_params, get_yaml_from_param, write_delta_udv, log, read_udv_table, get_pipeline
 from pyspark.sql import SparkSession
 #from hm_plantillas_equipo import carga_final
 import traceback
@@ -45,7 +44,7 @@ try:
 
     prm_tabla_md_plantillas = dict_predecesores["md_plantillas"]["RutaTabla"]
     prm_tabla_md_catalogo_equipos = dict_predecesores["md_catalogo_equipos"]["RutaTabla"]
-    prm_tabla_plantillas = dict_predecesores_chd["plantillas"]["RutaTabla"]
+    entity_raw = dict_predecesores_chd["plantillas"]["RutaTabla"]
 
     prm_capa_udv     = dict_params["CAPA_UDV"]
     prm_ruta_base    = dict_params["RUTA_BASE"]
@@ -95,31 +94,23 @@ except Exception as e:
 
 # COMMAND ----------
 
-
-    prm_tabla_md_plantillas = dict_predecesores["md_plantillas"]["RutaTabla"]
-    prm_tabla_md_catalogo_equipos = dict_predecesores["md_catalogo_equipos"]["RutaTabla"]
-    prm_tabla_plantillas = dict_predecesores_chd["plantillas"]["RutaTabla"]
-
-# COMMAND ----------
-
 # ----------------------------------------------------------
 # LECTURA PREDECESORES (CATÁLOGO + RAW)
 # ----------------------------------------------------------
 try:
     log("Lectura desde UDV/RAW", "INFO", entity_name)
 
-    # 1) Catálogo de equipos (md_catalogo_equipos) vía RutaTabla
+    # 1) Catálogo de plantillas (md_plantillas) vía RutaTabla
     df_md_plantillas = read_udv_table(prm_tabla_md_plantillas)
 
-    if is_dataframe_empty(df_catalogo_equipos):
-        raise Exception(f"No se encontró data en la tabla predecesora: {prm_ruta_tabla_pred}")
+    # 2) Catálogo de equipos (md_catalogo_equipos) vía RutaTabla
+    df_md_catalogo_equipos = read_udv_table(prm_tabla_md_catalogo_equipos)
 
-    # 2) RAW estadios desde tbl_paths (flg_udv = 'N')
-    entity_raw = extract_entity_name(entity_name)  # 'md_estadios' -> 'estadios'
+    # 3) RAW plantillas desde tbl_paths (flg_udv = 'N')
 
-    df_raw_estadios = get_entity_data(entity_raw,dedup_cols=prm_dedup_cols)
+    df_raw_plantillas = get_entity_data(entity_raw,dedup_cols=None)
 
-    if is_dataframe_empty(df_raw_estadios):
+    if is_dataframe_empty(df_raw_plantillas):
         raise Exception(f"No se encontró data en RAW para la entidad: {entity_raw}")
 
     log("Predecesores completados correctamente", "INFO", entity_name)
@@ -130,3 +121,9 @@ except Exception as e:
     raise
 
 log("Finalización de la etapa de lectura", "INFO", entity_name)
+
+# COMMAND ----------
+
+display(df_md_plantillas)
+display(df_md_catalogo_equipos)
+display(df_raw_plantillas)
