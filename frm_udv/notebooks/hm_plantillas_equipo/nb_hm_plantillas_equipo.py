@@ -1,6 +1,6 @@
 # Databricks notebook source
 # ==========================================================
-# UDV - JUGADORES
+# UDV - PLANTILLAS
 # Proyecto: Liga 1 Perú
 # Autor: Oscar García Del Águila
 # ==========================================================
@@ -33,7 +33,7 @@ try:
     prm_pipelineid = int(dbutils.widgets.get("prm_pipelineid"))
 
     pipeline_name = get_pipeline(prm_pipelineid)
-    entity_name = pipeline_name["pipeline"]               # ej: 'md_estadios'
+    entity_name = pipeline_name["pipeline"]          
     parent_pipelineid = pipeline_name["parent_pipelineid"]
 
     pipeline_name_chd = get_pipeline(parent_pipelineid)
@@ -101,7 +101,7 @@ except Exception as e:
 # COMMAND ----------
 
 # ----------------------------------------------------------
-# LECTURA PREDECESORES (CATÁLOGO + RAW)
+# LECTURA PREDECESORES (RAW)
 # ----------------------------------------------------------
 try:
     log("Lectura desde UDV/RAW", "INFO", entity_name)
