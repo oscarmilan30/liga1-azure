@@ -10,7 +10,8 @@ SELECT
     id_jugador,
     jugador,
     edad,
-    nacionalidad,
+    nacionalidad_principal,
+    segunda_nacionalidad,
     altura,
     pie,
     valor_mercado,
@@ -22,6 +23,7 @@ FROM ${catalog_name}.tb_udv.md_plantillas;
 CREATE OR REPLACE VIEW ${catalog_name}.vw_udv.hm_plantillas_equipo_vw
 AS
 SELECT
+    id_plantilla_equipo,
     id_equipo,
     id_jugador,
     temporada,

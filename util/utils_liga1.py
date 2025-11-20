@@ -323,7 +323,8 @@ def write_delta_udv(
     catalog: str = None,
     replace_where: str = None,
     merge_condition: str = None,
-    partition_by: list = None
+    partition_by: list = None,
+    overwrite_dynamic_partition: bool = False
 ):
     """
     Escribe un DataFrame como tabla Delta con todos los modos integrados.
@@ -331,19 +332,16 @@ def write_delta_udv(
     Parámetros:
     -----------
     mode: str
-        - "overwrite": Sobrescribe toda la tabla
+        - "overwrite": Sobrescribe toda la tabla o particiones (según flags)
         - "append": Agrega datos
         - "overwrite" + replace_where: Reemplazo condicional
-        - "merge": Realiza MERGE (UPSERT) con whenMatchedUpdateAll + whenNotMatchedInsertAll
-    
-    merge_condition: str
-        Condición para el MERGE (ej: "delta.id_equipo = df.id_equipo")
-    
-    partition_by: list
-        Lista de columnas para particionar (ej: ["periododia", "id_equipo"])
+        - "merge": Realiza MERGE (UPSERT)
+    overwrite_dynamic_partition: bool
+        - True  -> activa overwrite dinámico por partición (usa partition_by)
+        - False -> comportamiento normal (overwrite total o replaceWhere)
     """
-    
-    # Validaciones iniciales
+
+    # 0) Validaciones iniciales
     if is_dataframe_empty(df):
         print(f"DataFrame vacío para {table_name} - omitiendo escritura.")
         return
@@ -353,48 +351,63 @@ def write_delta_udv(
 
     full_table = f"{catalog}.{schema}.{table_name}"
 
-    # Validar existencia de tabla
     if not spark.catalog.tableExists(full_table):
-        raise ValueError(f"La tabla {full_table} no existe. Creala primero con DDL.")
+        raise ValueError(f"La tabla {full_table} no existe. Créala primero con DDL.")
 
     print(f"Ejecutando en: {full_table} (modo: {mode})")
 
-    # MERGE operation (UPSERT)
+    # 1) MERGE (UPSERT)
     if mode == "merge":
         if not merge_condition:
             raise ValueError("Para MERGE se requiere merge_condition")
-        
         try:
             from delta.tables import DeltaTable
-            
-            # Cargar tabla Delta existente
+
             delta_table = DeltaTable.forName(spark, full_table)
-            
-            # Ejecutar MERGE (UPSERT)
-            delta_table.alias('delta') \
+
+            delta_table.alias("delta") \
                 .merge(
-                    df.alias('df'),
+                    df.alias("df"),
                     merge_condition
                 ) \
                 .whenMatchedUpdateAll() \
                 .whenNotMatchedInsertAll() \
                 .execute()
-            
+
             print(f"MERGE (UPSERT) ejecutado exitosamente en {full_table}")
-            
+
         except Exception as e:
             print(f"Error en MERGE: {str(e)}")
             raise
 
-    # Modos estándar (overwrite, append)
+        return  # importante: salir aquí
+
+    # 2) Modos estándar (overwrite, append)
+    #    Configuración de dynamic partition overwrite si aplica
+    if mode == "overwrite" and overwrite_dynamic_partition and partition_by:
+        # Overwrite dinámico por partición
+        spark.conf.set("spark.sql.sources.partitionOverwriteMode", "dynamic")
+        print("Activando overwrite dinámico por partición (spark.sql.sources.partitionOverwriteMode = dynamic)")
+
+        writer = df.write.format(formato).mode("overwrite")
+        writer = writer.partitionBy(*partition_by)
+        print(f"Particionamiento aplicado: {partition_by}")
+
+        try:
+            writer.saveAsTable(full_table)
+            print(f"Datos guardados en {full_table} con overwrite dinámico por partición")
+        except Exception as e:
+            print(f"Error guardando datos (overwrite dinámico): {str(e)}")
+            raise
+
     else:
+        # Comportamiento normal: append / overwrite total / overwrite + replaceWhere
         writer = df.write.format(formato).mode(mode)
-        
-        # Aplicar particionamiento si se especifica
+
         if partition_by:
             writer = writer.partitionBy(*partition_by)
             print(f"Particionamiento aplicado: {partition_by}")
-        
+
         if replace_where and mode == "overwrite":
             writer = writer.option("replaceWhere", replace_where)
             print(f"Reemplazo condicional: {replace_where}")
@@ -402,11 +415,10 @@ def write_delta_udv(
         try:
             writer.saveAsTable(full_table)
             print(f"Datos guardados en {full_table}")
-            
         except Exception as e:
             print(f"Error guardando datos: {str(e)}")
             raise
-
+        
 # ==========================================================
 # CONEXIÓN A AZURE SQL DATABASE
 # ==========================================================
