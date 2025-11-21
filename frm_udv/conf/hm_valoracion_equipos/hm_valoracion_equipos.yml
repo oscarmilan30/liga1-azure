@@ -1,0 +1,87 @@
+hm_valoracion_equipos:
+  cols_catalogo_equipos_hm:
+    - id_equipo
+    - nombre_transfermarkt
+
+
+  cols_raw_liga1_hm:
+    - club
+    - temporada
+    - jugadores_en_plantilla
+    - edad_promedio
+    - extranjeros
+    - valor_medio
+    - valor_total
+    - fuente
+
+  dedup_cols_hm:
+    - club
+    - temporada
+
+  case_rules:
+    jugadores_en_plantilla:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+               OR {col} IN ('0','0.0','0,0') THEN '0'
+          ELSE {col}
+        END
+
+    edad_promedio:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+               OR {col} IN ('0','0.0','0,0') THEN '0'
+          ELSE regexp_replace({col}, ',', '.')
+        END
+
+    extranjeros:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+               OR {col} IN ('0','0.0','0,0') THEN '0'
+          ELSE {col}
+        END
+
+    valor_medio:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+               OR {col} IN ('0','0.0','0,0') THEN '0'
+          ELSE regexp_replace({col}, ',', '.')
+        END
+
+    valor_total:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+               OR {col} IN ('0','0.0','0,0') THEN '0'
+          ELSE regexp_replace({col}, ',', '.')
+        END
+
+
+  rename_columns_hm:
+    fuente: fuente_valoracion
+
+  schema_hm:
+    id_valoracion_equipo: string
+    id_equipo: int
+    temporada: int
+    jugadores_en_plantilla: int
+    edad_promedio: double
+    extranjeros: int
+    valor_medio: decimal(20,4)
+    valor_total: decimal(20,4)
+    fuente_valoracion: string
+    fecha_carga: timestamp
+    periodo: int
