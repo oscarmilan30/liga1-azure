@@ -269,7 +269,7 @@ def read_parquet_adls(spark, path: str):
     print(f"Leyendo Parquet desde {path}")
     return spark.read.parquet(path)
 
-from pyspark.sql import SparkSession, DataFrame
+
 
 def read_udv_table(
     ruta_tabla: str,
