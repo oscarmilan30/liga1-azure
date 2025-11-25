@@ -1,0 +1,287 @@
+hm_estadisticas_partidos:
+  campo_json: data
+
+  cols_raw_estadisticas_hm:
+    - fecha_carga
+    - fuente
+    - temporada
+    - regates realizados_local
+    - tiros a los postes_visitante
+    - estado
+    - duelo terrestre_visitante
+    - duelo terrestre_local
+    - saques de esquina_local
+    - tarjetas amarillas_visitante
+    - mitad rival_visitante
+    - pases_visitante
+    - local
+    - intercepciones_local
+    - despejes_visitante
+    - tarjetas rojas_visitante
+    - tarjetas rojas_local
+    - visitante
+    - tiros a los postes_local
+    - tiros fuera del área_local
+    - gran probabilidad_local
+    - disparos fuera_local
+    - tiros largos precisos_visitante
+    - interceptaciones_visitante
+    - aéreo ganado_visitante
+    - tarjetas amarillas_local
+    - aéreo ganado_local
+    - tiros libres precisos_local
+    - lanzamientos_visitante
+    - disparos a puerta_local
+    - paradas del portero_visitante
+    - tiros bloqueados_visitante
+    - toques en el área rival_visitante
+    - tiros en el área_visitante
+    - tiros totales_visitante
+    - duelos ganados_visitante
+    - gran probabilidad_visitante
+    - mitad propia_visitante
+    - intercepciones_visitante
+    - disparos a puerta_visitante
+    - pases_local
+    - tiros totales_local
+    - tiros libres precisos_visitante
+    - tiros en el área_local
+    - faltas_visitante
+    - interceptaciones_local
+    - mitad propia_local
+    - regates realizados_visitante
+    - duelos ganados_local
+    - saques de esquina_visitante
+    - entradas_local
+    - entradas_visitante
+    - disparos fuera_visitante
+    - marcador
+    - pases precisos_visitante
+    - pases precisos_local
+    - tiros bloqueados_local
+    - mitad rival_local
+    - paradas del portero_local
+    - fueras de juego_local
+    - tiros largos precisos_local
+    - url
+    - faltas_local
+    - grandes oportunidades perdidas_visitante
+    - grandes oportunidades perdidas_local
+    - fueras de juego_visitante
+    - toques en el área rival_local
+    - despejes_local
+    - fecha
+    - lanzamientos_local
+    - tiros fuera del área_visitante
+
+  rename_columns_hm:
+    fecha_carga: fecha_carga
+    fuente: fuente
+    temporada: temporada
+    "regates realizados_local": regates_realizados_local
+    "tiros a los postes_visitante": tiros_postes_visitante
+    estado: estado
+    "duelo terrestre_visitante": duelo_terrestre_visitante
+    "duelo terrestre_local": duelo_terrestre_local
+    "saques de esquina_local": saques_esquina_local
+    "tarjetas amarillas_visitante": tarjetas_amarillas_visitante
+    "mitad rival_visitante": mitad_rival_visitante
+    pases_visitante: pases_visitante
+    local: equipo_local
+    intercepciones_local: intercepciones_local
+    despejes_visitante: despejes_visitante
+    "tarjetas rojas_visitante": tarjetas_rojas_visitante
+    "tarjetas rojas_local": tarjetas_rojas_local
+    visitante: equipo_visitante
+    "tiros a los postes_local": tiros_postes_local
+    "tiros fuera del área_local": tiros_fuera_area_local
+    "gran probabilidad_local": gran_probabilidad_local
+    disparos_fuera_local: disparos_fuera_local
+    "tiros largos precisos_visitante": tiros_largos_precisos_visitante
+    interceptaciones_visitante: interceptaciones_visitante
+    "aéreo ganado_visitante": aereo_ganado_visitante
+    "tarjetas amarillas_local": tarjetas_amarillas_local
+    "aéreo ganado_local": aereo_ganado_local
+    "tiros libres precisos_local": tiros_libres_precisos_local
+    lanzamientos_visitante: lanzamientos_visitante
+    "disparos a puerta_local": disparos_puerta_local
+    "paradas del portero_visitante": paradas_portero_visitante
+    "tiros bloqueados_visitante": tiros_bloqueados_visitante
+    "toques en el área rival_visitante": toques_area_rival_visitante
+    "tiros en el área_visitante": tiros_area_visitante
+    "tiros totales_visitante": tiros_totales_visitante
+    "duelos ganados_visitante": duelos_ganados_visitante
+    "gran probabilidad_visitante": gran_probabilidad_visitante
+    "mitad propia_visitante": mitad_propia_visitante
+    intercepciones_visitante: intercepciones_visitante
+    "disparos a puerta_visitante": disparos_puerta_visitante
+    pases_local: pases_local
+    "tiros totales_local": tiros_totales_local
+    "tiros libres precisos_visitante": tiros_libres_precisos_visitante
+    "tiros en el área_local": tiros_area_local
+    faltas_visitante: faltas_visitante
+    interceptaciones_local: interceptaciones_local
+    "mitad propia_local": mitad_propia_local
+    "regates realizados_visitante": regates_realizados_visitante
+    "duelos ganados_local": duelos_ganados_local
+    "saques de esquina_visitante": saques_esquina_visitante
+    entradas_local: entradas_local
+    entradas_visitante: entradas_visitante
+    disparos_fuera_visitante: disparos_fuera_visitante
+    marcador: marcador
+    "pases precisos_visitante": pases_precisos_visitante
+    "pases precisos_local": pases_precisos_local
+    "tiros bloqueados_local": tiros_bloqueados_local
+    "mitad rival_local": mitad_rival_local
+    "paradas del portero_local": paradas_portero_local
+    "fueras de juego_local": fueras_juego_local
+    "tiros largos precisos_local": tiros_largos_precisos_local
+    url: url
+    faltas_local: faltas_local
+    "grandes oportunidades perdidas_visitante": grandes_oportunidades_perdidas_visitante
+    "grandes oportunidades perdidas_local": grandes_oportunidades_perdidas_local
+    "fueras de juego_visitante": fueras_juego_visitante
+    "toques en el área rival_local": toques_area_rival_local
+    despejes_local: despejes_local
+    fecha: fecha_stats
+    lanzamientos_local: lanzamientos_local
+    "tiros fuera del área_visitante": tiros_fuera_area_visitante
+
+  schema_hm:
+    id_partido: string
+    temporada: int
+    estado: string
+    equipo_local: string
+    equipo_visitante: string
+    marcador: string
+    goles_local: int
+    goles_visitante: int
+    url: string
+    fecha_stats: date
+    regates_realizados_local: int
+    regates_realizados_local_pct: double
+    tiros_postes_visitante: int
+    tiros_postes_visitante_pct: double
+    duelo_terrestre_visitante: int
+    duelo_terrestre_visitante_pct: double
+    duelo_terrestre_local: int
+    duelo_terrestre_local_pct: double
+    saques_esquina_local: int
+    saques_esquina_local_pct: double
+    tarjetas_amarillas_visitante: int
+    tarjetas_amarillas_visitante_pct: double
+    mitad_rival_visitante: int
+    mitad_rival_visitante_pct: double
+    pases_visitante: int
+    pases_visitante_pct: double
+    intercepciones_local: int
+    intercepciones_local_pct: double
+    despejes_visitante: int
+    despejes_visitante_pct: double
+    tarjetas_rojas_visitante: int
+    tarjetas_rojas_visitante_pct: double
+    tarjetas_rojas_local: int
+    tarjetas_rojas_local_pct: double
+    tiros_postes_local: int
+    tiros_postes_local_pct: double
+    tiros_fuera_area_local: int
+    tiros_fuera_area_local_pct: double
+    gran_probabilidad_local: int
+    gran_probabilidad_local_pct: double
+    disparos_fuera_local: int
+    disparos_fuera_local_pct: double
+    tiros_largos_precisos_visitante: int
+    tiros_largos_precisos_visitante_pct: double
+    interceptaciones_visitante: int
+    interceptaciones_visitante_pct: double
+    aereo_ganado_visitante: int
+    aereo_ganado_visitante_pct: double
+    tarjetas_amarillas_local: int
+    tarjetas_amarillas_local_pct: double
+    aereo_ganado_local: int
+    aereo_ganado_local_pct: double
+    tiros_libres_precisos_local: int
+    tiros_libres_precisos_local_pct: double
+    lanzamientos_visitante: int
+    lanzamientos_visitante_pct: double
+    disparos_puerta_local: int
+    disparos_puerta_local_pct: double
+    paradas_portero_visitante: int
+    paradas_portero_visitante_pct: double
+    tiros_bloqueados_visitante: int
+    tiros_bloqueados_visitante_pct: double
+    toques_area_rival_visitante: int
+    toques_area_rival_visitante_pct: double
+    tiros_area_visitante: int
+    tiros_area_visitante_pct: double
+    tiros_totales_visitante: int
+    tiros_totales_visitante_pct: double
+    duelos_ganados_visitante: int
+    duelos_ganados_visitante_pct: double
+    gran_probabilidad_visitante: int
+    gran_probabilidad_visitante_pct: double
+    mitad_propia_visitante: int
+    mitad_propia_visitante_pct: double
+    intercepciones_visitante: int
+    intercepciones_visitante_pct: double
+    disparos_puerta_visitante: int
+    disparos_puerta_visitante_pct: double
+    pases_local: int
+    pases_local_pct: double
+    tiros_totales_local: int
+    tiros_totales_local_pct: double
+    tiros_libres_precisos_visitante: int
+    tiros_libres_precisos_visitante_pct: double
+    tiros_area_local: int
+    tiros_area_local_pct: double
+    faltas_visitante: int
+    faltas_visitante_pct: double
+    interceptaciones_local: int
+    interceptaciones_local_pct: double
+    mitad_propia_local: int
+    mitad_propia_local_pct: double
+    regates_realizados_visitante: int
+    regates_realizados_visitante_pct: double
+    duelos_ganados_local: int
+    duelos_ganados_local_pct: double
+    saques_esquina_visitante: int
+    saques_esquina_visitante_pct: double
+    entradas_local: int
+    entradas_local_pct: double
+    entradas_visitante: int
+    entradas_visitante_pct: double
+    disparos_fuera_visitante: int
+    disparos_fuera_visitante_pct: double
+    pases_precisos_visitante: int
+    pases_precisos_visitante_pct: double
+    pases_precisos_local: int
+    pases_precisos_local_pct: double
+    tiros_bloqueados_local: int
+    tiros_bloqueados_local_pct: double
+    mitad_rival_local: int
+    mitad_rival_local_pct: double
+    paradas_portero_local: int
+    paradas_portero_local_pct: double
+    fueras_juego_local: int
+    fueras_juego_local_pct: double
+    tiros_largos_precisos_local: int
+    tiros_largos_precisos_local_pct: double
+    faltas_local: int
+    faltas_local_pct: double
+    grandes_oportunidades_perdidas_visitante: int
+    grandes_oportunidades_perdidas_visitante_pct: double
+    grandes_oportunidades_perdidas_local: int
+    grandes_oportunidades_perdidas_local_pct: double
+    fueras_juego_visitante: int
+    fueras_juego_visitante_pct: double
+    toques_area_rival_local: int
+    toques_area_rival_local_pct: double
+    despejes_local: int
+    despejes_local_pct: double
+    lanzamientos_local: int
+    lanzamientos_local_pct: double
+    tiros_fuera_area_visitante: int
+    tiros_fuera_area_visitante_pct: double
+    fecha_carga: timestamp
+    fuente: string
+    periodo: int
