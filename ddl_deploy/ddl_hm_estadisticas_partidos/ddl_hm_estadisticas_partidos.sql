@@ -1,148 +1,97 @@
 -- ==========================================================
--- UDV - HM_ESTADISTICAS_PARTIDOS
+-- UDV - HM_ESTADISTICAS_PARTIDOS (limpio)
 -- Proyecto: Liga 1 Perú
 -- ==========================================================
 
 CREATE OR REPLACE TABLE ${catalog_name}.tb_udv.hm_estadisticas_partidos (
-  id_partido    STRING  NOT NULL COMMENT 'Identificador único del partido (hash de temporada + url).',
-  temporada     INT     NOT NULL COMMENT 'Temporada (año) del partido.',
-  estado        STRING          COMMENT 'Estado del registro de estadísticas.',
-  equipo_local  STRING          COMMENT 'Nombre homologado del equipo local.',
-  equipo_visitante STRING       COMMENT 'Nombre homologado del equipo visitante.',
-  marcador      STRING          COMMENT 'Marcador en texto (ej: 2 - 1).',
-  goles_local   INT             COMMENT 'Goles del equipo local (derivado de marcador).',
-  goles_visitante INT           COMMENT 'Goles del equipo visitante (derivado de marcador).',
-  url           STRING  NOT NULL COMMENT 'URL de detalle del partido en FotMob.',
-  fecha_stats   DATE            COMMENT 'Fecha del partido según estadísticas (dd-MM-yyyy).'
-, regates_realizados_local              INT     COMMENT 'Regates realizados por el local.'
-, regates_realizados_local_pct          DOUBLE  COMMENT 'Porcentaje asociado de regates realizados por el local.'
-, tiros_postes_visitante                INT     COMMENT 'Tiros a los postes del visitante.'
-, tiros_postes_visitante_pct            DOUBLE  COMMENT 'Porcentaje asociado de tiros a los postes del visitante.'
-, duelo_terrestre_visitante             INT     COMMENT 'Duelos terrestres ganados por el visitante.'
-, duelo_terrestre_visitante_pct         DOUBLE  COMMENT 'Porcentaje de duelos terrestres ganados por el visitante.'
-, duelo_terrestre_local                 INT     COMMENT 'Duelos terrestres ganados por el local.'
-, duelo_terrestre_local_pct             DOUBLE  COMMENT 'Porcentaje de duelos terrestres ganados por el local.'
-, saques_esquina_local                  INT     COMMENT 'Saques de esquina del local.'
-, saques_esquina_local_pct              DOUBLE  COMMENT 'Porcentaje asociado de saques de esquina del local.'
-, tarjetas_amarillas_visitante          INT     COMMENT 'Tarjetas amarillas del visitante.'
-, tarjetas_amarillas_visitante_pct      DOUBLE  COMMENT 'Porcentaje asociado de amarillas del visitante.'
-, mitad_rival_visitante                 INT     COMMENT 'Acciones del visitante en mitad rival.'
-, mitad_rival_visitante_pct             DOUBLE  COMMENT 'Porcentaje asociado en mitad rival visitante.'
-, pases_visitante                       INT     COMMENT 'Pases totales del visitante.'
-, pases_visitante_pct                   DOUBLE  COMMENT 'Porcentaje asociado de pases visitante.'
-, intercepciones_local                  INT     COMMENT 'Intercepciones del local.'
-, intercepciones_local_pct              DOUBLE  COMMENT 'Porcentaje asociado de intercepciones local.'
-, despejes_visitante                    INT     COMMENT 'Despejes del visitante.'
-, despejes_visitante_pct                DOUBLE  COMMENT 'Porcentaje asociado de despejes visitante.'
-, tarjetas_rojas_visitante              INT     COMMENT 'Tarjetas rojas del visitante.'
-, tarjetas_rojas_visitante_pct          DOUBLE  COMMENT 'Porcentaje asociado de rojas visitante.'
-, tarjetas_rojas_local                  INT     COMMENT 'Tarjetas rojas del local.'
-, tarjetas_rojas_local_pct              DOUBLE  COMMENT 'Porcentaje asociado de rojas local.'
-, tiros_postes_local                    INT     COMMENT 'Tiros a los postes del local.'
-, tiros_postes_local_pct                DOUBLE  COMMENT 'Porcentaje asociado de tiros a los postes local.'
-, tiros_fuera_area_local                INT     COMMENT 'Tiros fuera del área del local.'
-, tiros_fuera_area_local_pct            DOUBLE  COMMENT 'Porcentaje asociado de tiros fuera del área local.'
-, gran_probabilidad_local               INT     COMMENT 'Grandes ocasiones del local.'
-, gran_probabilidad_local_pct           DOUBLE  COMMENT 'Porcentaje asociado de grandes ocasiones local.'
-, disparos_fuera_local                  INT     COMMENT 'Disparos fuera del arco del local.'
-, disparos_fuera_local_pct              DOUBLE  COMMENT 'Porcentaje asociado de disparos fuera local.'
-, tiros_largos_precisos_visitante       INT     COMMENT 'Pases largos precisos del visitante.'
-, tiros_largos_precisos_visitante_pct   DOUBLE  COMMENT 'Porcentaje de pases largos precisos del visitante.'
-, interceptaciones_visitante            INT     COMMENT 'Interceptaciones del visitante.'
-, interceptaciones_visitante_pct        DOUBLE  COMMENT 'Porcentaje asociado de interceptaciones visitante.'
-, aereo_ganado_visitante                INT     COMMENT 'Duelos aéreos ganados por el visitante.'
-, aereo_ganado_visitante_pct            DOUBLE  COMMENT 'Porcentaje de duelos aéreos ganados visitante.'
-, tarjetas_amarillas_local              INT     COMMENT 'Tarjetas amarillas del local.'
-, tarjetas_amarillas_local_pct          DOUBLE  COMMENT 'Porcentaje asociado de amarillas local.'
-, aereo_ganado_local                    INT     COMMENT 'Duelos aéreos ganados por el local.'
-, aereo_ganado_local_pct                DOUBLE  COMMENT 'Porcentaje de duelos aéreos ganados local.'
-, tiros_libres_precisos_local           INT     COMMENT 'Tiros libres precisos del local.'
-, tiros_libres_precisos_local_pct       DOUBLE  COMMENT 'Porcentaje de tiros libres precisos local.'
-, lanzamientos_visitante                INT     COMMENT 'Lanzamientos (saques de banda, etc.) del visitante.'
-, lanzamientos_visitante_pct            DOUBLE  COMMENT 'Porcentaje asociado de lanzamientos visitante.'
-, disparos_puerta_local                 INT     COMMENT 'Disparos a puerta del local.'
-, disparos_puerta_local_pct             DOUBLE  COMMENT 'Porcentaje asociado de disparos a puerta local.'
-, paradas_portero_visitante             INT     COMMENT 'Paradas del portero visitante.'
-, paradas_portero_visitante_pct         DOUBLE  COMMENT 'Porcentaje asociado de paradas visitante.'
-, tiros_bloqueados_visitante            INT     COMMENT 'Tiros bloqueados del visitante.'
-, tiros_bloqueados_visitante_pct        DOUBLE  COMMENT 'Porcentaje asociado de tiros bloqueados visitante.'
-, toques_area_rival_visitante           INT     COMMENT 'Toques del visitante en el área rival.'
-, toques_area_rival_visitante_pct       DOUBLE  COMMENT 'Porcentaje asociado de toques área rival visitante.'
-, tiros_area_visitante                  INT     COMMENT 'Tiros en el área del visitante.'
-, tiros_area_visitante_pct              DOUBLE  COMMENT 'Porcentaje asociado de tiros en el área visitante.'
-, tiros_totales_visitante               INT     COMMENT 'Tiros totales del visitante.'
-, tiros_totales_visitante_pct           DOUBLE  COMMENT 'Porcentaje asociado de tiros totales visitante.'
-, duelos_ganados_visitante              INT     COMMENT 'Duelos ganados por el visitante.'
-, duelos_ganados_visitante_pct          DOUBLE  COMMENT 'Porcentaje asociado de duelos ganados visitante.'
-, gran_probabilidad_visitante           INT     COMMENT 'Grandes ocasiones del visitante.'
-, gran_probabilidad_visitante_pct       DOUBLE  COMMENT 'Porcentaje asociado de grandes ocasiones visitante.'
-, mitad_propia_visitante                INT     COMMENT 'Acciones del visitante en mitad propia.'
-, mitad_propia_visitante_pct            DOUBLE  COMMENT 'Porcentaje asociado en mitad propia visitante.'
-, intercepciones_visitante              INT     COMMENT 'Intercepciones del visitante.'
-, intercepciones_visitante_pct          DOUBLE  COMMENT 'Porcentaje asociado de intercepciones visitante.'
-, disparos_puerta_visitante             INT     COMMENT 'Disparos a puerta del visitante.'
-, disparos_puerta_visitante_pct         DOUBLE  COMMENT 'Porcentaje asociado de disparos a puerta visitante.'
-, pases_local                           INT     COMMENT 'Pases totales del local.'
-, pases_local_pct                       DOUBLE  COMMENT 'Porcentaje asociado de pases local.'
-, tiros_totales_local                   INT     COMMENT 'Tiros totales del local.'
-, tiros_totales_local_pct               DOUBLE  COMMENT 'Porcentaje asociado de tiros totales local.'
-, tiros_libres_precisos_visitante       INT     COMMENT 'Tiros libres precisos del visitante.'
-, tiros_libres_precisos_visitante_pct   DOUBLE  COMMENT 'Porcentaje asociado de tiros libres precisos visitante.'
-, tiros_area_local                      INT     COMMENT 'Tiros en el área del local.'
-, tiros_area_local_pct                  DOUBLE  COMMENT 'Porcentaje asociado de tiros en el área local.'
-, faltas_visitante                      INT     COMMENT 'Faltas cometidas por el visitante.'
-, faltas_visitante_pct                  DOUBLE  COMMENT 'Porcentaje asociado de faltas visitante.'
-, interceptaciones_local                INT     COMMENT 'Interceptaciones del local.'
-, interceptaciones_local_pct            DOUBLE  COMMENT 'Porcentaje asociado de interceptaciones local.'
-, mitad_propia_local                    INT     COMMENT 'Acciones del local en mitad propia.'
-, mitad_propia_local_pct                DOUBLE  COMMENT 'Porcentaje asociado en mitad propia local.'
-, regates_realizados_visitante          INT     COMMENT 'Regates realizados por el visitante.'
-, regates_realizados_visitante_pct      DOUBLE  COMMENT 'Porcentaje asociado de regates realizados visitante.'
-, duelos_ganados_local                  INT     COMMENT 'Duelos ganados por el local.'
-, duelos_ganados_local_pct              DOUBLE  COMMENT 'Porcentaje asociado de duelos ganados local.'
-, saques_esquina_visitante              INT     COMMENT 'Saques de esquina del visitante.'
-, saques_esquina_visitante_pct          DOUBLE  COMMENT 'Porcentaje asociado de saques de esquina visitante.'
-, entradas_local                        INT     COMMENT 'Entradas (tackles) del local.'
-, entradas_local_pct                    DOUBLE  COMMENT 'Porcentaje asociado de entradas local.'
-, entradas_visitante                    INT     COMMENT 'Entradas del visitante.'
-, entradas_visitante_pct                DOUBLE  COMMENT 'Porcentaje asociado de entradas visitante.'
-, disparos_fuera_visitante              INT     COMMENT 'Disparos fuera del visitante.'
-, disparos_fuera_visitante_pct          DOUBLE  COMMENT 'Porcentaje asociado de disparos fuera visitante.'
-, pases_precisos_visitante              INT     COMMENT 'Pases precisos del visitante.'
-, pases_precisos_visitante_pct          DOUBLE  COMMENT 'Porcentaje asociado de pases precisos visitante.'
-, pases_precisos_local                  INT     COMMENT 'Pases precisos del local.'
-, pases_precisos_local_pct              DOUBLE  COMMENT 'Porcentaje asociado de pases precisos local.'
-, tiros_bloqueados_local                INT     COMMENT 'Tiros bloqueados del local.'
-, tiros_bloqueados_local_pct            DOUBLE  COMMENT 'Porcentaje asociado de tiros bloqueados local.'
-, mitad_rival_local                     INT     COMMENT 'Acciones del local en mitad rival.'
-, mitad_rival_local_pct                 DOUBLE  COMMENT 'Porcentaje asociado en mitad rival local.'
-, paradas_portero_local                 INT     COMMENT 'Paradas del portero local.'
-, paradas_portero_local_pct             DOUBLE  COMMENT 'Porcentaje asociado de paradas local.'
-, fueras_juego_local                    INT     COMMENT 'Fueras de juego del local.'
-, fueras_juego_local_pct                DOUBLE  COMMENT 'Porcentaje asociado de fueras de juego local.'
-, tiros_largos_precisos_local           INT     COMMENT 'Pases largos precisos del local.'
-, tiros_largos_precisos_local_pct       DOUBLE  COMMENT 'Porcentaje asociado de pases largos precisos local.'
-, faltas_local                          INT     COMMENT 'Faltas del local.'
-, faltas_local_pct                      DOUBLE  COMMENT 'Porcentaje asociado de faltas local.'
-, grandes_oportunidades_perdidas_visitante    INT    COMMENT 'Grandes oportunidades perdidas por el visitante.'
-, grandes_oportunidades_perdidas_visitante_pct DOUBLE COMMENT 'Porcentaje asociado de grandes oportunidades perdidas visitante.'
-, grandes_oportunidades_perdidas_local        INT    COMMENT 'Grandes oportunidades perdidas por el local.'
-, grandes_oportunidades_perdidas_local_pct    DOUBLE COMMENT 'Porcentaje asociado de grandes oportunidades perdidas local.'
-, fueras_juego_visitante               INT      COMMENT 'Fueras de juego del visitante.'
-, fueras_juego_visitante_pct           DOUBLE   COMMENT 'Porcentaje asociado de fueras de juego visitante.'
-, toques_area_rival_local              INT      COMMENT 'Toques del local en el área rival.'
-, toques_area_rival_local_pct          DOUBLE   COMMENT 'Porcentaje asociado de toques área rival local.'
-, despejes_local                       INT      COMMENT 'Despejes del local.'
-, despejes_local_pct                   DOUBLE   COMMENT 'Porcentaje asociado de despejes local.'
-, lanzamientos_local                   INT      COMMENT 'Lanzamientos (saques de banda, etc.) del local.'
-, lanzamientos_local_pct               DOUBLE   COMMENT 'Porcentaje asociado de lanzamientos local.'
-, tiros_fuera_area_visitante           INT      COMMENT 'Tiros fuera del área del visitante.'
-, tiros_fuera_area_visitante_pct       DOUBLE   COMMENT 'Porcentaje asociado de tiros fuera del área visitante.'
-, fecha_carga  TIMESTAMP NOT NULL COMMENT 'Fecha y hora de la carga en UDV.'
-, fuente       STRING    NOT NULL COMMENT 'Fuente de las estadísticas (FotMob).'
-, periodo      INT       NOT NULL COMMENT 'Periodo técnico (YYYY), igual a temporada.'
+  id_partido           STRING   COMMENT 'Identificador único del partido (hash de temporada + URL).',
+  id_equipo_local      INT      COMMENT 'ID técnico del equipo local.',
+  id_equipo_visitante  INT      COMMENT 'ID técnico del equipo visitante.',
+  temporada            INT      COMMENT 'Temporada (año) del partido.',
+  estado               STRING   COMMENT 'Estado del registro de estadísticas (si aplica).',
+  marcador             STRING   COMMENT 'Marcador en texto, por ejemplo 2 - 1.',
+  goles_local          INT      COMMENT 'Goles del equipo local (derivado de marcador).',
+  goles_visitante      INT      COMMENT 'Goles del equipo visitante (derivado de marcador).',
+  url                  STRING   COMMENT 'URL de detalle del partido en FotMob.',
+  fecha_stats          DATE     COMMENT 'Fecha del partido según estadísticas (dd-MM-yyyy).',
+  regates_realizados_local       INT     COMMENT 'Regates realizados por el equipo local.',
+  regates_realizados_local_pct   DOUBLE  COMMENT 'Proporción de regates realizados por el local (0–1) extraída de la cadena N (P %).',
+  tiros_postes_visitante         INT     COMMENT 'Tiros a los postes del equipo visitante.',
+  duelo_terrestre_visitante      INT     COMMENT 'Duelos terrestres ganados por el visitante.',
+  duelo_terrestre_visitante_pct  DOUBLE  COMMENT 'Proporción de duelos terrestres ganados por el visitante (0–1).',
+  duelo_terrestre_local          INT     COMMENT 'Duelos terrestres ganados por el local.',
+  duelo_terrestre_local_pct      DOUBLE  COMMENT 'Proporción de duelos terrestres ganados por el local (0–1).',
+  saques_esquina_local           INT     COMMENT 'Saques de esquina ejecutados por el local.',
+  tarjetas_amarillas_visitante   INT     COMMENT 'Tarjetas amarillas mostradas al visitante.',
+  mitad_rival_visitante          INT     COMMENT 'Acciones del visitante en mitad rival (unidad FotMob).',
+  pases_visitante                INT     COMMENT 'Pases totales del equipo visitante.',
+  intercepciones_local           INT     COMMENT 'Intercepciones del equipo local.',
+  despejes_visitante             INT     COMMENT 'Despejes realizados por el visitante.',
+  tarjetas_rojas_visitante       INT     COMMENT 'Tarjetas rojas mostradas al visitante.',
+  tarjetas_rojas_local           INT     COMMENT 'Tarjetas rojas mostradas al local.',
+  tiros_postes_local             INT     COMMENT 'Tiros a los postes del equipo local.',
+  tiros_fuera_area_local         INT     COMMENT 'Tiros del local realizados fuera del área.',
+  gran_probabilidad_local        INT     COMMENT 'Grandes ocasiones generadas por el local.',
+  disparos_fuera_local           INT     COMMENT 'Disparos del local que salieron fuera del arco.',
+  tiros_largos_precisos_visitante      INT     COMMENT 'Pases largos precisos del visitante.',
+  tiros_largos_precisos_visitante_pct  DOUBLE  COMMENT 'Proporción de pases largos precisos del visitante (0–1).',
+  interceptaciones_visitante           INT     COMMENT 'Interceptaciones del visitante (métrica alternativa al campo con “c”/“t”).',
+  aereo_ganado_visitante               INT     COMMENT 'Duelos aéreos ganados por el visitante.',
+  aereo_ganado_visitante_pct           DOUBLE  COMMENT 'Proporción de duelos aéreos ganados por el visitante (0–1).',
+  tarjetas_amarillas_local             INT     COMMENT 'Tarjetas amarillas mostradas al local.',
+  aereo_ganado_local                   INT     COMMENT 'Duelos aéreos ganados por el local.',
+  aereo_ganado_local_pct               DOUBLE  COMMENT 'Proporción de duelos aéreos ganados por el local (0–1).',
+  tiros_libres_precisos_local          INT     COMMENT 'Tiros libres precisos ejecutados por el local.',
+  tiros_libres_precisos_local_pct      DOUBLE  COMMENT 'Proporción de tiros libres precisos del local (0–1).',
+  lanzamientos_visitante               INT     COMMENT 'Lanzamientos (saques de banda u otros) del visitante.',
+  disparos_puerta_local                INT     COMMENT 'Disparos a puerta realizados por el local.',
+  paradas_portero_visitante            INT     COMMENT 'Paradas realizadas por el portero visitante.',
+  tiros_bloqueados_visitante           INT     COMMENT 'Tiros del visitante bloqueados por la defensa rival.',
+  toques_area_rival_visitante          INT     COMMENT 'Toques del visitante en el área rival.',
+  tiros_area_visitante                 INT     COMMENT 'Tiros del visitante realizados dentro del área.',
+  tiros_totales_visitante              INT     COMMENT 'Tiros totales del visitante.',
+  duelos_ganados_visitante             INT     COMMENT 'Duelos ganados por el visitante.',
+  gran_probabilidad_visitante          INT     COMMENT 'Grandes ocasiones generadas por el visitante.',
+  mitad_propia_visitante               INT     COMMENT 'Acciones del visitante en mitad propia.',
+  disparos_puerta_visitante            INT     COMMENT 'Disparos a puerta realizados por el visitante.',
+  pases_local                          INT     COMMENT 'Pases totales del equipo local.',
+  tiros_totales_local                  INT     COMMENT 'Tiros totales del local.',
+  tiros_libres_precisos_visitante      INT     COMMENT 'Tiros libres precisos ejecutados por el visitante.',
+  tiros_libres_precisos_visitante_pct  DOUBLE  COMMENT 'Proporción de tiros libres precisos del visitante (0–1).',
+  tiros_area_local                     INT     COMMENT 'Tiros del local realizados dentro del área.',
+  faltas_visitante                     INT     COMMENT 'Faltas cometidas por el visitante.',
+  interceptaciones_local               INT     COMMENT 'Interceptaciones del local (segunda métrica de interceptación en origen).',
+  mitad_propia_local                   INT     COMMENT 'Acciones del local en mitad propia.',
+  regates_realizados_visitante         INT     COMMENT 'Regates realizados por el equipo visitante.',
+  regates_realizados_visitante_pct     DOUBLE  COMMENT 'Proporción de regates realizados por el visitante (0–1).',
+  duelos_ganados_local                 INT     COMMENT 'Duelos ganados por el local.',
+  saques_esquina_visitante             INT     COMMENT 'Saques de esquina ejecutados por el visitante.',
+  entradas_local                       INT     COMMENT 'Entradas (tackles) realizadas por el local.',
+  entradas_visitante                   INT     COMMENT 'Entradas (tackles) realizadas por el visitante.',
+  disparos_fuera_visitante             INT     COMMENT 'Disparos del visitante que salieron fuera del arco.',
+  pases_precisos_visitante             INT     COMMENT 'Pases precisos realizados por el visitante.',
+  pases_precisos_visitante_pct         DOUBLE  COMMENT 'Proporción de pases precisos del visitante (0–1).',
+  pases_precisos_local                 INT     COMMENT 'Pases precisos realizados por el local.',
+  pases_precisos_local_pct             DOUBLE  COMMENT 'Proporción de pases precisos del local (0–1).',
+  tiros_bloqueados_local               INT     COMMENT 'Tiros del local bloqueados por la defensa rival.',
+  mitad_rival_local                    INT     COMMENT 'Acciones del local en mitad rival.',
+  paradas_portero_local                INT     COMMENT 'Paradas realizadas por el portero local.',
+  fueras_juego_local                   INT     COMMENT 'Fueras de juego cometidos por el local.',
+  tiros_largos_precisos_local          INT     COMMENT 'Pases largos precisos del local.',
+  tiros_largos_precisos_local_pct      DOUBLE  COMMENT 'Proporción de pases largos precisos del local (0–1).',
+  faltas_local                         INT     COMMENT 'Faltas cometidas por el local.',
+  grandes_oportunidades_perdidas_visitante INT COMMENT 'Grandes ocasiones claras falladas por el visitante.',
+  grandes_oportunidades_perdidas_local     INT COMMENT 'Grandes ocasiones claras falladas por el local.',
+  fueras_juego_visitante               INT     COMMENT 'Fueras de juego cometidos por el visitante.',
+  toques_area_rival_local              INT     COMMENT 'Toques del local en el área rival.',
+  despejes_local                       INT     COMMENT 'Despejes realizados por el local.',
+  lanzamientos_local                   INT     COMMENT 'Lanzamientos (saques de banda u otros) del local.',
+  tiros_fuera_area_visitante           INT     COMMENT 'Tiros del visitante realizados fuera del área.',
+  fecha_carga  TIMESTAMP COMMENT 'Fecha y hora de la carga en UDV.',
+  fuente       STRING    COMMENT 'Fuente de las estadísticas, por ejemplo FotMob.',
+  periodo      INT       COMMENT 'Periodo técnico de carga (YYYY), normalmente igual a temporada.'
 )
 USING delta
 PARTITIONED BY (periodo)
 LOCATION 'abfss://${container_name}@${storage_account}.dfs.core.windows.net/udv/Proyecto/liga1/tb_udv/hm_estadisticas_partidos/data'
-COMMENT 'Histórico de estadísticas partido a partido de Liga 1 Perú (local/visitante, cantidad y % por métrica).';
+COMMENT 'Histórico de estadísticas partido a partido de Liga 1 Perú, con métricas de local/visitante y columnas *_pct solo para métricas que vienen en formato N (P %).';
