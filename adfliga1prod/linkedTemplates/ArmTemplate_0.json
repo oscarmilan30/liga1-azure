@@ -1,0 +1,1775 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Nombre de instancia de Data Factory",
+			"defaultValue": "adfliga1prod"
+		},
+		"ls_azure_keyvault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-liga1-secreto.vault.azure.net/"
+		},
+		"ls_adls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://staliga1peruadls.dfs.core.windows.net/"
+		},
+		"ls_databricks_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "@linkedService().CLUSTER_ID"
+		},
+		"ls_sql_liga1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "serverliga1futbol.database.windows.net"
+		},
+		"ls_sql_liga1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "ligafutbol"
+		},
+		"ls_sql_liga1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "adminliga"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_execute_jobs_databricks')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "kv_get_dbrx_token",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "GET",
+							"headers": {},
+							"url": "https://kv-liga1-secreto.vault.azure.net/secrets/databricks-token?api-version=7.3",
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					},
+					{
+						"name": "set_dbrx_token",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "kv_get_dbrx_token",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureOutput": true,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "dbrx_token",
+							"value": {
+								"value": "@activity('kv_get_dbrx_token').output.value",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "sch_jobs_databricks",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "set_dbrx_token",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "POST",
+							"headers": {
+								"Authorization": {
+									"value": "@concat('Bearer ', variables('dbrx_token'))",
+									"type": "Expression"
+								},
+								"Content-Type": "application/json"
+							},
+							"url": {
+								"value": "@concat(pipeline().parameters.area, 'api/2.1/jobs/run-now')",
+								"type": "Expression"
+							},
+							"body": {
+								"value": "@concat('{\"job_id\": ', string(pipeline().parameters.job_id), ', \"idempotency_token\": \"', pipeline().RunId, '\"}')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"area": {
+						"type": "string"
+					},
+					"job_id": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"dbrx_token": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "workflows/inner_procesos_workflows"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_azure_keyvault')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('ls_azure_keyvault_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_adls')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_adls_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "ls_azure_keyvault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "storageaccountkey",
+						"secretVersion": "7973bbda2a684889a7294d543582d1d3"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_azure_keyvault')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_databricks')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"CLUSTER_ID": {
+						"type": "string"
+					},
+					"AREA": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "@linkedService().AREA",
+					"accessToken": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "ls_azure_keyvault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "databricks-token",
+						"secretVersion": "14ee7427f3624bfea585dc0cd1daceb4"
+					},
+					"existingClusterId": "[parameters('ls_databricks_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_azure_keyvault')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_databricks_kv_clusterparam')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"sparkVersion": {
+						"type": "string"
+					},
+					"nodeType": {
+						"type": "string"
+					},
+					"numWorkers": {
+						"type": "string"
+					},
+					"autotermination": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-1226152484357259.19.azuredatabricks.net",
+					"accessToken": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "ls_azure_keyvault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "databricks-token",
+						"secretVersion": "a37866e3ba714ea8ab3adbec18d8b816"
+					},
+					"newClusterNodeType": "@linkedService().nodeType",
+					"newClusterNumOfWorker": "@linkedService().numWorkers",
+					"newClusterSparkEnvVars": {
+						"PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+					},
+					"newClusterVersion": "@linkedService().sparkVersion",
+					"clusterOption": "Fixed",
+					"newClusterInitScripts": [],
+					"dataSecurityMode": "NONE"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_azure_keyvault')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_sql_liga1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('ls_sql_liga1_properties_typeProperties_server')]",
+					"database": "[parameters('ls_sql_liga1_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('ls_sql_liga1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "ls_azure_keyvault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "kv-sql-password",
+						"secretVersion": "db1c81974d1b440ab807f82566454f81"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_azure_keyvault')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_ctrl_end_fail')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "sp_end_fail",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[sp_log_end]",
+							"storedProcedureParameters": {
+								"ExecutionId": {
+									"value": {
+										"value": "@pipeline()?.TriggeredByPipelineRunId",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"IdEjecucion": {
+									"value": {
+										"value": "@pipeline().parameters.IdEjecucion",
+										"type": "Expression"
+									},
+									"type": "Int32"
+								},
+								"MensajeError": {
+									"value": {
+										"value": "@pipeline().parameters.MensajeError",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"PipelineId": {
+									"value": {
+										"value": "@pipeline().parameters.PipelineId",
+										"type": "Expression"
+									},
+									"type": "Int32"
+								},
+								"Status": {
+									"value": "FAIL",
+									"type": "String"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_sql_liga1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"PipelineId": {
+						"type": "int"
+					},
+					"IdEjecucion": {
+						"type": "int"
+					},
+					"MensajeError": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "pl_pipeline_control"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_liga1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_ctrl_end_success')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "sp_end_success",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[sp_log_end]",
+							"storedProcedureParameters": {
+								"ExecutionId": {
+									"value": {
+										"value": "@pipeline()?.TriggeredByPipelineRunId",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"IdEjecucion": {
+									"value": {
+										"value": "@pipeline().parameters.IdEjecucion",
+										"type": "Expression"
+									},
+									"type": "Int32"
+								},
+								"MensajeError": {
+									"value": null,
+									"type": "String"
+								},
+								"PipelineId": {
+									"value": {
+										"value": "@pipeline().parameters.PipelineId",
+										"type": "Expression"
+									},
+									"type": "Int32"
+								},
+								"Status": {
+									"value": "SUCCEDED",
+									"type": "String"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_sql_liga1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"PipelineId": {
+						"type": "int"
+					},
+					"IdEjecucion": {
+						"type": "int"
+					}
+				},
+				"folder": {
+					"name": "pl_pipeline_control"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_liga1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_historico_unificador')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "UnificarYLimpiar_Parquet_1FL",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.20:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Repos/garciadoscar1994@outlook.com/liga1-azure/frm_raw/curated_historico/nb_unificar_1FL",
+							"baseParameters": {
+								"filesystem": {
+									"value": "@pipeline().parameters.filesystem",
+									"type": "Expression"
+								},
+								"capa_raw": {
+									"value": "@pipeline().parameters.capa_raw",
+									"type": "Expression"
+								},
+								"rutaBase": {
+									"value": "@pipeline().parameters.rutaBase",
+									"type": "Expression"
+								},
+								"nombre_archivo": {
+									"value": "@pipeline().parameters.nombre_archivo",
+									"type": "Expression"
+								},
+								"historical_start_year": {
+									"value": "@pipeline().parameters.historical_start_year",
+									"type": "Expression"
+								},
+								"current_year": {
+									"value": "@pipeline().parameters.current_year",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_databricks",
+							"type": "LinkedServiceReference",
+							"parameters": {
+								"CLUSTER_ID": {
+									"value": "@pipeline().parameters.cluster_id",
+									"type": "Expression"
+								},
+								"AREA": {
+									"value": "@pipeline().parameters.area",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					{
+						"name": "RegistrarRutaRaw_Historico",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "UnificarYLimpiar_Parquet_1FL",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[sp_registrar_path_historico]",
+							"storedProcedureParameters": {
+								"PipelineId": {
+									"value": {
+										"value": "@pipeline().parameters.PipelineId",
+										"type": "Expression"
+									},
+									"type": "Int32"
+								},
+								"RunId": {
+									"value": {
+										"value": "@pipeline().RunId",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"Entidad": {
+									"value": {
+										"value": "@pipeline().parameters.nombre_archivo",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"ModoEjecucion": {
+									"value": "HISTORICO",
+									"type": "String"
+								},
+								"Periodo": {
+									"value": {
+										"value": "@concat(string(pipeline().parameters.historical_start_year), '-', string(pipeline().parameters.current_year))",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"RutaRaw": {
+									"value": {
+										"value": "@concat(pipeline().parameters.capa_raw, trim(pipeline().parameters.rutaBase), '/', pipeline().parameters.nombre_archivo, '/1FL/data/')",
+										"type": "Expression"
+									},
+									"type": "String"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_sql_liga1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"filesystem": {
+						"type": "string"
+					},
+					"capa_raw": {
+						"type": "string"
+					},
+					"rutaBase": {
+						"type": "string"
+					},
+					"nombre_archivo": {
+						"type": "string"
+					},
+					"PipelineId": {
+						"type": "int"
+					},
+					"historical_start_year": {
+						"type": "string"
+					},
+					"current_year": {
+						"type": "string"
+					},
+					"ModoEjecucion": {
+						"type": "string"
+					},
+					"cluster_id": {
+						"type": "string"
+					},
+					"area": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"DebugInfo": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "pl_hijos_ligaperuana/pl_inner_procesos"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_databricks')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_liga1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_adls_binary')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"fileName": {
+						"type": "string"
+					},
+					"folderPath": {
+						"type": "string"
+					},
+					"filesystem": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ds_api_football/liga1"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().fileName",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().folderPath",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().filesystem",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_adls_csv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"folderPath": {
+						"type": "string"
+					},
+					"filesystem": {
+						"type": "string"
+					},
+					"fileName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ds_api_football/liga1"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().fileName",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().folderPath",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().filesystem",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": "|",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_adls_csv_dataentry')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"folderPath": {
+						"type": "string"
+					},
+					"filesystem": {
+						"type": "string"
+					},
+					"fileName": {
+						"type": "string"
+					},
+					"useHeader": {
+						"type": "bool",
+						"defaultValue": true
+					}
+				},
+				"folder": {
+					"name": "ds_api_football/liga1"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().fileName",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().folderPath",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().filesystem",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "\\",
+					"firstRowAsHeader": {
+						"value": "@dataset().useHeader",
+						"type": "Expression"
+					},
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_adls_json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"folderPath": {
+						"type": "string"
+					},
+					"filesystem": {
+						"type": "string"
+					},
+					"fileName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ds_api_football/liga1"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().fileName",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().folderPath",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().filesystem",
+							"type": "Expression"
+						}
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_adls_parquet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"folderPath": {
+						"type": "string"
+					},
+					"filesystem": {
+						"type": "string"
+					},
+					"fileName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ds_api_football/liga1"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().fileName",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().folderPath",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().filesystem",
+							"type": "Expression"
+						}
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sql_generic')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sql_liga1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"TableName": {
+						"type": "string"
+					},
+					"SchemaName": {
+						"type": "string",
+						"defaultValue": "dbo"
+					}
+				},
+				"folder": {
+					"name": "ds_api_football/liga1"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": {
+						"value": "@dataset().SchemaName",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().TableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_liga1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_ctrl_start')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "lkp_sp_start",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderStoredProcedureName": "[[dbo].[sp_log_start]",
+								"storedProcedureParameters": {
+									"execution_id": {
+										"type": "String",
+										"value": {
+											"value": "@pipeline().parameters.ExecutionId",
+											"type": "Expression"
+										}
+									},
+									"pipeline_name": {
+										"type": "String",
+										"value": {
+											"value": "@pipeline().parameters.pipeline_name",
+											"type": "Expression"
+										}
+									},
+									"pipeline_type": {
+										"type": "String",
+										"value": {
+											"value": "@pipeline().parameters.pipeline_type",
+											"type": "Expression"
+										}
+									},
+									"PipelineId": {
+										"type": "Int32",
+										"value": {
+											"value": "@pipeline().parameters.PipelineId",
+											"type": "Expression"
+										}
+									}
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ds_sql_generic",
+								"type": "DatasetReference",
+								"parameters": {
+									"TableName": {
+										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									},
+									"SchemaName": "dbo"
+								}
+							}
+						}
+					},
+					{
+						"name": "Set_IdEjecucion",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "lkp_sp_start",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "pipelineReturnValue",
+							"value": [
+								{
+									"key": "IdEjecucion",
+									"value": {
+										"type": "Expression",
+										"content": "@activity('lkp_sp_start').output.firstRow.IdEjecucion"
+									}
+								}
+							],
+							"setSystemVariable": true
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"PipelineId": {
+						"type": "int"
+					},
+					"TablaParametro": {
+						"type": "string"
+					},
+					"ExecutionId": {
+						"type": "string"
+					},
+					"pipeline_name": {
+						"type": "string"
+					},
+					"pipeline_type": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"IdEjecucion": {
+						"type": "Integer"
+					}
+				},
+				"folder": {
+					"name": "pl_pipeline_control"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_sql_generic')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_delete_controlado')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "IfConditionDelete",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "chk_folder_exists",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@and(\n  not(equals(pipeline().parameters.ModoEjecucion,'HISTORICO')),\n  and(\n    activity('chk_folder_exists').output.exists,\n    greaterOrEquals(\n      length(\n        coalesce(\n          activity('chk_folder_exists').output.childItems,\n          json('[]')\n        )\n      ),\n      1\n    )\n  )\n)",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "CleanRawYearFolder",
+									"type": "Delete",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"dataset": {
+											"referenceName": "ds_adls_parquet",
+											"type": "DatasetReference",
+											"parameters": {
+												"folderPath": {
+													"value": "@concat(\n    pipeline().parameters.capa_raw,\n    trim(pipeline().parameters.rutaBase), '/',\n    pipeline().parameters.nombre_archivo, '/',\n    if(\n        equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n        concat('1FL/data/', string(pipeline().parameters.anio)),\n        if(\n            equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n            concat(string(pipeline().parameters.anio), '/01/01/data'),\n            concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n        )\n    )\n)",
+													"type": "Expression"
+												},
+												"filesystem": {
+													"value": "@pipeline().parameters.filesystem",
+													"type": "Expression"
+												},
+												"fileName": {
+													"value": "@concat(pipeline().parameters.nombre_archivo, '.parquet')",
+													"type": "Expression"
+												}
+											}
+										},
+										"enableLogging": false,
+										"storeSettings": {
+											"type": "AzureBlobFSReadSettings",
+											"recursive": true,
+											"enablePartitionDiscovery": false
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "chk_folder_exists",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_adls_parquet",
+								"type": "DatasetReference",
+								"parameters": {
+									"folderPath": {
+										"value": "@concat(\n    pipeline().parameters.capa_raw,\n    trim(pipeline().parameters.rutaBase), '/',\n    pipeline().parameters.nombre_archivo, '/',\n    if(\n        equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n        concat('1FL/data/', string(pipeline().parameters.anio)),\n        if(\n            equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n            concat(string(pipeline().parameters.anio), '/01/01/data'),\n            concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n        )\n    )\n)",
+										"type": "Expression"
+									},
+									"filesystem": {
+										"value": "@pipeline().parameters.filesystem",
+										"type": "Expression"
+									},
+									"fileName": "@''"
+								}
+							},
+							"fieldList": [
+								"exists",
+								"childItems"
+							],
+							"storeSettings": {
+								"type": "AzureBlobFSReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "ParquetReadSettings"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"capa_raw": {
+						"type": "string"
+					},
+					"rutaBase": {
+						"type": "string"
+					},
+					"nombre_archivo": {
+						"type": "string"
+					},
+					"filesystem": {
+						"type": "string"
+					},
+					"FechaCarga": {
+						"type": "string"
+					},
+					"ModoEjecucion": {
+						"type": "string"
+					},
+					"anio": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "pl_pipeline_control"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_adls_parquet')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_execute_create_jobs')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "lkp_parametros",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderStoredProcedureName": "[[dbo].[sp_obtener_parametros]",
+								"storedProcedureParameters": {
+									"PipelineId": {
+										"type": "Int32",
+										"value": {
+											"value": "@pipeline().parameters.PipelineId",
+											"type": "Expression"
+										}
+									}
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ds_sql_generic",
+								"type": "DatasetReference",
+								"parameters": {
+									"TableName": {
+										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									},
+									"SchemaName": "dbo"
+								}
+							},
+							"firstRowOnly": true
+						}
+					},
+					{
+						"name": "execute_job_workflow",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "lkp_parametros",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Repos/garciadoscar1994@outlook.com/liga1-azure/workflow_deploy/execute_job_workflow",
+							"baseParameters": {
+								"prm_job_name": {
+									"value": "@pipeline().parameters.prm_job_name",
+									"type": "Expression"
+								},
+								"prm_area": {
+									"value": "@activity('lkp_parametros').output.firstRow.AREA",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_databricks",
+							"type": "LinkedServiceReference",
+							"parameters": {
+								"CLUSTER_ID": {
+									"value": "@activity('lkp_parametros').output.firstRow.CLUSTER_ID",
+									"type": "Expression"
+								},
+								"AREA": {
+									"value": "@activity('lkp_parametros').output.firstRow.AREA",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					{
+						"name": "Set_json_variable",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "execute_job_workflow",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "pipelineReturnValue",
+							"value": [
+								{
+									"key": "set_json_variable",
+									"value": {
+										"type": "Expression",
+										"content": "@string(activity('execute_job_workflow').output.runOutput.job_id)"
+									}
+								}
+							],
+							"setSystemVariable": true
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"PipelineId": {
+						"type": "int"
+					},
+					"TablaParametro": {
+						"type": "string"
+					},
+					"pipeline_type": {
+						"type": "string"
+					},
+					"prm_job_name": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"dbrx_token": {
+						"type": "String"
+					},
+					"set_json_variable": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "workflows/inner_procesos_workflows"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_sql_generic')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_databricks')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_execute_jobs_ddl')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "kv_get_dbrx_token",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "lkp_parametros",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "GET",
+							"headers": {},
+							"url": "https://kv-liga1-secreto.vault.azure.net/secrets/databricks-token?api-version=7.3",
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					},
+					{
+						"name": "set_dbrx_token",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "kv_get_dbrx_token",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureOutput": true,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "dbrx_token",
+							"value": {
+								"value": "@activity('kv_get_dbrx_token').output.value",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "sch_jobs_databricks",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "set_dbrx_token",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "POST",
+							"headers": {
+								"Authorization": {
+									"value": "@concat('Bearer ', variables('dbrx_token'))",
+									"type": "Expression"
+								},
+								"Content-Type": "application/json"
+							},
+							"url": {
+								"value": "@concat(activity('lkp_parametros').output.firstRow.AREA, 'api/2.1/jobs/run-now')",
+								"type": "Expression"
+							},
+							"body": {
+								"value": "{\n  \"job_id\": \"@{activity('lkp_parametros').output.firstRow.JOB_ID}\",\n  \"idempotency_token\": \"@{pipeline().RunId}\",\n  \"notebook_params\": {\n    \"prm_name_ddl\": \"@{pipeline().parameters.prm_name_ddl}\"\n  }\n}",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "lkp_parametros",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderStoredProcedureName": "[[dbo].[sp_obtener_parametros]",
+								"storedProcedureParameters": {
+									"PipelineId": {
+										"type": "Int32",
+										"value": {
+											"value": "@pipeline().parameters.PipelineId",
+											"type": "Expression"
+										}
+									}
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ds_sql_generic",
+								"type": "DatasetReference",
+								"parameters": {
+									"TableName": {
+										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									},
+									"SchemaName": "dbo"
+								}
+							},
+							"firstRowOnly": true
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"PipelineId": {
+						"type": "int"
+					},
+					"TablaParametro": {
+						"type": "string"
+					},
+					"prm_name_ddl": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"dbrx_token": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "workflows/inner_procesos_workflows"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_sql_generic')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_get_csv_mapping')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "lkp_header_csv",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"dataset": {
+								"referenceName": "ds_adls_csv_dataentry",
+								"type": "DatasetReference",
+								"parameters": {
+									"folderPath": {
+										"value": "@concat(pipeline().parameters.capa_landing, '/dataentrys/',pipeline().parameters.fileName)",
+										"type": "Expression"
+									},
+									"filesystem": {
+										"value": "@pipeline().parameters.filesystem",
+										"type": "Expression"
+									},
+									"fileName": {
+										"value": "@concat(pipeline().parameters.fileName, '.csv')",
+										"type": "Expression"
+									},
+									"useHeader": false
+								}
+							},
+							"firstRowOnly": true
+						}
+					},
+					{
+						"name": "set_header_names",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "lkp_header_csv",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "header_names",
+							"value": {
+								"value": "@split(\n    replace(\n        replace(\n            replace(\n                replace(\n                    string(activity('lkp_header_csv').output.firstRow),\n                    '{',''\n                ),\n                '}',''\n            ),\n            '\"',''\n        ),\n        '\\\\',''\n    ),\n    ','\n)",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "foreach_clean_headers",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "set_header_names",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@variables('header_names')",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "original_header",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "original_header",
+										"value": {
+											"value": "@split(item(), ':')[1]",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "new_header",
+									"type": "SetVariable",
+									"dependsOn": [
+										{
+											"activity": "original_header",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "new_header",
+										"value": {
+											"value": "@replace(replace(trim(variables('original_header')),' ','_'),'\\\\t','')",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "json_map",
+									"type": "AppendVariable",
+									"dependsOn": [
+										{
+											"activity": "new_header",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "json_map",
+										"value": {
+											"value": "@json(concat('{\n  \"source\": { \"name\": \"', variables('original_header'), '\" },\n  \"sink\":   { \"name\": \"', variables('new_header'), '\" }\n}'))",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "set_mapping_script",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "foreach_clean_headers",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "pipelineReturnValue",
+							"value": [
+								{
+									"key": "mapping_script",
+									"value": {
+										"type": "Expression",
+										"content": "@concat(\n  '{\"type\": \"TabularTranslator\",\"mappings\": ',\n  replace(replace(string(variables('json_map')),'\\\"{','{'),'}\\\"','}'),\n  '}'\n)"
+									}
+								}
+							],
+							"setSystemVariable": true
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"TablaParametro": {
+						"type": "string"
+					},
+					"PipelineId": {
+						"type": "string"
+					},
+					"filesystem": {
+						"type": "string"
+					},
+					"capa_landing": {
+						"type": "string"
+					},
+					"fileName": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"header_names": {
+						"type": "Array"
+					},
+					"original_header": {
+						"type": "String"
+					},
+					"new_header": {
+						"type": "String"
+					},
+					"json_map": {
+						"type": "Array"
+					}
+				},
+				"folder": {
+					"name": "pl_pipeline_control"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_adls_csv_dataentry')]"
+			]
+		}
+	]
+}

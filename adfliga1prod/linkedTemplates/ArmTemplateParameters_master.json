@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adfliga1prod"
+		},
+		"ls_adls_properties_typeProperties_url": {
+			"value": "https://staliga1peruadls.dfs.core.windows.net/"
+		},
+		"ls_azure_keyvault_properties_typeProperties_baseUrl": {
+			"value": "https://kv-liga1-secreto.vault.azure.net/"
+		},
+		"ls_databricks_properties_typeProperties_existingClusterId": {
+			"value": "@linkedService().CLUSTER_ID"
+		},
+		"ls_sql_liga1_properties_typeProperties_server": {
+			"value": "serverliga1futbol.database.windows.net"
+		},
+		"ls_sql_liga1_properties_typeProperties_database": {
+			"value": "ligafutbol"
+		},
+		"ls_sql_liga1_properties_typeProperties_userName": {
+			"value": "adminliga"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
