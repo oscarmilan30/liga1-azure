@@ -1,0 +1,131 @@
+hm_entrenadores_equipo:
+
+  cols_raw_entrenadores_md:
+    - entrenador
+    - fecha_nacimiento
+    - nacionalidad
+    - fuente
+  
+  case_rules:
+    nacionalidad:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none') THEN 'sin informacion'
+          ELSE {col}
+        END
+
+    comienzo:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+          THEN NULL
+          ELSE to_date({col}, 'dd/MM/yyyy')
+        END
+
+    salida:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+          THEN NULL
+          ELSE to_date({col}, 'dd/MM/yyyy')
+        END
+
+    tiempo_en_cargo:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+          THEN 'sin informacion'
+          ELSE {col}
+        END
+
+    partidos:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+               OR {col} IN ('0','0.0','0,0')
+          THEN '0'
+          ELSE {col}
+        END
+
+    ppp:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+               OR {col} IN ('0','0.0','0,0')
+          THEN '0'
+          ELSE regexp_replace({col}, ',', '.')
+        END
+
+    entrenador_activo:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion','-')
+          THEN 1
+          ELSE 0
+        END
+  
+  rename_columns_md:
+    fuente: fuente_entrenador
+
+  schema_md:
+    id_entrenador: string
+    entrenador: string
+    edad: int
+    nacionalidad: string
+    fuente_entrenador: string
+    fecha_carga: timestamp
+    periododia: int
+
+  cols_catalogo_equipos_hm:
+    - id_equipo
+    - nombre_transfermarkt
+
+  cols_raw_entrenadores_hm:
+    - club
+    - temporada
+    - entrenador
+    - comienzo
+    - salida
+    - tiempo_en_cargo
+    - partidos
+    - ppp
+    - fuente
+
+  dedup_cols_hm:
+    - club
+    - entrenador
+    - comienzo
+  
+  rename_columns_hm:
+    fuente: fuente_entrenador
+    comienzo: fecha_inicio
+    salida: fecha_termino
+
+  schema_hm:
+    id_entrenador_equipo: string
+    id_equipo: int
+    id_entrenador: string
+    temporada: int
+    fecha_inicio: date
+    fecha_termino: date
+    tiempo_en_cargo: string
+    partidos: int
+    ppp: decimal(10,4)
+    entrenador_activo: int
+    fuente_entrenador: string
+    fecha_carga: timestamp
+    periodo: int

@@ -1,0 +1,469 @@
+{
+	"name": "pl_procesar_archivos",
+	"properties": {
+		"activities": [
+			{
+				"name": "CheckIfShouldProcess",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@or(\n not(equals(pipeline().parameters.nombre_archivo, 'campeones')),\n pipeline().parameters.archivo_existe\n)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "SkipCampeones",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "DebugInfo",
+								"value": {
+									"value": "\"Archivo campeones no existe - Skip\"",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "SwitchByFileType",
+							"type": "Switch",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"on": {
+									"value": "@pipeline().parameters.tipo_archivo",
+									"type": "Expression"
+								},
+								"cases": [
+									{
+										"value": "csv",
+										"activities": [
+											{
+												"name": "copy_csv_to_stg",
+												"type": "Copy",
+												"dependsOn": [],
+												"policy": {
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "DelimitedTextSource",
+														"storeSettings": {
+															"type": "AzureBlobFSReadSettings",
+															"recursive": true,
+															"enablePartitionDiscovery": false
+														},
+														"formatSettings": {
+															"type": "DelimitedTextReadSettings"
+														}
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings",
+															"copyBehavior": "MergeFiles"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "ds_adls_csv",
+														"type": "DatasetReference",
+														"parameters": {
+															"folderPath": {
+																"value": "@concat(pipeline().parameters.capa_landing, '/', string(pipeline().parameters.anio))",
+																"type": "Expression"
+															},
+															"filesystem": {
+																"value": "@pipeline().parameters.filesystem",
+																"type": "Expression"
+															},
+															"fileName": {
+																"value": "@concat(pipeline().parameters.nombre_archivo, '_', string(pipeline().parameters.anio), '.csv')",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "ds_adls_parquet",
+														"type": "DatasetReference",
+														"parameters": {
+															"folderPath": {
+																"value": "@concat(\n    pipeline().parameters.capa_raw,\n    trim(pipeline().parameters.rutaBase), '/',\n    pipeline().parameters.nombre_archivo, '/',\n    if(\n      equals(pipeline().parameters.ModoEjecucion,'HISTORICO'),\n      concat('stg/', string(pipeline().parameters.anio), '/data'),\n      if(\n        equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n        concat('stg/', string(pipeline().parameters.anio), '/01/01/data'),\n        concat('stg/', formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data')\n      )\n    )\n  )",
+																"type": "Expression"
+															},
+															"filesystem": {
+																"value": "@pipeline().parameters.filesystem",
+																"type": "Expression"
+															},
+															"fileName": {
+																"value": "@concat(pipeline().parameters.nombre_archivo, '.parquet')",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											},
+											{
+												"name": "RegistrarRutaRaw_CSV",
+												"type": "SqlServerStoredProcedure",
+												"dependsOn": [
+													{
+														"activity": "nbk_csv_to_raw",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"storedProcedureName": "[dbo].[sp_registrar_path]",
+													"storedProcedureParameters": {
+														"Entidad": {
+															"value": {
+																"value": "@pipeline().parameters.nombre_archivo",
+																"type": "Expression"
+															},
+															"type": "String"
+														},
+														"ModoEjecucion": {
+															"value": {
+																"value": "@pipeline().parameters.ModoEjecucion",
+																"type": "Expression"
+															},
+															"type": "String"
+														},
+														"Periodo": {
+															"value": {
+																"value": "@pipeline().parameters.anio",
+																"type": "Expression"
+															},
+															"type": "String"
+														},
+														"PipelineId": {
+															"value": {
+																"value": "@pipeline().parameters.PipelineId",
+																"type": "Expression"
+															},
+															"type": "Int32"
+														},
+														"RunId": {
+															"value": {
+																"value": "@pipeline().RunId",
+																"type": "Expression"
+															},
+															"type": "String"
+														},
+														"RutaRaw": {
+															"value": {
+																"value": "@concat(\n        pipeline().parameters.capa_raw,\n        trim(pipeline().parameters.rutaBase), '/',\n        pipeline().parameters.nombre_archivo, '/',\n        if(\n            equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n            concat(string(pipeline().parameters.anio), '/01/01/data/'),\n            concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data/')\n        )\n    )",
+																"type": "Expression"
+															},
+															"type": "String"
+														}
+													}
+												},
+												"linkedServiceName": {
+													"referenceName": "ls_sql_liga1",
+													"type": "LinkedServiceReference"
+												}
+											},
+											{
+												"name": "nbk_csv_to_raw",
+												"type": "DatabricksNotebook",
+												"dependsOn": [
+													{
+														"activity": "copy_csv_to_stg",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"notebookPath": "/Repos/garciadoscar1994@outlook.com/liga1-azure/frm_raw/curated_csv/nb_curated_csv",
+													"baseParameters": {
+														"nombre_archivo": {
+															"value": "@pipeline().parameters.nombre_archivo",
+															"type": "Expression"
+														},
+														"anio": {
+															"value": "@string(pipeline().parameters.anio)",
+															"type": "Expression"
+														},
+														"filesystem": {
+															"value": "@pipeline().parameters.filesystem",
+															"type": "Expression"
+														},
+														"capa_raw": {
+															"value": "@pipeline().parameters.capa_raw",
+															"type": "Expression"
+														},
+														"rutaBase": {
+															"value": "@pipeline().parameters.rutaBase",
+															"type": "Expression"
+														},
+														"ModoEjecucion": {
+															"value": "@pipeline().parameters.ModoEjecucion",
+															"type": "Expression"
+														},
+														"FechaCarga": {
+															"value": "@pipeline().parameters.FechaCarga",
+															"type": "Expression"
+														}
+													}
+												},
+												"linkedServiceName": {
+													"referenceName": "ls_databricks",
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"CLUSTER_ID": {
+															"value": "@pipeline().parameters.cluster_id",
+															"type": "Expression"
+														},
+														"AREA": {
+															"value": "@pipeline().parameters.area",
+															"type": "Expression"
+														}
+													}
+												}
+											}
+										]
+									},
+									{
+										"value": "json",
+										"activities": [
+											{
+												"name": "RegistrarRutaRaw_JSON",
+												"type": "SqlServerStoredProcedure",
+												"dependsOn": [
+													{
+														"activity": "nbk_json_to_raw",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"storedProcedureName": "[dbo].[sp_registrar_path]",
+													"storedProcedureParameters": {
+														"Entidad": {
+															"value": {
+																"value": "@pipeline().parameters.nombre_archivo",
+																"type": "Expression"
+															},
+															"type": "String"
+														},
+														"ModoEjecucion": {
+															"value": {
+																"value": "@pipeline().parameters.ModoEjecucion",
+																"type": "Expression"
+															},
+															"type": "String"
+														},
+														"Periodo": {
+															"value": {
+																"value": "@pipeline().parameters.anio",
+																"type": "Expression"
+															},
+															"type": "String"
+														},
+														"PipelineId": {
+															"value": {
+																"value": "@pipeline().parameters.PipelineId",
+																"type": "Expression"
+															},
+															"type": "Int32"
+														},
+														"RunId": {
+															"value": {
+																"value": "@pipeline().RunId",
+																"type": "Expression"
+															},
+															"type": "String"
+														},
+														"RutaRaw": {
+															"value": {
+																"value": "@concat(\n        pipeline().parameters.capa_raw,\n        trim(pipeline().parameters.rutaBase), '/',\n        pipeline().parameters.nombre_archivo, '/',\n        if(\n            equals(pipeline().parameters.ModoEjecucion,'REPROCESO'),\n            concat(string(pipeline().parameters.anio), '/01/01/data/'),\n            concat(formatDateTime(pipeline().parameters.FechaCarga,'yyyy/MM/dd'), '/data/')\n        )\n    )",
+																"type": "Expression"
+															},
+															"type": "String"
+														}
+													}
+												},
+												"linkedServiceName": {
+													"referenceName": "ls_sql_liga1",
+													"type": "LinkedServiceReference"
+												}
+											},
+											{
+												"name": "nbk_json_to_raw",
+												"type": "DatabricksNotebook",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"notebookPath": "/Repos/garciadoscar1994@outlook.com/liga1-azure/frm_raw/curated_json/nb_curated_json",
+													"baseParameters": {
+														"nombre_archivo": {
+															"value": "@pipeline().parameters.nombre_archivo",
+															"type": "Expression"
+														},
+														"anio": {
+															"value": "@string(pipeline().parameters.anio)",
+															"type": "Expression"
+														},
+														"filesystem": {
+															"value": "@pipeline().parameters.filesystem",
+															"type": "Expression"
+														},
+														"capa_landing": {
+															"value": "@pipeline().parameters.capa_landing",
+															"type": "Expression"
+														},
+														"capa_raw": {
+															"value": "@pipeline().parameters.capa_raw",
+															"type": "Expression"
+														},
+														"rutaBase": {
+															"value": "@pipeline().parameters.rutaBase",
+															"type": "Expression"
+														},
+														"ModoEjecucion": {
+															"value": "@pipeline().parameters.ModoEjecucion",
+															"type": "Expression"
+														},
+														"FechaCarga": {
+															"value": "@pipeline().parameters.FechaCarga",
+															"type": "Expression"
+														}
+													}
+												},
+												"linkedServiceName": {
+													"referenceName": "ls_databricks",
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"CLUSTER_ID": {
+															"value": "@pipeline().parameters.cluster_id",
+															"type": "Expression"
+														},
+														"AREA": {
+															"value": "@pipeline().parameters.area",
+															"type": "Expression"
+														}
+													}
+												}
+											}
+										]
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"nombre_archivo": {
+				"type": "string"
+			},
+			"tipo_archivo": {
+				"type": "string"
+			},
+			"anio": {
+				"type": "int"
+			},
+			"rutaBase": {
+				"type": "string"
+			},
+			"capa_raw": {
+				"type": "string"
+			},
+			"capa_landing": {
+				"type": "string"
+			},
+			"filesystem": {
+				"type": "string"
+			},
+			"archivo_existe": {
+				"type": "bool"
+			},
+			"ModoEjecucion": {
+				"type": "string"
+			},
+			"FechaCarga": {
+				"type": "string"
+			},
+			"PipelineId": {
+				"type": "int"
+			},
+			"cluster_id": {
+				"type": "string"
+			},
+			"area": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"DebugInfo": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "pl_hijos_ligaperuana/pl_inner_procesos"
+		},
+		"annotations": []
+	}
+}

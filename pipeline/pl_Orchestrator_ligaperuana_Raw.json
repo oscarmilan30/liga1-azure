@@ -1,0 +1,195 @@
+{
+	"name": "pl_Orchestrator_ligaperuana_Raw",
+	"properties": {
+		"activities": [
+			{
+				"name": "tb_ctrl_start",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_start",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"ExecutionId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"pipeline_name": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"pipeline_type": {
+							"value": "@pipeline().parameters.pipeline_type",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "pl_Orchestrator_Raw",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set_IdEjecucion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ligaperuana_Raw",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "tb_ctrl_end_success",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "pl_Orchestrator_Raw",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_end_success",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "pl_ctrl_end_fail",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "pl_Orchestrator_Raw",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_end_fail",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						},
+						"MensajeError": {
+							"value": "@activity('pl_Orchestrator_Raw').error.message",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set_IdEjecucion",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "tb_ctrl_start",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "IdEjecucion",
+					"value": {
+						"value": "@activity('tb_ctrl_start').output.pipelineReturnValue.IdEjecucion",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"PipelineId": {
+				"type": "int",
+				"defaultValue": 1
+			},
+			"TablaParametro": {
+				"type": "string",
+				"defaultValue": "tbl_pipeline_parametros"
+			},
+			"pipeline_type": {
+				"type": "string",
+				"defaultValue": "PADRE"
+			}
+		},
+		"variables": {
+			"IdEjecucion": {
+				"type": "Integer"
+			}
+		},
+		"folder": {
+			"name": "pl_hijos_ligaperuana"
+		},
+		"annotations": []
+	}
+}

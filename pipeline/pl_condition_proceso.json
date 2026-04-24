@@ -1,0 +1,169 @@
+{
+	"name": "pl_condition_proceso",
+	"properties": {
+		"activities": [
+			{
+				"name": "If_Validar_Modo_Ejecucion",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(pipeline().parameters.Parametros_Json['MODO_EJECUCION'],'HISTORICO')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Execute_Incremental",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_ligaperuana_Incremental",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"Pipeline_Id": {
+										"value": "@pipeline().parameters.PipelineId",
+										"type": "Expression"
+									},
+									"TablaParametro": {
+										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									},
+									"capa_raw": {
+										"value": "@pipeline().parameters.Parametros_Json['CAPA_RAW']",
+										"type": "Expression"
+									},
+									"capa_landing": {
+										"value": "@pipeline().parameters.Parametros_Json['CAPA_LANDING']",
+										"type": "Expression"
+									},
+									"filesystem": {
+										"value": "@pipeline().parameters.Parametros_Json['FILESYSTEM']",
+										"type": "Expression"
+									},
+									"rutaBase": {
+										"value": "@pipeline().parameters.Parametros_Json['RUTABASE']",
+										"type": "Expression"
+									},
+									"ModoEjecucion": {
+										"value": "@pipeline().parameters.Parametros_Json['MODO_EJECUCION']",
+										"type": "Expression"
+									},
+									"FechaCarga": {
+										"value": "@formatDateTime(utcNow(),'yyyy/MM/dd')",
+										"type": "Expression"
+									},
+									"cluster_id": {
+										"value": "@pipeline().parameters.Parametros_Json['CLUSTER_ID']",
+										"type": "Expression"
+									},
+									"area": {
+										"value": "@pipeline().parameters.Parametros_Json['AREA']",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Execute_Historico",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_ligaperuana_Historico",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"Pipeline_Id": {
+										"value": "@pipeline().parameters.PipelineId",
+										"type": "Expression"
+									},
+									"TablaParametro": {
+										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									},
+									"capa_raw": {
+										"value": "@pipeline().parameters.Parametros_Json['CAPA_RAW']",
+										"type": "Expression"
+									},
+									"capa_landing": {
+										"value": "@pipeline().parameters.Parametros_Json['CAPA_LANDING']",
+										"type": "Expression"
+									},
+									"filesystem": {
+										"value": "@pipeline().parameters.Parametros_Json['FILESYSTEM']",
+										"type": "Expression"
+									},
+									"EndYear": {
+										"value": "@pipeline().parameters.Parametros_Json['CURRENT_YEAR']",
+										"type": "Expression"
+									},
+									"StartYear": {
+										"value": "@pipeline().parameters.Parametros_Json['HISTORIC_START_YEAR']",
+										"type": "Expression"
+									},
+									"rutaBase": {
+										"value": "@pipeline().parameters.Parametros_Json['RUTABASE']",
+										"type": "Expression"
+									},
+									"ModoEjecucion": {
+										"value": "@pipeline().parameters.Parametros_Json['MODO_EJECUCION']",
+										"type": "Expression"
+									},
+									"FechaCarga": {
+										"value": "@formatDateTime(utcNow(),'yyyy/MM/dd')",
+										"type": "Expression"
+									},
+									"cluster_id": {
+										"value": "@pipeline().parameters.Parametros_Json['CLUSTER_ID']",
+										"type": "Expression"
+									},
+									"area": {
+										"value": "@pipeline().parameters.Parametros_Json['AREA']",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"Parametros_Json": {
+				"type": "object"
+			},
+			"PipelineId": {
+				"type": "int"
+			},
+			"TablaParametro": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"modo_ejecucion": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "pl_hijos_ligaperuana/pl_inner_procesos"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-09-16T21:59:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

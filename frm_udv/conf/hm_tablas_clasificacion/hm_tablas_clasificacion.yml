@@ -1,0 +1,42 @@
+hm_tablas_clasificacion:
+
+  campo_json: data
+
+  cols_raw_clasificacion_hm:
+    - fuente
+    - temporada
+    - tipo_tabla
+    - posicion
+    - equipo
+    - partidos_jugados
+    - partidos_ganados
+    - partidos_empatados
+    - partidos_perdidos
+    - goles_favor_tmp
+    - goles_contra_tmp
+    - diferencia_goles
+    - puntos
+
+  rename_columns_hm:
+    equipo: equipo
+    goles_favor_tmp: goles_favor
+    goles_contra_tmp: goles_contra
+
+  schema_hm:
+    id_clasificacion: string
+    id_equipo: int
+    temporada: int
+    tipo_tabla: string
+    posicion: int
+    partidos_jugados: int
+    partidos_ganados: int
+    partidos_empatados: int
+    partidos_perdidos: int
+    goles_favor: int
+    goles_contra: int
+    diferencia_goles: int
+    puntos: int
+    fecha_carga: timestamp
+    periodo: int
+
+

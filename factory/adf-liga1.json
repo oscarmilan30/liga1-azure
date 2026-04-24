@@ -1,0 +1,9 @@
+{
+	"name": "adf-liga1",
+	"location": "brazilsouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "49c8c185-ac71-4a86-87b8-d7cca1fdbef0",
+		"tenantId": "cd0055df-4960-42c8-868b-61335faddb32"
+	}
+}

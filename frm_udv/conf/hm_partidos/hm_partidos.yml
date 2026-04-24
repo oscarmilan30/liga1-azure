@@ -1,0 +1,61 @@
+hm_partidos:
+
+  campo_json: "data"
+
+
+  cols_catalogo_equipos_hm:
+    - id_equipo
+    - nombre_fotmob
+
+  cols_raw_partidos_hm:
+    - fecha_carga
+    - fuente
+    - temporada
+    - marcador
+    - url
+    - local
+    - fecha
+    - visitante
+
+  dedup_cols_hm:
+    - temporada
+    - url   
+
+  case_rules:
+    fecha_partido:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+          THEN NULL
+          ELSE to_date({col}, 'dd-MM-yyyy')
+        END
+
+    marcador:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+               OR NOT regexp_like({col}, '^[0-9]+\\s*-\\s*[0-9]+$')
+          THEN 'sin informacion'
+          ELSE {col}
+        END
+
+  rename_columns_hm:
+    fuente: fuente_partido
+
+  schema_hm:
+    id_partido: string
+    id_equipo_local: int
+    id_equipo_visitante: int
+    temporada: int
+    fecha_partido: date
+    marcador: string
+    goles_local: int
+    goles_visitante: int
+    url: string
+    fuente_partido: string
+    fecha_carga: timestamp
+    periodo: int

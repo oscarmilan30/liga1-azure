@@ -1,0 +1,28 @@
+{
+	"name": "ls_databricks",
+	"properties": {
+		"parameters": {
+			"CLUSTER_ID": {
+				"type": "string"
+			},
+			"AREA": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "@linkedService().AREA",
+			"accessToken": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_azure_keyvault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "databricks-token",
+				"secretVersion": "14ee7427f3624bfea585dc0cd1daceb4"
+			},
+			"existingClusterId": "@linkedService().CLUSTER_ID"
+		}
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"name": "ls_adls",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://staliga1peruadls.dfs.core.windows.net/",
+			"accountKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_azure_keyvault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "storageaccountkey",
+				"secretVersion": "7973bbda2a684889a7294d543582d1d3"
+			}
+		}
+	}
+}

@@ -1,0 +1,46 @@
+md_estadios:
+  cols_catalogo_equipos:
+    - id_equipo
+    - nombre_transfermarkt
+
+  cols_estadios:
+    - club
+    - estadio
+    - capacidad
+    - aforo
+    - fuente
+
+  dedup_cols:
+    - temporada
+    - club
+
+  drop_duplicates_estadios:
+    - club
+  
+  # Lógica CASE WHEN centralizada en YAML
+  case_rules:
+    capacidad:
+      expr: >
+        CASE
+          WHEN {col} IN ('0','0.0','0,0') OR {col} IS NULL THEN 'sin informacion'
+          ELSE {col}
+        END
+    aforo:
+      expr: >
+        CASE
+          WHEN {col} IN ('0','0.0','0,0') OR {col} IS NULL THEN 'sin informacion'
+          ELSE {col}
+        END
+
+  rename_columns:
+    fuente: fuente_estadio
+
+  schema:
+    id_estadio: string
+    id_equipo: int
+    estadio: string
+    capacidad: string
+    aforo: string
+    fuente_estadio: string
+    fecha_carga: timestamp
+    periododia: int

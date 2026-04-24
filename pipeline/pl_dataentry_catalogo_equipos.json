@@ -1,0 +1,257 @@
+{
+	"name": "pl_dataentry_catalogo_equipos",
+	"properties": {
+		"activities": [
+			{
+				"name": "lkp_parametros",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_parametros]",
+						"storedProcedureParameters": {
+							"PipelineId": {
+								"type": "Int32",
+								"value": {
+									"value": "@pipeline().parameters.PipelineId",
+									"type": "Expression"
+								}
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sql_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TablaParametro",
+								"type": "Expression"
+							},
+							"SchemaName": "dbo"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "copy_dataentry_to_stg",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "set_mapping_script",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "MergeFiles"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"value": "@json(variables('mapping_script'))",
+						"type": "Expression"
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_adls_csv_dataentry",
+						"type": "DatasetReference",
+						"parameters": {
+							"folderPath": {
+								"value": "@concat(activity('lkp_parametros').output.firstRow.CAPA_LANDING, '/dataentrys/', activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO)",
+								"type": "Expression"
+							},
+							"filesystem": {
+								"value": "@activity('lkp_parametros').output.firstRow.FILESYSTEM",
+								"type": "Expression"
+							},
+							"fileName": {
+								"value": "@concat(activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO, '.csv')",
+								"type": "Expression"
+							},
+							"useHeader": true
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adls_parquet",
+						"type": "DatasetReference",
+						"parameters": {
+							"folderPath": {
+								"value": "@concat(activity('lkp_parametros').output.firstRow.CAPA_RAW, trim(activity('lkp_parametros').output.firstRow.RUTA_BASE), '/', activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO, '/stg/', activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO, '/data')",
+								"type": "Expression"
+							},
+							"filesystem": {
+								"value": "@activity('lkp_parametros').output.firstRow.FILESYSTEM",
+								"type": "Expression"
+							},
+							"fileName": {
+								"value": "@concat(activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO, '.parquet')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Execute pl_get_csv_mapping",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "lkp_parametros",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_get_csv_mapping",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"filesystem": {
+							"value": "@activity('lkp_parametros').output.firstRow.FILESYSTEM",
+							"type": "Expression"
+						},
+						"capa_landing": {
+							"value": "@activity('lkp_parametros').output.firstRow.CAPA_LANDING",
+							"type": "Expression"
+						},
+						"fileName": {
+							"value": "@activity('lkp_parametros').output.firstRow.NOMBRE_ARCHIVO",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "set_mapping_script",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Execute pl_get_csv_mapping",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "mapping_script",
+					"value": {
+						"value": "@activity('Execute pl_get_csv_mapping').output.pipelineReturnValue.mapping_script",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Execute Jobs Databricks",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "copy_dataentry_to_stg",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_execute_jobs_databricks",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"area": {
+							"value": "@activity('lkp_parametros').output.firstRow.AREA",
+							"type": "Expression"
+						},
+						"job_id": {
+							"value": "@activity('lkp_parametros').output.firstRow.JOB_ID",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"PipelineId": {
+				"type": "int"
+			},
+			"TablaParametro": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"mapping_script": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "pl_pipelines_dataentrys/pl_inner_procesos"
+		},
+		"annotations": []
+	}
+}

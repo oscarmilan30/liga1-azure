@@ -1,0 +1,169 @@
+hm_plantillas_equipo:
+  cols_raw_plantillas_md:
+    - jugador
+    - fecha_nacimiento
+    - nacionalidad
+    - altura
+    - pie
+    - valor_mercado
+    - fuente
+  
+  case_rules:
+    altura:
+      expr: >
+          CASE
+            WHEN {col} IS NULL
+                OR trim({col}) = ''
+                OR lower({col}) IN ('null','na','none','sin informacion')
+                OR {col} IN ('0','0.0','0,0')
+                OR NOT regexp_like({col}, '^[0-9,.]*m?$') THEN '0'
+            ELSE regexp_replace(regexp_replace({col}, 'm', ''), ',', '.')
+          END
+    pie:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = '' THEN 'sin informacion'
+          ELSE {col}
+        END
+
+    valor_mercado:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR {col} IN ('0','0.0','0,0','null') THEN '0'
+          ELSE {col}
+        END
+
+    nacionalidad_principal:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = '' THEN 'sin informacion'
+          ELSE {col}
+        END
+
+    segunda_nacionalidad:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = '' THEN 'sin informacion'
+          ELSE {col}
+        END
+    
+    numero_camiseta:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion') THEN 'sin informacion'
+          ELSE {col}
+        END
+
+    posicion:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion') THEN 'sin informacion'
+          ELSE {col}
+        END
+
+    fecha_fichaje:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+              OR trim({col}) = ''
+              OR lower({col}) IN ('null','na','none','sin informacion')
+          THEN NULL
+          ELSE to_date({col}, 'dd/MM/yyyy')
+        END
+    
+  
+  rename_columns_md:
+    fuente: fuente_plantilla
+
+  schema_md:
+    id_jugador: string
+    jugador: string
+    edad: int
+    nacionalidad_principal: string
+    segunda_nacionalidad: string
+    altura: double
+    pie: string
+    valor_mercado: decimal(20,4)
+    fuente_plantilla: string
+    fecha_carga: timestamp
+    periododia: int
+  
+  cols_catalogo_equipos_hm:
+    - id_equipo
+    - nombre_transfermarkt
+
+  cols_raw_plantillas_hm:
+    - club
+    - temporada
+    - jugador
+    - numero
+    - posicion
+    - fecha_fichaje
+    - fuente
+
+  dedup_cols_hm:
+    - club
+    - temporada
+    - jugador
+    - numero
+
+  rename_columns_hm:
+    fuente: fuente_plantilla
+
+  schema_hm:
+    id_plantilla_equipo: string
+    id_equipo: int
+    id_jugador: string
+    temporada: int
+    numero_camiseta: string
+    posicion: string
+    fecha_fichaje: date
+    fuente_plantilla: string
+    fecha_carga: timestamp
+    periodo: int
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,152 @@
+{
+	"name": "pl_execute_create_jobs",
+	"properties": {
+		"activities": [
+			{
+				"name": "lkp_parametros",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_parametros]",
+						"storedProcedureParameters": {
+							"PipelineId": {
+								"type": "Int32",
+								"value": {
+									"value": "@pipeline().parameters.PipelineId",
+									"type": "Expression"
+								}
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sql_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TablaParametro",
+								"type": "Expression"
+							},
+							"SchemaName": "dbo"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "execute_job_workflow",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "lkp_parametros",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Repos/garciadoscar1994@outlook.com/liga1-azure/workflow_deploy/execute_job_workflow",
+					"baseParameters": {
+						"prm_job_name": {
+							"value": "@pipeline().parameters.prm_job_name",
+							"type": "Expression"
+						},
+						"prm_area": {
+							"value": "@activity('lkp_parametros').output.firstRow.AREA",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"CLUSTER_ID": {
+							"value": "@activity('lkp_parametros').output.firstRow.CLUSTER_ID",
+							"type": "Expression"
+						},
+						"AREA": {
+							"value": "@activity('lkp_parametros').output.firstRow.AREA",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set_json_variable",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "execute_job_workflow",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "pipelineReturnValue",
+					"value": [
+						{
+							"key": "set_json_variable",
+							"value": {
+								"type": "Expression",
+								"content": "@string(activity('execute_job_workflow').output.runOutput.job_id)"
+							}
+						}
+					],
+					"setSystemVariable": true
+				}
+			}
+		],
+		"parameters": {
+			"PipelineId": {
+				"type": "int"
+			},
+			"TablaParametro": {
+				"type": "string"
+			},
+			"pipeline_type": {
+				"type": "string"
+			},
+			"prm_job_name": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"dbrx_token": {
+				"type": "String"
+			},
+			"set_json_variable": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "workflows/inner_procesos_workflows"
+		},
+		"annotations": []
+	}
+}
