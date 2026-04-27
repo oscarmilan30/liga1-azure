@@ -12,7 +12,7 @@
 					"type": "LinkedServiceReference"
 				},
 				"secretName": "storageaccountkey",
-				"secretVersion": "7973bbda2a684889a7294d543582d1d3"
+				"secretVersion": "10ca01fb4753457d880c02a71b17fd05"
 			}
 		}
 	}

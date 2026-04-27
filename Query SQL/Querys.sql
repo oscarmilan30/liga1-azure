@@ -428,6 +428,411 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (23,'NOMBRE_ARCHIVO','campeones',   'Nombre entidad');
 GO
 
+
+
+-- =============================================
+-- STORED PROCEDURES
+-- =============================================
+
+-- SP PARA INICIAR REGISTRO DE EJECUCIÓN
+CREATE OR ALTER PROCEDURE sp_log_start
+    @PipelineId INT,
+    @pipeline_name VARCHAR(200),
+    @pipeline_type VARCHAR(50),  -- OBLIGATORIO ahora
+    @execution_id UNIQUEIDENTIFIER
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO tbl_control_ejecucion (
+        PipelineId,
+        pipeline_name,
+        pipeline_type,
+        execution_id,
+        status,
+        start_time,
+		end_time
+    )
+    VALUES (
+        @PipelineId,
+        @pipeline_name,
+        @pipeline_type,
+        @execution_id,
+        'Running',
+        GETDATE(),
+		NULL
+    );
+   
+    SELECT CAST(SCOPE_IDENTITY() AS INT) as IdEjecucion;
+END
+GO
+
+-- SP PARA FINALIZAR REGISTRO DE EJECUCIÓN
+CREATE OR ALTER PROCEDURE dbo.sp_log_end
+    @IdEjecucion INT = NULL,
+    @ExecutionId UNIQUEIDENTIFIER = NULL,
+    @PipelineId INT = NULL,
+    @Status VARCHAR(20),
+    @MensajeError VARCHAR(MAX) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @IdEjecucion IS NOT NULL
+    BEGIN
+        UPDATE dbo.tbl_control_ejecucion
+        SET status = @Status,
+            end_time = GETDATE(),
+            mensaje_error = @MensajeError
+        WHERE IdEjecucion = @IdEjecucion;
+    END
+    ELSE IF @ExecutionId IS NOT NULL
+    BEGIN
+        UPDATE dbo.tbl_control_ejecucion
+        SET status = @Status,
+            end_time = GETDATE(),
+            mensaje_error = @MensajeError
+        WHERE execution_id = @ExecutionId;
+    END
+    ELSE IF @PipelineId IS NOT NULL
+    BEGIN
+        ;WITH cte AS (
+            SELECT TOP (1) IdEjecucion
+            FROM dbo.tbl_control_ejecucion
+            WHERE PipelineId = @PipelineId AND status = 'Running'
+            ORDER BY start_time DESC
+        )
+        UPDATE t
+        SET status = @Status,
+            end_time = GETDATE(),
+            mensaje_error = @MensajeError
+        FROM dbo.tbl_control_ejecucion t
+        INNER JOIN cte ON t.IdEjecucion = cte.IdEjecucion;
+    END
+
+    SELECT @@ROWCOUNT AS RowsAffected;
+END
+GO
+
+
+CREATE OR ALTER PROCEDURE sp_obtener_parametros
+    @PipelineId INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @cols NVARCHAR(MAX);
+    DECLARE @sql NVARCHAR(MAX);
+
+    -- 1️⃣ Generar lista dinámica de columnas
+    SELECT @cols = STRING_AGG(QUOTENAME(Parametro), ',')
+    FROM dbo.tbl_pipeline_parametros
+    WHERE PipelineId = @PipelineId;
+
+    -- 2️⃣ Construir el SQL dinámico pivotado
+    SET @sql = N'
+        SELECT ' + @cols + '
+        FROM (
+            SELECT Parametro, Valor
+            FROM dbo.tbl_pipeline_parametros
+            WHERE PipelineId = @PipelineIdParam
+        ) AS src
+        PIVOT (
+            MAX(Valor) FOR Parametro IN (' + @cols + ')
+        ) AS pvt;
+    ';
+
+    -- 3️⃣ Ejecutar
+    EXEC sp_executesql @sql, N'@PipelineIdParam INT', @PipelineIdParam = @PipelineId;
+END
+GO
+
+---OBTENER ANIOS
+CREATE OR ALTER PROCEDURE sp_obtener_rango_anios
+    @StartYear INT,
+    @EndYear INT
+AS
+BEGIN
+    WITH YearsCTE AS (
+        SELECT @StartYear as Anio
+        UNION ALL
+        SELECT Anio + 1
+        FROM YearsCTE
+        WHERE Anio < @EndYear - 1
+    )
+    SELECT Anio 
+    FROM YearsCTE
+END
+GO
+
+
+CREATE OR ALTER PROCEDURE sp_obtener_archivos
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT (
+        SELECT Nombre AS nombre, Tipo AS tipo
+        FROM tbl_archivos_liga1
+        FOR JSON PATH
+    ) AS lista_archivos;
+END;
+GO
+
+---- SP PARA ACTUALIZAR MODO DE EJECUCIÓN
+CREATE OR ALTER PROCEDURE [dbo].[sp_actualizar_modo_ejecucion]
+    @NuevoModo VARCHAR(20),  -- Solo recibe 'INCREMENTAL' en este contexto
+    @PipelineId INT
+AS
+BEGIN
+    -- Este SP solo se llama al FINALIZAR reproceso
+    -- Por lo tanto, siempre debe establecer:
+    -- FLG_REPROCESO = 0 y MODO_EJECUCION = 'INCREMENTAL'
+    
+    -- Desactivar flag de reproceso
+    UPDATE tbl_pipeline_parametros 
+    SET Valor = '0',
+        FechaModificacion = GETDATE()
+    WHERE PipelineId = @PipelineId 
+    AND Parametro = 'FLG_REPROCESO';
+    
+    -- Establecer modo incremental para próximas ejecuciones
+    UPDATE tbl_pipeline_parametros 
+    SET Valor = 'INCREMENTAL',
+        FechaModificacion = GETDATE()
+    WHERE PipelineId = @PipelineId 
+    AND Parametro = 'MODO_EJECUCION';
+END
+GO
+
+CREATE OR ALTER PROCEDURE [dbo].[sp_registrar_path]
+(
+    @PipelineId      INT = NULL,
+    @RunId           NVARCHAR(100) = NULL,
+    @Entidad         VARCHAR(100),
+    @ModoEjecucion   VARCHAR(50),
+    @Periodo         VARCHAR(50),
+    @RutaRaw         VARCHAR(500)
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        DECLARE @Usuario NVARCHAR(100) = SYSTEM_USER;
+
+        -- 🔎 Validación de parámetros obligatorios
+        IF @Entidad IS NULL OR @RutaRaw IS NULL
+        BEGIN
+            RAISERROR('Los parámetros Entidad y RutaRaw son obligatorios.', 16, 1);
+            RETURN;
+        END;
+
+        -- 🧩 Si es modo HISTÓRICO, no hace nada (controlado desde pipeline histórico)
+        IF @ModoEjecucion = 'HISTORICO'
+        BEGIN
+            PRINT 'ℹ️ Modo HISTORICO detectado: no se registrará en tbl_paths (manejado en SP independiente).';
+            RETURN;
+        END;
+
+        -- ✅ Insertar registro de la ruta procesada
+        INSERT INTO dbo.tbl_paths (
+            PipelineId,
+            RunId,
+            Entidad,
+            ModoEjecucion,
+            Periodo,
+            RutaRaw,
+            flg_udv,
+            FechaCreacion,
+            FechaActualizacion,
+            UsuarioCreacion,
+            UsuarioActualizacion
+        )
+        VALUES (
+            @PipelineId,
+            @RunId,
+            @Entidad,
+            @ModoEjecucion,
+            @Periodo,
+            @RutaRaw,
+            'N',
+            GETDATE(),
+            GETDATE(),
+            @Usuario,
+            @Usuario
+        );
+
+        PRINT CONCAT('✅ Ruta registrada correctamente para ', @Entidad, ' → ', @RutaRaw);
+    END TRY
+
+    BEGIN CATCH
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
+        DECLARE @ErrorState INT = ERROR_STATE();
+
+        PRINT CONCAT('❌ Error en sp_registrar_path: ', @ErrorMessage);
+        RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH;
+END;
+GO
+
+
+CREATE OR ALTER PROCEDURE [dbo].[sp_registrar_path_historico]
+(
+    @PipelineId      INT = NULL,
+    @RunId           NVARCHAR(100) = NULL,
+    @Entidad         VARCHAR(100),
+    @ModoEjecucion   VARCHAR(50) = 'HISTORICO',
+    @Periodo         VARCHAR(50),
+    @RutaRaw         VARCHAR(500)
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        DECLARE @Usuario NVARCHAR(100) = SYSTEM_USER;
+
+        -- Validar parámetros mínimos
+        IF @Entidad IS NULL OR @RutaRaw IS NULL
+        BEGIN
+            RAISERROR('Los parámetros Entidad y RutaRaw son obligatorios.', 16, 1);
+            RETURN;
+        END;
+
+        -- Insertar registro del proceso histórico
+        INSERT INTO dbo.tbl_paths (
+            PipelineId,
+            RunId,
+            Entidad,
+            ModoEjecucion,
+            Periodo,
+            RutaRaw,
+            flg_udv,
+            FechaCreacion,
+            FechaActualizacion,
+            UsuarioCreacion,
+            UsuarioActualizacion
+        )
+        VALUES (
+            @PipelineId,
+            @RunId,
+            @Entidad,
+            @ModoEjecucion,
+            @Periodo,
+            @RutaRaw,
+            'N',
+            GETDATE(),
+            GETDATE(),
+            @Usuario,
+            @Usuario
+        );
+
+        PRINT CONCAT('✅ Ruta histórica registrada correctamente: ', @RutaRaw);
+    END TRY
+
+    BEGIN CATCH
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
+        DECLARE @ErrorState INT = ERROR_STATE();
+
+        PRINT CONCAT('❌ Error en sp_registrar_path_historico: ', @ErrorMessage);
+        RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH;
+END;
+GO
+
+
+
+
+CREATE OR ALTER TRIGGER trg_update_tbl_paths_by_id
+ON dbo.tbl_flag_update_queue_id
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE p
+      SET p.flg_udv = 'S',
+          p.FechaActualizacion = SYSDATETIME()
+      FROM dbo.tbl_paths AS p
+      INNER JOIN inserted AS i
+              ON p.id = i.id
+     WHERE p.flg_udv = 'N';
+END;
+GO
+
+CREATE OR ALTER PROCEDURE dbo.sp_registrar_predecesor
+    @PipelineId_Predecesor INT,
+    @PipelineId_Destino   INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @Ruta           NVARCHAR(500);
+    DECLARE @SchemaTabla    SYSNAME;
+    DECLARE @NombreTabla    SYSNAME;
+    DECLARE @RutaTabla      NVARCHAR(200);
+    DECLARE @NombrePipeline SYSNAME;
+
+    -- 1) Obtener la ruta física y el nombre del pipeline predecesor (obligatorio)
+    SELECT 
+        @Ruta           = Ruta,
+        @NombrePipeline = Nombre
+    FROM dbo.tbl_pipeline
+    WHERE PipelineId = @PipelineId_Predecesor;
+
+    IF @Ruta IS NULL
+    BEGIN
+        RAISERROR('No se encontró la ruta del pipeline predecesor.', 16, 1);
+        RETURN;
+    END;
+
+    -- 2) Intentar obtener SCHEMA_TABLA y NOMBRE_TABLA (solo existirán si el predecesor es UDV/DDV)
+    SELECT
+        @SchemaTabla = MAX(CASE WHEN Parametro = 'SCHEMA_TABLA' THEN Valor END),
+        @NombreTabla = MAX(CASE WHEN Parametro = 'NOMBRE_TABLA'  THEN Valor END)
+    FROM dbo.tbl_pipeline_parametros
+    WHERE PipelineId = @PipelineId_Predecesor;
+
+    -- 3) Construir RutaTabla
+    IF @SchemaTabla IS NOT NULL AND @NombreTabla IS NOT NULL
+    BEGIN
+        -- Caso UDV/DDV: usamos schema + nombre tabla lógica
+        SET @RutaTabla = @SchemaTabla + N'.' + @NombreTabla;  -- ej: tb_udv.md_catalogo_equipos
+    END
+    ELSE
+    BEGIN
+        -- Caso RAW u otro pipeline sin SCHEMA_TABLA/NOMBRE_TABLA:
+        -- usamos el Nombre del pipeline como identificador lógico
+        -- ej: 'catalogo_equipos'
+        SET @RutaTabla = @NombrePipeline;
+    END;
+
+    -- 4) Insertar la relación en tbl_predecesores
+    INSERT INTO dbo.tbl_predecesores (
+        PipelineId_Predecesor,
+        PipelineId_Destino,
+        Ruta_Predecesor,
+        RutaTabla
+    )
+    VALUES (
+        @PipelineId_Predecesor,
+        @PipelineId_Destino,
+        @Ruta,
+        @RutaTabla
+    );
+
+    PRINT '✅ Relación registrada correctamente entre pipelines ' 
+        + CAST(@PipelineId_Predecesor AS NVARCHAR(10))
+        + ' → ' 
+        + CAST(@PipelineId_Destino AS NVARCHAR(10))
+        + ' | RutaTabla = ' + ISNULL(@RutaTabla,'(sin nombre lógico)');
+END;
+GO
+
+
+
 -- ══════════════════════════════════════════════════════════════
 -- PASO 5: PREDECESORES CON IDs CORRECTOS
 -- ══════════════════════════════════════════════════════════════
