@@ -1,0 +1,69 @@
+name: Liga 1 - Web Scraping
+
+on:
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: 'Modo de ejecución'
+        required: true
+        default: 'incremental'
+        type: choice
+        options:
+          - incremental
+          - historica
+          - reproceso
+      anio_objetivo:
+        description: 'Año a reprocesar (solo modo reproceso, ej: 2023)'
+        required: false
+        default: ''
+      anio_inicio:
+        description: 'Año inicio (solo modo historica, default: 2020)'
+        required: false
+        default: '2020'
+
+  schedule:
+    - cron: '0 14 * * 1'   # Lunes 14:00 UTC = 09:00 Lima
+
+env:
+  PYTHON_VERSION: '3.10'
+
+jobs:
+  scraping:
+    name: Ejecutar Scraping Liga 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          cache-dependency-path: frm_landing/scraping/requirements.txt
+
+      - name: Instalar dependencias
+        run: pip install -r frm_landing/scraping/requirements.txt
+
+      - name: Verificar Chrome
+        run: google-chrome --version || chromium-browser --version
+
+      - name: Ejecutar scraping
+        env:
+          AZURE_TENANT_ID:          ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID:          ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET:      ${{ secrets.AZURE_CLIENT_SECRET }}
+          SCRAPING_MODO:            ${{ github.event.inputs.modo || 'incremental' }}
+          SCRAPING_ANIO_INICIO:     ${{ github.event.inputs.anio_inicio || '2020' }}
+          SCRAPING_ANIO_OBJETIVO:   ${{ github.event.inputs.anio_objetivo || '' }}
+        run: |
+          ARGS="--modo $SCRAPING_MODO"
+          if [ "$SCRAPING_MODO" = "historica" ]; then
+            ARGS="$ARGS --anio-inicio $SCRAPING_ANIO_INICIO"
+          fi
+          if [ "$SCRAPING_MODO" = "reproceso" ] && [ -n "$SCRAPING_ANIO_OBJETIVO" ]; then
+            ARGS="$ARGS --anio-objetivo $SCRAPING_ANIO_OBJETIVO"
+          fi
+          python frm_landing/scraping/scraping.py $ARGS
