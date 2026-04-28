@@ -22,7 +22,8 @@ on:
         default: '2020'
 
   schedule:
-    - cron: '0 14 * * 1'   # Lunes 14:00 UTC = 09:00 Lima
+    # Lunes 14:00 UTC = 09:00 Lima - SOLO incremental
+    - cron: '0 14 * * 1'
 
 env:
   PYTHON_VERSION: '3.10'
@@ -31,7 +32,9 @@ jobs:
   scraping:
     name: Ejecutar Scraping Liga 1
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 30  # Default para incremental
+    # Si es modo historica, usar 130 minutos
+    continue-on-error: false
 
     steps:
       - name: Checkout repositorio
@@ -50,7 +53,13 @@ jobs:
       - name: Verificar Chrome
         run: google-chrome --version || chromium-browser --version
 
+      # Ajustar timeout según modo
+      - name: Ajustar timeout para modo histórico
+        if: github.event.inputs.modo == 'historica'
+        run: echo "TIMEOUT_MINUTES=130" >> $GITHUB_ENV
+
       - name: Ejecutar scraping
+        timeout-minutes: ${{ fromJSON(env.TIMEOUT_MINUTES || 30) }}
         env:
           AZURE_TENANT_ID:          ${{ secrets.AZURE_TENANT_ID }}
           AZURE_CLIENT_ID:          ${{ secrets.AZURE_CLIENT_ID }}
@@ -58,7 +67,15 @@ jobs:
           SCRAPING_MODO:            ${{ github.event.inputs.modo || 'incremental' }}
           SCRAPING_ANIO_INICIO:     ${{ github.event.inputs.anio_inicio || '2020' }}
           SCRAPING_ANIO_OBJETIVO:   ${{ github.event.inputs.anio_objetivo || '' }}
+          # Para schedule, forzar incremental
+          GITHUB_EVENT_NAME:        ${{ github.event_name }}
         run: |
+          # Forzar modo incremental si es schedule
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
+            export SCRAPING_MODO="incremental"
+            echo "🔄 Ejecución programada: usando modo incremental"
+          fi
+          
           ARGS="--modo $SCRAPING_MODO"
           if [ "$SCRAPING_MODO" = "historica" ]; then
             ARGS="$ARGS --anio-inicio $SCRAPING_ANIO_INICIO"
