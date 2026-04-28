@@ -424,7 +424,7 @@ def conectar_adls_keyvault():
             else:
                 _CREDENTIAL = InteractiveBrowserCredential()
             
-        key_vault_url = "https://kv-liga1-secreto.vault.azure.net/"
+        key_vault_url = "https://kv-liga1-secretos.vault.azure.net/"
         secret_client = SecretClient(vault_url=key_vault_url, credential=_CREDENTIAL)
         log_info("✅ Conectado a Key Vault")
         
@@ -904,15 +904,18 @@ def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
 
             options = Options()
             options.add_argument("--headless")
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-dev-shm-usage")
             options.add_argument("--disable-gpu")
-            options.add_argument("--window-size=1920x1080")
+            options.add_argument("--window-size=1920,1080")
+            options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 
             with webdriver.Chrome(options=options) as driver:
                 while True:
                     url = base_url + str(page)
                     driver.get(url)
                     try:
-                        WebDriverWait(driver, 5).until(
+                        WebDriverWait(driver, 20).until(
                             EC.presence_of_element_located((By.CSS_SELECTOR, "section[class*='LeagueMatchesSectionCSS']"))
                         )
                     except Exception:
