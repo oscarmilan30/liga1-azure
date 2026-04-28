@@ -13,16 +13,19 @@ on:
           - historica
           - reproceso
       anio_objetivo:
-        description: 'Año a reprocesar (solo modo reproceso, ej: 2023)'
+        description: 'Año a reprocesar (solo modo reproceso)'
         required: false
         default: ''
       anio_inicio:
-        description: 'Año inicio (solo modo historica, default: 2020)'
+        description: 'Año inicio (modo historica)'
         required: false
         default: '2020'
+      anio_fin:
+        description: 'Año fin (modo historica) - Recomendado: 2024'
+        required: false
+        default: '2024'
 
   schedule:
-    # Lunes 14:00 UTC = 09:00 Lima - SOLO incremental
     - cron: '0 14 * * 1'
 
 env:
@@ -32,10 +35,9 @@ jobs:
   scraping:
     name: Ejecutar Scraping Liga 1
     runs-on: ubuntu-latest
-    timeout-minutes: 30  # Default para incremental
-    # Si es modo historica, usar 130 minutos
-    continue-on-error: false
-
+    # TIMEOUT A NIVEL DE JOB - MÁS CONFIABLE
+    timeout-minutes: ${{ github.event.inputs.modo == 'historica' && 130 || 30 }}
+    
     steps:
       - name: Checkout repositorio
         uses: actions/checkout@v4
@@ -53,34 +55,28 @@ jobs:
       - name: Verificar Chrome
         run: google-chrome --version || chromium-browser --version
 
-      # Ajustar timeout según modo
-      - name: Ajustar timeout para modo histórico
-        if: github.event.inputs.modo == 'historica'
-        run: echo "TIMEOUT_MINUTES=130" >> $GITHUB_ENV
-
       - name: Ejecutar scraping
-        timeout-minutes: ${{ fromJSON(env.TIMEOUT_MINUTES || 30) }}
         env:
-          AZURE_TENANT_ID:          ${{ secrets.AZURE_TENANT_ID }}
-          AZURE_CLIENT_ID:          ${{ secrets.AZURE_CLIENT_ID }}
-          AZURE_CLIENT_SECRET:      ${{ secrets.AZURE_CLIENT_SECRET }}
-          SCRAPING_MODO:            ${{ github.event.inputs.modo || 'incremental' }}
-          SCRAPING_ANIO_INICIO:     ${{ github.event.inputs.anio_inicio || '2020' }}
-          SCRAPING_ANIO_OBJETIVO:   ${{ github.event.inputs.anio_objetivo || '' }}
-          # Para schedule, forzar incremental
-          GITHUB_EVENT_NAME:        ${{ github.event_name }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          SCRAPING_MODO: ${{ github.event.inputs.modo || 'incremental' }}
+          SCRAPING_ANIO_INICIO: ${{ github.event.inputs.anio_inicio || '2020' }}
+          SCRAPING_ANIO_FIN: ${{ github.event.inputs.anio_fin || '2024' }}
         run: |
           # Forzar modo incremental si es schedule
-          if [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
+          if [ "${{ github.event_name }}" = "schedule" ]; then
             export SCRAPING_MODO="incremental"
-            echo "🔄 Ejecución programada: usando modo incremental"
+            echo "Ejecución programada: usando modo incremental"
           fi
           
-          ARGS="--modo $SCRAPING_MODO"
           if [ "$SCRAPING_MODO" = "historica" ]; then
-            ARGS="$ARGS --anio-inicio $SCRAPING_ANIO_INICIO"
+            python frm_landing/scraping/scraping.py --modo historica \
+              --anio-inicio $SCRAPING_ANIO_INICIO \
+              --anio-fin $SCRAPING_ANIO_FIN
+          elif [ "$SCRAPING_MODO" = "reproceso" ]; then
+            python frm_landing/scraping/scraping.py --modo reproceso \
+              --anio-objetivo ${{ github.event.inputs.anio_objetivo }}
+          else
+            python frm_landing/scraping/scraping.py --modo incremental
           fi
-          if [ "$SCRAPING_MODO" = "reproceso" ] && [ -n "$SCRAPING_ANIO_OBJETIVO" ]; then
-            ARGS="$ARGS --anio-objetivo $SCRAPING_ANIO_OBJETIVO"
-          fi
-          python frm_landing/scraping/scraping.py $ARGS
