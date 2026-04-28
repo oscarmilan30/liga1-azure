@@ -651,11 +651,11 @@ def extraer_tablas_clasificacion(temporada_fotmob, max_reintentos=2):
             script = """
             var resultados_script = {};
             var tablas = document.querySelectorAll('[class*="SubTableCSS"]');
-            
+
             if (tablas.length === 0) {
                 return {error: "No se encontraron tablas"};
             }
-            
+
             tablas.forEach(function(tabla) {
                 var nombreTorneo = tabla.querySelector('[class*="SubTableHeaderCSS"]')?.textContent || "Torneo Desconocido";
                 resultados_script[nombreTorneo] = [];
@@ -666,20 +666,17 @@ def extraer_tablas_clasificacion(temporada_fotmob, max_reintentos=2):
                     var equipo = fila.querySelector('[class*="TeamName"]')?.textContent?.trim() || "";
                     
                     var datos = [];
-                    var selectores = [
-                        '[class*="17h6d1a-TableCell"]',
-                        '[class*="vf87vt-TableCell"]',
-                        '[class*="8x6t1e-TableCell"]',
-                        '[class*="1g9oxd-TableCell"]',
-                        '[class*="bcah6n-TableCell"]',
-                        '[class*="1ins92n-TableCell"]',
-                        '[class*="1s6mphf-TableCell"]'
-                    ];
-                    
-                    selectores.forEach(function(selector) {
-                        var elemento = fila.querySelector(selector);
-                        if (elemento) {
-                            datos.push(elemento.textContent.trim());
+                    var todasLasCeldas = Array.from(fila.querySelectorAll('[class*="TableCell"]'));
+                    todasLasCeldas.forEach(function(celda) {
+                        var clases = celda.className || "";
+                        if (!clases.includes("Position") && 
+                            !clases.includes("Team") && 
+                            !clases.includes("Form") && 
+                            !clases.includes("Logo")) {
+                            var texto = celda.textContent.trim();
+                            if (texto !== "") {
+                                datos.push(texto);
+                            }
                         }
                     });
                     
@@ -692,7 +689,7 @@ def extraer_tablas_clasificacion(temporada_fotmob, max_reintentos=2):
                     }
                 });
             });
-            
+
             return resultados_script;
             """
             
@@ -762,9 +759,11 @@ def extraer_campeones_temporada(temporada_fotmob, max_reintentos=2):
             url = "https://www.fotmob.com/es/leagues/131/seasons/liga-1"
             
             options = Options()
-            options.add_argument("--headless")
+            options.add_argument("--headless=new")
             options.add_argument("--disable-gpu")
-            options.add_argument("--window-size=1920x1080")
+            options.add_argument("--window-size=1920,1080")
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-dev-shm-usage")
             
             with webdriver.Chrome(options=options) as driver:
                 driver.get(url)
@@ -833,16 +832,21 @@ def obtener_equipos(temporada_fotmob, max_reintentos=2):
             equipos_lista = []
             
             options = Options()
-            options.add_argument("--headless")
+            options.add_argument("--headless=new")
             options.add_argument("--disable-gpu")
-            options.add_argument("--window-size=1920x1080")
-            
+            options.add_argument("--window-size=1920,1080")
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-dev-shm-usage")
+            options.add_argument("--disable-blink-features=AutomationControlled")
+            options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
+
             with webdriver.Chrome(options=options) as driver:
                 driver.get(url)
                 try:
-                    WebDriverWait(driver, 5).until(
+                    WebDriverWait(driver, 15).until(
                         EC.presence_of_element_located((By.CSS_SELECTOR, "div[class*='TableRowCSS']"))
                     )
+                    time.sleep(2)
                 except Exception:
                     pass
 
