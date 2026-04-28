@@ -56,6 +56,38 @@ _ARCHIVOS_PROCESADOS = {}
 _EJECUCION_LOG = []
 
 # =============================================================================
+# DETECCIÓN DE ENTORNO Y RUTAS DINÁMICAS
+# =============================================================================
+
+def get_ruta_base():
+    """Detecta si está en GitHub Actions o en local y devuelve la ruta base adecuada"""
+    import tempfile
+    
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        # GitHub Actions: usar directorio temporal
+        ruta = os.path.join(tempfile.gettempdir(), "liga1_scraping")
+    else:
+        # Entorno local Windows
+        ruta = r"C:\Users\milu_\Documents\Proyectos\liga1"
+    
+    os.makedirs(ruta, exist_ok=True)
+    return ruta
+
+def get_ruta_data():
+    return os.path.join(get_ruta_base(), "data")
+
+def get_ruta_logs():
+    return os.path.join(get_ruta_base(), "logs")
+
+def get_ruta_triggers():
+    return os.path.join(get_ruta_base(), "triggers")
+
+# Crear directorios necesarios
+os.makedirs(get_ruta_data(), exist_ok=True)
+os.makedirs(get_ruta_logs(), exist_ok=True)
+os.makedirs(get_ruta_triggers(), exist_ok=True)
+
+# =============================================================================
 # MÓDULO TRIGGERS Y LOGS PARA ADF
 # =============================================================================
 
@@ -117,13 +149,9 @@ def guardar_trigger_adf(año_guardado, modo, archivos_generados, estado="complet
         return False
 
 def guardar_trigger_local(trigger_data):
-    """Guarda trigger localmente - SIEMPRE EL MISMO ARCHIVO"""
     try:
-        # Ruta fija para el trigger
-        base_local_path = r"C:\Users\milu_\Documents\Proyectos\liga1\triggers"
+        base_local_path = get_ruta_triggers()
         os.makedirs(base_local_path, exist_ok=True)
-        
-        # SIEMPRE EL MISMO NOMBRE
         trigger_path = os.path.join(base_local_path, "scraping_completado.json")
         
         with open(trigger_path, 'w', encoding='utf-8') as f:
@@ -168,9 +196,8 @@ def guardar_log_unico(año_guardado, modo, adls_client=None):
         }
         
         # 1. Guardado local - SIEMPRE EL MISMO ARCHIVO
-        base_local_path = r"C:\Users\milu_\Documents\Proyectos\liga1\logs"
+        base_local_path = get_ruta_logs()
         os.makedirs(base_local_path, exist_ok=True)
-        
         log_local_path = os.path.join(base_local_path, "ultima_ejecucion.json")
         with open(log_local_path, 'w', encoding='utf-8') as f:
             json.dump(log_data, f, ensure_ascii=False, indent=2)
@@ -195,7 +222,7 @@ def guardar_log_unico(año_guardado, modo, adls_client=None):
         
 def contar_archivos_generados(año_guardado):
     """Cuenta y lista todos los archivos generados para un año"""
-    base_path = r"C:\Users\milu_\Documents\Proyectos\liga1\data"
+    base_path = get_ruta_data()
     año_path = os.path.join(base_path, str(año_guardado))
     
     if not os.path.exists(año_path):
@@ -229,7 +256,7 @@ def guardar_log_ejecucion(año_guardado, modo, adls_client=None):
         
         # 1. Guardado local
         fecha_carpeta = datetime.now().strftime("%Y/%m/%d")
-        base_local_path = r"C:\Users\milu_\Documents\Proyectos\liga1\logs"
+        base_local_path = get_ruta_logs()
         log_dir = os.path.join(base_local_path, fecha_carpeta)
         os.makedirs(log_dir, exist_ok=True)
         
@@ -305,43 +332,60 @@ def validar_archivos_generados(año_guardado):
     VALIDACIÓN POR AÑO GUARDADO - VERSIÓN DINÁMICA
     ==============================================
     - Años 2020-(año_actual-1): 9 archivos obligatorios
-    - Año año_actual: 8 archivos obligatorios (campeones opcional)
+    - Año año_actual: Validación flexible (no todos los datos existen aún)
     """
-    base_path = r"C:\Users\milu_\Documents\Proyectos\liga1\data"
+    base_path = get_ruta_data()
     año_path = os.path.join(base_path, str(año_guardado))
     
     if not os.path.exists(año_path):
         return False, "No existe directorio del año"
     
-    # Año actual = 8 archivos obligatorios (campeones opcional)
+    # Para año actual: validación flexible (temporada puede estar incompleta)
     if año_guardado == _AÑO_ACTUAL:
-        archivos_obligatorios = [
-            "equipos", "tablas_clasificacion", "partidos", "estadisticas_partidos",
-            "liga1", "plantillas", "estadios", "entrenadores"
-        ]
-        archivos_opcionales = ["campeones"]
+        # Archivos mínimos requeridos (los que deberían existir siempre)
+        archivos_requeridos = ["equipos", "partidos"]
+        archivos_deseables = ["plantillas", "estadios", "entrenadores", "liga1", "tablas_clasificacion", "estadisticas_partidos", "campeones"]
+        
+        archivos_faltantes = []
+        for archivo in archivos_requeridos:
+            json_path = os.path.join(año_path, f"{archivo}_{año_guardado}.json")
+            csv_path = os.path.join(año_path, f"{archivo}_{año_guardado}.csv")
+            if not os.path.exists(json_path) and not os.path.exists(csv_path):
+                archivos_faltantes.append(archivo)
+        
+        if archivos_faltantes:
+            return False, f"Faltan archivos requeridos para año actual: {archivos_faltantes}"
+        
+        # Contar cuántos archivos deseables existen
+        deseables_existentes = 0
+        for archivo in archivos_deseables:
+            json_path = os.path.join(año_path, f"{archivo}_{año_guardado}.json")
+            csv_path = os.path.join(año_path, f"{archivo}_{año_guardado}.csv")
+            if os.path.exists(json_path) or os.path.exists(csv_path):
+                deseables_existentes += 1
+        
+        return True, f"OK - {len(archivos_requeridos)} requeridos + {deseables_existentes}/{len(archivos_deseables)} deseables"
+    
     else:
-        # Años anteriores = 9 archivos obligatorios
+        # Años anteriores completos = 9 archivos obligatorios
         archivos_obligatorios = [
             "equipos", "tablas_clasificacion", "partidos", "estadisticas_partidos",
             "liga1", "plantillas", "estadios", "entrenadores", "campeones"
         ]
-        archivos_opcionales = []
-    
-    archivos_faltantes = []
-    
-    for archivo in archivos_obligatorios:
-        json_path = os.path.join(año_path, f"{archivo}_{año_guardado}.json")
-        csv_path = os.path.join(año_path, f"{archivo}_{año_guardado}.csv")
         
-        if not os.path.exists(json_path) and not os.path.exists(csv_path):
-            archivos_faltantes.append(archivo)
+        archivos_faltantes = []
+        for archivo in archivos_obligatorios:
+            json_path = os.path.join(año_path, f"{archivo}_{año_guardado}.json")
+            csv_path = os.path.join(año_path, f"{archivo}_{año_guardado}.csv")
+            
+            if not os.path.exists(json_path) and not os.path.exists(csv_path):
+                archivos_faltantes.append(archivo)
+        
+        if archivos_faltantes:
+            return False, f"Faltan archivos obligatorios: {archivos_faltantes}"
+        
+        return True, f"OK - {len(archivos_obligatorios)} archivos obligatorios presentes"
     
-    if archivos_faltantes:
-        return False, f"Faltan archivos obligatorios: {archivos_faltantes}"
-    
-    return True, f"OK - {len(archivos_obligatorios)} archivos obligatorios presentes"
-
 def guardar_reporte_archivos(año_guardado, adls_client=None, adls_conectado=False):
     """Guarda el reporte de archivos SOLO si la validación es exitosa - EN AMBOS LADOS"""
     try:
@@ -356,7 +400,7 @@ def guardar_reporte_archivos(año_guardado, adls_client=None, adls_conectado=Fal
         reporte = generar_reporte_archivos()
         
         # Guardar localmente SIEMPRE cuando validación OK
-        base_path = r"C:\Users\milu_\Documents\Proyectos\liga1\data"
+        base_path = get_ruta_data()
         año_path = os.path.join(base_path, str(año_guardado))
         os.makedirs(año_path, exist_ok=True)
         
@@ -575,7 +619,7 @@ def guardar_csv_local_mejorado(dataframe, año_guardado, tipo_archivo, fuente="T
     nombre_archivo = f"{tipo_archivo}_{año_guardado}.csv"
     
     try:
-        base_path = r"C:\Users\milu_\Documents\Proyectos\liga1\data"
+        base_path = get_ruta_data()
         año_path = os.path.join(base_path, str(año_guardado))
         os.makedirs(año_path, exist_ok=True)
         
@@ -603,7 +647,7 @@ def guardar_json_local_mejorado(datos, año_guardado, tipo_archivo):
     nombre_archivo = f"{tipo_archivo}_{año_guardado}.json"
     
     try:
-        base_path = r"C:\Users\milu_\Documents\Proyectos\liga1\data"
+        base_path = get_ruta_data()
         año_path = os.path.join(base_path, str(año_guardado))
         os.makedirs(año_path, exist_ok=True)
         
@@ -629,49 +673,124 @@ def guardar_json_local_mejorado(datos, año_guardado, tipo_archivo):
 # =============================================================================
 
 def extraer_tablas_clasificacion(temporada_fotmob, max_reintentos=2):
-    """Extrae tablas de clasificación con reintentos"""
+    """Extrae tablas de clasificación - API primero, Selenium como fallback"""
+    import requests as _req
+
+    # --- PRIMARIO: API FotMob ---
+    try:
+        headers_api = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            "Referer": "https://www.fotmob.com/",
+            "Accept": "application/json",
+        }
+        url_api = f"https://www.fotmob.com/api/leagues?id=131&season={temporada_fotmob}"
+        r = _req.get(url_api, headers=headers_api, timeout=30)
+
+        if r.status_code == 200:
+            data_api = r.json()
+            datos_finales = {}
+
+            for tabla in data_api.get("table", []):
+                nombre_torneo = tabla.get("name") or tabla.get("ccode") or "Torneo Desconocido"
+                filas = tabla.get("data", {}).get("table", {}).get("all") or []
+
+                tabla_procesada = []
+                for fila in filas:
+                    try:
+                        scores_str = fila.get("scoresStr", "0-0")
+                        tabla_procesada.append({
+                            "posicion": int(fila.get("rank", 0)),
+                            "equipo": fila.get("name", "N/A"),
+                            "partidos_jugados": int(fila.get("played", 0)),
+                            "partidos_ganados": int(fila.get("wins", 0)),
+                            "partidos_empatados": int(fila.get("draws", 0)),
+                            "partidos_perdidos": int(fila.get("losses", 0)),
+                            "goles_a_favor_contra": scores_str,
+                            "diferencia_goles": int(fila.get("goalConDiff", 0)),
+                            "puntos": int(fila.get("pts", 0))
+                        })
+                    except Exception:
+                        continue
+
+                if tabla_procesada:
+                    datos_finales[nombre_torneo] = tabla_procesada
+
+            if datos_finales:
+                resultado = {
+                    "fuente": "FotMob",
+                    "temporada": int(temporada_fotmob),
+                    "fecha_carga": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "data": [datos_finales]
+                }
+                log_info(f"✅ Tablas clasificación (API): {len(datos_finales)} torneos")
+                return resultado
+    except Exception:
+        log_info(f"   API tablas no disponible para {temporada_fotmob}, usando Selenium...")
+
+    # --- FALLBACK: Selenium ---
     for reintento in range(max_reintentos):
         try:
             chrome_options = Options()
-            chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--headless=new")
             chrome_options.add_argument("--no-sandbox")
             chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--disable-gpu")
             chrome_options.add_argument("--window-size=1920,1080")
-            
+            chrome_options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
+
             driver = webdriver.Chrome(options=chrome_options)
-            
+
             url = f"https://www.fotmob.com/es/leagues/131/table/liga-1?season={temporada_fotmob}"
             driver.get(url)
-            
-            WebDriverWait(driver, 15).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, "[class*='SubTableCSS']"))
-            )
+            time.sleep(8)
+
+            # Intentar con SubTableCSS (formato Apertura/Clausura 2020-2024)
+            selector_tabla = "[class*='SubTableCSS']"
+            try:
+                WebDriverWait(driver, 30).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, selector_tabla))
+                )
+            except Exception:
+                # Fallback: formato tabla única (2025+)
+                selector_tabla = "[class*='TableCSS']"
+
             time.sleep(3)
-            
+
             script = """
             var resultados_script = {};
+
+            // Intentar subtablas primero (formato Apertura/Clausura)
             var tablas = document.querySelectorAll('[class*="SubTableCSS"]');
+
+            // Si no hay subtablas, usar tabla principal única
+            if (tablas.length === 0) {
+                tablas = document.querySelectorAll('[class*="TableCSS"]');
+            }
 
             if (tablas.length === 0) {
                 return {error: "No se encontraron tablas"};
             }
 
             tablas.forEach(function(tabla) {
-                var nombreTorneo = tabla.querySelector('[class*="SubTableHeaderCSS"]')?.textContent || "Torneo Desconocido";
+                var headerEl = tabla.querySelector('[class*="SubTableHeaderCSS"]') ||
+                               tabla.querySelector('[class*="TableHeaderCSS"]') ||
+                               tabla.querySelector('h3') ||
+                               tabla.querySelector('h2');
+                var nombreTorneo = headerEl ? headerEl.textContent.trim() : "Tabla General";
                 resultados_script[nombreTorneo] = [];
-                
+
                 var filas = tabla.querySelectorAll('[class*="TableRowCSS"]');
                 filas.forEach(function(fila) {
                     var posicion = fila.querySelector('[class*="TablePositionCell"]')?.textContent?.trim() || "";
                     var equipo = fila.querySelector('[class*="TeamName"]')?.textContent?.trim() || "";
-                    
+
                     var datos = [];
                     var todasLasCeldas = Array.from(fila.querySelectorAll('[class*="TableCell"]'));
                     todasLasCeldas.forEach(function(celda) {
                         var clases = celda.className || "";
-                        if (!clases.includes("Position") && 
-                            !clases.includes("Team") && 
-                            !clases.includes("Form") && 
+                        if (!clases.includes("Position") &&
+                            !clases.includes("Team") &&
+                            !clases.includes("Form") &&
                             !clases.includes("Logo")) {
                             var texto = celda.textContent.trim();
                             if (texto !== "") {
@@ -679,7 +798,7 @@ def extraer_tablas_clasificacion(temporada_fotmob, max_reintentos=2):
                             }
                         }
                     });
-                    
+
                     if (posicion && equipo) {
                         resultados_script[nombreTorneo].push({
                             posicion: posicion,
@@ -692,17 +811,17 @@ def extraer_tablas_clasificacion(temporada_fotmob, max_reintentos=2):
 
             return resultados_script;
             """
-            
+
             resultados_script = driver.execute_script(script)
             driver.quit()
-            
+
             if resultados_script and not resultados_script.get('error'):
                 datos_finales = {}
-                
-                for nombre_torneo, equipos in resultados_script.items():
+
+                for nombre_torneo, equipos_lista in resultados_script.items():
                     tabla_procesada = []
-                    
-                    for equipo in equipos:
+
+                    for equipo in equipos_lista:
                         datos = equipo['datos']
                         if len(datos) >= 7:
                             try:
@@ -719,23 +838,23 @@ def extraer_tablas_clasificacion(temporada_fotmob, max_reintentos=2):
                                 })
                             except ValueError:
                                 continue
-                    
+
                     if tabla_procesada:
                         datos_finales[nombre_torneo] = tabla_procesada
-                
-                resultado_tablas = {
-                    "fuente": "FotMob",
-                    "temporada": int(temporada_fotmob),
-                    "fecha_carga": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    "data": [datos_finales]
-                }
-                
-                log_info(f"✅ Tablas clasificación: {len(datos_finales)} torneos")
-                return resultado_tablas
-            
+
+                if datos_finales:
+                    resultado_tablas = {
+                        "fuente": "FotMob",
+                        "temporada": int(temporada_fotmob),
+                        "fecha_carga": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                        "data": [datos_finales]
+                    }
+                    log_info(f"✅ Tablas clasificación: {len(datos_finales)} torneos")
+                    return resultado_tablas
+
             if reintento < max_reintentos - 1:
                 time.sleep(2)
-                
+
         except Exception as e:
             if reintento < max_reintentos - 1:
                 time.sleep(2)
@@ -743,7 +862,7 @@ def extraer_tablas_clasificacion(temporada_fotmob, max_reintentos=2):
                 driver.quit()
             except:
                 pass
-    
+
     log_error(f"No se pudieron extraer tablas para {temporada_fotmob}")
     return {
         "fuente": "FotMob",
@@ -825,12 +944,54 @@ def extraer_campeones_temporada(temporada_fotmob, max_reintentos=2):
     }
 
 def obtener_equipos(temporada_fotmob, max_reintentos=2):
-    """Obtiene lista de equipos con reintentos"""
+    """Obtiene lista de equipos - API primero, Selenium como fallback"""
+    import requests as _req
+
+    # --- PRIMARIO: API FotMob (más confiable, funciona para todos los años) ---
+    try:
+        headers_api = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            "Referer": "https://www.fotmob.com/",
+            "Accept": "application/json",
+        }
+        url_api = f"https://www.fotmob.com/api/leagues?id=131&season={temporada_fotmob}"
+        r = _req.get(url_api, headers=headers_api, timeout=30)
+
+        if r.status_code == 200:
+            data_api = r.json()
+            equipos_api = []
+            seen = set()
+
+            for tabla in data_api.get("table", []):
+                filas = tabla.get("data", {}).get("table", {}).get("all") or []
+                for fila in filas:
+                    nombre = (fila.get("name") or "").strip()
+                    team_id = fila.get("id", "")
+                    if nombre and nombre not in seen:
+                        seen.add(nombre)
+                        equipos_api.append({
+                            "equipo": nombre,
+                            "url": f"https://www.fotmob.com/es/teams/{team_id}/overview"
+                        })
+
+            if equipos_api:
+                resultado = {
+                    "fuente": "FotMob",
+                    "temporada": int(temporada_fotmob),
+                    "fecha_carga": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "data": sorted(equipos_api, key=lambda x: x["equipo"])
+                }
+                log_info(f"✅ Equipos (API): {len(equipos_api)} equipos")
+                return resultado
+    except Exception:
+        log_info(f"   API equipos no disponible para {temporada_fotmob}, usando Selenium...")
+
+    # --- FALLBACK: Selenium ---
     for reintento in range(max_reintentos):
         try:
             url = f"https://www.fotmob.com/es/leagues/131/overview/liga-1?season={temporada_fotmob}"
             equipos_lista = []
-            
+
             options = Options()
             options.add_argument("--headless=new")
             options.add_argument("--disable-gpu")
@@ -852,7 +1013,7 @@ def obtener_equipos(temporada_fotmob, max_reintentos=2):
 
                 soup = BeautifulSoup(driver.page_source, 'html.parser')
                 filas_equipos = soup.select("div[class*='TableRowCSS'] div[class*='TableTeamCell'] a")
-                
+
                 for equipo in filas_equipos:
                     nombre_tag = equipo.select_one("span.TeamName")
                     nombre = nombre_tag.text.strip() if nombre_tag else "N/A"
@@ -864,31 +1025,29 @@ def obtener_equipos(temporada_fotmob, max_reintentos=2):
                             "url": url_equipo
                         })
 
-            # Eliminar duplicados manteniendo el orden
             equipos_unicos = []
             equipos_vistos = set()
             for equipo in equipos_lista:
                 if equipo["equipo"] not in equipos_vistos:
                     equipos_unicos.append(equipo)
                     equipos_vistos.add(equipo["equipo"])
-            
-            # Ordenar alfabéticamente
+
             equipos_unicos = sorted(equipos_unicos, key=lambda x: x["equipo"])
-            
+
             resultado_equipos = {
                 "fuente": "FotMob",
                 "temporada": int(temporada_fotmob),
                 "fecha_carga": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "data": equipos_unicos
             }
-            
+
             log_info(f"✅ Equipos: {len(equipos_unicos)} equipos")
             return resultado_equipos
-            
+
         except Exception as e:
             if reintento < max_reintentos - 1:
                 time.sleep(2)
-    
+
     log_error(f"No se pudieron extraer equipos para {temporada_fotmob}")
     return {
         "fuente": "FotMob",
@@ -898,7 +1057,73 @@ def obtener_equipos(temporada_fotmob, max_reintentos=2):
     }
 
 def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
-    """Obtiene partidos con reintentos"""
+    """Obtiene partidos - API primero (todos los partidos), Selenium como fallback"""
+    import requests as _req
+
+    # --- PRIMARIO: API FotMob (devuelve los ~300+ partidos completos) ---
+    try:
+        headers_api = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            "Referer": "https://www.fotmob.com/",
+            "Accept": "application/json",
+        }
+        url_api = f"https://www.fotmob.com/api/leagues?id={id}&season={temporada_fotmob}"
+        r = _req.get(url_api, headers=headers_api, timeout=30)
+
+        if r.status_code == 200:
+            data_api = r.json()
+            all_matches = (
+                data_api.get("matches", {}).get("allMatches")
+                or data_api.get("allMatches")
+                or []
+            )
+
+            partidos = []
+            for m in all_matches:
+                try:
+                    home_name = m.get("home", {}).get("name", "N/A")
+                    away_name = m.get("away", {}).get("name", "N/A")
+                    match_id = m.get("id", "")
+                    status = m.get("status", {})
+
+                    if status.get("finished", False):
+                        marcador = status.get("scoreStr", "N/A")
+                    elif status.get("started", False):
+                        marcador = "En curso"
+                    else:
+                        marcador = "Sin jugar"
+
+                    utc_time = m.get("utcTime", "") or status.get("utcTime", "")
+                    if utc_time:
+                        from datetime import datetime as _dt
+                        dt_obj = _dt.fromisoformat(utc_time.replace("Z", "+00:00"))
+                        fecha = dt_obj.strftime("%d/%m/%Y")
+                    else:
+                        fecha = "N/A"
+
+                    partidos.append({
+                        "fecha": fecha,
+                        "local": home_name,
+                        "visitante": away_name,
+                        "marcador": marcador,
+                        "url": f"https://www.fotmob.com/es/matches/{match_id}"
+                    })
+                except Exception:
+                    continue
+
+            if partidos:
+                resultado = {
+                    "fuente": "FotMob",
+                    "temporada": int(temporada_fotmob),
+                    "fecha_carga": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "data": partidos
+                }
+                log_info(f"✅ Partidos (API): {len(partidos)} partidos")
+                return resultado
+    except Exception:
+        log_info(f"   API partidos no disponible para {temporada_fotmob}, usando Selenium...")
+
+    # --- FALLBACK: Selenium ---
     for reintento in range(max_reintentos):
         try:
             base_url = f"https://www.fotmob.com/es/leagues/{id}/matches/{liga}?season={temporada_fotmob}&group=by-date&page="
@@ -907,12 +1132,12 @@ def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
             page = 0
 
             options = Options()
-            options.add_argument("--headless")
+            options.add_argument("--headless=new")
             options.add_argument("--no-sandbox")
             options.add_argument("--disable-dev-shm-usage")
             options.add_argument("--disable-gpu")
             options.add_argument("--window-size=1920,1080")
-            options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+            options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
 
             with webdriver.Chrome(options=options) as driver:
                 while True:
@@ -932,7 +1157,6 @@ def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
                         break
 
                     nuevas_fechas = 0
-
                     for seccion in secciones:
                         fecha_tag = seccion.select_one('h3')
                         fecha_texto = fecha_tag.text.strip() if fecha_tag else "N/A"
@@ -942,8 +1166,8 @@ def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
                         fechas_vistas.add(fecha_texto)
                         nuevas_fechas += 1
 
-                        partidos = seccion.select('a[class*="MatchWrapper"]')
-                        for p in partidos:
+                        partidos_sec = seccion.select('a[class*="MatchWrapper"]')
+                        for p in partidos_sec:
                             try:
                                 local = p.select_one('div[class*="StatusAndHomeTeamWrapper"] span[class*="TeamName"]').text.strip()
                                 visitante = p.select_one('div[class*="AwayTeamAndFollowWrapper"] span[class*="TeamName"]').text.strip()
@@ -952,16 +1176,12 @@ def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
                                     marcador = marcador_tag.text.strip()
                                 else:
                                     hora_tag = p.select_one('span[class*="LSMatchStatusTime"] div[class*="TimeCSS"]')
-                                    if hora_tag:
-                                        marcador = hora_tag.text.strip()
-                                    else:
-                                        marcador = "Sin jugar"
+                                    marcador = hora_tag.text.strip() if hora_tag else "Sin jugar"
 
                                 href = p.get("href")
                                 url_partido = "https://www.fotmob.com" + href if href else "N/A"
-
                                 partidos_totales.append({
-                                    "fecha": fecha_texto,
+                                    "fecha": _convertir_formato_fecha_DD_MM_YYYY(fecha_texto),
                                     "local": local,
                                     "visitante": visitante,
                                     "marcador": marcador,
@@ -972,31 +1192,22 @@ def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
 
                     if nuevas_fechas == 0:
                         break
-
                     page += 1
                     time.sleep(1)
-
-            # Convertir fechas a formato estándar
-            partidos_con_fecha_normalizada = []
-            for partido in partidos_totales:
-                partido_copy = partido.copy()
-                partido_copy["fecha"] = _convertir_formato_fecha_DD_MM_YYYY(partido["fecha"])
-                partidos_con_fecha_normalizada.append(partido_copy)
 
             resultado_partidos = {
                 "fuente": "FotMob",
                 "temporada": int(temporada_fotmob),
                 "fecha_carga": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                "data": partidos_con_fecha_normalizada
+                "data": partidos_totales
             }
-            
-            log_info(f"✅ Partidos: {len(partidos_con_fecha_normalizada)} partidos")
+            log_info(f"✅ Partidos (Selenium): {len(partidos_totales)} partidos")
             return resultado_partidos
-            
+
         except Exception as e:
             if reintento < max_reintentos - 1:
                 time.sleep(2)
-    
+
     log_error(f"No se pudieron extraer partidos para {temporada_fotmob}")
     return {
         "fuente": "FotMob",
@@ -1737,7 +1948,7 @@ def guardar_json_adls(datos, año_guardado, tipo_archivo, adls_client):
 def subir_archivos_a_adls(año_guardado, adls_client):
     """Sube todos los archivos del año a ADLS - INCLUYENDO REPORTE"""
     try:
-        base_path = r"C:\Users\milu_\Documents\Proyectos\liga1\data"
+        base_path = get_ruta_data()
         año_path = os.path.join(base_path, str(año_guardado))
         
         if not os.path.exists(año_path):

@@ -13,19 +13,20 @@ on:
           - historica
           - reproceso
       anio_objetivo:
-        description: 'Año a reprocesar (solo modo reproceso)'
+        description: 'Año a reprocesar (solo modo reproceso, ej: 2023)'
         required: false
         default: ''
       anio_inicio:
-        description: 'Año inicio (modo historica)'
+        description: 'Año inicio (modo historica) - Default: 2020'
         required: false
         default: '2020'
       anio_fin:
-        description: 'Año fin (modo historica) - Recomendado: 2024'
+        description: 'Año fin (modo historica) - Default: 2026'
         required: false
-        default: '2024'
+        default: '2026'
 
   schedule:
+    # Lunes 14:00 UTC = 09:00 Lima (solo ejecuta incremental)
     - cron: '0 14 * * 1'
 
 env:
@@ -35,7 +36,7 @@ jobs:
   scraping:
     name: Ejecutar Scraping Liga 1
     runs-on: ubuntu-latest
-    # TIMEOUT A NIVEL DE JOB - MÁS CONFIABLE
+    # Timeout dinámico: 130 min para histórico, 30 min para otros
     timeout-minutes: ${{ github.event.inputs.modo == 'historica' && 130 || 30 }}
     
     steps:
@@ -50,33 +51,79 @@ jobs:
           cache-dependency-path: frm_landing/scraping/requirements.txt
 
       - name: Instalar dependencias
-        run: pip install -r frm_landing/scraping/requirements.txt
+        run: |
+          pip install --upgrade pip
+          pip install -r frm_landing/scraping/requirements.txt
 
       - name: Verificar Chrome
-        run: google-chrome --version || chromium-browser --version
+        run: |
+          google-chrome --version || chromium-browser --version
+          echo "Chrome disponible para Selenium"
 
       - name: Ejecutar scraping
         env:
+          # Credenciales de Azure
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          # Parámetros de scraping
           SCRAPING_MODO: ${{ github.event.inputs.modo || 'incremental' }}
           SCRAPING_ANIO_INICIO: ${{ github.event.inputs.anio_inicio || '2020' }}
-          SCRAPING_ANIO_FIN: ${{ github.event.inputs.anio_fin || '2024' }}
+          SCRAPING_ANIO_FIN: ${{ github.event.inputs.anio_fin || '2026' }}
+          SCRAPING_ANIO_OBJETIVO: ${{ github.event.inputs.anio_objetivo || '' }}
+          # Forzar rutas temporales en GitHub Actions
+          SCRAPING_BASE_PATH: "./temp_scraping"
+          GITHUB_ACTIONS: "true"
         run: |
-          # Forzar modo incremental si es schedule
+          # Forzar modo incremental si es ejecución programada (schedule)
           if [ "${{ github.event_name }}" = "schedule" ]; then
             export SCRAPING_MODO="incremental"
-            echo "Ejecución programada: usando modo incremental"
+            echo "Ejecución programada (schedule): usando modo incremental para año actual"
           fi
           
+          echo "Configuración de ejecución:"
+          echo "   - Modo: $SCRAPING_MODO"
+          echo "   - GitHub Actions: SI"
+          echo "   - Ruta base: $SCRAPING_BASE_PATH"
+          
+          # Construir argumentos según el modo
           if [ "$SCRAPING_MODO" = "historica" ]; then
-            python frm_landing/scraping/scraping.py --modo historica \
+            echo "Ejecutando modo HISTÓRICO: $SCRAPING_ANIO_INICIO - $SCRAPING_ANIO_FIN"
+            python frm_landing/scraping/scraping.py \
+              --modo historica \
               --anio-inicio $SCRAPING_ANIO_INICIO \
               --anio-fin $SCRAPING_ANIO_FIN
+              
           elif [ "$SCRAPING_MODO" = "reproceso" ]; then
-            python frm_landing/scraping/scraping.py --modo reproceso \
-              --anio-objetivo ${{ github.event.inputs.anio_objetivo }}
+            if [ -n "$SCRAPING_ANIO_OBJETIVO" ]; then
+              echo "Ejecutando modo REPROCESO: año $SCRAPING_ANIO_OBJETIVO"
+              python frm_landing/scraping/scraping.py \
+                --modo reproceso \
+                --anio-objetivo $SCRAPING_ANIO_OBJETIVO
+            else
+              echo "Error: Modo reproceso requiere especificar año_objetivo"
+              exit 1
+            fi
+            
           else
+            echo "Ejecutando modo INCREMENTAL: año actual"
             python frm_landing/scraping/scraping.py --modo incremental
           fi
+          
+          echo "Scraping completado exitosamente"
+
+      - name: Upload logs (si falla)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scraping-logs
+          path: ./temp_scraping/logs/
+          retention-days: 7
+
+      - name: Upload data (si éxito)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scraping-data
+          path: ./temp_scraping/data/
+          retention-days: 7
