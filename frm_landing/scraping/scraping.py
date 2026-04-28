@@ -1509,29 +1509,57 @@ def scraping_transfermarkt_por_año(año_usuario):
     
     try:
         options = webdriver.ChromeOptions()
-        options.add_argument("--headless")
+        options.add_argument("--headless=new")
         options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option('useAutomationExtension', False)
-        options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+        options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
-        
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-        driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--window-size=1920,1080")
+        options.add_argument("--lang=es-PE,es")
 
-        url_liga = f"https://www.transfermarkt.pe/liga-1-apertura/startseite/wettbewerb/TDeA/plus/?saison_id={año_transfermarkt}"
-        
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        driver.execute_script("""
+            Object.defineProperty(navigator, 'webdriver', {get: () => undefined});
+            Object.defineProperty(navigator, 'plugins', {get: () => [1, 2, 3, 4, 5]});
+            Object.defineProperty(navigator, 'languages', {get: () => ['es-PE', 'es', 'en-US', 'en']});
+            window.chrome = {runtime: {}};
+        """)
+
+        url_liga = f"https://www.transfermarkt.com/liga-1-apertura/startseite/wettbewerb/TDeA/plus/?saison_id={año_transfermarkt}"
+
         driver.get(url_liga)
+        time.sleep(12)
         manejar_banner(driver)
-        
-        try:
-            WebDriverWait(driver, 15).until(
-                EC.presence_of_element_located((By.XPATH, '//table[contains(@class,"items")]//td[2]//a'))
-            )
-            time.sleep(2)
-        except:
-            log_error(f"No se pudo cargar la tabla general para año {año_transfermarkt}")
+
+        tabla_cargada = False
+        for intento in range(2):
+            try:
+                WebDriverWait(driver, 45).until(
+                    EC.presence_of_element_located((By.XPATH, '//table[contains(@class,"items")]//td[2]//a'))
+                )
+                time.sleep(2)
+                tabla_cargada = True
+                break
+            except:
+                if intento == 0:
+                    try:
+                        page_src = driver.page_source
+                        if "Just a moment" in page_src or "checking your browser" in page_src.lower():
+                            log_info(f"Cloudflare challenge detectado para año {año_transfermarkt}, reintentando...")
+                            driver.refresh()
+                            time.sleep(20)
+                    except:
+                        pass
+
+        if not tabla_cargada:
+            try:
+                page_title = driver.title
+                log_error(f"No se pudo cargar la tabla general para año {año_transfermarkt}. Título página: {page_title}")
+            except:
+                log_error(f"No se pudo cargar la tabla general para año {año_transfermarkt}")
             driver.quit()
             return [], [], [], []
 
