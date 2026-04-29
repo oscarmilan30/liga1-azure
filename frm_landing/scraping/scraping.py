@@ -1,25 +1,14 @@
 """
-SCRAPING COMPLETO LIGA 1 PERÚ - VERSIÓN CORREGIDA CON AÑO DINÁMICO
-==========================================================
+SCRAPING COMPLETO LIGA 1 PERÚ - VERSIÓN CORREGIDA CON WORKERS OPTIMIZADOS
+=======================================================================
 SISTEMA UNIFICADO CON MÚLTIPLES MODOS DE EJECUCIÓN
 Mejoras implementadas:
-  ✅ AÑO MÁXIMO DINÁMICO: Se toma del sistema, no hardcodeado
-  ✅ Modo Histórico: Rango de años (2020-año_actual) → Guarda mismos años
-  ✅ Modo Incremental: Solo año actual → Guarda mismo año
-  ✅ Modo Reproceso: Año específico → Misma lógica que histórico
-  ✅ Reintentos inteligentes por año con manejo de errores
-  ✅ Continuación automática después de fallos
-  ✅ SOLO Reporte de archivos: Local y ADLS
-  ✅ Estado por año: éxito/error/reintentos
-  ✅ LÓGICA CORREGIDA: Entrada X → FotMob: X, Transfermarkt: X-1, Guardado: X
-  ✅ VALIDACIÓN DE ARCHIVOS: Flexible para años completos y año actual
-  ✅ TRIGGERS PARA ADF: Archivos en landing/temp/ejecucion/ con timestamp
-  ✅ LOGS COMPLETOS: Ejecución detallada local y ADLS
-  ✅ 2025: URL correcta con /teams para partidos
-  ✅ CORREGIDO: URLs de partidos sin /players para 2020-2024, 2026
-  ✅ CORREGIDO: Tablas de clasificación con selectores exactos
-  ✅ CORREGIDO: Estadísticas de partidos con selectores exactos
-==========================================================
+  ✅ WORKERS OPTIMIZADOS: Procesamiento por batches, timeouts individuales
+  ✅ FILTRADO INTELIGENTE: Solo partidos jugados (con marcador numérico)
+  ✅ CACHÉ DE ESTADÍSTICAS: Evita reprocesar mismos partidos
+  ✅ BATCH_SIZE=30: Procesamiento controlado para evitar timeouts
+  ✅ Timeout global por worker: 30 segundos por partido
+  ✅ Manejo especial para partidos sin estadísticas
 """
 
 from bs4 import BeautifulSoup
@@ -45,6 +34,7 @@ import os
 import re
 import traceback
 import requests
+import concurrent.futures
 
 # =============================================================================
 # CONFIGURACIÓN GLOBAL CON AÑO DINÁMICO
@@ -58,6 +48,16 @@ _ADLS_CLIENT = None
 _CREDENTIAL = None
 _ARCHIVOS_PROCESADOS = {}
 _EJECUCION_LOG = []
+
+# Caché para estadísticas de partidos
+_CACHE_ESTADISTICAS = {}
+_CACHE_EXPIRACION = 3600  # 1 hora
+
+# Configuración de workers
+BATCH_SIZE = 30
+TIMEOUT_PARTIDO = 30  # segundos por partido
+TIMEOUT_BATCH = 180  # segundos por batch
+MAX_WORKERS = 2
 
 # =============================================================================
 # DETECCIÓN DE ENTORNO Y RUTAS DINÁMICAS
@@ -908,6 +908,68 @@ def obtener_equipos(temporada_fotmob, max_reintentos=2):
         "data": []
     }
 
+def _convertir_formato_fecha_DD_MM_YYYY(fecha):
+    """
+    Convierte fechas del formato "jueves, 24 de abril de 2025" a "24-04-2025"
+    """
+    meses = {
+        'enero': '01', 'febrero': '02', 'marzo': '03', 'abril': '04',
+        'mayo': '05', 'junio': '06', 'julio': '07', 'agosto': '08', 'agusto': '08',
+        'septiembre': '09', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'
+    }
+
+    if isinstance(fecha, str):
+        try:
+            fecha_sin_tilde = unidecode(fecha.strip().lower())
+            
+            # Casos especiales
+            if fecha_sin_tilde == 'ayer':
+                ayer = datetime.now() - timedelta(days=1)
+                return ayer.strftime("%d-%m-%Y")
+            elif fecha_sin_tilde == 'hoy':
+                hoy = datetime.now()
+                return hoy.strftime("%d-%m-%Y")
+            elif fecha_sin_tilde == 'manana':
+                manana = datetime.now() + timedelta(days=1)
+                return manana.strftime("%d-%m-%Y")
+            
+            # Formato: "jueves, 24 de abril de 2025"
+            # Quitar la coma si existe
+            fecha_limpia = fecha_sin_tilde.replace(',', '')
+            partes = fecha_limpia.split()
+            
+            # Buscar el día (número)
+            dia = None
+            for parte in partes:
+                if parte.isdigit():
+                    dia = parte
+                    break
+            
+            # Buscar el mes
+            mes = None
+            for parte in partes:
+                if parte in meses:
+                    mes = meses[parte]
+                    break
+            
+            # Buscar el año (4 dígitos)
+            año = None
+            for parte in partes:
+                if parte.isdigit() and len(parte) == 4:
+                    año = parte
+                    break
+            
+            if dia and mes:
+                if not año:
+                    año = str(_AÑO_ACTUAL)
+                return f"{int(dia):02d}-{mes}-{año}"
+            
+            return fecha
+            
+        except Exception as e:
+            return fecha
+    return fecha
+
 def obtener_partidos_2025(liga, id, temporada_fotmob, max_reintentos=2):
     """
     Función ESPECÍFICA para 2025 usando la URL correcta con /teams
@@ -938,7 +1000,10 @@ def obtener_partidos_2025(liga, id, temporada_fotmob, max_reintentos=2):
                             EC.presence_of_element_located((By.CSS_SELECTOR, "section[class*='LeagueMatchesSectionCSS']"))
                         )
                     except Exception:
-                        break
+                        if page == 0:
+                            time.sleep(3)
+                        else:
+                            break
 
                     soup = BeautifulSoup(driver.page_source, 'html.parser')
                     secciones = soup.select('section[class*="LeagueMatchesSectionCSS"]')
@@ -993,14 +1058,15 @@ def obtener_partidos_2025(liga, id, temporada_fotmob, max_reintentos=2):
                     page += 1
                     time.sleep(1)
 
-            resultado_partidos = {
-                "fuente": "FotMob",
-                "temporada": 2025,
-                "fecha_carga": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                "data": partidos_totales
-            }
-            log_info(f"✅ Partidos 2025: {len(partidos_totales)} partidos extraídos")
-            return resultado_partidos
+            if partidos_totales:
+                resultado_partidos = {
+                    "fuente": "FotMob",
+                    "temporada": 2025,
+                    "fecha_carga": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "data": partidos_totales
+                }
+                log_info(f"✅ Partidos 2025: {len(partidos_totales)} partidos extraídos")
+                return resultado_partidos
 
         except Exception as e:
             log_error(f"   Error en 2025, intento {reintento+1}: {str(e)}")
@@ -1018,7 +1084,9 @@ def obtener_partidos_2025(liga, id, temporada_fotmob, max_reintentos=2):
     }
 
 def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
-    """Obtiene partidos - detecta automáticamente el método según el año"""
+    """
+    Obtiene partidos - detecta automáticamente el método según el año
+    """
     año_int = int(temporada_fotmob)
     
     # CASO ESPECIAL 2025: Usa /teams con paginación
@@ -1026,75 +1094,13 @@ def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
         return obtener_partidos_2025(liga, id, temporada_fotmob, max_reintentos)
     
     # Años 2020-2024, 2026: Usar URL base SIN /players
-    import requests as _req
-
-    # PRIMARIO: API FotMob
-    try:
-        headers_api = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            "Referer": "https://www.fotmob.com/",
-            "Accept": "application/json",
-        }
-        url_api = f"https://www.fotmob.com/api/leagues?id={id}&season={temporada_fotmob}"
-        r = _req.get(url_api, headers=headers_api, timeout=30)
-
-        if r.status_code == 200:
-            data_api = r.json()
-            all_matches = data_api.get("matches", {}).get("allMatches") or data_api.get("allMatches") or []
-
-            partidos = []
-            for m in all_matches:
-                try:
-                    home_name = m.get("home", {}).get("name", "N/A")
-                    away_name = m.get("away", {}).get("name", "N/A")
-                    match_id = m.get("id", "")
-                    status = m.get("status", {})
-
-                    if status.get("finished", False):
-                        marcador = status.get("scoreStr", "N/A")
-                    elif status.get("started", False):
-                        marcador = "En curso"
-                    else:
-                        marcador = "Sin jugar"
-
-                    utc_time = m.get("utcTime", "") or status.get("utcTime", "")
-                    if utc_time:
-                        from datetime import datetime as _dt
-                        dt_obj = _dt.fromisoformat(utc_time.replace("Z", "+00:00"))
-                        fecha = dt_obj.strftime("%d/%m/%Y")
-                    else:
-                        fecha = "N/A"
-
-                    partidos.append({
-                        "fecha": fecha,
-                        "local": home_name,
-                        "visitante": away_name,
-                        "marcador": marcador,
-                        "url": f"https://www.fotmob.com/es/matches/{match_id}"
-                    })
-                except Exception:
-                    continue
-
-            if partidos:
-                resultado = {
-                    "fuente": "FotMob-API",
-                    "temporada": int(temporada_fotmob),
-                    "fecha_carga": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    "data": partidos
-                }
-                log_info(f"✅ Partidos (API): {len(partidos)} partidos")
-                return resultado
-    except Exception:
-        log_info(f"   API partidos no disponible para {temporada_fotmob}, usando Selenium...")
-
-    # FALLBACK: Selenium con paginación by-date
     for reintento in range(max_reintentos):
         try:
             base_url = f"https://www.fotmob.com/es/leagues/{id}/fixtures/{liga}?season={temporada_fotmob}&group=by-date&page="
             partidos_totales = []
             fechas_vistas = set()
             page = 0
-            max_pages = 30
+            max_pages = 35
 
             options = Options()
             options.add_argument("--headless=new")
@@ -1102,6 +1108,7 @@ def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
             options.add_argument("--disable-dev-shm-usage")
             options.add_argument("--disable-gpu")
             options.add_argument("--window-size=1920,1080")
+            options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
 
             with webdriver.Chrome(options=options) as driver:
                 while page < max_pages:
@@ -1114,7 +1121,10 @@ def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
                             EC.presence_of_element_located((By.CSS_SELECTOR, "section[class*='LeagueMatchesSectionCSS']"))
                         )
                     except Exception:
-                        break
+                        if page == 0:
+                            time.sleep(3)
+                        else:
+                            break
 
                     soup = BeautifulSoup(driver.page_source, 'html.parser')
                     secciones = soup.select('section[class*="LeagueMatchesSectionCSS"]')
@@ -1137,13 +1147,14 @@ def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
                         for p in partidos_sec:
                             try:
                                 local = p.select_one('div[class*="StatusAndHomeTeamWrapper"] span[class*="TeamName"]')
-                                visitante = p.select_one('div[class*="AwayTeamAndFollowWrapper"] span[class*="TeamName"]')
-                                marcador_tag = p.select_one('span[class*="LSMatchStatusScore"]')
-                                
                                 if not local:
                                     local = p.select_one('div[class*="Home"] span[class*="Name"]')
+                                
+                                visitante = p.select_one('div[class*="AwayTeamAndFollowWrapper"] span[class*="TeamName"]')
                                 if not visitante:
                                     visitante = p.select_one('div[class*="Away"] span[class*="Name"]')
+                                
+                                marcador_tag = p.select_one('span[class*="LSMatchStatusScore"]')
                                 
                                 if local and visitante:
                                     local_text = local.text.strip()
@@ -1159,8 +1170,10 @@ def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
                                     match_id = href.split('/')[-1] if href else ""
                                     url_partido = f"https://www.fotmob.com/es/matches/{match_id}" if match_id else "N/A"
                                     
+                                    fecha_formateada = _convertir_formato_fecha_DD_MM_YYYY(fecha_texto)
+                                    
                                     partidos_totales.append({
-                                        "fecha": _convertir_formato_fecha_DD_MM_YYYY(fecha_texto),
+                                        "fecha": fecha_formateada,
                                         "local": local_text,
                                         "visitante": visitante_text,
                                         "marcador": marcador,
@@ -1174,19 +1187,20 @@ def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
                     page += 1
                     time.sleep(1)
 
-            if not partidos_totales:
+            if partidos_totales:
+                resultado_partidos = {
+                    "fuente": "FotMob",
+                    "temporada": int(temporada_fotmob),
+                    "fecha_carga": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "data": partidos_totales
+                }
+                log_info(f"✅ Partidos {temporada_fotmob}: {len(partidos_totales)} partidos extraídos")
+                return resultado_partidos
+            else:
                 if reintento < max_reintentos - 1:
+                    log_info(f"   No se encontraron partidos, reintentando...")
                     time.sleep(3)
                     continue
-
-            resultado_partidos = {
-                "fuente": "FotMob",
-                "temporada": int(temporada_fotmob),
-                "fecha_carga": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                "data": partidos_totales
-            }
-            log_info(f"✅ Partidos {temporada_fotmob}: {len(partidos_totales)} partidos extraídos")
-            return resultado_partidos
 
         except Exception as e:
             log_error(f"   Error en año {temporada_fotmob}, intento {reintento+1}: {str(e)}")
@@ -1203,209 +1217,199 @@ def obtener_partidos(liga, id, temporada_fotmob, max_reintentos=2):
         "data": []
     }
 
-def _convertir_formato_fecha_DD_MM_YYYY(fecha):
-    meses = {
-        'enero': '01', 'febrero': '02', 'marzo': '03', 'abril': '04',
-        'mayo': '05', 'junio': '06', 'julio': '07', 'agosto': '08', 'agusto': '08',
-        'septiembre': '09', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'
-    }
-
-    if isinstance(fecha, str):
-        try:
-            fecha_sin_tilde = unidecode(fecha.strip().lower())
-            partes = fecha_sin_tilde.replace(',', '').split()
-
-            if len(partes) >= 6:
-                dia = partes[1]
-                mes = meses.get(partes[3], '01')
-                año = partes[5]
-                return f"{dia.zfill(2)}-{mes}-{año}"
-            elif len(partes) >= 4:
-                dia = partes[1]
-                mes = meses.get(partes[3], '01')
-                año = str(_AÑO_ACTUAL)
-                return f"{dia.zfill(2)}-{mes}-{año}"
-            elif fecha_sin_tilde == 'ayer':
-                ayer = datetime.now() - timedelta(days=1)
-                return ayer.strftime("%d-%m-%Y")
-            elif fecha_sin_tilde == 'hoy':
-                hoy = datetime.now()
-                return hoy.strftime("%d-%m-%Y")
-            elif fecha_sin_tilde == 'manana':
-                manana = datetime.now() + timedelta(days=1)
-                return manana.strftime("%d-%m-%Y")
-        except Exception:
-            return fecha
-    return fecha
-
-def extraer_stats_partidos_mejorada(partidos_data, max_workers=3):
+def _procesar_batch_estadisticas(batch_partidos, max_workers=MAX_WORKERS):
     """
-    Extrae estadísticas de partidos usando Selenium.
-    CORREGIDO con selectores exactos del HTML actual.
-    Extrae: Posesión, Tiros totales, Disparos a puerta, Gran probabilidad,
-    Grandes oportunidades perdidas, Pases precisos, Faltas, Saques de esquina.
+    Procesa un batch de partidos usando workers con timeout individual
     """
-    partidos_list = partidos_data["data"]
+    resultados = []
     
-    # ============================================================
-    # 1. Preparar URLs de estadísticas
-    # ============================================================
-    urls_stats = []
-    for i, partido in enumerate(partidos_list):
-        url_base = partido.get("url", "")
-        if not url_base or url_base == "N/A":
-            continue
+    def procesar_un_partido(partido_info):
+        idx, url, marcador = partido_info
         
-        # Limpiar la URL (eliminar anclas)
-        url_clean = url_base.split('#')[0]
-        url_stats = f"{url_clean}:tab=stats"
-        urls_stats.append((i, url_stats))
-    
-    if not urls_stats:
-        log_info("ℹ️ No hay URLs de partidos válidas para extraer estadísticas")
-        return partidos_data
-    
-    log_info(f"📊 Extrayendo estadísticas para {len(urls_stats)} partidos con {max_workers} workers...")
-    
-    # ============================================================
-    # 2. Worker para extraer estadísticas
-    # ============================================================
-    def worker(url_queue, results_list):
+        # Verificar caché
+        cached_result = _obtener_de_cache(url)
+        if cached_result:
+            return (idx, cached_result)
+        
         options = Options()
         options.add_argument("--headless=new")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--disable-blink-features=AutomationControlled")
+        options.add_argument("--disable-gpu")
         options.add_argument("--window-size=1920,1080")
+        options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
         
         driver = None
         try:
             driver = webdriver.Chrome(options=options)
-            driver.set_page_load_timeout(30)
+            driver.set_page_load_timeout(TIMEOUT_PARTIDO)
             
-            while not url_queue.empty():
-                try:
-                    idx, url = url_queue.get_nowait()
-                except queue.Empty:
-                    break
-
-                try:
-                    driver.get(url)
-                    
-                    # Esperar a que carguen las estadísticas
-                    try:
-                        WebDriverWait(driver, 15).until(
-                            EC.presence_of_element_located((By.CSS_SELECTOR, "li[class*='Stat'], div[class*='PossessionDiv']"))
-                        )
-                    except:
-                        time.sleep(3)
-                    
-                    time.sleep(2)
-                    
-                    soup = BeautifulSoup(driver.page_source, "html.parser")
-                    
-                    # Verificar si el partido está aplazado
-                    texto_pagina = soup.get_text().lower()
-                    if any(palabra in texto_pagina for palabra in ['aplazado', 'postpuesto', 'cancelado', 'suspendido']):
-                        results_list.append((idx, {"estado": "Aplazado/Sin estadísticas"}))
+            driver.get(url)
+            
+            # Esperar máximo 10 segundos para las estadísticas
+            try:
+                WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, "div[class*='TopStatsContainer'], li[class*='Stat']"))
+                )
+            except:
+                return (idx, {"estado": "Sin estadísticas disponibles"})
+            
+            time.sleep(1)
+            
+            soup = BeautifulSoup(driver.page_source, "html.parser")
+            resultados_partido = {}
+            
+            # Extraer estadísticas
+            top_stats = soup.select_one('div[class*="TopStatsContainer"]')
+            if top_stats:
+                # Posesión
+                poss_div = top_stats.select_one('div[class*="PossessionDiv"]')
+                if poss_div:
+                    segments = poss_div.select('div[class*="PossessionSegment"]')
+                    if len(segments) >= 2:
+                        resultados_partido["Posesion_local"] = segments[0].text.strip().replace('%', '').strip()
+                        resultados_partido["Posesion_visitante"] = segments[1].text.strip().replace('%', '').strip()
+                
+                # Estadísticas de la lista
+                stats_items = top_stats.select('li[class*="Stat"]')
+                for stat in stats_items:
+                    title_elem = stat.select_one('span[class*="StatTitle"]')
+                    if not title_elem:
                         continue
                     
-                    resultados = {}
+                    nombre_stat = title_elem.text.strip()
+                    nombre_limpio = nombre_stat.lower().replace(' ', '_').replace('%', 'porcentaje').replace('í', 'i')
                     
-                    # ====================================================
-                    # Extraer Posesión (estructura especial)
-                    # ====================================================
-                    possession_div = soup.select_one('div[class*="PossessionDiv"]')
-                    if possession_div:
-                        segments = possession_div.select('div[class*="PossessionSegment"]')
-                        if len(segments) >= 2:
-                            local_pos = segments[0].text.strip().replace('%', '').strip()
-                            visitante_pos = segments[1].text.strip().replace('%', '').strip()
-                            resultados["Posesion_local"] = local_pos
-                            resultados["Posesion_visitante"] = visitante_pos
-                    
-                    # ====================================================
-                    # Extraer estadísticas de la lista (li)
-                    # ====================================================
-                    stats_items = soup.select('li[class*="Stat"]')
-                    
-                    for stat in stats_items:
-                        # Título de la estadística
-                        title_elem = stat.select_one('span[class*="StatTitle"]')
-                        if not title_elem:
-                            continue
+                    value_boxes = stat.select('div[class*="StatBox"]')
+                    if len(value_boxes) >= 2:
+                        local_elem = value_boxes[0].select_one('span[class*="StatValue"]')
+                        visitante_elem = value_boxes[1].select_one('span[class*="StatValue"]')
                         
-                        nombre_stat = title_elem.text.strip()
+                        local_val = local_elem.text.strip() if local_elem else ""
+                        visitante_val = visitante_elem.text.strip() if visitante_elem else ""
                         
-                        # Valores: local (primer div) y visitante (segundo div)
-                        value_boxes = stat.select('div[class*="StatBox"]')
+                        if '(' in local_val:
+                            local_val = local_val.split('(')[0].strip()
+                        if '(' in visitante_val:
+                            visitante_val = visitante_val.split('(')[0].strip()
                         
-                        if len(value_boxes) >= 2:
-                            local_value_elem = value_boxes[0].select_one('span[class*="StatValue"]')
-                            visitante_value_elem = value_boxes[1].select_one('span[class*="StatValue"]')
-                            
-                            local_value = local_value_elem.text.strip() if local_value_elem else ""
-                            visitante_value = visitante_value_elem.text.strip() if visitante_value_elem else ""
-                            
-                            # Limpiar valores (quitar porcentajes si están dentro)
-                            if '(' in local_value:
-                                local_value = local_value.split('(')[0].strip()
-                            if '(' in visitante_value:
-                                visitante_value = visitante_value.split('(')[0].strip()
-                            
-                            resultados[f"{nombre_stat}_local"] = local_value
-                            resultados[f"{nombre_stat}_visitante"] = visitante_value
-                    
-                    if resultados:
-                        results_list.append((idx, resultados))
-                        log_info(f"   ✅ Partido {idx+1}: {len(resultados)} estadísticas")
-                    else:
-                        results_list.append((idx, {"estado": "Sin estadísticas disponibles"}))
-                        log_info(f"   ⚠️ Partido {idx+1}: Sin estadísticas")
-                        
-                except Exception as e:
-                    log_error(f"   ❌ Error en partido {idx+1}: {str(e)[:50]}")
-                    results_list.append((idx, {"estado": f"Error: {str(e)[:50]}"}))
-                finally:
-                    url_queue.task_done()
-                    
+                        resultados_partido[f"{nombre_limpio}_local"] = local_val
+                        resultados_partido[f"{nombre_limpio}_visitante"] = visitante_val
+            
+            if resultados_partido:
+                _guardar_en_cache(url, resultados_partido)
+                return (idx, resultados_partido)
+            else:
+                return (idx, {"estado": "Sin estadísticas disponibles"})
+                
         except Exception as e:
-            log_error(f"Error en worker: {str(e)}")
+            return (idx, {"estado": f"Error: {str(e)[:50]}"})
         finally:
             if driver:
                 driver.quit()
-
-    # ============================================================
-    # 3. Ejecutar workers en paralelo
-    # ============================================================
-    url_queue = queue.Queue()
-    for item in urls_stats:
-        url_queue.put(item)
-
-    results_list = []
-    num_workers = min(max_workers, url_queue.qsize())
     
-    with ThreadPoolExecutor(max_workers=num_workers) as executor:
-        futures = [executor.submit(worker, url_queue, results_list) for _ in range(num_workers)]
-        while not url_queue.empty():
-            time.sleep(0.5)
-
-    # ============================================================
-    # 4. Procesar resultados
-    # ============================================================
-    results_list.sort(key=lambda x: x[0])
+    # Ejecutar con ThreadPoolExecutor y timeout global
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_partido = {executor.submit(procesar_un_partido, p): p for p in batch_partidos}
+        
+        for future in concurrent.futures.as_completed(future_to_partido, timeout=TIMEOUT_BATCH):
+            try:
+                resultado = future.result(timeout=TIMEOUT_PARTIDO + 5)
+                resultados.append(resultado)
+                if len(resultados) % 10 == 0:
+                    log_info(f"   Procesados {len(resultados)}/{len(batch_partidos)} partidos")
+            except concurrent.futures.TimeoutError:
+                log_error(f"   Timeout en un partido del batch")
+            except Exception as e:
+                log_error(f"   Error en worker: {str(e)}")
     
+    return resultados
+
+def _obtener_de_cache(url):
+    """Obtiene estadísticas del caché si no han expirado"""
+    if url in _CACHE_ESTADISTICAS:
+        timestamp, data = _CACHE_ESTADISTICAS[url]
+        if time.time() - timestamp < _CACHE_EXPIRACION:
+            return data
+        else:
+            del _CACHE_ESTADISTICAS[url]
+    return None
+
+def _guardar_en_cache(url, data):
+    """Guarda estadísticas en caché"""
+    _CACHE_ESTADISTICAS[url] = (time.time(), data)
+
+def extraer_stats_partidos_mejorada(partidos_data, max_workers=MAX_WORKERS):
+    """
+    Extrae estadísticas de partidos - VERSIÓN OPTIMIZADA
+    Solo procesa partidos que realmente tienen estadísticas disponibles
+    """
+    partidos_list = partidos_data["data"]
+    
+    # ============================================================
+    # 1. FILTRAR solo partidos jugados (con marcador numérico)
+    # ============================================================
+    partidos_con_stats = []
+    for i, partido in enumerate(partidos_list):
+        marcador = partido.get("marcador", "")
+        
+        # Solo procesar partidos que YA SE JUGARON (tienen marcador con goles)
+        es_partido_jugado = False
+        if marcador and marcador != "Sin jugar" and marcador != "N/A":
+            # Verificar si el marcador tiene formato "X-X" (goles)
+            if '-' in marcador:
+                partes = marcador.split('-')
+                if len(partes) == 2:
+                    try:
+                        # Intentar convertir a números - si funciona, es un partido jugado
+                        int(partes[0].strip())
+                        int(partes[1].strip())
+                        es_partido_jugado = True
+                    except:
+                        pass
+        
+        if es_partido_jugado:
+            url_base = partido.get("url", "")
+            if url_base and url_base != "N/A":
+                url_clean = url_base.split('#')[0]
+                url_stats = f"{url_clean}#tab=stats"
+                partidos_con_stats.append((i, url_stats, marcador))
+    
+    if not partidos_con_stats:
+        log_info("ℹ️ No hay partidos jugados para extraer estadísticas")
+        return partidos_data
+    
+    log_info(f"📊 Procesando {len(partidos_con_stats)} partidos jugados de {len(partidos_list)} totales")
+    
+    # ============================================================
+    # 2. PROCESAR EN BATCHES
+    # ============================================================
+    resultados_totales = []
+    
+    for batch_start in range(0, len(partidos_con_stats), BATCH_SIZE):
+        batch = partidos_con_stats[batch_start:batch_start + BATCH_SIZE]
+        log_info(f"📦 Procesando batch {batch_start//BATCH_SIZE + 1}: partidos {batch_start+1} a {min(batch_start+BATCH_SIZE, len(partidos_con_stats))}")
+        
+        resultados_batch = _procesar_batch_estadisticas(batch, max_workers)
+        resultados_totales.extend(resultados_batch)
+        
+        # Pequeña pausa entre batches para liberar memoria
+        if batch_start + BATCH_SIZE < len(partidos_con_stats):
+            time.sleep(2)
+    
+    # ============================================================
+    # 3. Actualizar partidos con resultados
+    # ============================================================
     partidos_actualizados = partidos_list.copy()
-    for idx, stats in results_list:
+    for idx, stats in resultados_totales:
         if idx < len(partidos_actualizados):
             for col, val in stats.items():
                 partidos_actualizados[idx][col] = val
-
-    exitos = sum(1 for _, stats in results_list if "estado" not in stats)
-    sin_stats = sum(1 for _, stats in results_list if stats.get("estado") == "Sin estadísticas disponibles")
-    errores = len(results_list) - exitos - sin_stats
     
-    log_info(f"📊 Estadísticas partidos: {exitos} exitosos, {sin_stats} sin stats, {errores} errores")
+    exitos = sum(1 for _, stats in resultados_totales if "estado" not in stats)
+    sin_stats = sum(1 for _, stats in resultados_totales if stats.get("estado") == "Sin estadísticas disponibles")
+    
+    log_info(f"📊 Estadísticas partidos: {exitos} exitosos, {sin_stats} sin stats, {len(resultados_totales) - exitos - sin_stats} errores")
     
     resultado_estadisticas = {
         "fuente": "FotMob-Selenium",
@@ -2018,10 +2022,10 @@ def scraping_completo_por_año(año_usuario, max_reintentos_año=2, modo="histor
                     guardar_json_adls(partidos, año_guardado, "partidos", adls_client)
                 registrar_ejecucion("PARTIDOS_GUARDADOS", f"{len(partidos['data'])} partidos guardados")
                 
-                # 5. ESTADÍSTICAS PARTIDOS
+                # 5. ESTADÍSTICAS PARTIDOS (VERSIÓN OPTIMIZADA)
                 if len(partidos['data']) > 0:
                     registrar_ejecucion("EXTRACCION_ESTADISTICAS", "Iniciando...")
-                    estadisticas_partidos = extraer_stats_partidos_mejorada(partidos, max_workers=3)
+                    estadisticas_partidos = extraer_stats_partidos_mejorada(partidos, max_workers=MAX_WORKERS)
                     if estadisticas_partidos and estadisticas_partidos['data']:
                         guardar_json_local_mejorado(estadisticas_partidos, año_guardado, "estadisticas_partidos")
                         if adls_conectado:
@@ -2235,6 +2239,7 @@ def run_scraping_liga1(modo="historica", anio_inicio=2020, anio_fin=None, anio_o
     print(f"📊 COMPORTAMIENTO (Año actual: {_AÑO_ACTUAL}):")
     print("   - Entrada X → FotMob: X, Transfermarkt: X-1, Guardado: X")
     print(f"   - Rango permitido: {_AÑO_MINIMO}-{_AÑO_ACTUAL}")
+    print(f"   - Workers: {MAX_WORKERS}, Batch size: {BATCH_SIZE}")
     print("=" * 70)
     
     inicio_total = time.time()
