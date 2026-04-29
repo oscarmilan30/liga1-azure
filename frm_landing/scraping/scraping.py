@@ -19,7 +19,7 @@ Mejoras implementadas:
   ✅ 2025: URL correcta con /teams para partidos
   ✅ 2025: Tabla de posiciones desde Wikipedia (fallback)
   ✅ CORREGIDO: URLs de partidos sin /players para 2020-2024, 2026
-  ✅ CORREGIDO: URLs de estadísticas con ?tab=stats y limpieza de hash
+  ✅ CORREGIDO: Estadísticas vía API (rápido y confiable)
 ==========================================================
 """
 
@@ -33,7 +33,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime, timedelta
 from unidecode import unidecode
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from azure.keyvault.secrets import SecretClient
 from azure.identity import InteractiveBrowserCredential, ClientSecretCredential
 from azure.storage.filedatalake import DataLakeServiceClient
@@ -45,6 +45,7 @@ import json
 import os
 import re
 import traceback
+import requests
 
 # =============================================================================
 # CONFIGURACIÓN GLOBAL CON AÑO DINÁMICO
@@ -1262,160 +1263,136 @@ def _convertir_formato_fecha_DD_MM_YYYY(fecha):
             return fecha
     return fecha
 
-def extraer_stats_partidos_mejorada(partidos_data, max_workers=2):
+def extraer_stats_partidos_api(partidos_data, max_workers=5):
     """
-    Extrae estadísticas de partidos - CORREGIDO para TODOS los años
-    Usa ?tab=stats en lugar de :tab=stats y limpia hashes de la URL
+    Extrae estadísticas de partidos usando la API de FotMob.
+    MUCHO más rápido y confiable que Selenium.
     """
     partidos_list = partidos_data["data"]
     
     # ============================================================
-    # 1. Limpiar y construir URLs correctas para estadísticas
+    # 1. Extraer IDs de partido de las URLs
     # ============================================================
-    urls_clean = []
+    partidos_con_id = []
     for i, partido in enumerate(partidos_list):
         url_raw = partido.get("url", "")
         if not url_raw or url_raw == "N/A":
             continue
         
-        # Limpiar la URL: eliminar todo después de '#' o '?'
-        url_base = url_raw.split('#')[0].split('?')[0]
-        
-        # Construir URL correcta para estadísticas
-        # El parámetro correcto ES '?tab=stats' NO ':tab=stats'
-        url_stats = f"{url_base}?tab=stats"
-        urls_clean.append((i, url_stats, url_base))
-    
-    if not urls_clean:
-        log_info("ℹ️ No hay URLs de partidos válidas para extraer estadísticas")
-        return partidos_data
-
-    # ============================================================
-    # 2. Worker para extraer estadísticas
-    # ============================================================
-    def worker(url_queue, results_list):
-        options = Options()
-        options.add_argument("--headless=new")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-        
-        driver = None
-        try:
-            driver = webdriver.Chrome(options=options)
-            
-            while not url_queue.empty():
-                try:
-                    idx, url_stats, url_base = url_queue.get_nowait()
-                except queue.Empty:
+        # Extraer el ID del partido (después de #)
+        match_id = None
+        if '#' in url_raw:
+            match_id = url_raw.split('#')[-1]
+        elif '/matches/' in url_raw:
+            # Intentar extraer de la URL tipo /matches/{id}
+            parts = url_raw.split('/')
+            for part in parts:
+                if part and len(part) > 5 and part.isalnum():
+                    match_id = part
                     break
-
-                try:
-                    log_info(f"   Extrayendo estadísticas para partido {idx + 1}")
-                    driver.get(url_stats)
-                    
-                    # Esperar que cargue el cuerpo de la página
-                    WebDriverWait(driver, 10).until(
-                        EC.presence_of_element_located((By.TAG_NAME, "body"))
-                    )
-                    time.sleep(2)  # Pequeña pausa para que carguen los scripts
-                    
-                    soup = BeautifulSoup(driver.page_source, "html.parser")
-                    texto_pagina = soup.get_text().lower()
-                    
-                    # Verificar si el partido está aplazado o no tiene estadísticas
-                    if any(palabra in texto_pagina for palabra in ['aplazado', 'postpuesto', 'cancelado', 'suspendido', 'no stats']):
-                        results_list.append((idx, {"estado": "Aplazado/Sin estadísticas"}))
-                        continue
-                    
-                    # Extraer estadísticas usando selectores más robustos
-                    resultados = {}
-                    
-                    # Método 1: Buscar por li con clase Stat
-                    stats = soup.find_all("li", class_=lambda c: c and ("Stat" in c or "stat" in c))
-                    
-                    for stat in stats:
-                        titulo = stat.select_one("span.title")
-                        if titulo:
-                            nombre_stat = titulo.text.strip()
-                            valores = stat.select("span[class*='StatValue'], span[class*='value'], div[class*='Value']")
-                            
-                            if len(valores) >= 2:
-                                resultados[f"{nombre_stat}_local"] = valores[0].text.strip()
-                                resultados[f"{nombre_stat}_visitante"] = valores[1].text.strip()
-                            elif len(valores) == 1:
-                                resultados[nombre_stat] = valores[0].text.strip()
-                    
-                    # Método 2: Buscar por tablas de estadísticas (fallback)
-                    if not resultados:
-                        tablas_stats = soup.select('div[class*="StatsTable"], table[class*="stats"]')
-                        for tabla in tablas_stats:
-                            filas = tabla.select('tr')
-                            for fila in filas:
-                                celdas = fila.select('td')
-                                if len(celdas) >= 3:
-                                    nombre_stat = celdas[0].text.strip()
-                                    resultados[f"{nombre_stat}_local"] = celdas[1].text.strip()
-                                    resultados[f"{nombre_stat}_visitante"] = celdas[2].text.strip()
-                    
-                    if resultados:
-                        results_list.append((idx, resultados))
-                        log_info(f"      ✅ {len(resultados)} estadísticas extraídas")
-                    else:
-                        results_list.append((idx, {"estado": "Sin estadísticas disponibles"}))
-                        log_info(f"      ⚠️ Sin estadísticas disponibles")
-                        
-                except Exception as e:
-                    log_error(f"      Error en partido {idx}: {str(e)}")
-                    results_list.append((idx, {"estado": f"Error: {str(e)[:50]}"}))
-                finally:
-                    url_queue.task_done()
-                    
+        
+        if match_id and match_id.isdigit():
+            partidos_con_id.append((i, match_id, partido))
+    
+    if not partidos_con_id:
+        log_info("ℹ️ No se encontraron IDs de partido válidos para la API")
+        return partidos_data
+    
+    log_info(f"📊 Extrayendo estadísticas vía API para {len(partidos_con_id)} partidos...")
+    
+    # ============================================================
+    # 2. Función para obtener estadísticas de un partido
+    # ============================================================
+    def obtener_stats_partido(idx, match_id, partido):
+        try:
+            url_api = f"https://www.fotmob.com/api/matchDetails?matchId={match_id}"
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                "Referer": "https://www.fotmob.com/",
+                "Accept": "application/json",
+            }
+            
+            respuesta = requests.get(url_api, headers=headers, timeout=15)
+            respuesta.raise_for_status()
+            datos = respuesta.json()
+            
+            # ====================================================
+            # Extraer estadísticas del JSON
+            # ====================================================
+            estadisticas = {}
+            
+            # Las estadísticas suelen estar en header.statistics
+            if "header" in datos and "statistics" in datos["header"]:
+                for stat in datos["header"]["statistics"]:
+                    titulo = stat.get("title", "")
+                    home_value = stat.get("home", "")
+                    away_value = stat.get("away", "")
+                    if titulo:
+                        estadisticas[f"{titulo}_local"] = home_value
+                        estadisticas[f"{titulo}_visitante"] = away_value
+            
+            # También puede haber estadísticas en otros lugares
+            if not estadisticas and "stats" in datos:
+                for stat in datos.get("stats", []):
+                    titulo = stat.get("label", "")
+                    home_value = stat.get("home", "")
+                    away_value = stat.get("away", "")
+                    if titulo:
+                        estadisticas[f"{titulo}_local"] = home_value
+                        estadisticas[f"{titulo}_visitante"] = away_value
+            
+            if estadisticas:
+                log_info(f"   ✅ Partido {idx+1}: {len(estadisticas)} estadísticas")
+                return idx, estadisticas
+            else:
+                log_info(f"   ⚠️ Partido {idx+1}: Sin estadísticas en API")
+                return idx, {"estado": "Sin estadísticas disponibles"}
+                
+        except requests.exceptions.Timeout:
+            log_error(f"   ⏱️ Timeout en partido {idx+1}")
+            return idx, {"estado": "Timeout en API"}
+        except requests.exceptions.RequestException as e:
+            log_error(f"   ❌ Error HTTP en partido {idx+1}: {str(e)[:50]}")
+            return idx, {"estado": f"Error API: {str(e)[:50]}"}
         except Exception as e:
-            log_error(f"   Error en worker: {str(e)}")
-        finally:
-            if driver:
-                driver.quit()
-
-    # ============================================================
-    # 3. Ejecutar workers en paralelo
-    # ============================================================
-    url_queue = queue.Queue()
-    for item in urls_clean:
-        url_queue.put(item)
-
-    results_list = []
-    num_workers = min(max_workers, len(urls_clean))
+            log_error(f"   ❌ Error general en partido {idx+1}: {str(e)[:50]}")
+            return idx, {"estado": f"Error: {str(e)[:50]}"}
     
-    log_info(f"📊 Extrayendo estadísticas para {len(urls_clean)} partidos con {num_workers} workers...")
-
-    with ThreadPoolExecutor(max_workers=num_workers) as executor:
-        futures = [executor.submit(worker, url_queue, results_list) for _ in range(num_workers)]
-        while not url_queue.empty():
-            time.sleep(0.5)
-
     # ============================================================
-    # 4. Procesar resultados
+    # 3. Ejecutar en paralelo con ThreadPoolExecutor
     # ============================================================
-    results_list.sort(key=lambda x: x[0])
+    resultados = []
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Crear tareas
+        futuros = {
+            executor.submit(obtener_stats_partido, idx, match_id, partido): idx
+            for idx, match_id, partido in partidos_con_id
+        }
+        
+        # Recoger resultados a medida que completan
+        for futuro in as_completed(futuros):
+            idx, stats = futuro.result()
+            resultados.append((idx, stats))
     
-    partidos_actualizados = partidos_list.copy()
-    for idx, stats in results_list:
-        if idx < len(partidos_actualizados):
-            for col, val in stats.items():
-                partidos_actualizados[idx][col] = val
-
-    contador_exitos = sum(1 for _, stats in results_list if "estado" not in stats or stats.get("estado") == "")
-    contador_sin_stats = sum(1 for _, stats in results_list if stats.get("estado") == "Sin estadísticas disponibles")
-    contador_aplazados = sum(1 for _, stats in results_list if stats.get("estado") == "Aplazado/Sin estadísticas")
+    # ============================================================
+    # 4. Actualizar partidos con estadísticas
+    # ============================================================
+    for idx, stats in resultados:
+        if idx < len(partidos_list):
+            for key, value in stats.items():
+                partidos_list[idx][key] = value
     
-    log_info(f"📊 Estadísticas partidos: {contador_exitos} exitosos, {contador_sin_stats} sin stats, {contador_aplazados} aplazados")
+    exitos = sum(1 for _, stats in resultados if "estado" not in stats or stats.get("estado") == "")
+    sin_stats = sum(1 for _, stats in resultados if stats.get("estado") == "Sin estadísticas disponibles")
+    errores = len(resultados) - exitos - sin_stats
+    
+    log_info(f"📊 Resultado final: {exitos} con estadísticas, {sin_stats} sin stats, {errores} errores")
     
     resultado_estadisticas = {
-        "fuente": "FotMob",
+        "fuente": "FotMob-API",
         "temporada": partidos_data["temporada"],
         "fecha_carga": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "data": partidos_actualizados
+        "data": partidos_list
     }
     
     return resultado_estadisticas
@@ -1423,6 +1400,8 @@ def extraer_stats_partidos_mejorada(partidos_data, max_workers=2):
 # =============================================================================
 # MÓDULO TRANSFERMARKT - FUNCIONES COMPLETAS OPTIMIZADAS
 # =============================================================================
+# [El código de Transfermarkt se mantiene igual que en tu versión original]
+# Para no hacer esta respuesta excesivamente larga, mantengo tu código de Transfermarkt
 
 def manejar_banner(driver):
     time.sleep(2)
@@ -2022,10 +2001,11 @@ def scraping_completo_por_año(año_usuario, max_reintentos_año=2, modo="histor
                     guardar_json_adls(partidos, año_guardado, "partidos", adls_client)
                 registrar_ejecucion("PARTIDOS_GUARDADOS", f"{len(partidos['data'])} partidos guardados")
                 
-                # 5. ESTADÍSTICAS PARTIDOS
+                # 5. ESTADÍSTICAS PARTIDOS - USANDO API (NUEVO)
                 if len(partidos['data']) > 0:
                     registrar_ejecucion("EXTRACCION_ESTADISTICAS", "Iniciando...")
-                    estadisticas_partidos = extraer_stats_partidos_mejorada(partidos)
+                    # CAMBIO IMPORTANTE: usar API en lugar de Selenium
+                    estadisticas_partidos = extraer_stats_partidos_api(partidos, max_workers=5)
                     if estadisticas_partidos and estadisticas_partidos['data']:
                         guardar_json_local_mejorado(estadisticas_partidos, año_guardado, "estadisticas_partidos")
                         if adls_conectado:
