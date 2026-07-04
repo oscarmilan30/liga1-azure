@@ -511,7 +511,7 @@ El push a `main` dispara `liga1-deploy-prod.yml` con estos jobs en orden:
   - `catalogname = catalog_liga1_prod` ← aislamiento total
   - credenciales SQL prod
   - `databricks-token` prod
-- Crea `catalog_liga1_prod` con `MANAGED LOCATION` en `datalakelig1peruprod` (External Location `el-liga1-prod`)
+- Crea `catalog_liga1_prod` con `MANAGED LOCATION` en `datalakelig1peruprod` (External Location `el-liga1-prod` — debe existir previamente, ver sección 16.2 Fase 2)
 - Crea 5 schemas: `tb_udv`, `vw_udv`, `tb_ddv`, `vw_ddv`, `shared` + Volume `libs`
 - Ejecuta todos los DDL de `PrepAmb/ddl_deploy/` reemplazando variables:
   - `${catalog_name}` → `catalog_liga1_prod`
@@ -519,11 +519,12 @@ El push a `main` dispara `liga1-deploy-prod.yml` con estos jobs en orden:
   - `${container_name}` → `liga1`
   - `${ruta_base}` → `primera_division`
   - referencias hardcodeadas `catalog_liga1.` → `catalog_liga1_prod.`
+- Para tablas con `LOCATION` (tablas externas Delta), ejecuta `DROP TABLE IF EXISTS` antes del `CREATE OR REPLACE TABLE` para evitar conflictos de metadata de corridas parciales anteriores. Los archivos Parquet en ADLS **no se tocan**.
+- Si algún DDL falla, el step termina con `sys.exit(1)` y el job queda en ❌ — ya no hay fallos silenciosos
 - Configura **Delta Sharing prod**: `liga1_share_prod` con 5 vistas, recipient `liga1_powerbi_prod`, GRANT SELECT
 - **Imprime el Activation Link** en el log de GitHub Actions (copiar para Power BI)
 - Sube wheel `liga1_utils` a `/Volumes/catalog_liga1_prod/shared/libs/`
 - Instala el wheel en el cluster prod vía API (`POST /api/2.0/libraries/install`) — sin este paso el cluster no lo tiene disponible aunque esté en el Volume
-- Si algún DDL falla, el step termina con `sys.exit(1)` y el job queda en ❌ — ya no hay fallos silenciosos
 - Crea los 5 jobs Databricks (4 schedules + execute_job_ddl)
 
 **Job 4 — actualizar-job-ids** (depende de jobs 2 y 3)
@@ -538,7 +539,7 @@ Cada push a `main` re-ejecuta el workflow completo. **Todos los pasos son idempo
 | ADF (linked services, pipelines) | `az datafactory ... create` = upsert | Actualiza sin borrar |
 | Azure SQL (`Querys.sql`) | Solo corre si `tbl_pipeline` no existe | **Omitido** — historial de `tbl_control_ejecucion` conservado |
 | Catalog / schemas / Volume | `CREATE ... IF NOT EXISTS` | Sin efecto |
-| DDL tablas Delta | `CREATE OR REPLACE TABLE ... LOCATION` | **Tablas externas** — el DDL recrea solo los metadatos (definición de columnas); los archivos Parquet y el Delta log en ADLS **no se tocan** |
+| DDL tablas Delta | `DROP TABLE IF EXISTS` + `CREATE OR REPLACE TABLE ... LOCATION` | **Tablas externas** — el DROP borra solo metadatos en Unity Catalog; los archivos Parquet y el Delta log en ADLS **no se tocan**. El DROP previo evita conflictos si existía metadata incorrecta de una corrida anterior. |
 | DDL vistas | `CREATE OR REPLACE VIEW` | Recrea la vista (sin datos) |
 | Wheel | Sobreescribe el `.whl` en el Volume | Sin pérdida |
 | Delta Sharing | `CREATE ... IF NOT EXISTS` + `ALTER SHARE ADD VIEW` | Sin efecto si ya existe |
