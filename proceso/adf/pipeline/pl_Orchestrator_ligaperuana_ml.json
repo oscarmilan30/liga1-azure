@@ -251,4 +251,21 @@
 			},
 			"IdEjecucionE2E": {
 				"type": "int",
-				"defaultValue": 
+				"defaultValue": 0
+			},
+			"AnioReproceso": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"IdEjecucion": {
+				"type": "Integer"
+			}
+		},
+		"folder": {
+			"name": "pl_pipelines_ml"
+		},
+		"annotations": [],
+		"type": "Microsoft.DataFactory/factories/pipelines"
+	}
+}

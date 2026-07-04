@@ -139,38 +139,69 @@ jobs:
               --only-show-errors
           done
 
-      - name: Desplegar Pipelines (en orden de dependencias)
+      - name: Desplegar Pipelines ADF prod
         run: |
+          # Orden topológico calculado estáticamente desde las referencias ExecutePipeline
+          # en cada JSON — garantiza que toda dependencia existe antes de quien la necesita.
           ORDEN=(
-            "pl_ctrl_start" "pl_ctrl_end_success" "pl_ctrl_end_fail"
-            "pl_delete_controlado" "pl_condition_proceso"
-            "pl_get_csv_mapping" "pl_execute_jobs_databricks"
-            "pl_execute_jobs_ddl" "pl_execute_create_jobs"
-            "pl_procesar_archivos" "pl_procesar_archivos_por_anio"
+            "pl_ctrl_end_fail"
+            "pl_ctrl_end_success"
+            "pl_ctrl_start"
+            "pl_dataentry_nacionalidades"
+            "pl_dataentry_posiciones"
+            "pl_delete_controlado"
+            "pl_execute_create_jobs"
+            "pl_execute_jobs_databricks"
+            "pl_execute_jobs_ddl"
+            "pl_fix_estadisticas_partidos"
+            "pl_fix_plantillas"
+            "pl_get_csv_mapping"
             "pl_historico_unificador"
-            "pl_ligaperuana_Rdv" "pl_ligaperuana_Historico"
-            "pl_ligaperuana_Incremental" "pl_ligaperuana_Reproceso"
-            "pl_fix_estadisticas_partidos" "pl_fix_plantillas"
-            "pl_dataentry_catalogo_equipos" "pl_dataentry_nacionalidades" "pl_dataentry_posiciones"
-            "pl_Orchestrator_ligaperuana_Rdv" "pl_Orchestrator_dataentrys"
-            "pl_Orchestrator_fix" "pl_Orchestrator_ligaperuana_udv"
-            "pl_Orchestrator_ligaperuana_ddv" "pl_Orchestrator_ligaperuana_ml"
+            "pl_procesar_archivos"
+            "sch_create_workflows"
+            "pl_Orchestrator_ligaperuana_ddv"
+            "pl_Orchestrator_ligaperuana_udv"
+            "pl_Orchestrator_ligaperuana_ml"
+            "sch_workflow_ddl"
+            "pl_Orchestrator_fix"
+            "pl_dataentry_catalogo_equipos"
+            "pl_procesar_archivos_por_anio"
+            "pl_Orchestrator_dataentrys"
+            "pl_ligaperuana_Historico"
+            "pl_ligaperuana_Reproceso"
+            "pl_ligaperuana_Incremental"
+            "pl_condition_proceso"
+            "pl_ligaperuana_Rdv"
+            "pl_Orchestrator_ligaperuana_Rdv"
             "pl_Orchestrator_E2E_liga1"
-            "sch_create_workflows" "sch_workflow_ddl"
           )
+
+          FAILED=()
           for name in "${ORDEN[@]}"; do
             f="/tmp/pl_prod/${name}.json"
-            if [ -f "$f" ]; then
-              echo "→ $name"
-              props=$(python3 -c "import json; d=json.load(open('$f')); print(json.dumps(d['properties']))")
-              az datafactory pipeline create \
+            [ -f "$f" ] || { echo "  ⏭️  $name (no existe en repo, omitido)"; continue; }
+            echo "→ $name"
+            props=$(python3 -c "import json; d=json.load(open('$f')); print(json.dumps(d['properties']))" 2>/dev/null) || {
+              echo "  ❌ JSON inválido: $name"; FAILED+=("$name"); continue
+            }
+            if az datafactory pipeline create \
                 --resource-group  ${{ secrets.ADF_RESOURCE_GROUP_PROD }} \
                 --factory-name    ${{ secrets.ADF_FACTORY_NAME_PROD }} \
                 --name            "$name" \
                 --pipeline        "$props" \
-                --only-show-errors
+                --only-show-errors 2>&1; then
+              echo "  ✅ $name"
+            else
+              echo "  ❌ $name"
+              FAILED+=("$name")
             fi
           done
+
+          if [ ${#FAILED[@]} -gt 0 ]; then
+            echo "❌ Pipelines fallidos: ${FAILED[*]}"
+            exit 1
+          fi
+          echo "✅ Todos los pipelines desplegados"
 
       - name: Configurar Global Parameters ADF prod
         run: |
@@ -728,3 +759,4 @@ jobs:
           conn.close()
           print("\n✅ Job IDs actualizados en tbl_pipeline_parametros prod")
           PYEOF
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

@@ -616,4 +616,35 @@
 		],
 		"parameters": {
 			"PipelineId": {
-				"type": "int",
+				"type": "int"
+			},
+			"RawPipelineId": {
+				"type": "int"
+			},
+			"TablaParametro": {
+				"type": "string",
+				"defaultValue": "tbl_pipeline_parametros"
+			},
+			"pipeline_type": {
+				"type": "string",
+				"defaultValue": "E2E"
+			}
+		},
+		"variables": {
+			"IdEjecucion": {
+				"type": "Integer"
+			},
+			"ModoEjecucion": {
+				"type": "String"
+			},
+			"AnioReproceso": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "pl_pipelines_orchestrator"
+		},
+		"annotations": [],
+		"type": "Microsoft.DataFactory/factories/pipelines"
+	}
+}

@@ -142,4 +142,9 @@
 			}
 		},
 		"folder": {
-			"name": "pl_pipelines_dataentrys/pl_
+			"name": "pl_pipelines_dataentrys"
+		},
+		"annotations": [],
+		"type": "Microsoft.DataFactory/factories/pipelines"
+	}
+}
