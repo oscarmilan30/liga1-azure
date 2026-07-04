@@ -34,4 +34,4 @@ CREATE OR REPLACE TABLE ${catalog_name}.tb_udv.hm_estadisticas_jugadores (
 USING delta
 PARTITIONED BY (periodo)
 LOCATION 'abfss://${container_name}@${storage_account}.dfs.core.windows.net/${ruta_base}/udv/hm_estadisticas_jugadores/data'
-COMMENT 'Histórico de estadísticas individuales de jugadores por competenc
+COMMENT 'Histórico de estadísticas individuales de jugadores por competencia y temporada';
