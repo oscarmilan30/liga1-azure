@@ -34,39 +34,40 @@ jobs:
       - name: Instalar extensión ADF
         run: az extension add --name datafactory --yes
 
-      - name: Crear ADF prod si no existe
+      - name: Verificar ADF prod (crear solo si no existe)
         run: |
-          # az datafactory factory create no funciona en todas las versiones del CLI.
-          # Se usa az rest con la Management API directamente.
-          SUB_ID=$(az account show --query id --output tsv)
-          az rest --method PUT \
-            --url "https://management.azure.com/subscriptions/${SUB_ID}/resourceGroups/${{ secrets.ADF_RESOURCE_GROUP_PROD }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_FACTORY_NAME_PROD }}?api-version=2018-06-01" \
-            --body '{"location": "eastus", "properties": {}}' \
-            --only-show-errors
-          echo "✅ ADF prod creado/verificado"
+          # Si el ADF ya existe, no intentamos crearlo.
+          # La creación requiere Contributor en el RG, pero si ya existe
+          # basta con Data Factory Contributor en el recurso (ya asignado).
+          FACTORY_EXISTS=$(az datafactory factory show \
+            --resource-group ${{ secrets.ADF_RESOURCE_GROUP_PROD }} \
+            --factory-name   ${{ secrets.ADF_FACTORY_NAME_PROD }} \
+            --query name --output tsv 2>/dev/null || echo "")
+          if [ -n "$FACTORY_EXISTS" ]; then
+            echo "⏭️ ADF '$FACTORY_EXISTS' ya existe — omitiendo creación"
+          else
+            echo "→ ADF no existe, creando..."
+            SUB_ID=$(az account show --query id --output tsv)
+            az rest --method PUT \
+              --url "https://management.azure.com/subscriptions/${SUB_ID}/resourceGroups/${{ secrets.ADF_RESOURCE_GROUP_PROD }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_FACTORY_NAME_PROD }}?api-version=2018-06-01" \
+              --body '{"location": "eastus", "properties": {}}' \
+              --only-show-errors
+            echo "✅ ADF prod creado"
+          fi
 
-      - name: Asignar IAM Key Vault a Managed Identity de ADF prod
+      - name: Verificar Managed Identity de ADF prod
         run: |
-          # ADF prod necesita leer secretos del KV — asignar Key Vault Secrets User
+          # NOTA: la asignación del rol "Key Vault Secrets User" a la MI del ADF
+          # requiere Owner/User Access Administrator — se hace UNA VEZ manualmente:
+          #   Portal → kv-liga1-secreto → IAM → Add role assignment
+          #   Rol: Key Vault Secrets User
+          #   Asignar a: Managed Identity → adf-ligafutbol-prod
           ADF_MI=$(az datafactory factory show \
             --resource-group ${{ secrets.ADF_RESOURCE_GROUP_PROD }} \
             --factory-name   ${{ secrets.ADF_FACTORY_NAME_PROD }} \
             --query identity.principalId --output tsv 2>/dev/null || echo "")
-          if [ -z "$ADF_MI" ]; then
-            echo "⚠️ ADF aún no tiene MI asignada, reintentando en 30s..."
-            sleep 30
-            ADF_MI=$(az datafactory factory show \
-              --resource-group ${{ secrets.ADF_RESOURCE_GROUP_PROD }} \
-              --factory-name   ${{ secrets.ADF_FACTORY_NAME_PROD }} \
-              --query identity.principalId --output tsv)
-          fi
-          KV_ID=$(az keyvault show --name kv-liga1-secreto --query id --output tsv)
-          az role assignment create \
-            --assignee "$ADF_MI" \
-            --role "Key Vault Secrets User" \
-            --scope "$KV_ID" \
-            --only-show-errors || echo "Rol ya asignado"
-          echo "✅ ADF prod puede leer secretos de kv-liga1-secreto"
+          echo "ℹ️  ADF Managed Identity principal ID: $ADF_MI"
+          echo "   Verificar en Portal que esta MI tiene 'Key Vault Secrets User' en kv-liga1-secreto"
 
       - name: Preparar Linked Services y Pipelines con valores prod
         run: |
@@ -256,12 +257,20 @@ jobs:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
         run: |
           python3 - << 'PYEOF'
-          import requests, os
+          import requests, os, sys
 
           host    = os.environ["DATABRICKS_HOST"].rstrip("/")
           token   = os.environ["DATABRICKS_TOKEN"]
           headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
           user    = "${{ secrets.DATABRICKS_USER_PROD }}"
+
+          # Crear carpeta padre /Repos/{user} si no existe (Databricks no la crea sola)
+          r0 = requests.post(f"{host}/api/2.0/workspace/mkdirs",
+                             headers=headers, json={"path": f"/Repos/{user}"})
+          if r0.status_code == 200:
+              print(f"✅ Carpeta /Repos/{user} creada o ya existía")
+          else:
+              print(f"⚠️  mkdirs: {r0.status_code} {r0.json()}")
 
           r = requests.get(f"{host}/api/2.0/repos", headers=headers)
           repos = r.json().get("repos", [])
@@ -269,9 +278,13 @@ jobs:
 
           if existing:
               repo_id = existing[0]["id"]
-              requests.patch(f"{host}/api/2.0/repos/{repo_id}",
-                             headers=headers, json={"branch": "main"})
-              print(f"✅ Repo actualizado a main (id={repo_id})")
+              rp = requests.patch(f"{host}/api/2.0/repos/{repo_id}",
+                                  headers=headers, json={"branch": "main"})
+              if rp.status_code == 200:
+                  print(f"✅ Repo actualizado a main (id={repo_id})")
+              else:
+                  print(f"❌ Error actualizando repo: {rp.status_code} {rp.json()}")
+                  sys.exit(1)
           else:
               payload = {
                   "url":      "https://github.com/oscarmilan30/liga1-azure",
@@ -279,7 +292,11 @@ jobs:
                   "path":     f"/Repos/{user}/liga1-azure"
               }
               r2 = requests.post(f"{host}/api/2.0/repos", headers=headers, json=payload)
-              print(f"✅ Repo creado: {r2.json()}")
+              if r2.status_code == 200:
+                  print(f"✅ Repo creado: id={r2.json().get('id')}")
+              else:
+                  print(f"❌ Error creando repo: {r2.status_code} {r2.json()}")
+                  sys.exit(1)
           PYEOF
 
       - name: Crear secrets scope secretliga1 en workspace prod
@@ -537,6 +554,7 @@ jobs:
           user       = "${{ secrets.DATABRICKS_USER_PROD }}"
 
           job_ids = {}
+          errors  = []
 
           # Los 5 jobs necesarios en prod
           sch_files = sorted(
@@ -560,18 +578,38 @@ jobs:
 
               if existing:
                   job_id = existing[0]["job_id"]
-                  requests.post(f"{host}/api/2.1/jobs/reset", headers=headers,
-                                json={"job_id": job_id, "new_settings": job_json})
-                  print(f"  ↻ Actualizado: {job_name} → id={job_id}")
+                  rr = requests.post(f"{host}/api/2.1/jobs/reset", headers=headers,
+                                     json={"job_id": job_id, "new_settings": job_json})
+                  if rr.status_code == 200:
+                      print(f"  ↻ Actualizado: {job_name} → id={job_id}")
+                  else:
+                      print(f"  ❌ Error al reset {job_name}: {rr.status_code} {rr.json()}")
+                      errors.append(job_name)
               else:
                   r2 = requests.post(f"{host}/api/2.1/jobs/create",
                                      headers=headers, json=job_json)
-                  job_id = r2.json().get("job_id")
-                  print(f"  ✅ Creado: {job_name} → id={job_id}")
+                  resp2 = r2.json()
+                  if r2.status_code == 200:
+                      job_id = resp2.get("job_id")
+                      print(f"  ✅ Creado: {job_name} → id={job_id}")
+                  else:
+                      print(f"  ❌ Error creando {job_name}: {r2.status_code} {resp2}")
+                      errors.append(job_name)
+                      # Intentar recuperar el ID si el job llegó a crearse
+                      r3 = requests.get(f"{host}/api/2.1/jobs/list", headers=headers,
+                                        params={"name": job_name})
+                      found = r3.json().get("jobs", [])
+                      job_id = found[0]["job_id"] if found else None
+                      if job_id:
+                          print(f"    ↳ Recuperado por nombre: id={job_id}")
 
               job_ids[job_name] = job_id
 
           print(f"\nJob IDs: {json.dumps(job_ids, indent=2)}")
+          if errors:
+              print(f"\n⚠️  Jobs con error: {errors}")
+              import sys; sys.exit(1)
+
           with open(os.environ["GITHUB_OUTPUT"], "a") as f:
               f.write(f"job_ids_json={json.dumps(job_ids)}\n")
           PYEOF

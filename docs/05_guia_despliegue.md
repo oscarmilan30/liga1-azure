@@ -419,6 +419,28 @@ az keyvault secret set --vault-name kv-liga1-secreto \
   --value "datalakelig1peruprod"
 ```
 
+### 16.2 Fase 1b — IAM de producción (verificar antes del deploy)
+
+Los permisos mínimos necesarios para que el GitHub Actions y los pipelines funcionen en prod:
+
+| Recurso | Identidad | Rol | Para qué |
+|---|---|---|---|
+| `rg-liga1` (Resource Group) | `sp-liga1` | `Data Factory Contributor` | Desplegar Linked Services, Datasets, Pipelines y Global Parameters en ADF |
+| `kv-liga1-secreto` | `sp-liga1` | `Key Vault Secrets Officer` | El Actions lee/escribe secretos KV (ej. storageaccount-prod) |
+| `kv-liga1-secreto` | MI de `adf-ligafutbol-prod` | `Key Vault Secrets User` | ADF prod lee secretos en runtime (credenciales SQL, Databricks token, ADLS key). **Verificar que esté asignada — la MI de dev `adf-ligafutbol` NO es suficiente** |
+| `datalakelig1peruprod` | `acc-liga1-prod` (Access Connector) | `Storage Blob Data Contributor` | Databricks accede a ADLS prod vía Unity Catalog External Location |
+
+> **⚠️ Paso crítico manual (una sola vez antes del primer deploy):**
+>
+> **Paso 1 — Habilitar Managed Identity en ADF prod:**
+> Portal → `adf-ligafutbol-prod` → Settings → **Identity** → System assigned → Status: **On** → Save
+> (Si no está On, la MI no existe y no aparecerá en los selectores de IAM de otros recursos)
+>
+> **Paso 2 — Asignar rol en Key Vault:**
+> Portal → `kv-liga1-secreto` → Access control (IAM) → **+ Add** → Add role assignment → `Key Vault Secrets User` → Managed identity → **`adf-ligafutbol-prod`**
+>
+> Resultado esperado en KV → IAM: 4 entradas bajo `Key Vault Secrets User`: `adf-ligafutbol` (dev), `adf-ligafutbol-prod` (prod), `AzureDatabricks`, `unity-catalog-access-connector`. Sin `adf-ligafutbol-prod`, los pipelines ADF prod fallarán al leer credenciales en runtime.
+
 ### 16.2 Fase 2 — Configurar Databricks prod (manual)
 
 En `dbw-liga1-prod`:
@@ -471,8 +493,8 @@ git checkout main    && git merge develop   && git push origin main
 El push a `main` dispara `liga1-deploy-prod.yml` con estos jobs en orden:
 
 **Job 1 — deploy-adf**
-- Crea `adf-ligafutbol-prod` vía REST API (si no existe)
-- Asigna rol `Key Vault Secrets User` a la Managed Identity del ADF
+- Verifica si `adf-ligafutbol-prod` existe (lo crea vía REST solo si no existe)
+- Imprime el Principal ID de la Managed Identity del ADF (el rol KV se asigna manualmente — ver sección 16.2 Fase 1b)
 - Prepara Linked Services con sed: storage prod, `databricks-token-prod`, `kv-sql-password-prod`, BD prod
 - Prepara Pipelines: reemplaza `databricks-token` → `databricks-token-prod` en los dos pipelines que lo tienen hardcodeado
 - Despliega 29 pipelines en orden de dependencia
