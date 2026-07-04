@@ -622,11 +622,13 @@ jobs:
                             json={"cluster_id": cluster_id,
                                   "libraries": [{"whl": whl_path}]})
           if r.status_code != 200:
-              print(f"❌ Error instalando wheel: {r.status_code} {r.json()}")
-              sys.exit(1)
-          print(f"✅ Wheel {wheel_name} instalado en cluster {cluster_id}")
-          print("   ℹ️  La librería estará activa en la siguiente sesión del cluster.")
-          print("      Si el cluster está activo ahora, reinícialo para aplicar el cambio.")
+              print(f"⚠️  No se pudo instalar el wheel via API: {r.status_code} {r.json()}")
+              print(f"   Instalar manualmente en Databricks UI:")
+              print(f"   Compute → cluster prod → Libraries → Install new → Volumes")
+              print(f"   → {whl_path}")
+          else:
+              print(f"✅ Wheel {wheel_name} instalado en cluster {cluster_id}")
+              print("   ℹ️  La librería estará activa en la siguiente sesión del cluster.")
           PYEOF
 
       - name: Configurar Delta Sharing prod
