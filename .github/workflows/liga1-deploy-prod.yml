@@ -8,6 +8,7 @@ on:
       - 'PrepAmb/**'
       - 'datasets/dataentrys/**'
       - 'datasets/[0-9][0-9][0-9][0-9]/**'
+      - '.github/workflows/liga1-deploy-prod.yml'
   workflow_dispatch:
 
 env:
