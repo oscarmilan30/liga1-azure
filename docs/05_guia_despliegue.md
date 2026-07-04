@@ -577,4 +577,79 @@ Cada push a `main` re-ejecuta el workflow completo. **Todos los pasos son idempo
 | Paso | Mecanismo | Efecto en re-ejecución |
 |---|---|---|
 | ADF (linked services, pipelines) | `az datafactory ... create` = upsert | Actualiza sin borrar |
-| Azure SQL (`Querys.sql`) | Solo corre si `tbl_
+| Azure SQL (`Querys.sql`) | Solo corre si `tbl_pipeline` no existe | **Omitido** — historial de `tbl_control_ejecucion` conservado |
+| Catalog / schemas / Volume | `CREATE ... IF NOT EXISTS` | Sin efecto |
+| DDL tablas Delta | `DROP TABLE IF EXISTS` + `CREATE OR REPLACE TABLE ... LOCATION` | **Tablas externas** — el DROP borra solo metadatos en Unity Catalog; los archivos Parquet y el Delta log en ADLS **no se tocan**. El DROP previo evita conflictos si existía metadata incorrecta de una corrida anterior. |
+| DDL vistas | `CREATE OR REPLACE VIEW` | Recrea la vista (sin datos) |
+| Wheel | Sobreescribe el `.whl` en el Volume | Sin pérdida |
+| Delta Sharing | `CREATE ... IF NOT EXISTS` + `ALTER SHARE ADD VIEW` | Sin efecto si ya existe |
+| Jobs Databricks | `jobs/reset` si existe, `jobs/create` si no | Actualiza configuración |
+| Job IDs en SQL | `UPDATE tbl_pipeline_parametros SET Valor = ...` | Actualiza el valor |
+
+**¿Por qué las tablas Delta son seguras con `CREATE OR REPLACE`?**
+Las tablas DDL usan `LOCATION 'abfss://liga1@datalakelig1peruprod...'`, que apunta a una ruta **fuera** del `MANAGED LOCATION` del catalog (`unity-catalog/`). Databricks las trata como **tablas externas**: el `DROP` implícito del `CREATE OR REPLACE` elimina solo el registro de metadatos en Unity Catalog; los archivos de datos y el Delta log en ADLS permanecen intactos. Al recrear la tabla apuntando al mismo `LOCATION`, Delta lee el log existente y todos los datos anteriores siguen disponibles.
+
+### 16.5 Fase 5 — Primera ejecución E2E
+
+Una vez desplegado, cargar datos iniciales en prod:
+
+**Opción A — Histórico completo (recomendada primera vez):**
+1. GitHub Actions → `liga1-scraping.yml` → **Run workflow**
+   - `modo`: `historico`
+   - `anio_inicio`: `2020`
+   - `ambiente`: `prod`
+   - `disparar_adf`: `true`
+
+Esto scrapea FotMob + Transfermarkt + Wikipedia hacia `datalakelig1peruprod/liga1/primera_division/landing/` y al terminar:
+- **Fallback automático**: el job `trigger-adf` verifica si faltó algún archivo en ADLS (por error de scraping en algún año) y lo sube desde `datasets/{año}/` del repositorio antes de disparar ADF
+- Dispara automáticamente `pl_Orchestrator_E2E_liga1` en `adf-ligafutbol-prod`
+
+> **Nota**: Transfermarkt no tiene datos de Liga 1 Perú para temporadas 2020–2022 (saisons europeas 2019–2022). El scraping de esos años mostrará "sin datos generales para temporada" — es esperado, no es un error.
+
+**Opción B — Solo ADF (si ya tienes datos en landing prod):**
+1. GitHub Actions → `liga1-trigger-adf.yml` → **Run workflow**
+   - `modo`: `HISTORICO`
+   - `ambiente`: `prod`
+
+### 16.6 Fase 6 — Power BI conectar a prod
+
+**Modelo Analítico** (`Liga1_Dashboard.pbip`):
+
+1. Power BI Desktop → **Transformar datos → Configuración del origen de datos**
+2. Cambiar el SQL Warehouse por el de `dbw-liga1-prod`
+3. Cambiar el catálogo de `catalog_liga1` a `catalog_liga1_prod`
+4. Publicar en Power BI Service
+
+**Modelo Scouting ML** (Delta Sharing):
+
+1. En el log del job 3 de GitHub Actions, copiar el **Activation Link** de `liga1_powerbi_prod`
+2. Power BI Desktop → **Obtener datos → Delta Sharing**
+3. Pegar el Activation Link y autenticar
+4. Las tablas aparecen desde `catalog_liga1_prod.vw_ddv` vía Delta Sharing
+
+### 16.7 Schedule automático
+
+Para que prod corra semanalmente, descomentar en `liga1-scraping.yml`:
+
+```yaml
+schedule:
+  - cron: '0 14 * * 1'   # lunes 09:00 AM hora Perú (UTC-5)
+```
+
+Y agregar `ambiente: prod` como input por defecto en el schedule (o disparar manualmente con `ambiente=prod`).
+
+### 16.8 Verificar y capturar evidencias
+
+Guardar capturas en `evidencias/`:
+
+- GitHub Actions: los 4 jobs en ✅, Activation Link visible en logs del job 3
+- ADF prod: 29 pipelines publicados + Global Parameters configurados
+- Databricks prod: `catalog_liga1_prod` con 5 schemas, Volume y tablas
+- Unity Catalog: `liga1_share_prod` con 5 vistas y recipient `liga1_powerbi_prod`
+- Databricks prod: 5 jobs con status RUNNING tras primera ejecución E2E
+- Query sobre `ligafutbol-prod.dbo.TB_PIPELINES` mostrando Job IDs
+- Power BI: modelos conectados a prod con datos reales
+
+---
+
+*Guía de Despliegue — Liga 1 Perú Data Engineering Platform · Oscar García Del Águila · 2025–2026*
