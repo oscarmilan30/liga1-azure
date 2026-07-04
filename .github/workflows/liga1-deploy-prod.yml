@@ -483,31 +483,35 @@ jobs:
           container_name  = "liga1"
           ruta_base       = "primera_division"
 
+          import re
+
           def run_stmt(stmt, wait=120):
               r = requests.post(f"{host}/api/2.0/sql/statements", headers=headers,
                                 json={"statement": stmt, "warehouse_id": wh_id,
                                       "wait_timeout": "60s"})
+              if not r.ok:
+                  return "HTTP_ERROR", f"HTTP {r.status_code}: {r.text[:300]}"
               resp = r.json()
               state = resp.get("status", {}).get("state", "?")
-              if state == "PENDING":
+              if state in ("PENDING", "RUNNING"):
                   stmt_id = resp.get("statement_id")
                   for _ in range(wait // 5):
                       time.sleep(5)
                       r2 = requests.get(f"{host}/api/2.0/sql/statements/{stmt_id}", headers=headers)
                       resp = r2.json()
                       state = resp.get("status", {}).get("state", "?")
-                      if state != "PENDING":
+                      if state not in ("PENDING", "RUNNING"):
                           break
-              err = resp.get("status", {}).get("error", {}).get("message", "")
+              err = resp.get("status", {}).get("error", {}).get("message", "") \
+                    or resp.get("message", "")
               return state, err
 
           failed = []
           sql_files = sorted(glob.glob("PrepAmb/ddl_deploy/**/*.sql", recursive=True))
-          # Excluir archivos no-SQL (notebooks .ipynb, .py)
           sql_files = [f for f in sql_files if f.endswith(".sql")]
 
           for fpath in sql_files:
-              content = open(fpath).read().strip()
+              content = open(fpath, encoding="utf-8").read().strip()
               if not content:
                   continue
               # Reemplazar variables ${...} con valores prod
@@ -515,20 +519,19 @@ jobs:
               content = content.replace("${storage_account}", storage_account)
               content = content.replace("${container_name}",  container_name)
               content = content.replace("${ruta_base}",       ruta_base)
-              # ddl_vistas_ddv.sql tiene catalog_liga1 hardcodeado (no como ${var})
-              # Reemplazar catalog_liga1. → catalog_liga1_prod.
-              # IMPORTANTE: reemplazar primero catalog_liga1_prod. para no duplicar _prod
-              # (el contenido no debería tener _prod, pero por seguridad)
+              # Normalizar referencias hardcodeadas a catalog_liga1
               content = content.replace("catalog_liga1_prod.", "__PROD__.")
               content = content.replace("catalog_liga1.",      catalog_name + ".")
               content = content.replace("__PROD__.",           catalog_name + ".")
 
-              # Excluir comentarios SQL (líneas que empiezan con --)
-              stmts = [s.strip() for s in content.split(";") if s.strip() and not s.strip().startswith("--")]
+              # Usar versión sin comentarios solo para detectar bloques no vacíos,
+              # pero ejecutar el SQL original (con cabeceras/comentarios intactos)
+              content_clean = re.sub(r'--[^\n]*', '', content)
+              parts = content.split(";")
+              parts_clean = content_clean.split(";")
+              stmts = [orig.strip() for orig, clean in zip(parts, parts_clean) if clean.strip()]
               print(f"→ {fpath} ({len(stmts)} statements)")
               for stmt in stmts:
-                  if not stmt or stmt.startswith("--"):
-                      continue
                   state, err = run_stmt(stmt)
                   if state == "SUCCEEDED":
                       print(f"  [OK] {stmt[:80]}")
@@ -794,4 +797,134 @@ jobs:
           #   schd_ddv_liga1         → PipelineId 34  (sch_ddv_liga1)
           #   sch_ml_liga1           → PipelineId 47  (sch_ml_liga1)
           #   execute_job_ddl        → PipelineId  5  (Job_ddl)
-          #   schd_md_catalogo_equipos → PipelineId 3 (catalogo_equi
+          #   schd_md_catalogo_equipos → PipelineId 3 (catalogo_equipos)
+          name_to_pipeline_id = {
+              "schd_udv_liga1":           25,
+              "schd_ddv_liga1":           34,
+              "sch_ml_liga1":             47,
+              "execute_job_ddl":           5,
+              "schd_md_catalogo_equipos":  3,
+          }
+
+          conn = pymssql.connect(
+              server   = os.environ["SQL_SERVER"],
+              database = os.environ["SQL_DATABASE"],
+              user     = os.environ["SQL_USERNAME"],
+              password = os.environ["SQL_PASSWORD"]
+          )
+          cursor = conn.cursor()
+
+          for job_name, job_id in job_ids.items():
+              pipeline_id = name_to_pipeline_id.get(job_name)
+              if not pipeline_id:
+                  print(f"  ⚠️ Sin mapeo SQL para job: {job_name} → ignorado")
+                  continue
+              if not job_id:
+                  print(f"  ⚠️ job_id nulo para {job_name} → ignorado")
+                  continue
+
+              cursor.execute(
+                  "UPDATE dbo.tbl_pipeline_parametros "
+                  "SET Valor = %s "
+                  "WHERE PipelineId = %s AND Parametro = 'JOB_ID'",
+                  (str(job_id), pipeline_id)
+              )
+              rows = cursor.rowcount
+              status = "✅" if rows > 0 else "⚠️ sin fila existente (INSERT necesario)"
+              print(f"  {status} PipelineId={pipeline_id} ({job_name}) → {job_id}  [{rows} fila(s)]")
+
+              # Si la fila no existía (Querys.sql no la insertó), la creamos
+              if rows == 0:
+                  cursor.execute(
+                      "INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) "
+                      "VALUES (%s, 'JOB_ID', %s, 'Job Databricks prod')",
+                      (pipeline_id, str(job_id))
+                  )
+                  print(f"    ↳ INSERT realizado (fila nueva)")
+
+          conn.commit()
+          conn.close()
+          print("\n✅ Job IDs actualizados en tbl_pipeline_parametros prod")
+          PYEOF
+
+  # ═══════════════════════════════════════════════════════════
+  # JOB 5 — ADLS: subir datasets/dataentrys → primera_division/landing
+  # Sube solo si hay cambios en datasets/dataentrys/** (paths filter arriba)
+  # ═══════════════════════════════════════════════════════════
+  upload-dataentrys:
+    name: Upload Datasets → ADLS prod
+    runs-on: ubuntu-latest
+    needs: [deploy-adf]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS_PROD }}
+
+      - name: Subir dataentrys (estáticos) al contenedor liga1
+        run: |
+          # datasets/dataentrys/** → primera_division/landing/{subcarpeta}/{archivo}
+          STORAGE="${{ secrets.ADLS_ACCOUNT_PROD }}"
+          CONTAINER="liga1"
+          DEST_PREFIX="primera_division/landing"
+
+          echo "=== Subiendo datasets/dataentrys → ${CONTAINER}/${DEST_PREFIX} ==="
+          find datasets/dataentrys -type f | while read filepath; do
+            rel="${filepath#datasets/dataentrys/}"
+            dest="${DEST_PREFIX}/${rel}"
+            echo "→ $rel"
+            az storage blob upload \
+              --account-name "$STORAGE" \
+              --container-name "$CONTAINER" \
+              --file "$filepath" \
+              --name "$dest" \
+              --auth-mode login \
+              --overwrite true \
+              --only-show-errors
+          done
+          echo "✅ Dataentrys subidos"
+
+      - name: Subir datasets por año si hubo cambios en datasets/{año}/
+        run: |
+          # Solo sube archivos de años que cambiaron en este commit.
+          # Útil cuando el scraping termina y el usuario commitea los archivos
+          # de datasets/{año}/ como backup — el deploy los sube a ADLS automáticamente.
+          STORAGE="${{ secrets.ADLS_ACCOUNT_PROD }}"
+          CONTAINER="liga1"
+
+          # Detectar qué años cambiaron en este push
+          CHANGED=$(git diff --name-only HEAD~1 HEAD 2>/dev/null | grep -oP 'datasets/\K[0-9]{4}' | sort -u || echo "")
+          if [ -z "$CHANGED" ] && [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            # Ejecución manual: subir todos los años disponibles
+            CHANGED=$(ls -d datasets/[0-9][0-9][0-9][0-9] 2>/dev/null | xargs -I{} basename {} | sort -u || echo "")
+          fi
+
+          if [ -z "$CHANGED" ]; then
+            echo "⏭️  Sin cambios en datasets/{año}/ — omitiendo upload por año"
+            exit 0
+          fi
+
+          echo "=== Años con cambios: $CHANGED ==="
+          for anio in $CHANGED; do
+            dir="datasets/${anio}"
+            [ -d "$dir" ] || continue
+            echo "--- Subiendo año $anio ---"
+            find "$dir" -type f ! -name "*.txt" | while read filepath; do
+              filename=$(basename "$filepath")
+              dest="primera_division/landing/${anio}/${filename}"
+              echo "  → ${anio}/${filename}"
+              az storage blob upload \
+                --account-name "$STORAGE" \
+                --container-name "$CONTAINER" \
+                --file "$filepath" \
+                --name "$dest" \
+                --auth-mode login \
+                --overwrite true \
+                --only-show-errors
+            done
+          done
+          echo "✅ Datasets por año subidos a primera_division/landing/"
+
