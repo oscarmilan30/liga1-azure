@@ -376,6 +376,45 @@ La capa ML se ejecuta automáticamente como último paso del pipeline ADF E2E, d
 
 ---
 
+## 15b. GitHub Actions — Los 3 Workflows
+
+El repositorio tiene tres workflows en `.github/workflows/` que automatizan el ciclo completo de la plataforma. Ninguno contiene credenciales — todas las claves se leen desde los secrets de GitHub.
+
+### `liga1-deploy-prod.yml` — Despliegue a producción
+
+Se dispara automáticamente cuando hay un push a `main` que afecta `proceso/`, `PrepAmb/`, `datasets/dataentrys/` o el propio archivo del workflow. También se puede ejecutar manualmente (workflow_dispatch).
+
+Ejecuta 5 jobs en orden:
+
+1. **Deploy ADF Prod**: Despliega los Linked Services, Datasets y Pipelines de Azure Data Factory en el entorno de producción, reemplazando las referencias de dev por las de prod. Configura los Global Parameters (host Databricks, usuario, cluster ID).
+2. **Deploy Azure SQL Prod**: Ejecuta `PrepAmb/Querys.sql` en la base de datos `ligafutbol-prod` para crear las tablas de control del orquestador (solo si no existen — es idempotente).
+3. **Deploy Databricks Prod**: Crea el catalog `catalog_liga1_prod`, schemas y Volume en Unity Catalog. Ejecuta todos los DDL de `PrepAmb/ddl_deploy/` reemplazando variables. Configura el secrets scope con credenciales prod. Sube el wheel `liga1_utils` al Volume. Configura Delta Sharing e imprime el Activation Link para Power BI.
+4. **Actualizar Job IDs**: Lee los IDs reales asignados por Databricks a los jobs y los actualiza en `tbl_pipeline_parametros` de SQL prod, para que el orquestador ADF los use correctamente.
+5. **Upload Dataentrys → ADLS prod**: Sube los archivos estáticos de `datasets/dataentrys/` (catálogos, plantillas manuales, posiciones, etc.) a `primera_division/landing/dataentrys/` en ADLS prod. Solo corre cuando hay cambios en esos archivos.
+
+---
+
+### `liga1-scraping.yml` — Scraping y carga de datos
+
+Se ejecuta manualmente (workflow_dispatch) con los parámetros `modo`, `ambiente` y opcionalmente `anio_inicio`/`anio_fin`. Soporta 4 modos:
+
+- **incremental**: Scrapea FotMob, Transfermarkt y Wikipedia para la temporada actual y sube los archivos al ADLS del ambiente seleccionado.
+- **reproceso**: Igual que incremental pero para un año específico (`anio_objetivo`).
+- **historica**: Lanza un matrix de jobs en paralelo (máximo 2 simultáneos), uno por año desde `anio_inicio` hasta `anio_fin`, cada uno corriendo en modo reproceso. Al terminar todos los años, el job `trigger-adf` ejecuta un fallback que sube desde `datasets/{año}/` del repositorio los archivos que no llegaron a ADLS por errores de scraping.
+- **repair_tm**: Reprocesa solo los datos de Transfermarkt para un año específico, sin tocar FotMob ni Wikipedia.
+
+Al terminar cualquier modo de scraping exitoso, el job `trigger-adf` actualiza los parámetros SQL (fecha, año) y dispara el pipeline `pl_Orchestrator_E2E_liga1` en ADF para procesar los datos recién llegados al landing.
+
+---
+
+### `liga1-trigger-adf.yml` — Disparo manual de ADF
+
+Workflow de uso operativo para disparar el pipeline E2E de ADF sin necesidad de correr scraping. Útil cuando los datos ya están en ADLS landing y solo se quiere reprocesar las capas RDV → UDV → DDV → ML.
+
+Acepta 3 parámetros: `modo` (INCREMENTAL, HISTORICO, REPROCESO), `anio_objetivo` (solo para REPROCESO) y `ambiente` (dev o prod). Actualiza los parámetros en SQL y dispara el orchestrator en el ADF del ambiente seleccionado.
+
+---
+
 ## 16. Despliegue a Producción — CI/CD Automatizado
 
 El entorno de producción está **completamente aislado** de dev — usa `catalog_liga1_prod` apuntando a `datalakelig1peruprod`, con su propio secrets scope `secretliga1` (valores prod) y su propio ADF `adf-ligafutbol-prod`. El despliegue es automático via GitHub Actions al hacer merge a `main`.
@@ -525,7 +564,7 @@ El push a `main` dispara `liga1-deploy-prod.yml` con estos jobs en orden:
 - Configura **Delta Sharing prod**: `liga1_share_prod` con 5 vistas, recipient `liga1_powerbi_prod`, GRANT SELECT
 - **Imprime el Activation Link** en el log de GitHub Actions (copiar para Power BI)
 - Sube wheel `liga1_utils` a `/Volumes/catalog_liga1_prod/shared/libs/`
-- Instala el wheel en el cluster prod vía API (`POST /api/2.0/libraries/install`) — sin este paso el cluster no lo tiene disponible aunque esté en el Volume
+- Intenta instalar el wheel en el cluster prod vía API (`POST /api/2.0/libraries/install`). Si el token no tiene el scope `libraries` (error 403), el step avisa pero **no falla el deploy** — el wheel ya quedó en el Volume. En ese caso instalar manualmente una vez: Databricks → **Compute** → cluster prod → **Libraries** → **Install new** → **Volumes** → `/Volumes/catalog_liga1_prod/shared/libs/liga1_utils-X.X.X-py3-none-any.whl`
 - Crea los 5 jobs Databricks (4 schedules + execute_job_ddl)
 
 **Job 4 — actualizar-job-ids** (depende de jobs 2 y 3)
