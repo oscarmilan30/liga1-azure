@@ -883,7 +883,7 @@ jobs:
         run: |
           STORAGE="${{ secrets.STORAGE_ACCOUNT_PROD }}"
           CONTAINER="liga1"
-          DEST_PREFIX="primera_division/landing"
+          DEST_PREFIX="primera_division/landing/dataentrys"
 
           echo "=== Subiendo datasets/dataentrys → ${CONTAINER}/${DEST_PREFIX} ==="
           find datasets/dataentrys -type f | while read filepath; do
