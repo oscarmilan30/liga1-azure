@@ -429,6 +429,7 @@ Los permisos mínimos necesarios para que el GitHub Actions y los pipelines func
 | `kv-liga1-secreto` | `sp-liga1` | `Key Vault Secrets Officer` | El Actions lee/escribe secretos KV (ej. storageaccount-prod) |
 | `kv-liga1-secreto` | MI de `adf-ligafutbol-prod` | `Key Vault Secrets User` | ADF prod lee secretos en runtime (credenciales SQL, Databricks token, ADLS key). **Verificar que esté asignada — la MI de dev `adf-ligafutbol` NO es suficiente** |
 | `datalakelig1peruprod` | `acc-liga1-prod` (Access Connector) | `Storage Blob Data Contributor` | Databricks accede a ADLS prod vía Unity Catalog External Location |
+| `datalakelig1peruprod` | `sp-liga1` (Service Principal) | `Storage Blob Data Contributor` | GitHub Actions sube `datasets/dataentrys/` a ADLS prod en el job `upload-dataentrys` |
 
 > **⚠️ Paso crítico manual (una sola vez antes del primer deploy):**
 >

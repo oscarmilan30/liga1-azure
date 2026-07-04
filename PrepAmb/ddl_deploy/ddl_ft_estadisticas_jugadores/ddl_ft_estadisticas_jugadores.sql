@@ -36,4 +36,4 @@ CREATE OR REPLACE TABLE ${catalog_name}.tb_ddv.ft_estadisticas_jugadores (
 USING delta
 PARTITIONED BY (periodo)
 LOCATION 'abfss://${container_name}@${storage_account}.dfs.core.windows.net/${ruta_base}/ddv/ft_estadisticas_jugadores/data'
-COMMENT 'Fact de estadisticas individuales de jugadores por temporada (totalizado sobre todas las competencias), enriquec
+COMMENT 'Fact de estadisticas individuales de jugadores por temporada (totalizado sobre todas las competencias), enriquecida con datos de Transfermarkt';
