@@ -296,6 +296,16 @@ SELECT
 FROM catalog_liga1.tb_ddv.ft_estadisticas_jugadores
 WHERE datos_disponibles = true;
 
+CREATE OR REPLACE VIEW catalog_liga1.vw_ddv.dm_formacion AS
+SELECT 1 AS id_formacion, '4-3-3'   AS formacion, 'Ofensivo'    AS estilo, '4-3-3 - Ofensivo'    AS formacion_display
+UNION ALL SELECT 2, '3-4-3',   'Ofensivo',    '3-4-3 - Ofensivo'
+UNION ALL SELECT 3, '4-2-3-1', 'Equilibrado', '4-2-3-1 - Equilibrado'
+UNION ALL SELECT 4, '4-4-2',   'Equilibrado', '4-4-2 - Equilibrado'
+UNION ALL SELECT 5, '4-3-3',   'Equilibrado', '4-3-3 - Equilibrado'
+UNION ALL SELECT 6, '5-3-2',   'Defensivo',   '5-3-2 - Defensivo'
+UNION ALL SELECT 7, '5-4-1',   'Defensivo',   '5-4-1 - Defensivo'
+UNION ALL SELECT 8, '4-1-4-1', 'Defensivo',   '4-1-4-1 - Defensivo';
+
 CREATE OR REPLACE VIEW catalog_liga1.vw_ddv.dm_estilo_juego AS
 SELECT 1 AS id_estilo,'Ofensivo' AS estilo
 UNION ALL
@@ -572,17 +582,4 @@ slot_ranks AS (
 )
 SELECT 
     pr.id_jugador, pr.jugador, pr.foto_url, pr.id_equipo, pr.nombre_equipo,
-    pr.alias_equipo, pr.temporada, pr.posicion_xi,
-    pr.goles, pr.asistencias, pr.minutos_jugados, pr.partidos_jugados,
-    pr.tarjetas_amarillas, pr.segunda_amarilla, pr.tarjetas_rojas,
-    pr.titularidades, pr.entrada_suplente, pr.salida_suplente,
-    pr.min_por_gol, pr.ppp,
-    pr.score,
-    pr.goles_en_contra, pr.partidos_imbatido,
-    sr.id_formacion, sr.slot, sr.orden, sr.x_coord, sr.y_coord,
-    pr.altura, pr.pie, pr.valor_mercado, pr.edad_historica, pr.nacionalidad_principal
-FROM player_ranks pr
-INNER JOIN slot_ranks sr
-    ON  sr.id_formacion = pr.id_formacion
-    AND sr.posicion_xi  = pr.posicion_xi
-    AND sr.slot_rank    = pr.player_rank;
+    pr.al
