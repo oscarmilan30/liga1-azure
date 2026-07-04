@@ -477,4 +477,14 @@ Estos tres conceptos se usan en diferentes capas del proyecto y es importante no
 |---|---|---|
 | **Service Principal** (`sp-liga1`) | Identidad de aplicación en Azure AD con Client ID + Client Secret | Solo en GitHub Actions para autenticar llamadas a la REST API de ADF |
 | **Managed Identity** | Identidad automática asignada por Azure a un recurso, sin secretos que gestionar | El Access Connector `acc-liga1` tiene una Managed Identity con la que Databricks accede a ADLS |
-| **Access
+| **Access Connector** (`acc-liga1`) | Recurso Azure que actúa de puente entre Databricks y Azure Storage | Databricks usa su Managed Identity para acceder a ADLS — Unity Catalog registra esto como Storage Credential |
+| **Token PAT** | Personal Access Token de Databricks | ADF usa uno para lanzar jobs de Databricks · Power BI usa uno para consultar el SQL Warehouse |
+
+> **Por qué no se usa Service Principal para Databricks → ADLS:** el patrón moderno recomendado por Microsoft es usar Access Connector con Managed Identity en lugar de Service Principal + secretos. Es más seguro (sin secretos que rotar), más simple de gestionar, y es el requisito para Unity Catalog.
+
+![Databricks External Credentials](./imagenes/azure/databricks_external_data_credentials.png)
+![Databricks External Locations](./imagenes/azure/databricks_external_data_locations.png)
+
+---
+
+*Documentación técnica — Liga 1 Perú Data Engineering Platform · Oscar García Del Águila · 2025–2026*

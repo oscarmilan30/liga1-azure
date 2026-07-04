@@ -887,4 +887,41 @@ jobs:
   # Solo sube datos estáticos de referencia (catalogo, plantillas manuales, etc.)
   # Los datasets/{año}/ se suben desde liga1-scraping.yml al terminar el historico
   # ═══════════════════════════════════════════════════════════
-  upload-dat
+  upload-dataentrys:
+    name: Upload Dataentrys → ADLS prod
+    runs-on: ubuntu-latest
+    needs: [deploy-adf]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login Azure
+        run: |
+          az login --service-principal \
+            --username "${{ secrets.AZURE_CLIENT_ID }}" \
+            --password "${{ secrets.AZURE_CLIENT_SECRET }}" \
+            --tenant   "${{ secrets.AZURE_TENANT_ID }}"
+          az account set --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+
+      - name: Subir dataentrys (estáticos) al contenedor liga1
+        run: |
+          STORAGE="${{ secrets.STORAGE_ACCOUNT_PROD }}"
+          CONTAINER="liga1"
+          DEST_PREFIX="primera_division/landing/dataentrys"
+
+          echo "=== Subiendo datasets/dataentrys → ${CONTAINER}/${DEST_PREFIX} ==="
+          find datasets/dataentrys -type f | while read filepath; do
+            rel="${filepath#datasets/dataentrys/}"
+            dest="${DEST_PREFIX}/${rel}"
+            echo "→ $rel"
+            az storage blob upload \
+              --account-name "$STORAGE" \
+              --container-name "$CONTAINER" \
+              --file "$filepath" \
+              --name "$dest" \
+              --auth-mode login \
+              --overwrite true \
+              --only-show-errors
+          done
+          echo "✅ Dataentrys subidos"
+

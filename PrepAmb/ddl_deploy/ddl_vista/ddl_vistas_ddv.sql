@@ -575,4 +575,31 @@ player_ranks AS (
             ORDER BY b.score DESC, b.id_jugador ASC
         ) AS player_rank
     FROM base b
-    INNER JOIN (SELECT DISTINCT id
+    INNER JOIN (SELECT DISTINCT id_formacion, posicion_xi FROM catalog_liga1.vw_ddv.dm_formacion_slots) fp
+        ON fp.posicion_xi = b.posicion_xi
+),
+slot_ranks AS (
+    SELECT 
+        id_formacion, posicion_xi, slot, orden, x_coord, y_coord,
+        ROW_NUMBER() OVER (
+            PARTITION BY id_formacion, posicion_xi
+            ORDER BY orden ASC
+        ) AS slot_rank
+    FROM catalog_liga1.vw_ddv.dm_formacion_slots
+)
+SELECT 
+    pr.id_jugador, pr.jugador, pr.foto_url, pr.id_equipo, pr.nombre_equipo,
+    pr.alias_equipo, pr.temporada, pr.posicion_xi,
+    pr.goles, pr.asistencias, pr.minutos_jugados, pr.partidos_jugados,
+    pr.tarjetas_amarillas, pr.segunda_amarilla, pr.tarjetas_rojas,
+    pr.titularidades, pr.entrada_suplente, pr.salida_suplente,
+    pr.min_por_gol, pr.ppp,
+    pr.score,
+    pr.goles_en_contra, pr.partidos_imbatido,
+    sr.id_formacion, sr.slot, sr.orden, sr.x_coord, sr.y_coord,
+    pr.altura, pr.pie, pr.valor_mercado, pr.edad_historica, pr.nacionalidad_principal
+FROM player_ranks pr
+INNER JOIN slot_ranks sr
+    ON  sr.id_formacion = pr.id_formacion
+    AND sr.posicion_xi  = pr.posicion_xi
+    AND sr.slot_rank    = pr.player_rank;
