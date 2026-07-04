@@ -211,10 +211,13 @@ def conectar_adls_keyvault():
         
         key_vault_url = "https://kv-liga1-secreto.vault.azure.net/"
         secret_client = SecretClient(vault_url=key_vault_url, credential=_CREDENTIAL)
-        
-        storage_account = secret_client.get_secret("storageaccount").value
-        storage_key = secret_client.get_secret("storageaccountkey").value
-        container_name = secret_client.get_secret("filesystemname").value
+
+        ambiente = os.environ.get("SCRAPING_AMBIENTE", "dev").strip().lower()
+        es_prod  = ambiente == "prod"
+        storage_account = secret_client.get_secret("storageaccount-prod" if es_prod else "storageaccount").value
+        storage_key     = secret_client.get_secret("storageaccountkey-prod" if es_prod else "storageaccountkey").value
+        container_name  = secret_client.get_secret("filesystemname").value
+        log_info(f"Ambiente: {ambiente} → storage: {storage_account}")
         
         connection_string = f"DefaultEndpointsProtocol=https;AccountName={storage_account};AccountKey={storage_key};EndpointSuffix=core.windows.net"
         service_client = DataLakeServiceClient.from_connection_string(connection_string)
