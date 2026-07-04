@@ -106,12 +106,17 @@ jobs:
 
       - name: Desplegar Linked Services prod
         run: |
-          for f in /tmp/ls_prod/*.json; do
-            name=$(basename "$f" .json)
+          # Orden explícito: ls_azure_keyvault primero (sin dependencias),
+          # luego los que lo referencian (ls_adls, ls_databricks, ls_sql_liga1)
+          LS_ORDEN=("ls_azure_keyvault" "ls_adls" "ls_databricks" "ls_sql_liga1")
+          for name in "${LS_ORDEN[@]}"; do
+            f="/tmp/ls_prod/${name}.json"
+            if [ ! -f "$f" ]; then
+              echo "⚠️  $name.json no encontrado, omitiendo"
+              continue
+            fi
             echo "→ $name"
-            # az datafactory linked-service create --properties espera SOLO el bloque
-            # interno "properties" del JSON (sin name ni type ARM wrapper).
-            props=$(python3 -c "import json,sys; d=json.load(open('$f')); print(json.dumps(d['properties']))")
+            props=$(python3 -c "import json; d=json.load(open('$f')); print(json.dumps(d['properties']))")
             az datafactory linked-service create \
               --resource-group      ${{ secrets.ADF_RESOURCE_GROUP_PROD }} \
               --factory-name        ${{ secrets.ADF_FACTORY_NAME_PROD }} \
@@ -277,28 +282,48 @@ jobs:
           else:
               print(f"⚠️  mkdirs: {r0.status_code} {r0.json()}")
 
+          expected_path = f"/Repos/{user}/liga1-azure"
+
           r = requests.get(f"{host}/api/2.0/repos", headers=headers)
           repos = r.json().get("repos", [])
           existing = [x for x in repos if "liga1-azure" in x.get("url", "")]
 
           if existing:
-              repo_id = existing[0]["id"]
-              rp = requests.patch(f"{host}/api/2.0/repos/{repo_id}",
-                                  headers=headers, json={"branch": "main"})
-              if rp.status_code == 200:
-                  print(f"✅ Repo actualizado a main (id={repo_id})")
+              repo_id   = existing[0]["id"]
+              repo_path = existing[0].get("path", "")
+              if repo_path == expected_path:
+                  # Ruta correcta — solo actualizar branch
+                  rp = requests.patch(f"{host}/api/2.0/repos/{repo_id}",
+                                      headers=headers, json={"branch": "main"})
+                  if rp.status_code == 200:
+                      print(f"✅ Repo actualizado a main (id={repo_id})")
+                  else:
+                      print(f"❌ Error actualizando repo: {rp.status_code} {rp.json()}")
+                      sys.exit(1)
               else:
-                  print(f"❌ Error actualizando repo: {rp.status_code} {rp.json()}")
-                  sys.exit(1)
+                  # Repo bajo otra carpeta de usuario — eliminar y recrear en la correcta
+                  print(f"ℹ️  Repo en {repo_path}, migrando a {expected_path}...")
+                  requests.delete(f"{host}/api/2.0/repos/{repo_id}", headers=headers)
+                  payload = {
+                      "url":      "https://github.com/oscarmilan30/liga1-azure",
+                      "provider": "gitHub",
+                      "path":     expected_path
+                  }
+                  r2 = requests.post(f"{host}/api/2.0/repos", headers=headers, json=payload)
+                  if r2.status_code == 200:
+                      print(f"✅ Repo migrado a {expected_path}: id={r2.json().get('id')}")
+                  else:
+                      print(f"❌ Error recreando repo: {r2.status_code} {r2.json()}")
+                      sys.exit(1)
           else:
               payload = {
                   "url":      "https://github.com/oscarmilan30/liga1-azure",
                   "provider": "gitHub",
-                  "path":     f"/Repos/{user}/liga1-azure"
+                  "path":     expected_path
               }
               r2 = requests.post(f"{host}/api/2.0/repos", headers=headers, json=payload)
               if r2.status_code == 200:
-                  print(f"✅ Repo creado: id={r2.json().get('id')}")
+                  print(f"✅ Repo creado en {expected_path}: id={r2.json().get('id')}")
               else:
                   print(f"❌ Error creando repo: {r2.status_code} {r2.json()}")
                   sys.exit(1)
