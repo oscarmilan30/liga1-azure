@@ -48,4 +48,4 @@ CREATE OR REPLACE TABLE ${catalog_name}.tb_ddv.ft_score_ml (
 USING delta
 PARTITIONED BY (temporada)
 LOCATION 'abfss://${container_name}@${storage_account}.dfs.core.windows.net/${ruta_base}/ddv/ft_score_ml/data'
-COMMENT 'Score ML de jugadores Liga 1 Peru: PCA por posicion (score_100) + K-means (nivel Elite/Bueno/Regular/Suplente)
+COMMENT 'Score ML de jugadores Liga 1 Peru: PCA por posicion (score_100) + K-means (nivel Elite/Bueno/Regular/Suplente)';
