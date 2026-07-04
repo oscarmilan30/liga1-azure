@@ -1,0 +1,33 @@
+table dm_estilo_juego
+	lineageTag: 2727d9f2-e1e4-4370-bab2-0d00a6e3c67e
+
+	column id_estilo
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a8aab58-7c8e-4249-b878-6ccc565e6f38
+		summarizeBy: none
+		sourceColumn: id_estilo
+
+		annotation SummarizationSetBy = Automatic
+
+	column estilo
+		dataType: string
+		lineageTag: d95a6059-d2d6-4788-9917-e9bf2b9d07a4
+		summarizeBy: none
+		sourceColumn: estilo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dm_estilo_juego = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("adb-7405614695607627.7.azuredatabricks.net", "/sql/1.0/warehouses/b74f62ff6067bdf7", [Catalog="catalog_liga1", Database="vw_ddv", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation=null]),
+				    dm_estilo_juego_vw_ddv_catalog_liga1 = Origen{[Item="dm_estilo_juego",Schema="vw_ddv",Catalog="catalog_liga1"]}[Data]
+				in
+				    dm_estilo_juego_vw_ddv_catalog_liga1
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

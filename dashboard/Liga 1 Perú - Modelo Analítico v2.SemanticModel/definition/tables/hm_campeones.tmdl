@@ -1,0 +1,72 @@
+/// Campeones y subcampeones por temporada
+table hm_campeones
+	lineageTag: 1a897d2c-17df-4165-bcd8-74ca1a8428b5
+
+	column id_campeonato
+		dataType: string
+		isHidden
+		lineageTag: d065787d-d080-43c0-baf2-0498838f9aea
+		summarizeBy: none
+		sourceColumn: id_campeonato
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_equipo_campeon
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: eb1f244b-776f-424a-abe9-65e882704a47
+		summarizeBy: sum
+		sourceColumn: id_equipo_campeon
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_equipo_subcampeon
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8bb72257-e278-412a-86d2-ac626613af73
+		summarizeBy: sum
+		sourceColumn: id_equipo_subcampeon
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column temporada
+		dataType: int64
+		formatString: 0
+		lineageTag: db601700-d0f5-4121-8591-f10f016148bd
+		summarizeBy: none
+		sourceColumn: temporada
+
+		annotation SummarizationSetBy = Automatic
+
+	column fuente
+		dataType: string
+		isHidden
+		lineageTag: 9d5d8163-99aa-4c7b-87c4-8e5f7b3f2070
+		summarizeBy: none
+		sourceColumn: fuente
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition hm_campeones = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("adb-7405614695607627.7.azuredatabricks.net", "/sql/1.0/warehouses/b74f62ff6067bdf7", [Catalog="catalog_liga1", Database="vw_udv", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation=null]),
+				    hm_campeones_vw_vw_udv_catalog_liga1 = Origen{[Item="hm_campeones_vw",Schema="vw_udv",Catalog="catalog_liga1"]}[Data]
+				in
+				    hm_campeones_vw_vw_udv_catalog_liga1
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

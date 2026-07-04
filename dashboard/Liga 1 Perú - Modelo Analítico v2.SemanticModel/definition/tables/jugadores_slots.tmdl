@@ -1,0 +1,329 @@
+table jugadores_slots
+	lineageTag: 23f4ca65-6228-4b0f-9f0d-c2a8f1416e25
+
+	column id_jugador
+		dataType: string
+		isHidden
+		lineageTag: 2b05ea55-de72-4d67-b115-316538a6abdd
+		summarizeBy: none
+		sourceColumn: id_jugador
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column jugador
+		dataType: string
+		lineageTag: 775aea83-73c6-4530-8cb8-e71553d45928
+		summarizeBy: none
+		sourceColumn: jugador
+
+		annotation SummarizationSetBy = Automatic
+
+	column foto_url
+		dataType: string
+		lineageTag: da85ea54-5ffe-4e30-abc1-a1059d163d2d
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: foto_url
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_equipo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cc38e8d1-cdc3-4a11-8c91-db646ccb8fe1
+		summarizeBy: none
+		sourceColumn: id_equipo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_equipo
+		dataType: string
+		lineageTag: ff997553-883c-4ac9-999e-4b9e7316bc71
+		summarizeBy: none
+		sourceColumn: nombre_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column alias_equipo
+		dataType: string
+		lineageTag: 88409db9-c34e-4113-b5c0-0538940fd995
+		summarizeBy: none
+		sourceColumn: alias_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column temporada
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c86a51e-58d7-4ab1-8671-8e040088c163
+		summarizeBy: none
+		sourceColumn: temporada
+
+		annotation SummarizationSetBy = Automatic
+
+	column posicion_xi
+		dataType: string
+		lineageTag: 6233b1c0-b060-4e82-890d-da34375f80ba
+		summarizeBy: none
+		sourceColumn: posicion_xi
+
+		annotation SummarizationSetBy = Automatic
+
+	column goles
+		dataType: int64
+		formatString: 0
+		lineageTag: 17f8c0ae-ccac-425b-a5e3-cfdae8543b6e
+		summarizeBy: sum
+		sourceColumn: goles
+
+		annotation SummarizationSetBy = Automatic
+
+	column asistencias
+		dataType: int64
+		formatString: 0
+		lineageTag: 06c71983-8882-4326-b715-95322ac75fb9
+		summarizeBy: sum
+		sourceColumn: asistencias
+
+		annotation SummarizationSetBy = Automatic
+
+	column minutos_jugados
+		dataType: int64
+		formatString: 0
+		lineageTag: 512ae29f-007e-46b1-a3e6-b1213b82196a
+		summarizeBy: sum
+		sourceColumn: minutos_jugados
+
+		annotation SummarizationSetBy = Automatic
+
+	column tarjetas_amarillas
+		dataType: int64
+		formatString: 0
+		lineageTag: bb1b4e24-8704-4834-ae3c-b83704e85a6c
+		summarizeBy: sum
+		sourceColumn: tarjetas_amarillas
+
+		annotation SummarizationSetBy = Automatic
+
+	column partidos_jugados
+		dataType: int64
+		formatString: 0
+		lineageTag: 6e5b6e9d-502c-4d86-8460-9b3fd5009f9b
+		summarizeBy: sum
+		sourceColumn: partidos_jugados
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_formacion
+		dataType: int64
+		formatString: 0
+		lineageTag: 7e2f103c-1460-4b52-921f-ad1594d58e5b
+		summarizeBy: none
+		sourceColumn: id_formacion
+
+		annotation SummarizationSetBy = Automatic
+
+	column slot
+		dataType: string
+		lineageTag: b00a74eb-20f3-4baf-9550-8de5ab1b3f77
+		summarizeBy: none
+		sourceColumn: slot
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden
+		dataType: int64
+		formatString: 0
+		lineageTag: d8f081cb-c11e-46be-b401-69287cfec9ed
+		summarizeBy: sum
+		sourceColumn: orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column x_coord
+		dataType: int64
+		formatString: 0
+		lineageTag: 4fc20a51-1b7b-49d7-891f-4c5aec337b6a
+		summarizeBy: none
+		sourceColumn: x_coord
+
+		annotation SummarizationSetBy = User
+
+	column y_coord
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d7266a9-529a-4c6c-84f3-1c4a47e96d7d
+		summarizeBy: sum
+		sourceColumn: y_coord
+
+		annotation SummarizationSetBy = Automatic
+
+	column altura
+		dataType: double
+		lineageTag: 98a3554b-a6e6-43a4-9a4e-754942e77851
+		summarizeBy: sum
+		sourceColumn: altura
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column pie
+		dataType: string
+		lineageTag: 4f091b36-60c3-4a44-8f66-14dacadcbe96
+		summarizeBy: none
+		sourceColumn: pie
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_mercado
+		dataType: double
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: bb776779-180b-421e-a83f-417de8190d7c
+		summarizeBy: sum
+		sourceColumn: valor_mercado
+
+		annotation SummarizationSetBy = Automatic
+
+	column edad_historica
+		dataType: int64
+		formatString: 0
+		lineageTag: 0bab8f98-d543-494a-9241-b53462eb6cac
+		summarizeBy: sum
+		sourceColumn: edad_historica
+
+		annotation SummarizationSetBy = Automatic
+
+	column nacionalidad_principal
+		dataType: string
+		lineageTag: 49b2f63e-5f4a-4919-b83e-99260afe6a6a
+		summarizeBy: none
+		sourceColumn: nacionalidad_principal
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valor Soles' = ```
+			
+			jugadores_slots[valor_mercado] * 
+			CALCULATE(MAX(_Parametros[TipoCambio]), ALL(_Parametros))
+			```
+		formatString: "S/"\ #,0.00;-"S/"\ #,0.00;"S/"\ #,0.00
+		lineageTag: 122fbcfb-56cd-4e96-8b02-2af137b46538
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-PE"}
+
+	column segunda_amarilla
+		dataType: int64
+		formatString: 0
+		lineageTag: 48a9f019-31b8-4fda-9350-61f6aa5112eb
+		summarizeBy: sum
+		sourceColumn: segunda_amarilla
+
+		annotation SummarizationSetBy = Automatic
+
+	column tarjetas_rojas
+		dataType: int64
+		formatString: 0
+		lineageTag: 4df29fae-9db2-4879-8ec6-adf86ab89b62
+		summarizeBy: sum
+		sourceColumn: tarjetas_rojas
+
+		annotation SummarizationSetBy = Automatic
+
+	column score
+		dataType: double
+		lineageTag: e2bb3a10-8303-431e-97ff-c4ed807f6852
+		summarizeBy: sum
+		sourceColumn: score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column titularidades
+		dataType: int64
+		formatString: 0
+		lineageTag: 6a594b6c-863e-4a0d-81c6-f8cd46cf4dfa
+		summarizeBy: sum
+		sourceColumn: titularidades
+
+		annotation SummarizationSetBy = Automatic
+
+	column entrada_suplente
+		dataType: int64
+		formatString: 0
+		lineageTag: 1085ce65-0a89-4d2a-a35a-0c7d39026dd5
+		summarizeBy: sum
+		sourceColumn: entrada_suplente
+
+		annotation SummarizationSetBy = Automatic
+
+	column salida_suplente
+		dataType: int64
+		formatString: 0
+		lineageTag: b29dc685-7701-488a-a426-61c89469faec
+		summarizeBy: sum
+		sourceColumn: salida_suplente
+
+		annotation SummarizationSetBy = Automatic
+
+	column min_por_gol
+		dataType: int64
+		formatString: 0
+		lineageTag: 574bc547-bce7-499d-9ad7-cdc413e145bd
+		summarizeBy: sum
+		sourceColumn: min_por_gol
+
+		annotation SummarizationSetBy = Automatic
+
+	column ppp
+		dataType: double
+		lineageTag: 66d85229-1b97-4f0b-b8fd-087b20e072bd
+		summarizeBy: sum
+		sourceColumn: ppp
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column goles_en_contra
+		dataType: int64
+		formatString: 0
+		lineageTag: 64fd65a8-de1d-4440-9cff-5a084ce6833a
+		summarizeBy: sum
+		sourceColumn: goles_en_contra
+
+		annotation SummarizationSetBy = Automatic
+
+	column partidos_imbatido
+		dataType: int64
+		formatString: 0
+		lineageTag: 9986c8eb-ce09-4c2b-8376-2cba4c271c6f
+		summarizeBy: sum
+		sourceColumn: partidos_imbatido
+
+		annotation SummarizationSetBy = Automatic
+
+	partition jugadores_slots = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("adb-7405614695607627.7.azuredatabricks.net", "/sql/1.0/warehouses/b74f62ff6067bdf7", [Catalog="catalog_liga1", Database="vw_ddv", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation=null]),
+				    vw_jugadores_slots_vw_ddv_catalog_liga1 = Origen{[Item="vw_jugadores_slots",Schema="vw_ddv",Catalog="catalog_liga1"]}[Data],
+				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(vw_jugadores_slots_vw_ddv_catalog_liga1,{{"jugador", Text.Proper, type text}, {"nombre_equipo", Text.Proper, type text}}),
+				    #"Texto en mayúsculas" = Table.TransformColumns(#"Poner En Mayúsculas Cada Palabra",{{"alias_equipo", Text.Upper, type text}})
+				in
+				    #"Texto en mayúsculas"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

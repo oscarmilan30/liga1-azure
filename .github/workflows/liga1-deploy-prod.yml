@@ -1,0 +1,661 @@
+name: Liga 1 — Deploy Producción
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: '3.10'
+
+jobs:
+  # ═══════════════════════════════════════════════════════════
+  # JOB 1 — Azure Data Factory: desplegar pipelines a prod
+  # Reutiliza kv-liga1-secreto con secrets _prod
+  # ═══════════════════════════════════════════════════════════
+  deploy-adf:
+    name: Deploy ADF Prod
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login Azure
+        uses: azure/login@v1
+        with:
+          creds: |
+            {
+              "clientId":       "${{ secrets.AZURE_CLIENT_ID }}",
+              "clientSecret":   "${{ secrets.AZURE_CLIENT_SECRET }}",
+              "tenantId":       "${{ secrets.AZURE_TENANT_ID }}",
+              "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+            }
+
+      - name: Instalar extensión ADF
+        run: az extension add --name datafactory --yes
+
+      - name: Crear ADF prod si no existe
+        run: |
+          # az datafactory factory create no funciona en todas las versiones del CLI.
+          # Se usa az rest con la Management API directamente.
+          SUB_ID=$(az account show --query id --output tsv)
+          az rest --method PUT \
+            --url "https://management.azure.com/subscriptions/${SUB_ID}/resourceGroups/${{ secrets.ADF_RESOURCE_GROUP_PROD }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_FACTORY_NAME_PROD }}?api-version=2018-06-01" \
+            --body '{"location": "eastus", "properties": {}}' \
+            --only-show-errors
+          echo "✅ ADF prod creado/verificado"
+
+      - name: Asignar IAM Key Vault a Managed Identity de ADF prod
+        run: |
+          # ADF prod necesita leer secretos del KV — asignar Key Vault Secrets User
+          ADF_MI=$(az datafactory factory show \
+            --resource-group ${{ secrets.ADF_RESOURCE_GROUP_PROD }} \
+            --factory-name   ${{ secrets.ADF_FACTORY_NAME_PROD }} \
+            --query identity.principalId --output tsv 2>/dev/null || echo "")
+          if [ -z "$ADF_MI" ]; then
+            echo "⚠️ ADF aún no tiene MI asignada, reintentando en 30s..."
+            sleep 30
+            ADF_MI=$(az datafactory factory show \
+              --resource-group ${{ secrets.ADF_RESOURCE_GROUP_PROD }} \
+              --factory-name   ${{ secrets.ADF_FACTORY_NAME_PROD }} \
+              --query identity.principalId --output tsv)
+          fi
+          KV_ID=$(az keyvault show --name kv-liga1-secreto --query id --output tsv)
+          az role assignment create \
+            --assignee "$ADF_MI" \
+            --role "Key Vault Secrets User" \
+            --scope "$KV_ID" \
+            --only-show-errors || echo "Rol ya asignado"
+          echo "✅ ADF prod puede leer secretos de kv-liga1-secreto"
+
+      - name: Preparar Linked Services y Pipelines con valores prod
+        run: |
+          # ── Linked Services ────────────────────────────────────
+          mkdir -p /tmp/ls_prod
+          for f in proceso/adf/linkedService/*.json; do
+            cp "$f" /tmp/ls_prod/
+          done
+          # ls_adls: storage prod
+          sed -i 's|datalakelig1peru.dfs.core.windows.net|${{ secrets.STORAGE_ACCOUNT_PROD }}.dfs.core.windows.net|g' \
+            /tmp/ls_prod/ls_adls.json
+          sed -i 's|"storageaccountkey"|"storageaccountkey-prod"|g' \
+            /tmp/ls_prod/ls_adls.json
+          # ls_databricks: token prod
+          sed -i 's|"databricks-token"|"databricks-token-prod"|g' \
+            /tmp/ls_prod/ls_databricks.json
+          # ls_sql_liga1: BD prod
+          sed -i 's|"database": "ligafutbol"|"database": "${{ secrets.SQL_DATABASE_PROD }}"|g' \
+            /tmp/ls_prod/ls_sql_liga1.json
+          sed -i 's|"kv-sql-password"|"kv-sql-password-prod"|g' \
+            /tmp/ls_prod/ls_sql_liga1.json
+
+          # ── Pipelines — reemplazar secreto hardcoded databricks-token ──
+          mkdir -p /tmp/pl_prod
+          for f in proceso/adf/pipeline/*.json; do
+            cp "$f" /tmp/pl_prod/
+          done
+          # pl_execute_jobs_databricks y pl_execute_jobs_ddl tienen hardcoded el secret name
+          sed -i 's|secrets/databricks-token?|secrets/databricks-token-prod?|g' \
+            /tmp/pl_prod/pl_execute_jobs_databricks.json
+          sed -i 's|secrets/databricks-token?|secrets/databricks-token-prod?|g' \
+            /tmp/pl_prod/pl_execute_jobs_ddl.json
+
+          echo "✅ Linked Services y Pipelines preparados para prod"
+          cat /tmp/ls_prod/ls_adls.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['properties']['typeProperties']['url'])"
+
+      - name: Desplegar Linked Services prod
+        run: |
+          for f in /tmp/ls_prod/*.json; do
+            name=$(basename "$f" .json)
+            echo "→ $name"
+            az datafactory linked-service create \
+              --resource-group      ${{ secrets.ADF_RESOURCE_GROUP_PROD }} \
+              --factory-name        ${{ secrets.ADF_FACTORY_NAME_PROD }} \
+              --linked-service-name "$name" \
+              --properties "@$f" \
+              --only-show-errors
+          done
+
+      - name: Desplegar Datasets
+        run: |
+          for f in proceso/adf/dataset/*.json; do
+            name=$(basename "$f" .json)
+            echo "→ $name"
+            az datafactory dataset create \
+              --resource-group  ${{ secrets.ADF_RESOURCE_GROUP_PROD }} \
+              --factory-name    ${{ secrets.ADF_FACTORY_NAME_PROD }} \
+              --dataset-name    "$name" \
+              --properties "@$f" \
+              --only-show-errors
+          done
+
+      - name: Desplegar Pipelines (en orden de dependencias)
+        run: |
+          ORDEN=(
+            "pl_ctrl_start" "pl_ctrl_end_success" "pl_ctrl_end_fail"
+            "pl_delete_controlado" "pl_condition_proceso"
+            "pl_get_csv_mapping" "pl_execute_jobs_databricks"
+            "pl_execute_jobs_ddl" "pl_execute_create_jobs"
+            "pl_procesar_archivos" "pl_procesar_archivos_por_anio"
+            "pl_historico_unificador"
+            "pl_ligaperuana_Rdv" "pl_ligaperuana_Historico"
+            "pl_ligaperuana_Incremental" "pl_ligaperuana_Reproceso"
+            "pl_fix_estadisticas_partidos" "pl_fix_plantillas"
+            "pl_dataentry_catalogo_equipos" "pl_dataentry_nacionalidades" "pl_dataentry_posiciones"
+            "pl_Orchestrator_ligaperuana_Rdv" "pl_Orchestrator_dataentrys"
+            "pl_Orchestrator_fix" "pl_Orchestrator_ligaperuana_udv"
+            "pl_Orchestrator_ligaperuana_ddv" "pl_Orchestrator_ligaperuana_ml"
+            "pl_Orchestrator_E2E_liga1"
+            "sch_create_workflows" "sch_workflow_ddl"
+          )
+          for name in "${ORDEN[@]}"; do
+            f="/tmp/pl_prod/${name}.json"
+            if [ -f "$f" ]; then
+              echo "→ $name"
+              az datafactory pipeline create \
+                --resource-group  ${{ secrets.ADF_RESOURCE_GROUP_PROD }} \
+                --factory-name    ${{ secrets.ADF_FACTORY_NAME_PROD }} \
+                --name            "$name" \
+                --pipeline        "@$f" \
+                --only-show-errors
+            fi
+          done
+
+      - name: Configurar Global Parameters ADF prod
+        run: |
+          # ADF usa 3 global parameters: AREA (workspace URL), USER (email), CLUSTER_ID
+          SUB_ID=$(az account show --query id --output tsv)
+          az rest --method PATCH \
+            --url "https://management.azure.com/subscriptions/${SUB_ID}/resourceGroups/${{ secrets.ADF_RESOURCE_GROUP_PROD }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_FACTORY_NAME_PROD }}?api-version=2018-06-01" \
+            --body "{
+              \"properties\": {
+                \"globalParameters\": {
+                  \"AREA\":       {\"type\": \"string\", \"value\": \"${{ secrets.DATABRICKS_HOST_PROD }}\"},
+                  \"USER\":       {\"type\": \"string\", \"value\": \"${{ secrets.DATABRICKS_USER_PROD }}\"},
+                  \"CLUSTER_ID\": {\"type\": \"string\", \"value\": \"${{ secrets.DATABRICKS_CLUSTER_PROD }}\"}
+                }
+              }
+            }" \
+            --only-show-errors
+          echo "✅ Global parameters AREA, USER, CLUSTER_ID configurados"
+
+  # ═══════════════════════════════════════════════════════════
+  # JOB 2 — Azure SQL: crear plano de control en prod
+  # ═══════════════════════════════════════════════════════════
+  deploy-sql:
+    name: Deploy Azure SQL Prod
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar sqlcmd
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+          curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list \
+            | sudo tee /etc/apt/sources.list.d/msprod.list
+          sudo apt-get update -y
+          sudo ACCEPT_EULA=Y apt-get install -y mssql-tools unixodbc-dev
+          echo "/opt/mssql-tools/bin" >> $GITHUB_PATH
+
+      - name: Correr Querys.sql en BD prod (solo si no existe aún)
+        run: |
+          # Verificar si la tabla tbl_pipeline ya existe en prod.
+          # Querys.sql hace DROP+CREATE, lo que borraría historial de ejecuciones
+          # (tbl_control_ejecucion, tbl_paths) en cada push a main.
+          # Solo se ejecuta la primera vez.
+          EXISTS=$(sqlcmd \
+            -S "${{ secrets.SQL_SERVER_PROD }}" \
+            -d "${{ secrets.SQL_DATABASE_PROD }}" \
+            -U "${{ secrets.SQL_USERNAME_PROD }}" \
+            -P "${{ secrets.SQL_PASSWORD_PROD }}" \
+            -Q "SET NOCOUNT ON; SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='dbo' AND TABLE_NAME='tbl_pipeline'" \
+            -h -1 2>/dev/null | tr -d ' \r\n')
+
+          echo "Tablas existentes (tbl_pipeline count): '$EXISTS'"
+
+          if [ "$EXISTS" = "0" ] || [ -z "$EXISTS" ]; then
+            echo "→ Primera ejecución: creando plano de control SQL..."
+            sqlcmd \
+              -S "${{ secrets.SQL_SERVER_PROD }}" \
+              -d "${{ secrets.SQL_DATABASE_PROD }}" \
+              -U "${{ secrets.SQL_USERNAME_PROD }}" \
+              -P "${{ secrets.SQL_PASSWORD_PROD }}" \
+              -i "PrepAmb/Querys.sql" \
+              -b
+            echo "✅ Plano de control SQL creado"
+          else
+            echo "⏭️ Tablas SQL ya existen (tbl_pipeline presente) — omitiendo setup inicial"
+            echo "   El Job 4 actualizará los JOB_IDs con los valores de prod."
+          fi
+
+  # ═══════════════════════════════════════════════════════════
+  # JOB 3 — Databricks: Repo + catalog + schemas + DDL + Jobs + wheel
+  # ═══════════════════════════════════════════════════════════
+  deploy-databricks:
+    name: Deploy Databricks Prod
+    runs-on: ubuntu-latest
+    needs: [deploy-sql]
+    outputs:
+      job_ids_json: ${{ steps.crear-jobs.outputs.job_ids_json }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Instalar dependencias
+        run: pip install requests wheel setuptools pymssql
+
+      - name: Crear/actualizar Repo en workspace prod
+        env:
+          DATABRICKS_HOST:  ${{ secrets.DATABRICKS_HOST_PROD }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
+        run: |
+          python3 - << 'PYEOF'
+          import requests, os
+
+          host    = os.environ["DATABRICKS_HOST"].rstrip("/")
+          token   = os.environ["DATABRICKS_TOKEN"]
+          headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+          user    = "${{ secrets.DATABRICKS_USER_PROD }}"
+
+          r = requests.get(f"{host}/api/2.0/repos", headers=headers)
+          repos = r.json().get("repos", [])
+          existing = [x for x in repos if "liga1-azure" in x.get("url", "")]
+
+          if existing:
+              repo_id = existing[0]["id"]
+              requests.patch(f"{host}/api/2.0/repos/{repo_id}",
+                             headers=headers, json={"branch": "main"})
+              print(f"✅ Repo actualizado a main (id={repo_id})")
+          else:
+              payload = {
+                  "url":      "https://github.com/oscarmilan30/liga1-azure",
+                  "provider": "gitHub",
+                  "path":     f"/Repos/{user}/liga1-azure"
+              }
+              r2 = requests.post(f"{host}/api/2.0/repos", headers=headers, json=payload)
+              print(f"✅ Repo creado: {r2.json()}")
+          PYEOF
+
+      - name: Crear secrets scope secretliga1 en workspace prod
+        env:
+          DATABRICKS_HOST:  ${{ secrets.DATABRICKS_HOST_PROD }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
+        run: |
+          python3 - << 'PYEOF'
+          import requests, os, json
+
+          host    = os.environ["DATABRICKS_HOST"].rstrip("/")
+          token   = os.environ["DATABRICKS_TOKEN"]
+          headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+          # Crear scope secretliga1 si no existe
+          r = requests.post(f"{host}/api/2.0/secrets/scopes/create", headers=headers,
+                            json={"scope": "secretliga1", "initial_manage_principal": "users"})
+          if r.status_code == 200:
+              print("✅ Scope secretliga1 creado")
+          else:
+              print(f"ℹ️  Scope ya existe o error: {r.json().get('error_code','')}")
+
+          # Valores del scope para prod
+          # Landing y RDV: get_abfss_path() usa storageaccount → escribe en prod ADLS
+          # UDV/DDV: saveAsTable() usa catalogname → apunta a catalog_liga1_prod en Unity Catalog
+          secrets_prod = {
+              "filesystemname":  "liga1",
+              "storageaccount":  "${{ secrets.STORAGE_ACCOUNT_PROD }}",
+              "catalogname":     "catalog_liga1_prod",
+              "kv-sql-sqlserver":"${{ secrets.SQL_SERVER_PROD }}",
+              "kv-sql-sqldb":    "${{ secrets.SQL_DATABASE_PROD }}",
+              "kv-sql-sqluser":  "${{ secrets.SQL_USERNAME_PROD }}",
+              "kv-sql-password": "${{ secrets.SQL_PASSWORD_PROD }}",
+              "databricks-token":"${{ secrets.DATABRICKS_TOKEN_PROD }}",
+          }
+          for key, value in secrets_prod.items():
+              r2 = requests.post(f"{host}/api/2.0/secrets/put", headers=headers,
+                                 json={"scope": "secretliga1", "key": key, "string_value": value})
+              print(f"  {'✅' if r2.status_code==200 else '❌'} {key}")
+          print("✅ Secrets scope secretliga1 configurado con valores prod")
+          PYEOF
+
+      - name: Crear catalog prod, schemas y Volume
+        env:
+          DATABRICKS_HOST:  ${{ secrets.DATABRICKS_HOST_PROD }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
+        run: |
+          python3 - << 'PYEOF'
+          import requests, os, time
+
+          host    = os.environ["DATABRICKS_HOST"].rstrip("/")
+          token   = os.environ["DATABRICKS_TOKEN"]
+          headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+          wh_id   = "${{ secrets.DATABRICKS_WAREHOUSE_PROD }}"
+          storage_prod = "${{ secrets.STORAGE_ACCOUNT_PROD }}"
+
+          # Catalog prod apunta a datalakelig1peruprod (External Location el-liga1-prod)
+          # Schemas espejo de dev: tb_udv, vw_udv, tb_ddv, vw_ddv, shared
+          stmts_prod = [
+              f"CREATE CATALOG IF NOT EXISTS catalog_liga1_prod MANAGED LOCATION 'abfss://liga1@{storage_prod}.dfs.core.windows.net/unity-catalog'",
+              "CREATE SCHEMA IF NOT EXISTS catalog_liga1_prod.tb_udv COMMENT 'Tablas Delta UDV prod'",
+              "CREATE SCHEMA IF NOT EXISTS catalog_liga1_prod.vw_udv COMMENT 'Vistas UDV prod'",
+              "CREATE SCHEMA IF NOT EXISTS catalog_liga1_prod.tb_ddv COMMENT 'Tablas Delta DDV prod'",
+              "CREATE SCHEMA IF NOT EXISTS catalog_liga1_prod.vw_ddv COMMENT 'Vistas DDV prod'",
+              "CREATE SCHEMA IF NOT EXISTS catalog_liga1_prod.shared COMMENT 'Recursos compartidos prod'",
+              "CREATE VOLUME IF NOT EXISTS catalog_liga1_prod.shared.libs",
+          ]
+
+          def run_stmt(stmt):
+              r = requests.post(f"{host}/api/2.0/sql/statements", headers=headers,
+                                json={"statement": stmt, "warehouse_id": wh_id,
+                                      "wait_timeout": "30s"})
+              resp = r.json()
+              state = resp.get("status", {}).get("state", "?")
+              if state == "PENDING":
+                  # Pollear hasta completar (máx 30s)
+                  stmt_id = resp.get("statement_id")
+                  for _ in range(6):
+                      time.sleep(5)
+                      r2 = requests.get(f"{host}/api/2.0/sql/statements/{stmt_id}", headers=headers)
+                      state = r2.json().get("status", {}).get("state", "?")
+                      if state != "PENDING":
+                          break
+              return state
+
+          for stmt in stmts_prod:
+              state = run_stmt(stmt)
+              print(f"  [{state}] {stmt[:100]}")
+
+          print("✅ Catalog catalog_liga1_prod, schemas y Volume creados")
+          PYEOF
+
+      - name: Correr DDL de tablas Delta y vistas (con variables prod)
+        env:
+          DATABRICKS_HOST:  ${{ secrets.DATABRICKS_HOST_PROD }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
+        run: |
+          python3 - << 'PYEOF'
+          import requests, os, glob, time
+
+          host    = os.environ["DATABRICKS_HOST"].rstrip("/")
+          token   = os.environ["DATABRICKS_TOKEN"]
+          headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+          wh_id   = "${{ secrets.DATABRICKS_WAREHOUSE_PROD }}"
+
+          # Variables prod que reemplazan los placeholders ${...} en los DDL
+          catalog_name    = "catalog_liga1_prod"
+          storage_account = "${{ secrets.STORAGE_ACCOUNT_PROD }}"
+          container_name  = "liga1"
+          ruta_base       = "primera_division"
+
+          def run_stmt(stmt):
+              r = requests.post(f"{host}/api/2.0/sql/statements", headers=headers,
+                                json={"statement": stmt, "warehouse_id": wh_id,
+                                      "wait_timeout": "60s"})
+              resp = r.json()
+              state = resp.get("status", {}).get("state", "?")
+              if state == "PENDING":
+                  stmt_id = resp.get("statement_id")
+                  for _ in range(12):
+                      time.sleep(5)
+                      r2 = requests.get(f"{host}/api/2.0/sql/statements/{stmt_id}", headers=headers)
+                      state = r2.json().get("status", {}).get("state", "?")
+                      if state != "PENDING":
+                          break
+              return state, resp.get("status", {}).get("error", {}).get("message", "")
+
+          sql_files = sorted(glob.glob("PrepAmb/ddl_deploy/**/*.sql", recursive=True))
+          for fpath in sql_files:
+              content = open(fpath).read().strip()
+              if not content:
+                  continue
+              # Reemplazar variables ${...} con valores prod antes de ejecutar
+              content = content.replace("${catalog_name}",    catalog_name)
+              content = content.replace("${storage_account}", storage_account)
+              content = content.replace("${container_name}",  container_name)
+              content = content.replace("${ruta_base}",       ruta_base)
+              # ddl_vistas_ddv.sql tiene catalog_liga1 hardcodeado (no como ${var})
+              # reemplazar también esas referencias
+              content = content.replace("catalog_liga1.",     catalog_name + ".")
+
+              stmts = [s.strip() for s in content.split(";") if s.strip()]
+              print(f"→ {fpath} ({len(stmts)} statements)")
+              for stmt in stmts:
+                  state, err = run_stmt(stmt)
+                  if state not in ("SUCCEEDED",):
+                      print(f"  [{state}] {stmt[:80]}")
+                      if err:
+                          print(f"    ERROR: {err}")
+                  else:
+                      print(f"  [OK] {stmt[:80]}")
+
+          print("✅ DDL tablas y vistas completado con variables prod reemplazadas")
+          PYEOF
+
+      - name: Build y subir wheel liga1_utils al Volume
+        env:
+          DATABRICKS_HOST:  ${{ secrets.DATABRICKS_HOST_PROD }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
+        run: |
+          cd proceso
+          python setup.py bdist_wheel --quiet
+          WHEEL=$(ls dist/*.whl | head -1)
+          WHEEL_NAME=$(basename "$WHEEL")
+          echo "Wheel: $WHEEL_NAME"
+          # Volume path: /Volumes/catalog_liga1_prod/shared/libs
+          curl -s -X PUT \
+            -H "Authorization: Bearer ${{ secrets.DATABRICKS_TOKEN_PROD }}" \
+            -H "Content-Type: application/octet-stream" \
+            --data-binary @"$WHEEL" \
+            "${{ secrets.DATABRICKS_HOST_PROD }}/api/2.0/fs/files/Volumes/catalog_liga1_prod/shared/libs/${WHEEL_NAME}"
+          echo "✅ Wheel subido a /Volumes/catalog_liga1_prod/shared/libs/"
+
+      - name: Configurar Delta Sharing prod
+        env:
+          DATABRICKS_HOST:  ${{ secrets.DATABRICKS_HOST_PROD }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
+        run: |
+          python3 - << 'PYEOF'
+          import requests, os, time
+
+          host    = os.environ["DATABRICKS_HOST"].rstrip("/")
+          token   = os.environ["DATABRICKS_TOKEN"]
+          headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+          wh_id   = "${{ secrets.DATABRICKS_WAREHOUSE_PROD }}"
+          catalog = "catalog_liga1_prod"
+
+          def run_stmt(stmt, ignore_errors=False):
+              r = requests.post(f"{host}/api/2.0/sql/statements", headers=headers,
+                                json={"statement": stmt, "warehouse_id": wh_id,
+                                      "wait_timeout": "30s"})
+              resp = r.json()
+              state = resp.get("status", {}).get("state", "?")
+              if state == "PENDING":
+                  stmt_id = resp.get("statement_id")
+                  for _ in range(6):
+                      time.sleep(5)
+                      r2 = requests.get(f"{host}/api/2.0/sql/statements/{stmt_id}", headers=headers)
+                      state = r2.json().get("status", {}).get("state", "?")
+                      if state != "PENDING":
+                          break
+              err = resp.get("status", {}).get("error", {}).get("message", "")
+              if state != "SUCCEEDED" and not ignore_errors:
+                  print(f"  [{state}] {stmt[:80]}")
+                  if err: print(f"    {err}")
+              else:
+                  print(f"  [OK] {stmt[:80]}")
+              return state
+
+          # Share y recipient prod (separados de dev)
+          run_stmt("CREATE SHARE IF NOT EXISTS liga1_share_prod COMMENT 'Share Liga 1 Prod'")
+
+          views = [
+              f"{catalog}.vw_ddv.ft_score_ml_vw",
+              f"{catalog}.vw_ddv.dm_formacion",
+              f"{catalog}.vw_ddv.dm_estilo_juego",
+              f"{catalog}.vw_ddv.dm_temporada_vw",
+              f"{catalog}.vw_ddv.dm_equipos_vw",
+          ]
+          for v in views:
+              run_stmt(f"ALTER SHARE liga1_share_prod ADD VIEW {v}", ignore_errors=True)
+
+          run_stmt("CREATE RECIPIENT IF NOT EXISTS liga1_powerbi_prod COMMENT 'Power BI prod'")
+          run_stmt("GRANT SELECT ON SHARE liga1_share_prod TO RECIPIENT liga1_powerbi_prod")
+
+          # Obtener activation link
+          r = requests.post(f"{host}/api/2.0/sql/statements", headers=headers,
+                            json={"statement": "DESCRIBE RECIPIENT liga1_powerbi_prod",
+                                  "warehouse_id": wh_id, "wait_timeout": "30s"})
+          resp = r.json()
+          rows = resp.get("result", {}).get("data_array", [])
+          cols = [c["name"] for c in resp.get("manifest", {}).get("schema", {}).get("columns", [])]
+          for row in rows:
+              d = dict(zip(cols, row))
+              if d.get("name") == "activation_link" or "activation" in str(d.get("name","")).lower():
+                  print(f"\n🔗 ACTIVATION LINK (guardar para Power BI):\n{d.get('value','')}\n")
+                  break
+
+          print("✅ Delta Sharing prod configurado: liga1_share_prod / liga1_powerbi_prod")
+          PYEOF
+
+      - name: Crear Jobs Databricks prod
+        id: crear-jobs
+        env:
+          DATABRICKS_HOST:  ${{ secrets.DATABRICKS_HOST_PROD }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
+        run: |
+          python3 - << 'PYEOF'
+          import requests, os, json, glob
+
+          host       = os.environ["DATABRICKS_HOST"].rstrip("/")
+          token      = os.environ["DATABRICKS_TOKEN"]
+          headers    = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+          cluster_id = "${{ secrets.DATABRICKS_CLUSTER_PROD }}"
+          user       = "${{ secrets.DATABRICKS_USER_PROD }}"
+
+          job_ids = {}
+
+          # Los 5 jobs necesarios en prod
+          sch_files = sorted(
+              glob.glob("proceso/workflow_deploy/sch_*/sch_*.json") +
+              glob.glob("proceso/workflow_deploy/execute_jobddl/execute_jobddl.json")
+          )
+          for fpath in sch_files:
+              with open(fpath) as f:
+                  raw = f.read()
+
+              # Reemplazar placeholders
+              raw = raw.replace("{USER}", user)
+              raw = raw.replace("{CLUSTER_ID}", cluster_id)
+              job_json = json.loads(raw)
+              job_name = job_json["name"]
+
+              # Verificar si ya existe
+              r = requests.get(f"{host}/api/2.1/jobs/list", headers=headers,
+                               params={"name": job_name})
+              existing = r.json().get("jobs", [])
+
+              if existing:
+                  job_id = existing[0]["job_id"]
+                  requests.post(f"{host}/api/2.1/jobs/reset", headers=headers,
+                                json={"job_id": job_id, "new_settings": job_json})
+                  print(f"  ↻ Actualizado: {job_name} → id={job_id}")
+              else:
+                  r2 = requests.post(f"{host}/api/2.1/jobs/create",
+                                     headers=headers, json=job_json)
+                  job_id = r2.json().get("job_id")
+                  print(f"  ✅ Creado: {job_name} → id={job_id}")
+
+              job_ids[job_name] = job_id
+
+          print(f"\nJob IDs: {json.dumps(job_ids, indent=2)}")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"job_ids_json={json.dumps(job_ids)}\n")
+          PYEOF
+
+  # ═══════════════════════════════════════════════════════════
+  # JOB 4 — Actualizar job_ids en la parametría SQL prod
+  # ═══════════════════════════════════════════════════════════
+  actualizar-job-ids:
+    name: Actualizar Job IDs en parametría SQL
+    runs-on: ubuntu-latest
+    needs: [deploy-databricks, deploy-sql]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar pymssql
+        run: pip install pymssql
+
+      - name: UPDATE job_ids en tbl_pipeline_parametros prod
+        env:
+          SQL_SERVER:   ${{ secrets.SQL_SERVER_PROD }}
+          SQL_DATABASE: ${{ secrets.SQL_DATABASE_PROD }}
+          SQL_USERNAME: ${{ secrets.SQL_USERNAME_PROD }}
+          SQL_PASSWORD: ${{ secrets.SQL_PASSWORD_PROD }}
+          JOB_IDS_JSON: ${{ needs.deploy-databricks.outputs.job_ids_json }}
+        run: |
+          python3 - << 'PYEOF'
+          import pymssql, os, json
+
+          job_ids = json.loads(os.environ["JOB_IDS_JSON"])
+
+          # Mapeo: nombre del job en el JSON → PipelineId en tbl_pipeline_parametros
+          # Los nombres del JSON (campo "name") difieren de tbl_pipeline.Nombre,
+          # por eso usamos PipelineId directamente.
+          #   schd_udv_liga1         → PipelineId 25  (sch_ligaperuana_udv)
+          #   schd_ddv_liga1         → PipelineId 34  (sch_ddv_liga1)
+          #   sch_ml_liga1           → PipelineId 47  (sch_ml_liga1)
+          #   execute_job_ddl        → PipelineId  5  (Job_ddl)
+          #   schd_md_catalogo_equipos → PipelineId 3 (catalogo_equipos)
+          name_to_pipeline_id = {
+              "schd_udv_liga1":           25,
+              "schd_ddv_liga1":           34,
+              "sch_ml_liga1":             47,
+              "execute_job_ddl":           5,
+              "schd_md_catalogo_equipos":  3,
+          }
+
+          conn = pymssql.connect(
+              server   = os.environ["SQL_SERVER"],
+              database = os.environ["SQL_DATABASE"],
+              user     = os.environ["SQL_USERNAME"],
+              password = os.environ["SQL_PASSWORD"]
+          )
+          cursor = conn.cursor()
+
+          for job_name, job_id in job_ids.items():
+              pipeline_id = name_to_pipeline_id.get(job_name)
+              if not pipeline_id:
+                  print(f"  ⚠️ Sin mapeo SQL para job: {job_name} → ignorado")
+                  continue
+              if not job_id:
+                  print(f"  ⚠️ job_id nulo para {job_name} → ignorado")
+                  continue
+
+              cursor.execute(
+                  "UPDATE dbo.tbl_pipeline_parametros "
+                  "SET Valor = %s "
+                  "WHERE PipelineId = %s AND Parametro = 'JOB_ID'",
+                  (str(job_id), pipeline_id)
+              )
+              rows = cursor.rowcount
+              status = "✅" if rows > 0 else "⚠️ sin fila existente (INSERT necesario)"
+              print(f"  {status} PipelineId={pipeline_id} ({job_name}) → {job_id}  [{rows} fila(s)]")
+
+              # Si la fila no existía (Querys.sql no la insertó), la creamos
+              if rows == 0:
+                  cursor.execute(
+                      "INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) "
+                      "VALUES (%s, 'JOB_ID', %s, 'Job Databricks prod')",
+                      (pipeline_id, str(job_id))
+                  )
+                  print(f"    ↳ INSERT realizado (fila nueva)")
+
+          conn.commit()
+          conn.close()
+          print("\n✅ Job IDs actualizados en tbl_pipeline_parametros prod")
+          PYEOF

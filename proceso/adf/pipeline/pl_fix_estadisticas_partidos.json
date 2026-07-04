@@ -1,0 +1,126 @@
+{
+	"name": "pl_fix_estadisticas_partidos",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup_Parametros_Fix",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_parametros]",
+						"storedProcedureParameters": {
+							"PipelineId": {
+								"type": "Int32",
+								"value": {
+									"value": "@pipeline().parameters.PipelineId",
+									"type": "Expression"
+								}
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sql_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "@pipeline().parameters.TablaParametro",
+							"SchemaName": "dbo"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "Execute_Fix_Notebook",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Lookup_Parametros_Fix",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": {
+						"value": "@concat('/Repos/', pipeline().globalParameters.USER, '/liga1-azure/proceso/frm_udv/notebooks/fix/nb_fix_estadisticas_partidos')",
+						"type": "Expression"
+					},
+					"baseParameters": {
+						"prm_pipelineid": {
+							"value": "@string(pipeline().parameters.PipelineId)",
+							"type": "Expression"
+						},
+						"prm_id_ejecucion": {
+							"value": "@string(pipeline().parameters.IdEjecucion)",
+							"type": "Expression"
+						},
+						"prm_id_ejecucion_e2e": {
+							"value": "@string(pipeline().parameters.IdEjecucionE2E)",
+							"type": "Expression"
+						},
+						"prm_anio_reproceso": {
+							"value": "@pipeline().parameters.AnioReproceso",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"CLUSTER_ID": "@pipeline().globalParameters.CLUSTER_ID",
+						"AREA": "@pipeline().globalParameters.AREA"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"PipelineId": {
+				"type": "int",
+				"defaultValue": 26
+			},
+			"TablaParametro": {
+				"type": "string",
+				"defaultValue": "tbl_pipeline_parametros"
+			},
+			"IdEjecucion": {
+				"type": "int",
+				"defaultValue": 0
+			},
+			"IdEjecucionE2E": {
+				"type": "int",
+				"defaultValue": 0
+			},
+			"AnioReproceso": {
+				"type": "string",
+				"defaultValue": "0"
+			}
+		},
+		"folder": {
+			"name": "pl_pipelines_fix/pl_inner_procesos"
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-05-23T23:49:36Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

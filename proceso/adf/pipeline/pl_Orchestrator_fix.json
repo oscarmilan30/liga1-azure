@@ -1,0 +1,311 @@
+{
+	"name": "pl_Orchestrator_fix",
+	"properties": {
+		"activities": [
+			{
+				"name": "tb_ctrl_start",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_start",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"ExecutionId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"pipeline_name": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"pipeline_type": {
+							"value": "@pipeline().parameters.pipeline_type",
+							"type": "Expression"
+						},
+						"IdEjecucionE2E": {
+							"value": "@pipeline().parameters.IdEjecucionE2E",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set_IdEjecucion",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "tb_ctrl_start",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "IdEjecucion",
+					"value": {
+						"value": "@activity('tb_ctrl_start').output.pipelineReturnValue.IdEjecucion",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "fix_estadisticas_partidos",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set_IdEjecucion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_fix_estadisticas_partidos",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId_EstadisticasPartidos",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						},
+						"IdEjecucionE2E": {
+							"value": "@pipeline().parameters.IdEjecucionE2E",
+							"type": "Expression"
+						},
+						"AnioReproceso": {
+							"value": "@pipeline().parameters.AnioReproceso",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "fix_plantillas",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "fix_estadisticas_partidos",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_fix_plantillas",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId_Plantillas",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						},
+						"IdEjecucionE2E": {
+							"value": "@pipeline().parameters.IdEjecucionE2E",
+							"type": "Expression"
+						},
+						"AnioReproceso": {
+							"value": "@pipeline().parameters.AnioReproceso",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "tb_ctrl_end_success",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "fix_plantillas",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_end_success",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "tb_ctrl_end_fail_estadisticas",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "fix_estadisticas_partidos",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_end_fail",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						},
+						"MensajeError": {
+							"value": "@activity('fix_estadisticas_partidos').error.message",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "tb_ctrl_end_fail_plantillas",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "fix_plantillas",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_end_fail",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						},
+						"MensajeError": {
+							"value": "@activity('fix_plantillas').error.message",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"PipelineId": {
+				"type": "int",
+				"defaultValue": 26
+			},
+			"PipelineId_Plantillas": {
+				"type": "int",
+				"defaultValue": 36
+			},
+			"TablaParametro": {
+				"type": "string",
+				"defaultValue": "tbl_pipeline_parametros"
+			},
+			"pipeline_type": {
+				"type": "string",
+				"defaultValue": "FIX"
+			},
+			"PipelineId_EstadisticasPartidos": {
+				"type": "int",
+				"defaultValue": 41
+			},
+			"IdEjecucionE2E": {
+				"type": "int",
+				"defaultValue": 0
+			},
+			"AnioReproceso": {
+				"type": "string",
+				"defaultValue": "0"
+			}
+		},
+		"variables": {
+			"IdEjecucion": {
+				"type": "Integer"
+			}
+		},
+		"folder": {
+			"name": "pl_pipelines_fix"
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-05-23T23:49:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

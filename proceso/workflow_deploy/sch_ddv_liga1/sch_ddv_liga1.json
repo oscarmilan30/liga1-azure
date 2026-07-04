@@ -1,0 +1,203 @@
+{
+  "name": "schd_ddv_liga1",
+  "email_notifications": {
+    "on_success": [
+      "{USER}"
+    ],
+    "on_failure": [
+      "{USER}"
+    ],
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {},
+  "notification_settings": {
+    "no_alert_for_skipped_runs": false,
+    "no_alert_for_canceled_runs": false
+  },
+  "timeout_seconds": 14400,
+  "max_concurrent_runs": 1,
+  "git_source": {
+    "git_url": "https://github.com/oscarmilan30/liga1-azure",
+    "git_provider": "gitHub",
+    "git_branch": "main"
+  },
+  "tasks": [
+    {
+      "task_key": "nb_dm_equipos",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_ddv/notebooks/dm_equipos/nb_dm_equipos",
+        "base_parameters": {
+          "prm_pipelineid": "27"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false
+    },
+    {
+      "task_key": "nb_ft_rendimiento_temporada",
+      "depends_on": [
+        {
+          "task_key": "nb_dm_equipos"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_ddv/notebooks/ft_rendimiento_temporada/nb_ft_rendimiento_temporada",
+        "base_parameters": {
+          "prm_pipelineid": "28"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false
+    },
+    {
+      "task_key": "nb_ft_partidos_detalle",
+      "depends_on": [
+        {
+          "task_key": "nb_dm_equipos"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_ddv/notebooks/ft_partidos_detalle/nb_ft_partidos_detalle",
+        "base_parameters": {
+          "prm_pipelineid": "29"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false
+    },
+    {
+      "task_key": "nb_ft_plantillas_historico",
+      "depends_on": [
+        {
+          "task_key": "nb_dm_equipos"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_ddv/notebooks/ft_plantillas_historico/nb_ft_plantillas_historico",
+        "base_parameters": {
+          "prm_pipelineid": "30"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false
+    },
+    {
+      "task_key": "nb_ft_entrenadores_historico",
+      "depends_on": [
+        {
+          "task_key": "nb_dm_equipos"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_ddv/notebooks/ft_entrenadores_historico/nb_ft_entrenadores_historico",
+        "base_parameters": {
+          "prm_pipelineid": "31"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false
+    },
+    {
+      "task_key": "nb_ft_evolucion_valoracion",
+      "depends_on": [
+        {
+          "task_key": "nb_dm_equipos"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_ddv/notebooks/ft_evolucion_valoracion/nb_ft_evolucion_valoracion",
+        "base_parameters": {
+          "prm_pipelineid": "32"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false
+    },
+    {
+      "task_key": "nb_ft_rendimiento_acumulado",
+      "depends_on": [
+        {
+          "task_key": "nb_dm_equipos"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_ddv/notebooks/ft_rendimiento_acumulado/nb_ft_rendimiento_acumulado",
+        "base_parameters": {
+          "prm_pipelineid": "40",
+          "prm_periodo": "0",
+          "prm_id_ejecucion": "0"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false
+    },
+    {
+      "task_key": "nb_ft_estadisticas_jugadores",
+      "depends_on": [
+        {
+          "task_key": "nb_dm_equipos"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_ddv/notebooks/ft_estadisticas_jugadores/nb_ft_estadisticas_jugadores",
+        "base_parameters": {
+          "prm_pipelineid": "44"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false
+    }
+  ],
+  "tags": {
+    "Env": "Prod",
+    "Proyecto": "Liga1",
+    "Unidad": "DDV"
+  },
+  "queue": {
+    "enabled": true
+  },
+  "performance_target": "PERFORMANCE_OPTIMIZED",
+  "run_as": {
+    "user_name": "{USER}"
+  }
+}

@@ -1,0 +1,29 @@
+table _Parametros
+	isHidden
+	lineageTag: 74ad56aa-11a0-4ab6-8f88-89f19eac4790
+
+	column TipoCambio
+		dataType: string
+		isHidden
+		lineageTag: 7a9afbd9-bef6-450c-b48d-c1a657712259
+		summarizeBy: none
+		sourceColumn: TipoCambio
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Parametros = m
+		mode: import
+		source =
+				let
+				    Origen = #table({"TipoCambio"}, {{TipoCambioEURPEN}})
+				in
+				    Origen
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

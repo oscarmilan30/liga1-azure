@@ -1,0 +1,269 @@
+{
+	"name": "pl_Orchestrator_ligaperuana_ddv",
+	"properties": {
+		"activities": [
+			{
+				"name": "tb_ctrl_start",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_start",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"ExecutionId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"pipeline_name": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"pipeline_type": {
+							"value": "@pipeline().parameters.pipeline_type",
+							"type": "Expression"
+						},
+						"IdEjecucionE2E": {
+							"value": "@pipeline().parameters.IdEjecucionE2E",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set_IdEjecucion",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "tb_ctrl_start",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "IdEjecucion",
+					"value": {
+						"value": "@activity('tb_ctrl_start').output.pipelineReturnValue.IdEjecucion",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "lkp_parametros_workflow",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Set_IdEjecucion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_parametros]",
+						"storedProcedureParameters": {
+							"PipelineId": {
+								"type": "Int32",
+								"value": {
+									"value": "@pipeline().parameters.DDVWorkflowPipelineId",
+									"type": "Expression"
+								}
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sql_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TablaParametro",
+								"type": "Expression"
+							},
+							"SchemaName": "dbo"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "ddv_workflow",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "lkp_parametros_workflow",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_execute_jobs_databricks",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"area": {
+							"value": "@pipeline().globalParameters.AREA",
+							"type": "Expression"
+						},
+						"job_id": {
+							"value": "@activity('lkp_parametros_workflow').output.firstRow.JOB_ID",
+							"type": "Expression"
+						},
+						"notebook_params_json": {
+							"value": "@concat('{\"prm_periodo\":\"', if(equals(pipeline().parameters.ModoEjecucion, 'REPROCESO'), pipeline().parameters.AnioReproceso, if(equals(pipeline().parameters.ModoEjecucion, 'HISTORICO'), '0', formatDateTime(utcNow(), 'yyyy'))), '\",\"prm_id_ejecucion\":\"', string(variables('IdEjecucion')), '\",\"prm_id_ejecucion_e2e\":\"', string(pipeline().parameters.IdEjecucionE2E), '\"}')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "tb_ctrl_end_success",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "ddv_workflow",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_end_success",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "tb_ctrl_end_fail",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "ddv_workflow",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_end_fail",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						},
+						"MensajeError": {
+							"value": "@activity('ddv_workflow').error.message",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"PipelineId": {
+				"type": "int",
+				"defaultValue": 33
+			},
+			"TablaParametro": {
+				"type": "string",
+				"defaultValue": "tbl_pipeline_parametros"
+			},
+			"pipeline_type": {
+				"type": "string",
+				"defaultValue": "DDV"
+			},
+			"DDVWorkflowPipelineId": {
+				"type": "int",
+				"defaultValue": 34
+			},
+			"ModoEjecucion": {
+				"type": "string",
+				"defaultValue": "INCREMENTAL"
+			},
+			"AnioReproceso": {
+				"type": "string"
+			},
+			"IdEjecucionE2E": {
+				"type": "int",
+				"defaultValue": 0
+			}
+		},
+		"variables": {
+			"IdEjecucion": {
+				"type": "Integer"
+			}
+		},
+		"folder": {
+			"name": "pl_pipelines_ddv"
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-05-23T23:49:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

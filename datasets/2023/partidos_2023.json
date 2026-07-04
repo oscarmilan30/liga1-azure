@@ -1,0 +1,2324 @@
+{
+  "fuente": "FotMob",
+  "temporada": 2023,
+  "fecha_carga": "2026-06-11 20:20:35",
+  "data": [
+    {
+      "fecha": "03-02-2023",
+      "local": "Cusco FC",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/es/matches/sport-huancayo-vs-cusco-fc/1et4p0cb#4092879"
+    },
+    {
+      "fecha": "04-02-2023",
+      "local": "Atletico Grau",
+      "visitante": "FBC Melgar",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/es/matches/fbc-melgar-vs-atletico-grau/5gmesus2#4092728"
+    },
+    {
+      "fecha": "04-02-2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Cienciano",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/es/matches/cienciano-vs-cd-ut-cajamarca/15zhz3at#4092742"
+    },
+    {
+      "fecha": "04-02-2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Academia Cantolao",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/es/matches/universitario-de-deportes-vs-academia-cantolao/3jqn22k3#4092716"
+    },
+    {
+      "fecha": "05-02-2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Binacional",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/es/matches/binacional-vs-deportivo-garcilaso/lj8ecfzy#4092741"
+    },
+    {
+      "fecha": "05-02-2023",
+      "local": "Sporting Cristal",
+      "visitante": "Alianza Lima",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/es/matches/sporting-cristal-vs-alianza-lima/k8xcb#4092713"
+    },
+    {
+      "fecha": "06-02-2023",
+      "local": "Sport Boys",
+      "visitante": "Union Comercio",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/es/matches/sport-boys-vs-union-comercio/e799rz2#4092714"
+    },
+    {
+      "fecha": "06-02-2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/es/matches/alianza-atletico-vs-universidad-cesar-vallejo/n6tck#4092729"
+    },
+    {
+      "fecha": "07-02-2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/es/matches/deportivo-municipal-vs-carlos-mannucci/270fkhyy#4092715"
+    },
+    {
+      "fecha": "11-02-2023",
+      "local": "Cienciano",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/es/matches/cienciano-vs-cusco-fc/lnfwp1z#4092727"
+    },
+    {
+      "fecha": "11-02-2023",
+      "local": "Academia Cantolao",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/es/matches/universidad-cesar-vallejo-vs-academia-cantolao/3jqppz20#4092711"
+    },
+    {
+      "fecha": "11-02-2023",
+      "local": "Binacional",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 4",
+      "url": "https://www.fotmob.com/es/matches/binacional-vs-atletico-grau/lj8fftj8#4092726"
+    },
+    {
+      "fecha": "11-02-2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/es/matches/deportivo-garcilaso-vs-asociacion-deportiva-tarma/q6dflwlm#4092718"
+    },
+    {
+      "fecha": "Sunday, February 12, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cd-ut-cajamarca/16hol8hj#4092710"
+    },
+    {
+      "fecha": "Sunday, February 12, 2023",
+      "local": "Union Comercio",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-union-comercio/e78tse5#4092717"
+    },
+    {
+      "fecha": "Sunday, February 12, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-carlos-mannucci/1uoi3ftw#4092712"
+    },
+    {
+      "fecha": "Sunday, February 12, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-lima/yskh9#4092719"
+    },
+    {
+      "fecha": "Monday, February 13, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Deportivo Municipal",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-deportivo-municipal/o38ecb#4092709"
+    },
+    {
+      "fecha": "Friday, February 17, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-fbc-melgar/bosnq#4092770"
+    },
+    {
+      "fecha": "Saturday, February 18, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Union Comercio",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-union-comercio/e79prk8#4092723"
+    },
+    {
+      "fecha": "Saturday, February 18, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Cienciano",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-huancayo/6eljsxa#4092708"
+    },
+    {
+      "fecha": "Saturday, February 18, 2023",
+      "local": "Sport Boys",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-carlos-mannucci/1vbejgjy#4092751"
+    },
+    {
+      "fecha": "Sunday, February 19, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/atletico-grau-vs-asociacion-deportiva-tarma/q6dgtbhr#4092722"
+    },
+    {
+      "fecha": "Sunday, February 19, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-lima/yrvgi#4092721"
+    },
+    {
+      "fecha": "Sunday, February 19, 2023",
+      "local": "Cusco FC",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cusco-fc/m0ijk39#4092725"
+    },
+    {
+      "fecha": "Monday, February 20, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Binacional",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-binacional/5yan7t2y#4092720"
+    },
+    {
+      "fecha": "Wednesday, February 22, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-academia-cantolao/8otyri2p#4092724"
+    },
+    {
+      "fecha": "Saturday, February 25, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Sport Huancayo",
+      "marcador": "4 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-huancayo/6lqj55j#4092774"
+    },
+    {
+      "fecha": "Saturday, February 25, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-garcilaso-vs-atletico-grau/lmzuu2k2#4092773"
+    },
+    {
+      "fecha": "Sunday, February 26, 2023",
+      "local": "Union Comercio",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-cd-ut-cajamarca/2v38nxv2#4092776"
+    },
+    {
+      "fecha": "Sunday, February 26, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Deportivo Municipal",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-asociacion-deportiva-tarma/8i1bzyju#4092777"
+    },
+    {
+      "fecha": "Monday, February 27, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-carlos-mannucci/1vbdknf1#4092771"
+    },
+    {
+      "fecha": "Monday, February 27, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-academia-cantolao/6zjz64xu#4092772"
+    },
+    {
+      "fecha": "Friday, March 3, 2023",
+      "local": "Sport Boys",
+      "visitante": "Binacional",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-binacional/5eqd1vny#4092768"
+    },
+    {
+      "fecha": "Saturday, March 4, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Academia Cantolao",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-academia-cantolao/58qpa0ip#4092785"
+    },
+    {
+      "fecha": "Saturday, March 4, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-asociacion-deportiva-tarma/7t9fcoic#4092752"
+    },
+    {
+      "fecha": "Sunday, March 5, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-carlos-mannucci/1vbfi9p4#4092782"
+    },
+    {
+      "fecha": "Sunday, March 5, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cd-ut-cajamarca/16vuu6rh#4092781"
+    },
+    {
+      "fecha": "Sunday, March 5, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-fbc-melgar/n705s#4092783"
+    },
+    {
+      "fecha": "Monday, March 6, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-deportivo-garcilaso/609xbiug#4092784"
+    },
+    {
+      "fecha": "Monday, March 6, 2023",
+      "local": "Cusco FC",
+      "visitante": "Union Comercio",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-cusco-fc/1xc1leue#4092780"
+    },
+    {
+      "fecha": "Friday, March 10, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-asociacion-deportiva-tarma/7ukej2gu#4092759"
+    },
+    {
+      "fecha": "Sunday, March 12, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cusco-fc/maq553r#4092760"
+    },
+    {
+      "fecha": "Sunday, March 12, 2023",
+      "local": "Union Comercio",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-union-comercio/12hvxyyp#4092758"
+    },
+    {
+      "fecha": "Sunday, March 12, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-atletico-grau/609xwbki#4092756"
+    },
+    {
+      "fecha": "Sunday, March 12, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Cienciano",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-academia-cantolao/3iv2m9g9#4092754"
+    },
+    {
+      "fecha": "Sunday, March 12, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Sporting Cristal",
+      "marcador": "4 - 4",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-deportivo-garcilaso/5fj53jmq#4092755"
+    },
+    {
+      "fecha": "Monday, March 13, 2023",
+      "local": "Binacional",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-binacional/5eqbeob1#4092761"
+    },
+    {
+      "fecha": "Friday, March 17, 2023",
+      "local": "Sport Boys",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-deportivo-garcilaso/5gmbhvfg#4092792"
+    },
+    {
+      "fecha": "Saturday, March 18, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Academia Cantolao",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-academia-cantolao/3jqni1z0#4092765"
+    },
+    {
+      "fecha": "Saturday, March 18, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cd-ut-cajamarca/16hqdrlg#4092763"
+    },
+    {
+      "fecha": "Saturday, March 18, 2023",
+      "local": "Cienciano",
+      "visitante": "Union Comercio",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-union-comercio/dwrcss9#4092786"
+    },
+    {
+      "fecha": "Sunday, March 19, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-asociacion-deportiva-tarma/7ukcjr19#4092766"
+    },
+    {
+      "fecha": "Sunday, March 19, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Binacional",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-binacional/5eqep314#4092764"
+    },
+    {
+      "fecha": "Sunday, March 19, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-atletico-grau/5fj5nbjk#4092791"
+    },
+    {
+      "fecha": "Sunday, March 19, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Alianza Lima",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-sport-huancayo/6rcedst#4092767"
+    },
+    {
+      "fecha": "Monday, March 20, 2023",
+      "local": "Cusco FC",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-carlos-mannucci/4iw3nkja#4092762"
+    },
+    {
+      "fecha": "Saturday, March 25, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Cienciano",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universitario-de-deportes/bnbiq#4092734"
+    },
+    {
+      "fecha": "Saturday, March 25, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Academia Cantolao",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-academia-cantolao/3iv3y1rf#4092730"
+    },
+    {
+      "fecha": "Sunday, March 26, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-sport-huancayo/6lr1bbt#4092736"
+    },
+    {
+      "fecha": "Sunday, March 26, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Union Comercio",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-union-comercio/jtr4le2#4092733"
+    },
+    {
+      "fecha": "Sunday, March 26, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-atletico-grau/5hgr6wmr#4092735"
+    },
+    {
+      "fecha": "Sunday, March 26, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-asociacion-deportiva-tarma/7ukhtxjd#4092732"
+    },
+    {
+      "fecha": "Sunday, March 26, 2023",
+      "local": "Sport Boys",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-boys/n68x5#4092731"
+    },
+    {
+      "fecha": "Sunday, March 26, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-deportivo-garcilaso/dk3ov4la#4092737"
+    },
+    {
+      "fecha": "Monday, March 27, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Cusco FC",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-cd-ut-cajamarca/3ep180ys#4092749"
+    },
+    {
+      "fecha": "Friday, March 31, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-deportivo-municipal/lun7eq#4092787"
+    },
+    {
+      "fecha": "Friday, March 31, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-asociacion-deportiva-tarma/7ukgidwo#4092809"
+    },
+    {
+      "fecha": "Saturday, April 1, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-deportivo-garcilaso/5gm9udrj#4092789"
+    },
+    {
+      "fecha": "Saturday, April 1, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cusco-fc/m0ju08j#4092807"
+    },
+    {
+      "fecha": "Sunday, April 2, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Cienciano",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-lima/k8e98#4092810"
+    },
+    {
+      "fecha": "Sunday, April 2, 2023",
+      "local": "Union Comercio",
+      "visitante": "Alianza Atletico",
+      "marcador": "3 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-union-comercio/e78z493#4092808"
+    },
+    {
+      "fecha": "Sunday, April 2, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-carlos-mannucci/3584ddry#4092790"
+    },
+    {
+      "fecha": "Sunday, April 2, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-atletico-grau/5gmc1pbi#4092788"
+    },
+    {
+      "fecha": "Sunday, April 2, 2023",
+      "local": "Binacional",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-binacional/bhoz1sym#4092811"
+    },
+    {
+      "fecha": "Friday, April 7, 2023",
+      "local": "Cusco FC",
+      "visitante": "Binacional",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-binacional/9iq5o43a#4092812"
+    },
+    {
+      "fecha": "Saturday, April 8, 2023",
+      "local": "Sport Boys",
+      "visitante": "Deportivo Municipal",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-deportivo-municipal/o32m4c#4092805"
+    },
+    {
+      "fecha": "Saturday, April 8, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-asociacion-deportiva-tarma/exziuwem#4092814"
+    },
+    {
+      "fecha": "Saturday, April 8, 2023",
+      "local": "Cienciano",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-carlos-mannucci/1uoh4smn#4092806"
+    },
+    {
+      "fecha": "Sunday, April 9, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-alianza-lima/ys3sq#4092816"
+    },
+    {
+      "fecha": "Sunday, April 9, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-sport-huancayo/6lr8l04#4092818"
+    },
+    {
+      "fecha": "Sunday, April 9, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-atletico-grau/5gmae7ni#4092817"
+    },
+    {
+      "fecha": "Monday, April 10, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Union Comercio",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-academia-cantolao/67447pxc#4092813"
+    },
+    {
+      "fecha": "Monday, April 10, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-deportivo-garcilaso/5gmd5d3m#4092815"
+    },
+    {
+      "fecha": "Friday, April 14, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-boys/bo4hq#4092802"
+    },
+    {
+      "fecha": "Saturday, April 15, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Cienciano",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-fbc-melgar/boe5q#4092798"
+    },
+    {
+      "fecha": "Saturday, April 15, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-atletico-grau/5gmdp6zr#4092796"
+    },
+    {
+      "fecha": "Sunday, April 16, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Academia Cantolao",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-academia-cantolao/3kf7c37u#4092800"
+    },
+    {
+      "fecha": "Sunday, April 16, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-deportivo-garcilaso/bkfy53jg#4092795"
+    },
+    {
+      "fecha": "Sunday, April 16, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Cusco FC",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-asociacion-deportiva-tarma/col7yt1i#4092799"
+    },
+    {
+      "fecha": "Sunday, April 16, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-deportivo-municipal/o2z573#4092797"
+    },
+    {
+      "fecha": "Sunday, April 16, 2023",
+      "local": "Binacional",
+      "visitante": "Sport Huancayo",
+      "marcador": "5 - 3",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-binacional/7gnlyola#4092801"
+    },
+    {
+      "fecha": "Monday, April 17, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-carlos-mannucci/1vbdw94n#4092794"
+    },
+    {
+      "fecha": "Friday, April 21, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-atletico-grau/bkfyxyhq#4092793"
+    },
+    {
+      "fecha": "Saturday, April 22, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-academia-cantolao/afbiltm7#4092804"
+    },
+    {
+      "fecha": "Saturday, April 22, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-asociacion-deportiva-tarma/aaeffaum#4092830"
+    },
+    {
+      "fecha": "Saturday, April 22, 2023",
+      "local": "Cienciano",
+      "visitante": "Binacional",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-binacional/5dnbt69b#4092828"
+    },
+    {
+      "fecha": "Sunday, April 23, 2023",
+      "local": "Union Comercio",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-union-comercio/efggel5#4092829"
+    },
+    {
+      "fecha": "Sunday, April 23, 2023",
+      "local": "Cusco FC",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-deportivo-garcilaso/9l89b2ps#4092803"
+    },
+    {
+      "fecha": "Monday, April 24, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "FBC Melgar",
+      "marcador": "3 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-fbc-melgar/n76yz#4092832"
+    },
+    {
+      "fecha": "Monday, April 24, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-deportivo-municipal/o3631u#4092833"
+    },
+    {
+      "fecha": "Tuesday, April 25, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Sporting Cristal",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universitario-de-deportes/bnq02#4092831"
+    },
+    {
+      "fecha": "Friday, April 28, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universidad-cesar-vallejo/boizn#4092824"
+    },
+    {
+      "fecha": "Saturday, April 29, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Cusco FC",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-atletico-grau/9l8a1co9#4092825"
+    },
+    {
+      "fecha": "Saturday, April 29, 2023",
+      "local": "Sport Boys",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-boys/n6243#4092822"
+    },
+    {
+      "fecha": "Saturday, April 29, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-deportivo-garcilaso/7ivegea4#4092826"
+    },
+    {
+      "fecha": "Saturday, April 29, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Academia Cantolao",
+      "marcador": "5 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-academia-cantolao/3jqqlxw7#4092820"
+    },
+    {
+      "fecha": "Sunday, April 30, 2023",
+      "local": "Binacional",
+      "visitante": "Alianza Atletico",
+      "marcador": "4 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-binacional/5eqbyerb#4092823"
+    },
+    {
+      "fecha": "Sunday, April 30, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-cd-ut-cajamarca/1fvnz2h8#4092819"
+    },
+    {
+      "fecha": "Sunday, April 30, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Cienciano",
+      "marcador": "3 - 4",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-asociacion-deportiva-tarma/7t9ddj0f#4092821"
+    },
+    {
+      "fecha": "Monday, May 1, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Union Comercio",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-carlos-mannucci/3w6764kw#4092827"
+    },
+    {
+      "fecha": "Friday, May 5, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Binacional",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-binacional/hj67i5zk#4092835"
+    },
+    {
+      "fecha": "Friday, May 5, 2023",
+      "local": "Cusco FC",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-cusco-fc/swigzxc#4092834"
+    },
+    {
+      "fecha": "Saturday, May 6, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-asociacion-deportiva-tarma/7ukd7iuf#4092876"
+    },
+    {
+      "fecha": "Saturday, May 6, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-atletico-grau/7ivf3o72#4092859"
+    },
+    {
+      "fecha": "Sunday, May 7, 2023",
+      "local": "Cienciano",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-deportivo-garcilaso/5fj3g7wh#4092862"
+    },
+    {
+      "fecha": "Sunday, May 7, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cd-ut-cajamarca/15ziqkz2#4092836"
+    },
+    {
+      "fecha": "Sunday, May 7, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-universidad-cesar-vallejo/n76yx#4092837"
+    },
+    {
+      "fecha": "Monday, May 8, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-carlos-mannucci/1vt7i7kn#4092861"
+    },
+    {
+      "fecha": "Monday, May 8, 2023",
+      "local": "Union Comercio",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-union-comercio/e7a0fah#4092860"
+    },
+    {
+      "fecha": "Wednesday, May 10, 2023",
+      "local": "Cienciano",
+      "visitante": "Alianza Atletico",
+      "marcador": "5 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-atletico/bngci#4092769"
+    },
+    {
+      "fecha": "Friday, May 12, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-alianza-lima/yt9i9#4092778"
+    },
+    {
+      "fecha": "Friday, May 12, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "5 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cd-ut-cajamarca/286okzjs#4092748"
+    },
+    {
+      "fecha": "Friday, May 12, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-fbc-melgar/n7klg#4092775"
+    },
+    {
+      "fecha": "Friday, May 12, 2023",
+      "local": "Binacional",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/binacional-vs-asociacion-deportiva-tarma/q28gomj4#4092743"
+    },
+    {
+      "fecha": "Saturday, May 13, 2023",
+      "local": "Union Comercio",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 6",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-union-comercio/dwrsmff#4092746"
+    },
+    {
+      "fecha": "Sunday, May 14, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-atletico-grau/dk3pqddw#4092738"
+    },
+    {
+      "fecha": "Sunday, May 14, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Universitario de Deportes",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-atletico/n5oi0#4092740"
+    },
+    {
+      "fecha": "Sunday, May 14, 2023",
+      "local": "Cienciano",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universidad-cesar-vallejo/bo4ht#4092744"
+    },
+    {
+      "fecha": "Monday, May 15, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "2 - 4",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-deportivo-garcilaso/5gme90vv#4092747"
+    },
+    {
+      "fecha": "Tuesday, May 16, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Deportivo Municipal",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-deportivo-municipal/pw1889#4092745"
+    },
+    {
+      "fecha": "Tuesday, May 16, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-academia-cantolao/3jqoe0sx#4092739"
+    },
+    {
+      "fecha": "Wednesday, May 17, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-carlos-mannucci/5wupq6la#4092753"
+    },
+    {
+      "fecha": "Thursday, May 18, 2023",
+      "local": "Binacional",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-binacional/5dndg7ok#4092779"
+    },
+    {
+      "fecha": "Friday, May 19, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Alianza Lima",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-alianza-lima/ytq72#4092867"
+    },
+    {
+      "fecha": "Saturday, May 20, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-universidad-cesar-vallejo/n6mjf#4092865"
+    },
+    {
+      "fecha": "Saturday, May 20, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-asociacion-deportiva-tarma/lqs4lxk0#4092868"
+    },
+    {
+      "fecha": "Saturday, May 20, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Alianza Atletico",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-deportivo-garcilaso/5gmae7nh#4092863"
+    },
+    {
+      "fecha": "Sunday, May 21, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Cusco FC",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cusco-fc/lnggfqt#4092871"
+    },
+    {
+      "fecha": "Sunday, May 21, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Cienciano",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-atletico-grau/5fj3zzt8#4092864"
+    },
+    {
+      "fecha": "Sunday, May 21, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-sport-huancayo/al6td2k#4092866"
+    },
+    {
+      "fecha": "Monday, May 22, 2023",
+      "local": "Sport Boys",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cd-ut-cajamarca/16hp3o88#4092869"
+    },
+    {
+      "fecha": "Tuesday, May 23, 2023",
+      "local": "Binacional",
+      "visitante": "Union Comercio",
+      "marcador": "5 - 0",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-binacional/8ldxupbk#4092870"
+    },
+    {
+      "fecha": "Friday, May 26, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-deportivo-garcilaso/hmkf7x8q#4092874"
+    },
+    {
+      "fecha": "Saturday, May 27, 2023",
+      "local": "Cienciano",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-deportivo-municipal/lujwf5#4092844"
+    },
+    {
+      "fecha": "Saturday, May 27, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Atletico Grau",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-atletico-grau/5gmay1jh#4092858"
+    },
+    {
+      "fecha": "Saturday, May 27, 2023",
+      "local": "Cusco FC",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cusco-fc/m0iwtuc#4092873"
+    },
+    {
+      "fecha": "Sunday, May 28, 2023",
+      "local": "Union Comercio",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "4 - 3",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-asociacion-deportiva-tarma/blz62v40#4092856"
+    },
+    {
+      "fecha": "Sunday, May 28, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cd-ut-cajamarca/16hoc0m8#4092875"
+    },
+    {
+      "fecha": "Sunday, May 28, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-huancayo/6elujhm#4092857"
+    },
+    {
+      "fecha": "Sunday, May 28, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-carlos-mannucci/1vbg5h4p#4092872"
+    },
+    {
+      "fecha": "Monday, May 29, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Binacional",
+      "marcador": "6 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-binacional/5fkmxj61#4092845"
+    },
+    {
+      "fecha": "Thursday, June 1, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-fbc-melgar/n851d#4092757"
+    },
+    {
+      "fecha": "Friday, June 2, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Cienciano",
+      "marcador": "4 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sporting-cristal/428ir#4092855"
+    },
+    {
+      "fecha": "Saturday, June 3, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Alianza Lima",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-asociacion-deportiva-tarma/7vkv5n09#4092838"
+    },
+    {
+      "fecha": "Saturday, June 3, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cusco-fc/m0icx7r#4092840"
+    },
+    {
+      "fecha": "Saturday, June 3, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-deportivo-municipal/o30au5#4092839"
+    },
+    {
+      "fecha": "Saturday, June 3, 2023",
+      "local": "Binacional",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-binacional/dh4ivysg#4092847"
+    },
+    {
+      "fecha": "Sunday, June 4, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Union Comercio",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-deportivo-garcilaso/8nrjzf8q#4092843"
+    },
+    {
+      "fecha": "Sunday, June 4, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Academia Cantolao",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-atletico-grau/hmkg7jqn#4092841"
+    },
+    {
+      "fecha": "Sunday, June 4, 2023",
+      "local": "Sport Boys",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-sport-huancayo/6lqqetk#4092846"
+    },
+    {
+      "fecha": "Sunday, June 4, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-cd-ut-cajamarca/16hpvbuh#4092842"
+    },
+    {
+      "fecha": "Saturday, June 10, 2023",
+      "local": "Cienciano",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-boys/bnq05#4092878"
+    },
+    {
+      "fecha": "Saturday, June 10, 2023",
+      "local": "Union Comercio",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-atletico-grau/8nrkoe6n#4092848"
+    },
+    {
+      "fecha": "Saturday, June 10, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Deportivo Municipal",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-academia-cantolao/3zoaqjdx#4092852"
+    },
+    {
+      "fecha": "Saturday, June 10, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Binacional",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-binacional/5eqfsjy1#4092849"
+    },
+    {
+      "fecha": "Sunday, June 11, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-asociacion-deportiva-tarma/h71olt74#4092854"
+    },
+    {
+      "fecha": "Sunday, June 11, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-deportivo-garcilaso/5hgqn17j#4092877"
+    },
+    {
+      "fecha": "Sunday, June 11, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-atletico/bnutx#4092851"
+    },
+    {
+      "fecha": "Sunday, June 11, 2023",
+      "local": "Cusco FC",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-cusco-fc/m0jgqh6#4092853"
+    },
+    {
+      "fecha": "Sunday, June 11, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-huancayo/6lqfibk#4092850"
+    },
+    {
+      "fecha": "Thursday, June 22, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-academia-cantolao/3iv3y1rf#4191095"
+    },
+    {
+      "fecha": "Thursday, June 22, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-asociacion-deportiva-tarma/7ukhtxjd#4191096"
+    },
+    {
+      "fecha": "Friday, June 23, 2023",
+      "local": "Cienciano",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universitario-de-deportes/bnbiq#4191097"
+    },
+    {
+      "fecha": "Saturday, June 24, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-atletico-grau/5hgr6wmr#4191098"
+    },
+    {
+      "fecha": "Saturday, June 24, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-sport-huancayo/6lr1bbt#4191099"
+    },
+    {
+      "fecha": "Sunday, June 25, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-deportivo-garcilaso/dk3ov4la#4191100"
+    },
+    {
+      "fecha": "Sunday, June 25, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-boys/n68x5#4191101"
+    },
+    {
+      "fecha": "Sunday, June 25, 2023",
+      "local": "Union Comercio",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-union-comercio/jtr4le2#4191102"
+    },
+    {
+      "fecha": "Monday, June 26, 2023",
+      "local": "Cusco FC",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-cd-ut-cajamarca/3ep180ys#4191103"
+    },
+    {
+      "fecha": "Friday, June 30, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cd-ut-cajamarca/286okzjs#4191484"
+    },
+    {
+      "fecha": "Saturday, July 1, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Binacional",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/binacional-vs-asociacion-deportiva-tarma/q28gomj4#4191485"
+    },
+    {
+      "fecha": "Saturday, July 1, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-deportivo-garcilaso/5gme90vv#4191486"
+    },
+    {
+      "fecha": "Sunday, July 2, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-deportivo-municipal/pw1889#4191487"
+    },
+    {
+      "fecha": "Sunday, July 2, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Union Comercio",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-union-comercio/dwrsmff#4191488"
+    },
+    {
+      "fecha": "Sunday, July 2, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-atletico-grau/dk3pqddw#4191489"
+    },
+    {
+      "fecha": "Monday, July 3, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Cienciano",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universidad-cesar-vallejo/bo4ht#4191490"
+    },
+    {
+      "fecha": "Tuesday, July 4, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-atletico/n5oi0#4191491"
+    },
+    {
+      "fecha": "Tuesday, July 4, 2023",
+      "local": "Sport Boys",
+      "visitante": "Academia Cantolao",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-academia-cantolao/3jqoe0sx#4191492"
+    },
+    {
+      "fecha": "Friday, July 7, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Atletico Grau",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-atletico-grau/5gmesus2#4212706"
+    },
+    {
+      "fecha": "Saturday, July 8, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 4",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-academia-cantolao/3jqn22k3#4212707"
+    },
+    {
+      "fecha": "Saturday, July 8, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-universidad-cesar-vallejo/n6tck#4212709"
+    },
+    {
+      "fecha": "Saturday, July 8, 2023",
+      "local": "Cienciano",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cd-ut-cajamarca/15zhz3at#4212708"
+    },
+    {
+      "fecha": "Sunday, July 9, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-lima/k8xcb#4212710"
+    },
+    {
+      "fecha": "Sunday, July 9, 2023",
+      "local": "Union Comercio",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-union-comercio/e799rz2#4212711"
+    },
+    {
+      "fecha": "Sunday, July 9, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Deportivo Municipal",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-carlos-mannucci/270fkhyy#4212712"
+    },
+    {
+      "fecha": "Monday, July 10, 2023",
+      "local": "Binacional",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 5",
+      "url": "https://www.fotmob.com/matches/binacional-vs-deportivo-garcilaso/lj8ecfzy#4212713"
+    },
+    {
+      "fecha": "Monday, July 10, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Cusco FC",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cusco-fc/1et4p0cb#4212714"
+    },
+    {
+      "fecha": "Friday, July 14, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cd-ut-cajamarca/16hol8hj#4225977"
+    },
+    {
+      "fecha": "Saturday, July 15, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Union Comercio",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-union-comercio/e78tse5#4225978"
+    },
+    {
+      "fecha": "Saturday, July 15, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/deportivo-garcilaso-vs-asociacion-deportiva-tarma/q6dflwlm#4225979"
+    },
+    {
+      "fecha": "Saturday, July 15, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-carlos-mannucci/1uoi3ftw#4225980"
+    },
+    {
+      "fecha": "Sunday, July 16, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Academia Cantolao",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-academia-cantolao/3jqppz20#4225981"
+    },
+    {
+      "fecha": "Sunday, July 16, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Binacional",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/binacional-vs-atletico-grau/lj8fftj8#4225982"
+    },
+    {
+      "fecha": "Sunday, July 16, 2023",
+      "local": "Sport Boys",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-lima/yskh9#4225983"
+    },
+    {
+      "fecha": "Sunday, July 16, 2023",
+      "local": "Cusco FC",
+      "visitante": "Cienciano",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cusco-fc/lnfwp1z#4225984"
+    },
+    {
+      "fecha": "Monday, July 17, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-deportivo-municipal/o38ecb#4225985"
+    },
+    {
+      "fecha": "Friday, July 21, 2023",
+      "local": "Union Comercio",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 4",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-union-comercio/e79prk8#4244241"
+    },
+    {
+      "fecha": "Saturday, July 22, 2023",
+      "local": "Cienciano",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-huancayo/6eljsxa#4244242"
+    },
+    {
+      "fecha": "Saturday, July 22, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cusco-fc/m0ijk39#4244243"
+    },
+    {
+      "fecha": "Sunday, July 23, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-lima/yrvgi#4244244"
+    },
+    {
+      "fecha": "Sunday, July 23, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-academia-cantolao/8otyri2p#4244246"
+    },
+    {
+      "fecha": "Sunday, July 23, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-carlos-mannucci/1vbejgjy#4244248"
+    },
+    {
+      "fecha": "Sunday, July 23, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/atletico-grau-vs-asociacion-deportiva-tarma/q6dgtbhr#4244245"
+    },
+    {
+      "fecha": "Sunday, July 23, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-fbc-melgar/bosnq#4244247"
+    },
+    {
+      "fecha": "Monday, July 24, 2023",
+      "local": "Binacional",
+      "visitante": "Deportivo Municipal",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-binacional/5yan7t2y#4244249"
+    },
+    {
+      "fecha": "Thursday, July 27, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Binacional",
+      "marcador": "5 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-binacional/5dndg7ok#4251078"
+    },
+    {
+      "fecha": "Friday, July 28, 2023",
+      "local": "Cusco FC",
+      "visitante": "Academia Cantolao",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-academia-cantolao/6zjz64xu#4251074"
+    },
+    {
+      "fecha": "Saturday, July 29, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Union Comercio",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-cd-ut-cajamarca/2v38nxv2#4251079"
+    },
+    {
+      "fecha": "Sunday, July 30, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-alianza-lima/yt9i9#4251080"
+    },
+    {
+      "fecha": "Sunday, July 30, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-garcilaso-vs-atletico-grau/lmzuu2k2#4251073"
+    },
+    {
+      "fecha": "Monday, July 31, 2023",
+      "local": "Sport Boys",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-fbc-melgar/n7klg#4251076"
+    },
+    {
+      "fecha": "Monday, July 31, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-huancayo/6lqj55j#4251077"
+    },
+    {
+      "fecha": "Tuesday, August 1, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-carlos-mannucci/1vbdknf1#4251081"
+    },
+    {
+      "fecha": "Tuesday, August 1, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-asociacion-deportiva-tarma/8i1bzyju#4251075"
+    },
+    {
+      "fecha": "Friday, August 4, 2023",
+      "local": "Union Comercio",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-cusco-fc/1xc1leue#4275592"
+    },
+    {
+      "fecha": "Saturday, August 5, 2023",
+      "local": "Binacional",
+      "visitante": "Sport Boys",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-binacional/5eqd1vny#4275593"
+    },
+    {
+      "fecha": "Sunday, August 6, 2023",
+      "local": "Alianza Lima",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cd-ut-cajamarca/16vuu6rh#4275594"
+    },
+    {
+      "fecha": "Sunday, August 6, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Cienciano",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-atletico/bngci#4275595"
+    },
+    {
+      "fecha": "Sunday, August 6, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-carlos-mannucci/1vbfi9p4#4275596"
+    },
+    {
+      "fecha": "Sunday, August 6, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-asociacion-deportiva-tarma/7t9fcoic#4275597"
+    },
+    {
+      "fecha": "Sunday, August 6, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-fbc-melgar/n705s#4275598"
+    },
+    {
+      "fecha": "Monday, August 7, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-academia-cantolao/58qpa0ip#4275599"
+    },
+    {
+      "fecha": "Monday, August 7, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Deportivo Municipal",
+      "marcador": "5 - 2",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-deportivo-garcilaso/609xbiug#4275600"
+    },
+    {
+      "fecha": "Friday, August 11, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Union Comercio",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-union-comercio/12hvxyyp#4283776"
+    },
+    {
+      "fecha": "Friday, August 11, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-carlos-mannucci/5wupq6la#4283792"
+    },
+    {
+      "fecha": "Saturday, August 12, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-fbc-melgar/n851d#4283791"
+    },
+    {
+      "fecha": "Saturday, August 12, 2023",
+      "local": "Sport Boys",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-asociacion-deportiva-tarma/7ukej2gu#4283789"
+    },
+    {
+      "fecha": "Saturday, August 12, 2023",
+      "local": "Cienciano",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-academia-cantolao/3iv2m9g9#4283790"
+    },
+    {
+      "fecha": "Sunday, August 13, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Binacional",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-binacional/5eqbeob1#4283788"
+    },
+    {
+      "fecha": "Sunday, August 13, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-deportivo-garcilaso/5fj53jmq#4283787"
+    },
+    {
+      "fecha": "Sunday, August 13, 2023",
+      "local": "Cusco FC",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cusco-fc/maq553r#4283786"
+    },
+    {
+      "fecha": "Monday, August 14, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Atletico Grau",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-atletico-grau/609xwbki#4283785"
+    },
+    {
+      "fecha": "Tuesday, August 15, 2023",
+      "local": "Union Comercio",
+      "visitante": "Cienciano",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-union-comercio/dwrcss9#4283784"
+    },
+    {
+      "fecha": "Tuesday, August 15, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-academia-cantolao/3jqni1z0#4283783"
+    },
+    {
+      "fecha": "Tuesday, August 15, 2023",
+      "local": "FBC Melgar",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cd-ut-cajamarca/16hqdrlg#4283782"
+    },
+    {
+      "fecha": "Wednesday, August 16, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-asociacion-deportiva-tarma/7ukcjr19#4283781"
+    },
+    {
+      "fecha": "Wednesday, August 16, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Cusco FC",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-carlos-mannucci/4iw3nkja#4283780"
+    },
+    {
+      "fecha": "Wednesday, August 16, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-deportivo-garcilaso/5gmbhvfg#4283779"
+    },
+    {
+      "fecha": "Thursday, August 17, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-sport-huancayo/6rcedst#4283778"
+    },
+    {
+      "fecha": "Thursday, August 17, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Sporting Cristal",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-atletico-grau/5fj5nbjk#4283777"
+    },
+    {
+      "fecha": "Thursday, August 17, 2023",
+      "local": "Binacional",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-binacional/5eqep314#4283793"
+    },
+    {
+      "fecha": "Saturday, August 19, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Union Comercio",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-union-comercio/e78z493#4283795"
+    },
+    {
+      "fecha": "Saturday, August 19, 2023",
+      "local": "Cusco FC",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cusco-fc/m0ju08j#4283796"
+    },
+    {
+      "fecha": "Saturday, August 19, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-carlos-mannucci/3584ddry#4283797"
+    },
+    {
+      "fecha": "Sunday, August 20, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-deportivo-garcilaso/5gm9udrj#4283798"
+    },
+    {
+      "fecha": "Sunday, August 20, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-deportivo-municipal/lun7eq#4283799"
+    },
+    {
+      "fecha": "Sunday, August 20, 2023",
+      "local": "Cienciano",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-lima/k8e98#4283800"
+    },
+    {
+      "fecha": "Monday, August 21, 2023",
+      "local": "Sport Boys",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-atletico-grau/5gmc1pbi#4283801"
+    },
+    {
+      "fecha": "Monday, August 21, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Binacional",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-binacional/bhoz1sym#4283802"
+    },
+    {
+      "fecha": "Monday, August 21, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-asociacion-deportiva-tarma/7ukgidwo#4283803"
+    },
+    {
+      "fecha": "Saturday, August 26, 2023",
+      "local": "Union Comercio",
+      "visitante": "Academia Cantolao",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-academia-cantolao/67447pxc#4295731"
+    },
+    {
+      "fecha": "Saturday, August 26, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Cienciano",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-carlos-mannucci/1uoh4smn#4295732"
+    },
+    {
+      "fecha": "Saturday, August 26, 2023",
+      "local": "Binacional",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-binacional/9iq5o43a#4295733"
+    },
+    {
+      "fecha": "Sunday, August 27, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-alianza-lima/ys3sq#4295734"
+    },
+    {
+      "fecha": "Sunday, August 27, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-atletico-grau/5gmae7ni#4295735"
+    },
+    {
+      "fecha": "Sunday, August 27, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-deportivo-municipal/o32m4c#4295736"
+    },
+    {
+      "fecha": "Sunday, August 27, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-sport-huancayo/6lr8l04#4295737"
+    },
+    {
+      "fecha": "Monday, August 28, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-asociacion-deportiva-tarma/exziuwem#4295738"
+    },
+    {
+      "fecha": "Monday, August 28, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-deportivo-garcilaso/5gmd5d3m#4295739"
+    },
+    {
+      "fecha": "Saturday, September 2, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-carlos-mannucci/1vbdw94n#4308993"
+    },
+    {
+      "fecha": "Saturday, September 2, 2023",
+      "local": "Cusco FC",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-asociacion-deportiva-tarma/col7yt1i#4308992"
+    },
+    {
+      "fecha": "Sunday, September 3, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Binacional",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-binacional/7gnlyola#4308991"
+    },
+    {
+      "fecha": "Sunday, September 3, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-deportivo-garcilaso/bkfy53jg#4308990"
+    },
+    {
+      "fecha": "Monday, September 4, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Atletico Grau",
+      "marcador": "5 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-atletico-grau/5gmdp6zr#4308989"
+    },
+    {
+      "fecha": "Saturday, September 9, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-academia-cantolao/3kf7c37u#4308988"
+    },
+    {
+      "fecha": "Sunday, September 10, 2023",
+      "local": "Cienciano",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-fbc-melgar/boe5q#4308987"
+    },
+    {
+      "fecha": "Sunday, September 10, 2023",
+      "local": "Sport Boys",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-boys/bo4hq#4308986"
+    },
+    {
+      "fecha": "Monday, September 11, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-deportivo-municipal/o2z573#4308994"
+    },
+    {
+      "fecha": "Friday, September 15, 2023",
+      "local": "Atletico Grau",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "4 - 2",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-atletico-grau/bkfyxyhq#4312557"
+    },
+    {
+      "fecha": "Friday, September 15, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-academia-cantolao/afbiltm7#4312573"
+    },
+    {
+      "fecha": "Friday, September 15, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Alianza Atletico",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-fbc-melgar/n76yz#4312572"
+    },
+    {
+      "fecha": "Saturday, September 16, 2023",
+      "local": "Binacional",
+      "visitante": "Cienciano",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-binacional/5dnbt69b#4312571"
+    },
+    {
+      "fecha": "Saturday, September 16, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-deportivo-municipal/o3631u#4312570"
+    },
+    {
+      "fecha": "Saturday, September 16, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-deportivo-garcilaso/9l89b2ps#4312569"
+    },
+    {
+      "fecha": "Sunday, September 17, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universitario-de-deportes/bnq02#4312568"
+    },
+    {
+      "fecha": "Sunday, September 17, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-asociacion-deportiva-tarma/aaeffaum#4312567"
+    },
+    {
+      "fecha": "Sunday, September 17, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Union Comercio",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-union-comercio/efggel5#4312566"
+    },
+    {
+      "fecha": "Tuesday, September 19, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Binacional",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-binacional/5eqbyerb#4312565"
+    },
+    {
+      "fecha": "Tuesday, September 19, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-academia-cantolao/3jqqlxw7#4312564"
+    },
+    {
+      "fecha": "Wednesday, September 20, 2023",
+      "local": "Union Comercio",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-carlos-mannucci/3w6764kw#4312563"
+    },
+    {
+      "fecha": "Wednesday, September 20, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Deportivo Municipal",
+      "marcador": "5 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-cd-ut-cajamarca/1fvnz2h8#4312562"
+    },
+    {
+      "fecha": "Wednesday, September 20, 2023",
+      "local": "Cienciano",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-asociacion-deportiva-tarma/7t9ddj0f#4312561"
+    },
+    {
+      "fecha": "Thursday, September 21, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-boys/n6243#4312560"
+    },
+    {
+      "fecha": "Thursday, September 21, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-deportivo-garcilaso/7ivegea4#4312559"
+    },
+    {
+      "fecha": "Thursday, September 21, 2023",
+      "local": "Cusco FC",
+      "visitante": "Atletico Grau",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-atletico-grau/9l8a1co9#4312558"
+    },
+    {
+      "fecha": "Friday, September 22, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universidad-cesar-vallejo/boizn#4312574"
+    },
+    {
+      "fecha": "Saturday, September 23, 2023",
+      "local": "Binacional",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-binacional/hj67i5zk#4327757"
+    },
+    {
+      "fecha": "Sunday, September 24, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-asociacion-deportiva-tarma/7ukd7iuf#4327768"
+    },
+    {
+      "fecha": "Sunday, September 24, 2023",
+      "local": "Sport Boys",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-universidad-cesar-vallejo/n76yx#4327767"
+    },
+    {
+      "fecha": "Sunday, September 24, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Union Comercio",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-union-comercio/e7a0fah#4327766"
+    },
+    {
+      "fecha": "Sunday, September 24, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-carlos-mannucci/1vt7i7kn#4327765"
+    },
+    {
+      "fecha": "Monday, September 25, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Cienciano",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-deportivo-garcilaso/5fj3g7wh#4327764"
+    },
+    {
+      "fecha": "Monday, September 25, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-cusco-fc/swigzxc#4327763"
+    },
+    {
+      "fecha": "Monday, September 25, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-atletico-grau/7ivf3o72#4327762"
+    },
+    {
+      "fecha": "Tuesday, September 26, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cd-ut-cajamarca/15ziqkz2#4327761"
+    },
+    {
+      "fecha": "Thursday, September 28, 2023",
+      "local": "Union Comercio",
+      "visitante": "Binacional",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-binacional/8ldxupbk#4330525"
+    },
+    {
+      "fecha": "Thursday, September 28, 2023",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-universidad-cesar-vallejo/n6mjf#4330541"
+    },
+    {
+      "fecha": "Friday, September 29, 2023",
+      "local": "Alianza Lima",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-alianza-lima/ytq72#4330540"
+    },
+    {
+      "fecha": "Friday, September 29, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cd-ut-cajamarca/16hp3o88#4330539"
+    },
+    {
+      "fecha": "Friday, September 29, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Deportivo Municipal",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-sport-huancayo/al6td2k#4330538"
+    },
+    {
+      "fecha": "Friday, September 29, 2023",
+      "local": "Cusco FC",
+      "visitante": "Sporting Cristal",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cusco-fc/lnggfqt#4330537"
+    },
+    {
+      "fecha": "Saturday, September 30, 2023",
+      "local": "Cienciano",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-atletico-grau/5fj3zzt8#4330536"
+    },
+    {
+      "fecha": "Sunday, October 1, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-deportivo-garcilaso/5gmae7nh#4330535"
+    },
+    {
+      "fecha": "Sunday, October 1, 2023",
+      "local": "Academia Cantolao",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-asociacion-deportiva-tarma/lqs4lxk0#4330534"
+    },
+    {
+      "fecha": "Tuesday, October 3, 2023",
+      "local": "Universitario de Deportes",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cd-ut-cajamarca/16hoc0m8#4330533"
+    },
+    {
+      "fecha": "Tuesday, October 3, 2023",
+      "local": "Sporting Cristal",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-huancayo/6elujhm#4330532"
+    },
+    {
+      "fecha": "Tuesday, October 3, 2023",
+      "local": "Sport Boys",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cusco-fc/m0iwtuc#4330531"
+    },
+    {
+      "fecha": "Tuesday, October 3, 2023",
+      "local": "FBC Melgar",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-carlos-mannucci/1vbg5h4p#4330530"
+    },
+    {
+      "fecha": "Wednesday, October 4, 2023",
+      "local": "Binacional",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-binacional/5fkmxj61#4330529"
+    },
+    {
+      "fecha": "Saturday, October 7, 2023",
+      "local": "Deportivo Municipal",
+      "visitante": "Cienciano",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-deportivo-municipal/lujwf5#4330528"
+    },
+    {
+      "fecha": "Saturday, October 7, 2023",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Academia Cantolao",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-deportivo-garcilaso/hmkf7x8q#4330527"
+    },
+    {
+      "fecha": "Sunday, October 8, 2023",
+      "local": "Atletico Grau",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-atletico-grau/5gmay1jh#4330526"
+    },
+    {
+      "fecha": "Sunday, October 8, 2023",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Union Comercio",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-asociacion-deportiva-tarma/blz62v40#4330542"
+    },
+    {
+      "fecha": "Friday, October 20, 2023",
+      "local": "CD UT Cajamarca",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-cd-ut-cajamarca/16hpvbuh#4343767"
+    },
+    {
+      "fecha": "Saturday, October 21, 2023",
+      "local": "Alianza Atletico",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-deportivo-municipal/o30au5#4343768"
+    },
+    {
+      "fecha": "Saturday, October 21, 2023",
+      "local": "Alianza Lima",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-asociacion-deportiva-tarma/7vkv5n09#4343769"
+    },
+    {
+      "fecha": "Sunday, October 22, 2023",
+      "local": "Cusco FC",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cusco-fc/m0icx7r#4343770"
+    },
+    {
+      "fecha": "Sunday, October 22, 2023",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Binacional",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-binacional/dh4ivysg#4343773"
+    },
+    {
+      "fecha": "Sunday, October 22, 2023",
+      "local": "Sport Huancayo",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-sport-huancayo/6lqqetk#4343772"
+    },
+    {
+      "fecha": "Sunday, October 22, 2023",
+      "local": "Union Comercio",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-deportivo-garcilaso/8nrjzf8q#4343771"
+    }
+  ]
+}

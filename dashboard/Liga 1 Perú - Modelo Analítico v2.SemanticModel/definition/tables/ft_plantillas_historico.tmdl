@@ -1,0 +1,190 @@
+/// Histórico de plantillas por equipo y temporada
+table ft_plantillas_historico
+	lineageTag: 6b56a15f-bc0d-4cf2-9b75-334c2b42345a
+
+	column id_plantilla_equipo
+		dataType: string
+		isHidden
+		lineageTag: 2647cfd0-b3d6-4393-b156-5c8dafc4ec64
+		summarizeBy: none
+		sourceColumn: id_plantilla_equipo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_equipo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0b1d6c89-6ace-4697-839c-38fb46da0c51
+		summarizeBy: none
+		sourceColumn: id_equipo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_equipo
+		dataType: string
+		lineageTag: dded28a0-95b7-4d15-a077-625486ed64bd
+		summarizeBy: none
+		sourceColumn: nombre_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column alias_equipo
+		dataType: string
+		lineageTag: bf1c7eeb-976e-4fb3-aa12-368ff72fee71
+		summarizeBy: none
+		sourceColumn: alias_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_jugador
+		dataType: string
+		isHidden
+		lineageTag: 316f84b4-f1b5-4a4c-a730-b9745a5881fa
+		summarizeBy: none
+		sourceColumn: id_jugador
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column jugador
+		dataType: string
+		lineageTag: 04b4af4d-a5f6-4487-adc3-42af2bb91bac
+		summarizeBy: none
+		sourceColumn: jugador
+
+		annotation SummarizationSetBy = Automatic
+
+	column temporada
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ca5aa42-c06b-4da3-95ca-cc143db92569
+		summarizeBy: none
+		sourceColumn: temporada
+
+		annotation SummarizationSetBy = Automatic
+
+	column numero_camiseta
+		dataType: string
+		lineageTag: 7091e1b7-5414-421d-a4ee-ca29b306341a
+		summarizeBy: none
+		sourceColumn: numero_camiseta
+
+		annotation SummarizationSetBy = Automatic
+
+	column posicion
+		dataType: string
+		lineageTag: 424ab43c-2079-49d9-940d-005cd014b7b3
+		summarizeBy: none
+		sourceColumn: posicion
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_fichaje
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: eb3026e8-4758-49cf-9ef8-7ed250578184
+		summarizeBy: none
+		sourceColumn: fecha_fichaje
+
+		variation Variación
+			isDefault
+			relationship: 8d7138a0-f83e-4d2f-8683-e6954c24144e
+			defaultHierarchy: LocalDateTable_97e0ae96-83c4-4c61-9e42-fbacb780bdf4.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column nacionalidad_principal
+		dataType: string
+		lineageTag: 82120182-fc81-403e-8160-8f2ffde0b7b8
+		summarizeBy: none
+		sourceColumn: nacionalidad_principal
+
+		annotation SummarizationSetBy = Automatic
+
+	column segunda_nacionalidad
+		dataType: string
+		lineageTag: 506fa381-9d26-4e32-b406-1c3da3cb8c1e
+		summarizeBy: none
+		sourceColumn: segunda_nacionalidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column altura
+		dataType: double
+		formatString: 0.00
+		lineageTag: e93a9d39-0e1f-43ca-a7c1-a4d7c4a3f3c2
+		summarizeBy: sum
+		sourceColumn: altura
+
+		annotation SummarizationSetBy = Automatic
+
+	column pie
+		dataType: string
+		lineageTag: 70dea2d2-bd78-4159-9580-171240cd2652
+		summarizeBy: none
+		sourceColumn: pie
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_mercado
+		dataType: double
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: fc62124c-9d40-48ff-bb1a-8cf3d9ff4f08
+		summarizeBy: sum
+		sourceColumn: valor_mercado
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valor Jugador S/' =
+			
+			ft_plantillas_historico[valor_mercado] * SELECTEDVALUE(_Parametros[TipoCambio])
+		formatString: "S/"\ #,0.00;-"S/"\ #,0.00;"S/"\ #,0.00
+		lineageTag: b936f6a9-5897-4524-bffe-7bd031e5631e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-PE"}
+
+	column edad_actual
+		dataType: int64
+		formatString: 0
+		lineageTag: e48e968b-0abf-48ec-a472-618b158d1454
+		summarizeBy: sum
+		sourceColumn: edad_actual
+
+		annotation SummarizationSetBy = Automatic
+
+	column edad_historica
+		dataType: int64
+		formatString: 0
+		lineageTag: ff340094-a8c7-4bff-8ec2-d5b551b9e84c
+		summarizeBy: sum
+		sourceColumn: edad_historica
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ft_plantillas_historico = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("adb-7405614695607627.7.azuredatabricks.net", "/sql/1.0/warehouses/b74f62ff6067bdf7", [Catalog="catalog_liga1", Database="vw_ddv", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation=null]),
+				    ft_plantillas_historico_vw_vw_ddv_catalog_liga1 = Origen{[Item="ft_plantillas_historico_vw",Schema="vw_ddv",Catalog="catalog_liga1"]}[Data],
+				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(ft_plantillas_historico_vw_vw_ddv_catalog_liga1,{{"nombre_equipo", Text.Proper, type text}}),
+				    #"Texto en mayúsculas" = Table.TransformColumns(#"Poner En Mayúsculas Cada Palabra",{{"alias_equipo", Text.Upper, type text}}),
+				    #"Poner En Mayúsculas Cada Palabra1" = Table.TransformColumns(#"Texto en mayúsculas",{{"jugador", Text.Proper, type text}, {"posicion", Text.Proper, type text}, {"nacionalidad_principal", Text.Proper, type text}, {"segunda_nacionalidad", Text.Proper, type text}, {"pie", Text.Proper, type text}})
+				in
+				    #"Poner En Mayúsculas Cada Palabra1"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

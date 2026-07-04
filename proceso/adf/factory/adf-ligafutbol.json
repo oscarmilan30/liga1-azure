@@ -1,0 +1,29 @@
+{
+	"name": "adf-ligafutbol",
+	"properties": {
+		"globalParameters": {
+			"AREA": {
+				"type": "string",
+				"value": "https://adb-7405614695607627.7.azuredatabricks.net"
+			},
+			"USER": {
+				"type": "string",
+				"value": "garciadoscar1992@outlook.com"
+			},
+			"CLUSTER_ID": {
+				"type": "string",
+				"value": "0522-151911-7p5xsq76"
+			}
+		},
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "924d3b75-56ab-443d-9a20-80347e5596ee",
+		"tenantId": "d5452776-70f7-49ab-82e2-af2755d25812"
+	}
+}

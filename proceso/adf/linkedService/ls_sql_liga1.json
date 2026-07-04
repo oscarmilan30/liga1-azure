@@ -1,0 +1,24 @@
+{
+	"name": "ls_sql_liga1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "serverfutbol.database.windows.net",
+			"database": "ligafutbol",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "adminliga1",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_azure_keyvault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "kv-sql-password"
+			}
+		}
+	}
+}

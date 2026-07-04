@@ -1,0 +1,31 @@
+ft_evolucion_valoracion:
+
+  cols_hm_valoracion:
+    - id_valoracion_equipo
+    - id_equipo
+    - temporada
+    - jugadores_en_plantilla
+    - edad_promedio
+    - extranjeros
+    - valor_medio
+    - valor_total
+    - periodo
+
+  cols_dm_equipos:
+    - id_equipo
+    - nombre_equipo
+    - alias_equipo
+
+  schema:
+    id_valoracion_equipo:   string
+    id_equipo:              int
+    nombre_equipo:          string
+    alias_equipo:           string
+    temporada:              int
+    jugadores_en_plantilla: int
+    edad_promedio:          double
+    extranjeros:            int
+    valor_medio:            decimal(20,4)
+    valor_total:            decimal(20,4)
+    fecha_carga:            timestamp
+    periodo:                int

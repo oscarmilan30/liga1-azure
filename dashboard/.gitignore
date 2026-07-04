@@ -1,0 +1,7 @@
+# Excluir cache y settings locales del PBIP
+.pbi/localSettings.json
+.pbi/cache/
+
+# El archivo .pbix del Scouting ML SÍ se versiona en este repo
+# (override del *.pbix del .gitignore raíz)
+!Liga 1 Perú - Scouting ML.pbix

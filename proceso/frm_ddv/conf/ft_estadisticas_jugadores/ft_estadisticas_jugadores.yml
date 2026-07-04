@@ -1,0 +1,78 @@
+ft_estadisticas_jugadores:
+
+  # Columnas a leer de hm_estadisticas_jugadores (UDV) — para agregar por jugador+equipo+temporada
+  cols_hm_estadisticas:
+    - id_jugador
+    - id_tm
+    - jugador
+    - id_equipo
+    - temporada
+    - partidos_jugados
+    - titularidades
+    - ppp
+    - goles
+    - asistencias
+    - tarjetas_amarillas
+    - tarjeta_amarilla_roja
+    - tarjetas_rojas
+    - entrada_suplente
+    - salida_suplente
+    - penaltis_anotados
+    - goles_en_contra
+    - partidos_imbatido
+    - min_por_gol
+    - minutos_jugados
+    - datos_disponibles
+    - periodo
+
+  # Columnas a leer de md_plantillas (UDV)
+  cols_md_plantillas:
+    - id_jugador
+    - id_tm
+    - foto_url
+    - nacionalidad_principal
+    - pie
+
+  # Columnas a leer de hm_plantillas_equipo (UDV) — id_equipo y posicion por jugador-temporada
+  cols_hm_plantillas_equipo:
+    - id_jugador
+    - id_equipo
+    - temporada
+    - posicion
+
+  # Columnas a leer de dm_equipos (DDV)
+  cols_dm_equipos:
+    - id_equipo
+    - nombre_equipo
+    - alias_equipo
+
+  # Schema final de la tabla DDV (granularidad: jugador + equipo + temporada)
+  schema:
+    id_estadistica_jugador: string
+    id_jugador: string
+    id_tm: string
+    jugador: string
+    foto_url: string
+    id_equipo: int
+    nombre_equipo: string
+    alias_equipo: string
+    temporada: int
+    partidos_jugados: int
+    titularidades: int
+    ppp: double
+    goles: int
+    asistencias: int
+    tarjetas_amarillas: int
+    tarjeta_amarilla_roja: int
+    tarjetas_rojas: int
+    entrada_suplente: int
+    salida_suplente: int
+    goles_en_contra: int
+    partidos_imbatido: int
+    min_por_gol: int
+    minutos_jugados: int
+    datos_disponibles: boolean
+    posicion: string
+    nacionalidad_principal: string
+    fecha_carga: timestamp
+    periodo: int
