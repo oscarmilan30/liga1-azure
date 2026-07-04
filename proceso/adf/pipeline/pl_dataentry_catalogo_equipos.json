@@ -244,5 +244,11 @@
 				"type": "string"
 			}
 		},
-		"variables": {
-			"
+		"variables": {},
+		"folder": {
+			"name": "pl_pipelines_dataentrys"
+		},
+		"annotations": [],
+		"type": "Microsoft.DataFactory/factories/pipelines"
+	}
+}
