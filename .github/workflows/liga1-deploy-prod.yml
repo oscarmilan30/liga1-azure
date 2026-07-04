@@ -109,11 +109,14 @@ jobs:
           for f in /tmp/ls_prod/*.json; do
             name=$(basename "$f" .json)
             echo "→ $name"
+            # az datafactory linked-service create --properties espera SOLO el bloque
+            # interno "properties" del JSON (sin name ni type ARM wrapper).
+            props=$(python3 -c "import json,sys; d=json.load(open('$f')); print(json.dumps(d['properties']))")
             az datafactory linked-service create \
               --resource-group      ${{ secrets.ADF_RESOURCE_GROUP_PROD }} \
               --factory-name        ${{ secrets.ADF_FACTORY_NAME_PROD }} \
               --linked-service-name "$name" \
-              --properties "@$f" \
+              --properties          "$props" \
               --only-show-errors
           done
 
@@ -122,11 +125,12 @@ jobs:
           for f in proceso/adf/dataset/*.json; do
             name=$(basename "$f" .json)
             echo "→ $name"
+            props=$(python3 -c "import json; d=json.load(open('$f')); print(json.dumps(d['properties']))")
             az datafactory dataset create \
               --resource-group  ${{ secrets.ADF_RESOURCE_GROUP_PROD }} \
               --factory-name    ${{ secrets.ADF_FACTORY_NAME_PROD }} \
               --dataset-name    "$name" \
-              --properties "@$f" \
+              --properties      "$props" \
               --only-show-errors
           done
 
@@ -153,11 +157,12 @@ jobs:
             f="/tmp/pl_prod/${name}.json"
             if [ -f "$f" ]; then
               echo "→ $name"
+              props=$(python3 -c "import json; d=json.load(open('$f')); print(json.dumps(d['properties']))")
               az datafactory pipeline create \
                 --resource-group  ${{ secrets.ADF_RESOURCE_GROUP_PROD }} \
                 --factory-name    ${{ secrets.ADF_FACTORY_NAME_PROD }} \
                 --name            "$name" \
-                --pipeline        "@$f" \
+                --pipeline        "$props" \
                 --only-show-errors
             fi
           done
@@ -570,6 +575,7 @@ jobs:
               raw = raw.replace("{CLUSTER_ID}", cluster_id)
               job_json = json.loads(raw)
               job_name = job_json["name"]
+
 
               # Verificar si ya existe
               r = requests.get(f"{host}/api/2.1/jobs/list", headers=headers,
