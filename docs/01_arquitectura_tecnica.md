@@ -49,7 +49,13 @@ La arquitectura sigue el patrón **Medallion** (Bronze → Silver → Gold) con 
 
 ![Arquitectura Liga 1 Perú](./imagenes/arquitectura/arquitectura_completa.png)
 
-El diagrama muestra el flujo completo: **FotMob + Transfermarkt → GitHub Actions (scraping + REST API) → ADF Pipeline E2E → Databricks (Jobs + Notebooks + YAML + Unity Catalog) → ADLS (RDV / UDV / DDV) → Power BI**, con Key Vault y Azure SQL como plano de control transversal.
+El diagrama muestra la arquitectura completa incluyendo la capa de despliegue a producción. Hay dos capas previas al flujo de datos:
+
+**Capa 1 — Aprovisionamiento (una sola vez):** Azure Cloud Shell crea todos los recursos de infraestructura prod: ADLS Gen2 (`datalakelig1peruprod`), ADF, Databricks Workspace, Azure SQL, Key Vault y el Service Principal `sp-liga1`.
+
+**Capa 2 — CI/CD Deploy (cada push a main):** Tres workflows de GitHub Actions orquestan el despliegue de componentes desde el repositorio: `liga1-deploy-prod.yml` despliega ADF (linked services, pipelines), Databricks (catalog, DDL de tablas y vistas, jobs, wheel de utils) y sube archivos estáticos a ADLS; `liga1-scraping.yml` ejecuta el web scraping con Selenium + BeautifulSoup para FotMob y Transfermarkt, sube los archivos al landing de ADLS y dispara el pipeline ADF E2E; `liga1-trigger-adf.yml` permite disparar el pipeline ADF manualmente.
+
+**Flujo de datos:** FotMob + Transfermarkt → Landing ADLS Gen2 → Pipeline ADF E2E → Databricks (Jobs PySpark + Notebooks + Unity Catalog) → ADLS Delta Lake (RDV / UDV / DDV-ML) → Power BI (Delta Sharing para Scouting ML + Connector Databricks para Modelo Analítico), con Key Vault y Azure SQL como plano de control transversal.
 
 ---
 

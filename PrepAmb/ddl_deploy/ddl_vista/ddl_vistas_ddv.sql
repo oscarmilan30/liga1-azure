@@ -560,8 +560,15 @@ WITH base AS (
     WHERE e.partidos_jugados >= 5
 ),
 player_ranks AS (
-    SELECT 
-        b.*,
+    SELECT
+        b.id_jugador, b.jugador, b.foto_url, b.id_equipo, b.nombre_equipo,
+        b.alias_equipo, b.temporada, b.posicion_xi,
+        b.goles, b.asistencias, b.minutos_jugados, b.partidos_jugados,
+        b.tarjetas_amarillas, b.segunda_amarilla, b.tarjetas_rojas,
+        b.titularidades, b.entrada_suplente, b.salida_suplente,
+        b.min_por_gol, b.ppp, b.score,
+        b.goles_en_contra, b.partidos_imbatido,
+        b.altura, b.pie, b.valor_mercado, b.edad_historica, b.nacionalidad_principal,
         fp.id_formacion,
         DENSE_RANK() OVER (
             PARTITION BY b.temporada, fp.id_formacion, b.posicion_xi, b.id_equipo
@@ -582,4 +589,17 @@ slot_ranks AS (
 )
 SELECT 
     pr.id_jugador, pr.jugador, pr.foto_url, pr.id_equipo, pr.nombre_equipo,
-    pr.al
+    pr.alias_equipo, pr.temporada, pr.posicion_xi,
+    pr.goles, pr.asistencias, pr.minutos_jugados, pr.partidos_jugados,
+    pr.tarjetas_amarillas, pr.segunda_amarilla, pr.tarjetas_rojas,
+    pr.titularidades, pr.entrada_suplente, pr.salida_suplente,
+    pr.min_por_gol, pr.ppp,
+    pr.score,
+    pr.goles_en_contra, pr.partidos_imbatido,
+    sr.id_formacion, sr.slot, sr.orden, sr.x_coord, sr.y_coord,
+    pr.altura, pr.pie, pr.valor_mercado, pr.edad_historica, pr.nacionalidad_principal
+FROM player_ranks pr
+INNER JOIN slot_ranks sr
+    ON  sr.id_formacion = pr.id_formacion
+    AND sr.posicion_xi  = pr.posicion_xi
+    AND sr.slot_rank    = pr.player_rank;
