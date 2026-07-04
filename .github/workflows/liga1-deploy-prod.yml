@@ -3,6 +3,11 @@ name: Liga 1 — Deploy Producción
 on:
   push:
     branches: [main]
+    paths:
+      - 'proceso/**'
+      - 'PrepAmb/**'
+      - 'datasets/dataentrys/**'
+      - 'datasets/[0-9][0-9][0-9][0-9]/**'
   workflow_dispatch:
 
 env:
@@ -84,8 +89,12 @@ jobs:
           # ls_databricks: token prod
           sed -i 's|"databricks-token"|"databricks-token-prod"|g' \
             /tmp/ls_prod/ls_databricks.json
-          # ls_sql_liga1: BD prod
+          # ls_sql_liga1: servidor, BD, usuario y contraseña prod
+          sed -i 's|"server": "serverfutbol.database.windows.net"|"server": "${{ secrets.SQL_SERVER_PROD }}"|g' \
+            /tmp/ls_prod/ls_sql_liga1.json
           sed -i 's|"database": "ligafutbol"|"database": "${{ secrets.SQL_DATABASE_PROD }}"|g' \
+            /tmp/ls_prod/ls_sql_liga1.json
+          sed -i 's|"userName": "adminliga1"|"userName": "${{ secrets.SQL_USERNAME_PROD }}"|g' \
             /tmp/ls_prod/ls_sql_liga1.json
           sed -i 's|"kv-sql-password"|"kv-sql-password-prod"|g' \
             /tmp/ls_prod/ls_sql_liga1.json
@@ -406,7 +415,7 @@ jobs:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
         run: |
           python3 - << 'PYEOF'
-          import requests, os, time
+          import requests, os, time, sys
 
           host    = os.environ["DATABRICKS_HOST"].rstrip("/")
           token   = os.environ["DATABRICKS_TOKEN"]
@@ -426,14 +435,13 @@ jobs:
               "CREATE VOLUME IF NOT EXISTS catalog_liga1_prod.shared.libs",
           ]
 
-          def run_stmt(stmt):
+          def run_stmt(stmt, critical=True):
               r = requests.post(f"{host}/api/2.0/sql/statements", headers=headers,
                                 json={"statement": stmt, "warehouse_id": wh_id,
                                       "wait_timeout": "30s"})
               resp = r.json()
               state = resp.get("status", {}).get("state", "?")
               if state == "PENDING":
-                  # Pollear hasta completar (máx 30s)
                   stmt_id = resp.get("statement_id")
                   for _ in range(6):
                       time.sleep(5)
@@ -441,11 +449,17 @@ jobs:
                       state = r2.json().get("status", {}).get("state", "?")
                       if state != "PENDING":
                           break
-              return state
+              err = resp.get("status", {}).get("error", {}).get("message", "")
+              return state, err
 
           for stmt in stmts_prod:
-              state = run_stmt(stmt)
-              print(f"  [{state}] {stmt[:100]}")
+              state, err = run_stmt(stmt)
+              if state == "SUCCEEDED":
+                  print(f"  [OK] {stmt[:100]}")
+              else:
+                  print(f"  [❌ ERROR] {stmt[:100]}")
+                  print(f"    {err}")
+                  sys.exit(1)
 
           print("✅ Catalog catalog_liga1_prod, schemas y Volume creados")
           PYEOF
@@ -456,7 +470,7 @@ jobs:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
         run: |
           python3 - << 'PYEOF'
-          import requests, os, glob, time
+          import requests, os, glob, time, sys
 
           host    = os.environ["DATABRICKS_HOST"].rstrip("/")
           token   = os.environ["DATABRICKS_TOKEN"]
@@ -469,7 +483,7 @@ jobs:
           container_name  = "liga1"
           ruta_base       = "primera_division"
 
-          def run_stmt(stmt):
+          def run_stmt(stmt, wait=120):
               r = requests.post(f"{host}/api/2.0/sql/statements", headers=headers,
                                 json={"statement": stmt, "warehouse_id": wh_id,
                                       "wait_timeout": "60s"})
@@ -477,38 +491,62 @@ jobs:
               state = resp.get("status", {}).get("state", "?")
               if state == "PENDING":
                   stmt_id = resp.get("statement_id")
-                  for _ in range(12):
+                  for _ in range(wait // 5):
                       time.sleep(5)
                       r2 = requests.get(f"{host}/api/2.0/sql/statements/{stmt_id}", headers=headers)
-                      state = r2.json().get("status", {}).get("state", "?")
+                      resp = r2.json()
+                      state = resp.get("status", {}).get("state", "?")
                       if state != "PENDING":
                           break
-              return state, resp.get("status", {}).get("error", {}).get("message", "")
+              err = resp.get("status", {}).get("error", {}).get("message", "")
+              return state, err
 
+          failed = []
           sql_files = sorted(glob.glob("PrepAmb/ddl_deploy/**/*.sql", recursive=True))
+          # Excluir archivos no-SQL (notebooks .ipynb, .py)
+          sql_files = [f for f in sql_files if f.endswith(".sql")]
+
           for fpath in sql_files:
               content = open(fpath).read().strip()
               if not content:
                   continue
-              # Reemplazar variables ${...} con valores prod antes de ejecutar
+              # Reemplazar variables ${...} con valores prod
               content = content.replace("${catalog_name}",    catalog_name)
               content = content.replace("${storage_account}", storage_account)
               content = content.replace("${container_name}",  container_name)
               content = content.replace("${ruta_base}",       ruta_base)
               # ddl_vistas_ddv.sql tiene catalog_liga1 hardcodeado (no como ${var})
-              # reemplazar también esas referencias
-              content = content.replace("catalog_liga1.",     catalog_name + ".")
+              # Reemplazar catalog_liga1. → catalog_liga1_prod.
+              # IMPORTANTE: reemplazar primero catalog_liga1_prod. para no duplicar _prod
+              # (el contenido no debería tener _prod, pero por seguridad)
+              content = content.replace("catalog_liga1_prod.", "__PROD__.")
+              content = content.replace("catalog_liga1.",      catalog_name + ".")
+              content = content.replace("__PROD__.",           catalog_name + ".")
 
-              stmts = [s.strip() for s in content.split(";") if s.strip()]
+              # Excluir comentarios SQL (líneas que empiezan con --)
+              stmts = [s.strip() for s in content.split(";") if s.strip() and not s.strip().startswith("--")]
               print(f"→ {fpath} ({len(stmts)} statements)")
               for stmt in stmts:
+                  if not stmt or stmt.startswith("--"):
+                      continue
                   state, err = run_stmt(stmt)
-                  if state not in ("SUCCEEDED",):
-                      print(f"  [{state}] {stmt[:80]}")
+                  if state == "SUCCEEDED":
+                      print(f"  [OK] {stmt[:80]}")
+                  else:
+                      print(f"  [❌ {state}] {stmt[:80]}")
                       if err:
                           print(f"    ERROR: {err}")
-                  else:
-                      print(f"  [OK] {stmt[:80]}")
+                      failed.append({"file": fpath, "stmt": stmt[:120], "error": err})
+
+          if failed:
+              print(f"\n❌ {len(failed)} statement(s) fallaron:")
+              for f in failed:
+                  print(f"  {f['file']}: {f['stmt']}")
+                  print(f"    → {f['error']}")
+              print("\n💡 Si el error es 'No external location found', debes crear el External Location en")
+              print("   Databricks UI: Catalog > External Locations > Add")
+              print(f"   URL: abfss://liga1@{storage_account}.dfs.core.windows.net/primera_division")
+              sys.exit(1)
 
           print("✅ DDL tablas y vistas completado con variables prod reemplazadas")
           PYEOF
@@ -524,12 +562,58 @@ jobs:
           WHEEL_NAME=$(basename "$WHEEL")
           echo "Wheel: $WHEEL_NAME"
           # Volume path: /Volumes/catalog_liga1_prod/shared/libs
-          curl -s -X PUT \
+          curl -s -f -X PUT \
             -H "Authorization: Bearer ${{ secrets.DATABRICKS_TOKEN_PROD }}" \
             -H "Content-Type: application/octet-stream" \
             --data-binary @"$WHEEL" \
             "${{ secrets.DATABRICKS_HOST_PROD }}/api/2.0/fs/files/Volumes/catalog_liga1_prod/shared/libs/${WHEEL_NAME}"
-          echo "✅ Wheel subido a /Volumes/catalog_liga1_prod/shared/libs/"
+          echo "WHEEL_NAME=${WHEEL_NAME}" >> $GITHUB_ENV
+          echo "✅ Wheel subido a /Volumes/catalog_liga1_prod/shared/libs/${WHEEL_NAME}"
+
+      - name: Instalar wheel liga1_utils en cluster prod
+        env:
+          DATABRICKS_HOST:  ${{ secrets.DATABRICKS_HOST_PROD }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
+        run: |
+          python3 - << 'PYEOF'
+          import requests, os, time, sys
+
+          host       = os.environ["DATABRICKS_HOST"].rstrip("/")
+          token      = os.environ["DATABRICKS_TOKEN"]
+          headers    = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+          cluster_id = "${{ secrets.DATABRICKS_CLUSTER_PROD }}"
+          wheel_name = os.environ.get("WHEEL_NAME", "")
+
+          if not wheel_name:
+              import glob
+              wheels = glob.glob("proceso/dist/*.whl")
+              wheel_name = os.path.basename(wheels[0]) if wheels else ""
+          if not wheel_name:
+              print("⚠️  No se pudo determinar el nombre del wheel — omitiendo instalación en cluster")
+              sys.exit(0)
+
+          whl_path = f"/Volumes/catalog_liga1_prod/shared/libs/{wheel_name}"
+          print(f"→ Instalando {whl_path} en cluster {cluster_id}...")
+
+          # Primero desinstalar versiones anteriores del mismo paquete
+          r_uninstall = requests.post(f"{host}/api/2.0/libraries/uninstall", headers=headers,
+                                       json={"cluster_id": cluster_id,
+                                             "libraries": [{"whl": whl_path}]})
+          # Ignorar error 404/400 (si no estaba instalado antes)
+          if r_uninstall.status_code == 200:
+              print("  ↩ Versión anterior desinstalada (se aplicará en próximo restart)")
+
+          # Instalar la nueva versión
+          r = requests.post(f"{host}/api/2.0/libraries/install", headers=headers,
+                            json={"cluster_id": cluster_id,
+                                  "libraries": [{"whl": whl_path}]})
+          if r.status_code != 200:
+              print(f"❌ Error instalando wheel: {r.status_code} {r.json()}")
+              sys.exit(1)
+          print(f"✅ Wheel {wheel_name} instalado en cluster {cluster_id}")
+          print("   ℹ️  La librería estará activa en la siguiente sesión del cluster.")
+          print("      Si el cluster está activo ahora, reinícialo para aplicar el cambio.")
+          PYEOF
 
       - name: Configurar Delta Sharing prod
         env:
@@ -710,52 +794,4 @@ jobs:
           #   schd_ddv_liga1         → PipelineId 34  (sch_ddv_liga1)
           #   sch_ml_liga1           → PipelineId 47  (sch_ml_liga1)
           #   execute_job_ddl        → PipelineId  5  (Job_ddl)
-          #   schd_md_catalogo_equipos → PipelineId 3 (catalogo_equipos)
-          name_to_pipeline_id = {
-              "schd_udv_liga1":           25,
-              "schd_ddv_liga1":           34,
-              "sch_ml_liga1":             47,
-              "execute_job_ddl":           5,
-              "schd_md_catalogo_equipos":  3,
-          }
-
-          conn = pymssql.connect(
-              server   = os.environ["SQL_SERVER"],
-              database = os.environ["SQL_DATABASE"],
-              user     = os.environ["SQL_USERNAME"],
-              password = os.environ["SQL_PASSWORD"]
-          )
-          cursor = conn.cursor()
-
-          for job_name, job_id in job_ids.items():
-              pipeline_id = name_to_pipeline_id.get(job_name)
-              if not pipeline_id:
-                  print(f"  ⚠️ Sin mapeo SQL para job: {job_name} → ignorado")
-                  continue
-              if not job_id:
-                  print(f"  ⚠️ job_id nulo para {job_name} → ignorado")
-                  continue
-
-              cursor.execute(
-                  "UPDATE dbo.tbl_pipeline_parametros "
-                  "SET Valor = %s "
-                  "WHERE PipelineId = %s AND Parametro = 'JOB_ID'",
-                  (str(job_id), pipeline_id)
-              )
-              rows = cursor.rowcount
-              status = "✅" if rows > 0 else "⚠️ sin fila existente (INSERT necesario)"
-              print(f"  {status} PipelineId={pipeline_id} ({job_name}) → {job_id}  [{rows} fila(s)]")
-
-              # Si la fila no existía (Querys.sql no la insertó), la creamos
-              if rows == 0:
-                  cursor.execute(
-                      "INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) "
-                      "VALUES (%s, 'JOB_ID', %s, 'Job Databricks prod')",
-                      (pipeline_id, str(job_id))
-                  )
-                  print(f"    ↳ INSERT realizado (fila nueva)")
-
-          conn.commit()
-          conn.close()
-          print("\n✅ Job IDs actualizados en tbl_pipeline_parametros prod")
-          PYEOF
+          #   schd_md_catalogo_equipos → PipelineId 3 (catalogo_equi

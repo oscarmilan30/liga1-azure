@@ -135,6 +135,7 @@
 			"name": "pl_pipeline_control"
 		},
 		"annotations": [],
-		"type": "Microsoft.DataFactory/factories/pipelines"
-	}
+		"lastPublishTime": "2026-05-23T23:49:36Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }
