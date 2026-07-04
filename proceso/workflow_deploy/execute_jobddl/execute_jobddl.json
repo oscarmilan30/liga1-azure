@@ -1,8 +1,12 @@
 {
   "name": "execute_job_ddl",
   "email_notifications": {
-    "on_success": ["{USER}"],
-    "on_failure": ["{USER}"],
+    "on_success": [
+      "{USER}"
+    ],
+    "on_failure": [
+      "{USER}"
+    ],
     "no_alert_for_skipped_runs": false
   },
   "webhook_notifications": {},
@@ -26,7 +30,12 @@
       "existing_cluster_id": "{CLUSTER_ID}",
       "timeout_seconds": 0,
       "email_notifications": {},
-      "webhook_notifications": {}
+      "webhook_notifications": {},
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     }
   ],
   "tags": {
