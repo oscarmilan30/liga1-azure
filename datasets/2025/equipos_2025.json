@@ -1,0 +1,83 @@
+{
+  "fuente": "FotMob",
+  "temporada": 2025,
+  "fecha_carga": "2026-06-22 23:32:05",
+  "data": [
+    {
+      "equipo": "Sport Huancayo",
+      "url": ""
+    },
+    {
+      "equipo": "Alianza Atletico",
+      "url": ""
+    },
+    {
+      "equipo": "FBC Melgar",
+      "url": ""
+    },
+    {
+      "equipo": "CD UT Cajamarca",
+      "url": ""
+    },
+    {
+      "equipo": "Atletico Grau",
+      "url": ""
+    },
+    {
+      "equipo": "Ayacucho FC",
+      "url": ""
+    },
+    {
+      "equipo": "Alianza Lima",
+      "url": ""
+    },
+    {
+      "equipo": "Cusco FC",
+      "url": ""
+    },
+    {
+      "equipo": "Alianza Universidad",
+      "url": ""
+    },
+    {
+      "equipo": "Sporting Cristal",
+      "url": ""
+    },
+    {
+      "equipo": "Sport Boys",
+      "url": ""
+    },
+    {
+      "equipo": "ADC Juan Pablo II",
+      "url": ""
+    },
+    {
+      "equipo": "Comerciantes Unidos",
+      "url": ""
+    },
+    {
+      "equipo": "Universitario de Deportes",
+      "url": ""
+    },
+    {
+      "equipo": "Cienciano",
+      "url": ""
+    },
+    {
+      "equipo": "Asociacion Deportiva Tarma",
+      "url": ""
+    },
+    {
+      "equipo": "Los Chankas",
+      "url": ""
+    },
+    {
+      "equipo": "Deportivo Garcilaso",
+      "url": ""
+    },
+    {
+      "equipo": "Binacional",
+      "url": ""
+    }
+  ]
+}

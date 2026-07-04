@@ -1,0 +1,110 @@
+relationship 099f4126-2dec-4c01-870f-9956a57a39c6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: ft_entrenadores_historico.fecha_inicio
+	toColumn: LocalDateTable_f4655fc4-ff02-4c07-8482-914c3fd1e90f.Date
+
+relationship 62d13ef7-3bd2-43e4-9a5a-9c21c6c916c0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: ft_entrenadores_historico.fecha_termino
+	toColumn: LocalDateTable_88da75a8-8b27-4cec-a26f-38475ce3dff8.Date
+
+relationship 8d7138a0-f83e-4d2f-8683-e6954c24144e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: ft_plantillas_historico.fecha_fichaje
+	toColumn: LocalDateTable_97e0ae96-83c4-4c61-9e42-fbacb780bdf4.Date
+
+relationship AutoDetected_19a95a1a-6ff9-4c8b-b09c-90d8888f2382
+	fromColumn: ft_entrenadores_historico.id_equipo
+	toColumn: dm_equipos.id_equipo
+
+relationship AutoDetected_e9f7dbf6-2b9f-4ec6-aa4f-14a55f079074
+	fromColumn: ft_evolucion_valoracion.id_equipo
+	toColumn: dm_equipos.id_equipo
+
+relationship AutoDetected_b39e62a7-bb5a-492b-88df-0f40a3e51f12
+	fromColumn: ft_plantillas_historico.id_equipo
+	toColumn: dm_equipos.id_equipo
+
+relationship AutoDetected_124eb2f9-6af1-4a01-8c3f-82f4cca8c53e
+	fromColumn: ft_entrenadores_historico.temporada
+	toColumn: hm_campeones.temporada
+
+relationship AutoDetected_e8f88ad7-cff3-45a6-b6b3-c8fbf6c71849
+	fromColumn: ft_evolucion_valoracion.temporada
+	toColumn: hm_campeones.temporada
+
+relationship AutoDetected_a6d782b0-56f5-4a14-8105-9c0f39507ddf
+	fromColumn: ft_plantillas_historico.temporada
+	toColumn: hm_campeones.temporada
+
+relationship AutoDetected_42c1619a-34cf-462b-a945-e0cef9fc6d94
+	fromColumn: ft_rendimiento_posiciones.id_equipo
+	toColumn: dm_equipos.id_equipo
+
+relationship AutoDetected_84758507-3ca3-4253-92eb-f4c18d426f58
+	fromColumn: ft_entrenadores_historico.temporada
+	toColumn: dm_temporada.temporada
+
+relationship AutoDetected_dd44fcf0-267c-4825-85ba-b0cda8a0aa5e
+	fromColumn: ft_evolucion_valoracion.temporada
+	toColumn: dm_temporada.temporada
+
+relationship AutoDetected_17158190-d51c-41e0-b810-0dfee2c1a841
+	fromColumn: ft_plantillas_historico.temporada
+	toColumn: dm_temporada.temporada
+
+relationship AutoDetected_dfd28a40-1648-4053-88fa-19e521ef3b72
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: hm_campeones.temporada
+	toColumn: dm_temporada.temporada
+
+relationship AutoDetected_3a007be5-a163-41b4-8dd7-3fc3bbf2e575
+	fromColumn: ft_rendimiento_posiciones.temporada
+	toColumn: dm_temporada.temporada
+
+relationship AutoDetected_0160df8e-3845-4715-b344-1de4c0a0ea62
+	fromColumn: ft_rendimiento_posiciones.tipo_tabla
+	toColumn: dm_tipo_tabla.tipo_tabla
+
+relationship df4cbfb6-72fa-a871-bf77-2ba03911133a
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: Calendario.Año
+	toColumn: ft_rendimiento_posiciones.temporada
+
+relationship 61fa06b2-d53d-495a-aa26-fe7e910b5bb9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: ft_partidos_equipo.fecha_partido
+	toColumn: LocalDateTable_5f7026b6-b5b1-4b74-8fc6-404bf7946817.Date
+
+relationship AutoDetected_8019b703-e72e-4daa-9170-4a238a29da8c
+	fromColumn: ft_partidos_equipo.id_equipo
+	toColumn: dm_equipos.id_equipo
+
+relationship AutoDetected_be91e5f8-7bda-42ad-a45c-23b7413bf2ed
+	fromColumn: ft_partidos_equipo.temporada
+	toColumn: dm_temporada.temporada
+
+relationship d08df38d-fdb0-467f-96cf-0f7fd518d4e5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: ft_partidos_equipo.fecha_stats
+	toColumn: LocalDateTable_813ab083-ddc1-42cf-a81e-83d91c90130b.Date
+
+relationship AutoDetected_a9faf454-4203-4eac-8547-6d26e6dda661
+	fromColumn: dm_formacion.estilo
+	toColumn: dm_estilo_juego.estilo
+
+relationship AutoDetected_c564dda6-182d-4400-aa12-7248eb97f9c9
+	fromColumn: jugadores_slots.id_equipo
+	toColumn: dm_equipos.id_equipo
+
+relationship AutoDetected_5e35790c-23fd-4500-844f-99f073eece3a
+	fromColumn: jugadores_slots.temporada
+	toColumn: dm_temporada.temporada
+
+relationship AutoDetected_d58c2caf-8d87-40f0-aa3c-a9ac71288804
+	fromColumn: jugadores_slots.id_formacion
+	toColumn: dm_formacion.id_formacion
+

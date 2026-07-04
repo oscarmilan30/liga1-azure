@@ -1,0 +1,2282 @@
+{
+  "fuente": "FotMob",
+  "temporada": 2022,
+  "fecha_carga": "2026-06-12 00:03:06",
+  "data": [
+    {
+      "fecha": "04-02-2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Cienciano",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/es/matches/cienciano-vs-universidad-cesar-vallejo/bo4ht#3792329"
+    },
+    {
+      "fecha": "04-02-2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/es/matches/sport-boys-vs-cd-ut-cajamarca/16hp3o88#3792245"
+    },
+    {
+      "fecha": "05-02-2022",
+      "local": "Alianza Lima",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/es/matches/alianza-lima-vs-atletico-grau/5hgr6wmr#3792287"
+    },
+    {
+      "fecha": "05-02-2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Ayacucho FC",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/es/matches/deportivo-municipal-vs-ayacucho-fc/al6orek#3792298"
+    },
+    {
+      "fecha": "05-02-2022",
+      "local": "Sport Huancayo",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/es/matches/sporting-cristal-vs-sport-huancayo/6elujhm#3792332"
+    },
+    {
+      "fecha": "06-02-2022",
+      "local": "FBC Melgar",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/es/matches/fbc-melgar-vs-carlos-mannucci/1vbg5h4p#3784777"
+    },
+    {
+      "fecha": "06-02-2022",
+      "local": "Carlos Stein",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/es/matches/carlos-stein-vs-asociacion-deportiva-tarma/q6dkfk6c#3792276"
+    },
+    {
+      "fecha": "06-02-2022",
+      "local": "Academia Cantolao",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/es/matches/universitario-de-deportes-vs-academia-cantolao/3jqn22k3#3792224"
+    },
+    {
+      "fecha": "12-02-2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Universidad San Martin",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/es/matches/universitario-de-deportes-vs-universidad-san-martin/n76z0#3815903"
+    },
+    {
+      "fecha": "12-02-2022",
+      "local": "Alianza Atletico",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/es/matches/alianza-atletico-vs-cd-ut-cajamarca/16hol8hj#3792307"
+    },
+    {
+      "fecha": "12-02-2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/es/matches/universidad-cesar-vallejo-vs-asociacion-deportiva-tarma/7ukgidwo#3792345"
+    },
+    {
+      "fecha": "12-02-2022",
+      "local": "Ayacucho FC",
+      "visitante": "Carlos Stein",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/es/matches/ayacucho-fc-vs-carlos-stein/7ivge812#3792331"
+    },
+    {
+      "fecha": "Sunday, February 13, 2022",
+      "local": "Cienciano",
+      "visitante": "Deportivo Municipal",
+      "marcador": "4 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-deportivo-municipal/lujwf5#3792223"
+    },
+    {
+      "fecha": "Sunday, February 13, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-fbc-melgar/bosnq#3792348"
+    },
+    {
+      "fecha": "Sunday, February 13, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Sport Huancayo",
+      "marcador": "3 - 4",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-atletico-grau/7ivf3o72#3792305"
+    },
+    {
+      "fecha": "Sunday, February 13, 2022",
+      "local": "Sport Boys",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-lima/yskh9#3784781"
+    },
+    {
+      "fecha": "Tuesday, February 15, 2022",
+      "local": "Binacional",
+      "visitante": "Academia Cantolao",
+      "marcador": "5 - 0",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-binacional/hj67i5zk#3792310"
+    },
+    {
+      "fecha": "Saturday, February 19, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-carlos-stein/5gmc1pbl#3792284"
+    },
+    {
+      "fecha": "Saturday, February 19, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Binacional",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-binacional/5yan7t2y#3792306"
+    },
+    {
+      "fecha": "Saturday, February 19, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Atletico Grau",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-atletico-grau/bkfyxyhq#3784776"
+    },
+    {
+      "fecha": "Sunday, February 20, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "FBC Melgar",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-sport-huancayo/6lr8l04#3792269"
+    },
+    {
+      "fecha": "Sunday, February 20, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-academia-cantolao/3jqni1z0#3792341"
+    },
+    {
+      "fecha": "Sunday, February 20, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Ayacucho FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-ayacucho-fc/6lqxohq#3792278"
+    },
+    {
+      "fecha": "Sunday, February 20, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-carlos-mannucci/1vt7i7kn#3792231"
+    },
+    {
+      "fecha": "Monday, February 21, 2022",
+      "local": "Cienciano",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-asociacion-deportiva-tarma/7t9ddj0f#3792319"
+    },
+    {
+      "fecha": "Monday, February 21, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-universidad-san-martin/n7rer#3815904"
+    },
+    {
+      "fecha": "Friday, February 25, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cd-ut-cajamarca/15ziqkz2#3792299"
+    },
+    {
+      "fecha": "Saturday, February 26, 2022",
+      "local": "Binacional",
+      "visitante": "Cienciano",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-binacional/5dnbt69b#3792357"
+    },
+    {
+      "fecha": "Saturday, February 26, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-atletico-grau/hmkg7jqn#3792264"
+    },
+    {
+      "fecha": "Saturday, February 26, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Universidad San Martin",
+      "marcador": "5 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-ayacucho-fc/6lr8l05#3815905"
+    },
+    {
+      "fecha": "Saturday, February 26, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-carlos-mannucci/3584ddry#3792230"
+    },
+    {
+      "fecha": "Sunday, February 27, 2022",
+      "local": "Sport Boys",
+      "visitante": "Carlos Stein",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-carlos-stein/5gmdp6zu#3792255"
+    },
+    {
+      "fecha": "Sunday, February 27, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Alianza Lima",
+      "marcador": "4 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-alianza-lima/ys3sq#3792254"
+    },
+    {
+      "fecha": "Sunday, February 27, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Deportivo Municipal",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-asociacion-deportiva-tarma/8i1bzyju#3784775"
+    },
+    {
+      "fecha": "Sunday, February 27, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-universidad-cesar-vallejo/n6mjf#3784782"
+    },
+    {
+      "fecha": "Friday, March 4, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "FBC Melgar",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cd-ut-cajamarca/16hqdrlg#3792216"
+    },
+    {
+      "fecha": "Saturday, March 5, 2022",
+      "local": "Cienciano",
+      "visitante": "Ayacucho FC",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-ayacucho-fc/6elg82l#3792263"
+    },
+    {
+      "fecha": "Saturday, March 5, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-deportivo-municipal/o2z573#3792219"
+    },
+    {
+      "fecha": "Sunday, March 6, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-universidad-cesar-vallejo/n76yx#3792221"
+    },
+    {
+      "fecha": "Sunday, March 6, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-academia-cantolao/afbiltm7#3792350"
+    },
+    {
+      "fecha": "Sunday, March 6, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-carlos-stein/5gmclj7n#3792243"
+    },
+    {
+      "fecha": "Sunday, March 6, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-lima/k8xcb#3792227"
+    },
+    {
+      "fecha": "Monday, March 7, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-atletico-grau/5gmfcoo9#3815906"
+    },
+    {
+      "fecha": "Tuesday, March 8, 2022",
+      "local": "Binacional",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/binacional-vs-asociacion-deportiva-tarma/q28gomj4#3792240"
+    },
+    {
+      "fecha": "Saturday, March 12, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Universidad San Martin",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-universidad-san-martin/n7ds8#3815907"
+    },
+    {
+      "fecha": "Saturday, March 12, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Carlos Stein",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-carlos-stein/dk3sc3rw#3792297"
+    },
+    {
+      "fecha": "Saturday, March 12, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-alianza-lima/ytq72#3792318"
+    },
+    {
+      "fecha": "Sunday, March 13, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Cienciano",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universitario-de-deportes/bnbiq#3792353"
+    },
+    {
+      "fecha": "Sunday, March 13, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Academia Cantolao",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-academia-cantolao/3iv3y1rf#3792285"
+    },
+    {
+      "fecha": "Sunday, March 13, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-atletico-grau/5gmdp6zr#3792312"
+    },
+    {
+      "fecha": "Sunday, March 13, 2022",
+      "local": "Sport Boys",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-deportivo-municipal/o32m4c#3792288"
+    },
+    {
+      "fecha": "Sunday, March 13, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-asociacion-deportiva-tarma/aaeffaum#3792248"
+    },
+    {
+      "fecha": "Sunday, March 13, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Binacional",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-binacional/7gnlbi42#3792313"
+    },
+    {
+      "fecha": "Saturday, March 19, 2022",
+      "local": "Cienciano",
+      "visitante": "Sport Boys",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-boys/bnq05#3792302"
+    },
+    {
+      "fecha": "Sunday, March 20, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Alianza Atletico",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-universidad-cesar-vallejo/n6tck#3792293"
+    },
+    {
+      "fecha": "Sunday, March 20, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-academia-cantolao/3jqqlxw7#3792237"
+    },
+    {
+      "fecha": "Sunday, March 20, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-carlos-stein/5fj7ana8#3792262"
+    },
+    {
+      "fecha": "Sunday, March 20, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-atletico-grau/609xwbki#3792234"
+    },
+    {
+      "fecha": "Sunday, March 20, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Ayacucho FC",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-asociacion-deportiva-tarma/aaeeo30i#3792260"
+    },
+    {
+      "fecha": "Sunday, March 20, 2022",
+      "local": "Binacional",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-binacional/5eqbeob1#3792295"
+    },
+    {
+      "fecha": "Monday, March 21, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Sport Huancayo",
+      "marcador": "3 - 4",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cd-ut-cajamarca/286okzjs#3792253"
+    },
+    {
+      "fecha": "Tuesday, March 22, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-carlos-mannucci/1vbgh2uj#3815908"
+    },
+    {
+      "fecha": "Friday, March 25, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Binacional",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-binacional/5eqgcaej#3815886"
+    },
+    {
+      "fecha": "Friday, April 1, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Universidad San Martin",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universidad-san-martin/boxht#3815909"
+    },
+    {
+      "fecha": "Friday, April 1, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-cd-ut-cajamarca/286o8bnk#3792220"
+    },
+    {
+      "fecha": "Saturday, April 2, 2022",
+      "local": "Sport Boys",
+      "visitante": "Binacional",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-binacional/5eqd1vny#3792352"
+    },
+    {
+      "fecha": "Saturday, April 2, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Deportivo Municipal",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-deportivo-municipal/o30au5#3792349"
+    },
+    {
+      "fecha": "Saturday, April 2, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Carlos Stein",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-carlos-stein/5gmggcgt#3792324"
+    },
+    {
+      "fecha": "Sunday, April 3, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Cienciano",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-atletico-grau/5fj3zzt8#3792218"
+    },
+    {
+      "fecha": "Sunday, April 3, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-carlos-mannucci/1vbfi9p4#3792275"
+    },
+    {
+      "fecha": "Tuesday, April 5, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-asociacion-deportiva-tarma/7ukcjr19#3792327"
+    },
+    {
+      "fecha": "Saturday, April 9, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Sporting Cristal",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universidad-cesar-vallejo/boizn#3792261"
+    },
+    {
+      "fecha": "Saturday, April 9, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-academia-cantolao/58qpa0ip#3792296"
+    },
+    {
+      "fecha": "Saturday, April 9, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-carlos-mannucci/270fkhyy#3792322"
+    },
+    {
+      "fecha": "Saturday, April 9, 2022",
+      "local": "Binacional",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/binacional-vs-atletico-grau/lj8fftj8#3792268"
+    },
+    {
+      "fecha": "Sunday, April 10, 2022",
+      "local": "Cienciano",
+      "visitante": "Alianza Atletico",
+      "marcador": "5 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-atletico/bngci#3792283"
+    },
+    {
+      "fecha": "Sunday, April 10, 2022",
+      "local": "Alianza Lima",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cd-ut-cajamarca/16vuu6rh#3792233"
+    },
+    {
+      "fecha": "Sunday, April 10, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-asociacion-deportiva-tarma/7ukej2gu#3792294"
+    },
+    {
+      "fecha": "Sunday, April 10, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-ayacucho-fc/6lqbvhn#3792238"
+    },
+    {
+      "fecha": "Sunday, April 10, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-universidad-san-martin/n8phk#3815910"
+    },
+    {
+      "fecha": "Friday, April 15, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Binacional",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-binacional/5eqbyerb#3792250"
+    },
+    {
+      "fecha": "Friday, April 15, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Academia Cantolao",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-academia-cantolao/8otyri2p#3792325"
+    },
+    {
+      "fecha": "Saturday, April 16, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/atletico-grau-vs-asociacion-deportiva-tarma/q6dgtbhr#3792222"
+    },
+    {
+      "fecha": "Saturday, April 16, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Cienciano",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-carlos-mannucci/1uoh4smn#3792315"
+    },
+    {
+      "fecha": "Saturday, April 16, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Deportivo Municipal",
+      "marcador": "6 - 4",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-deportivo-municipal/lun7eq#3792317"
+    },
+    {
+      "fecha": "Sunday, April 17, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Carlos Stein",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-carlos-stein/7ivh1hy2#3784779"
+    },
+    {
+      "fecha": "Sunday, April 17, 2022",
+      "local": "Sport Boys",
+      "visitante": "Ayacucho FC",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-ayacucho-fc/6lqmrzk#3792335"
+    },
+    {
+      "fecha": "Sunday, April 17, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 4",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-lima/yrvgi#3792309"
+    },
+    {
+      "fecha": "Monday, April 18, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-fbc-melgar/n851d#3792308"
+    },
+    {
+      "fecha": "Friday, April 22, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-deportivo-municipal/o38ecb#3792356"
+    },
+    {
+      "fecha": "Friday, April 22, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-atletico-grau/7ivegea5#3792292"
+    },
+    {
+      "fecha": "Saturday, April 23, 2022",
+      "local": "Cienciano",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sporting-cristal/428ir#3792289"
+    },
+    {
+      "fecha": "Saturday, April 23, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-academia-cantolao/3kf7c37u#3792303"
+    },
+    {
+      "fecha": "Saturday, April 23, 2022",
+      "local": "Binacional",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-binacional/dh4ivysg#3792256"
+    },
+    {
+      "fecha": "Sunday, April 24, 2022",
+      "local": "Carlos Stein",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-carlos-stein/bkg1cjcq#3792291"
+    },
+    {
+      "fecha": "Sunday, April 24, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-sport-huancayo/6lrc7ub#3815911"
+    },
+    {
+      "fecha": "Sunday, April 24, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-asociacion-deportiva-tarma/7ukd7iuf#3792272"
+    },
+    {
+      "fecha": "Sunday, April 24, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-boys/n6243#3792290"
+    },
+    {
+      "fecha": "Saturday, April 30, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Binacional",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-binacional/5dndg7ok#3784780"
+    },
+    {
+      "fecha": "Saturday, April 30, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Cienciano",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-fbc-melgar/boe5q#3792259"
+    },
+    {
+      "fecha": "Sunday, May 1, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Ayacucho FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-ayacucho-fc/6lqfibl#3784774"
+    },
+    {
+      "fecha": "Sunday, May 1, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-atletico-grau/5gmae7ni#3792258"
+    },
+    {
+      "fecha": "Sunday, May 1, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-asociacion-deportiva-tarma/h71olt74#3792282"
+    },
+    {
+      "fecha": "Sunday, May 1, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Carlos Stein",
+      "marcador": "5 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-carlos-stein/5hgsuiwl#3792251"
+    },
+    {
+      "fecha": "Sunday, May 1, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-sport-huancayo/6lr1bbt#3792336"
+    },
+    {
+      "fecha": "Monday, May 2, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-academia-cantolao/3jqoe0sx#3792270"
+    },
+    {
+      "fecha": "Monday, May 2, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Universidad San Martin",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-cd-ut-cajamarca/16hqmzgz#3815912"
+    },
+    {
+      "fecha": "Saturday, May 7, 2022",
+      "local": "Sport Boys",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-atletico-grau/5gmc1pbi#3792314"
+    },
+    {
+      "fecha": "Saturday, May 7, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Alianza Atletico",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-atletico/n5oi0#3792316"
+    },
+    {
+      "fecha": "Sunday, May 8, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-cd-ut-cajamarca/16hpvbuh#3792281"
+    },
+    {
+      "fecha": "Sunday, May 8, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Academia Cantolao",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-carlos-stein/hmkj6f8k#3792267"
+    },
+    {
+      "fecha": "Sunday, May 8, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-sport-huancayo/al6td2k#3792311"
+    },
+    {
+      "fecha": "Sunday, May 8, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-asociacion-deportiva-tarma/7t9fcoic#3792300"
+    },
+    {
+      "fecha": "Sunday, May 8, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-carlos-mannucci/3583yc1e#3792225"
+    },
+    {
+      "fecha": "Sunday, May 8, 2022",
+      "local": "Binacional",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-binacional/5eqfsjy1#3792286"
+    },
+    {
+      "fecha": "Monday, May 9, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-alianza-lima/ytyji#3815913"
+    },
+    {
+      "fecha": "Friday, May 13, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Ayacucho FC",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-ayacucho-fc/6elqymu#3792321"
+    },
+    {
+      "fecha": "Friday, May 13, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-asociacion-deportiva-tarma/7ukhtxjd#3792217"
+    },
+    {
+      "fecha": "Saturday, May 14, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Universidad San Martin",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-academia-cantolao/3jqr1xbc#3815914"
+    },
+    {
+      "fecha": "Saturday, May 14, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Deportivo Municipal",
+      "marcador": "4 - 3",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-cd-ut-cajamarca/1fvnz2h8#3792330"
+    },
+    {
+      "fecha": "Sunday, May 15, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-alianza-lima/yt9i9#3792355"
+    },
+    {
+      "fecha": "Sunday, May 15, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-boys/n68x5#3792249"
+    },
+    {
+      "fecha": "Sunday, May 15, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-carlos-mannucci/1vbdknf1#3792343"
+    },
+    {
+      "fecha": "Sunday, May 15, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Cienciano",
+      "marcador": "3 - 3",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-huancayo/6eljsxa#3792239"
+    },
+    {
+      "fecha": "Monday, May 16, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/atletico-grau-vs-carlos-stein/lmzz7yg3#3792347"
+    },
+    {
+      "fecha": "Saturday, May 21, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Academia Cantolao",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-academia-cantolao/3jqppz20#3792252"
+    },
+    {
+      "fecha": "Saturday, May 21, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Carlos Stein",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-carlos-stein/5gmh06d3#3815915"
+    },
+    {
+      "fecha": "Saturday, May 21, 2022",
+      "local": "Cienciano",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cd-ut-cajamarca/15zhz3at#3792344"
+    },
+    {
+      "fecha": "Sunday, May 22, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universitario-de-deportes/bnq02#3792273"
+    },
+    {
+      "fecha": "Sunday, May 22, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-deportivo-municipal/pw1889#3792277"
+    },
+    {
+      "fecha": "Sunday, May 22, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-atletico-grau/5gmay1jh#3792323"
+    },
+    {
+      "fecha": "Sunday, May 22, 2022",
+      "local": "Sport Boys",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 4",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-carlos-mannucci/1vbejgjy#3792236"
+    },
+    {
+      "fecha": "Sunday, May 22, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-ayacucho-fc/6lr4y5z#3792304"
+    },
+    {
+      "fecha": "Sunday, May 22, 2022",
+      "local": "Binacional",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-binacional/7gnlyola#3792342"
+    },
+    {
+      "fecha": "Saturday, May 28, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-asociacion-deportiva-tarma/7ukihpcr#3815916"
+    },
+    {
+      "fecha": "Saturday, May 28, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-atletico-grau/dk3pqddw#3792351"
+    },
+    {
+      "fecha": "Sunday, May 29, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Deportivo Municipal",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-academia-cantolao/3zoaqjdx#3792257"
+    },
+    {
+      "fecha": "Sunday, May 29, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-carlos-stein/5gmfcooc#3792241"
+    },
+    {
+      "fecha": "Sunday, May 29, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-fbc-melgar/n705s#3792265"
+    },
+    {
+      "fecha": "Monday, May 30, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Alianza Atletico",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-huancayo/6lqj55j#3792226"
+    },
+    {
+      "fecha": "Tuesday, May 31, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Cienciano",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-lima/k8e98#3792359"
+    },
+    {
+      "fecha": "Tuesday, May 31, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Binacional",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-binacional/bhoz1sym#3792247"
+    },
+    {
+      "fecha": "Sunday, June 5, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-boys/bo4hq#3792229"
+    },
+    {
+      "fecha": "Sunday, June 5, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Alianza Lima",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-sport-huancayo/6rcedst#3792334"
+    },
+    {
+      "fecha": "Saturday, June 18, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Carlos Stein",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-carlos-stein/609zmpqu#3792338"
+    },
+    {
+      "fecha": "Saturday, June 18, 2022",
+      "local": "Cienciano",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-academia-cantolao/3iv2m9g9#3784778"
+    },
+    {
+      "fecha": "Sunday, June 19, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Universidad San Martin",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-universidad-san-martin/n8bur#3815902"
+    },
+    {
+      "fecha": "Sunday, June 19, 2022",
+      "local": "Sport Boys",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-fbc-melgar/n7klg#3792340"
+    },
+    {
+      "fecha": "Sunday, June 19, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-atletico-grau/5fj5nbjk#3792339"
+    },
+    {
+      "fecha": "Sunday, June 19, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-carlos-mannucci/1vbdw94n#3792301"
+    },
+    {
+      "fecha": "Sunday, June 19, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-asociacion-deportiva-tarma/exziuwem#3792280"
+    },
+    {
+      "fecha": "Sunday, June 19, 2022",
+      "local": "Binacional",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-binacional/5fkmxj61#3792328"
+    },
+    {
+      "fecha": "Monday, June 20, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-sport-huancayo/p24b128#3792279"
+    },
+    {
+      "fecha": "Friday, June 24, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-carlos-mannucci/5wupq6la#3792271"
+    },
+    {
+      "fecha": "Saturday, June 25, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-atletico-grau/5gmesus2#3792358"
+    },
+    {
+      "fecha": "Saturday, June 25, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-atletico/bnutx#3792235"
+    },
+    {
+      "fecha": "Sunday, June 26, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-asociacion-deportiva-tarma/lqs4lxk0#3792354"
+    },
+    {
+      "fecha": "Sunday, June 26, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Cienciano",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-carlos-stein/5fj5nbjn#3792274"
+    },
+    {
+      "fecha": "Sunday, June 26, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Binacional",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-binacional/5eqep314#3792320"
+    },
+    {
+      "fecha": "Sunday, June 26, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-huancayo/6lqfibk#3792246"
+    },
+    {
+      "fecha": "Sunday, June 26, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Ayacucho FC",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-ayacucho-fc/6rcapfn#3792337"
+    },
+    {
+      "fecha": "Monday, June 27, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-deportivo-municipal/o39jzl#3815901"
+    },
+    {
+      "fecha": "Friday, July 1, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-academia-cantolao/58qoql2u#3792242"
+    },
+    {
+      "fecha": "Saturday, July 2, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 4",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-deportivo-municipal/o3631u#3792232"
+    },
+    {
+      "fecha": "Saturday, July 2, 2022",
+      "local": "Cienciano",
+      "visitante": "Universidad San Martin",
+      "marcador": "5 - 3",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universidad-san-martin/boizq#3815887"
+    },
+    {
+      "fecha": "Saturday, July 2, 2022",
+      "local": "Binacional",
+      "visitante": "Carlos Stein",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/binacional-vs-carlos-stein/lj8ipy58#3792228"
+    },
+    {
+      "fecha": "Sunday, July 3, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-carlos-mannucci/1uoi3ftw#3792244"
+    },
+    {
+      "fecha": "Sunday, July 3, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-fbc-melgar/n76yz#3792333"
+    },
+    {
+      "fecha": "Sunday, July 3, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-asociacion-deportiva-tarma/7vkv5n09#3792266"
+    },
+    {
+      "fecha": "Sunday, July 3, 2022",
+      "local": "Sport Boys",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-sport-huancayo/6lqqetk#3792326"
+    },
+    {
+      "fecha": "Monday, July 4, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cd-ut-cajamarca/16hoc0m8#3792346"
+    },
+    {
+      "fecha": "Saturday, July 9, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Sport Huancayo",
+      "marcador": "4 - 3",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-huancayo/6elujhm#3797917"
+    },
+    {
+      "fecha": "Saturday, July 9, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-ayacucho-fc/al6orek#3797872"
+    },
+    {
+      "fecha": "Saturday, July 9, 2022",
+      "local": "Cienciano",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universidad-cesar-vallejo/bo4ht#3797914"
+    },
+    {
+      "fecha": "Sunday, July 10, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-atletico-grau/5hgr6wmr#3797878"
+    },
+    {
+      "fecha": "Sunday, July 10, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-carlos-mannucci/1vbg5h4p#3797806"
+    },
+    {
+      "fecha": "Sunday, July 10, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Carlos Stein",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/carlos-stein-vs-asociacion-deportiva-tarma/q6dkfk6c#3797859"
+    },
+    {
+      "fecha": "Sunday, July 10, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-academia-cantolao/3jqn22k3#3797817"
+    },
+    {
+      "fecha": "Monday, July 11, 2022",
+      "local": "Sport Boys",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cd-ut-cajamarca/16hp3o88#3797844"
+    },
+    {
+      "fecha": "Monday, July 11, 2022",
+      "local": "Binacional",
+      "visitante": "Universidad San Martin",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-binacional/5eqgcaej#3815888"
+    },
+    {
+      "fecha": "Friday, July 15, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Cienciano",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-deportivo-municipal/lujwf5#3797803"
+    },
+    {
+      "fecha": "Saturday, July 16, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-asociacion-deportiva-tarma/7ukgidwo#3797926"
+    },
+    {
+      "fecha": "Saturday, July 16, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 4",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-universidad-san-martin/n76z0#3815889"
+    },
+    {
+      "fecha": "Saturday, July 16, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-atletico-grau/7ivf3o72#3797864"
+    },
+    {
+      "fecha": "Sunday, July 17, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Binacional",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-binacional/hj67i5zk#3797849"
+    },
+    {
+      "fecha": "Sunday, July 17, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Ayacucho FC",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-carlos-stein/7ivge812#3797916"
+    },
+    {
+      "fecha": "Sunday, July 17, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-lima/yskh9#3797810"
+    },
+    {
+      "fecha": "Sunday, July 17, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-fbc-melgar/bosnq#3797929"
+    },
+    {
+      "fecha": "Monday, July 18, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cd-ut-cajamarca/16hol8hj#3797855"
+    },
+    {
+      "fecha": "Friday, July 22, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-ayacucho-fc/6lqxohq#3797881"
+    },
+    {
+      "fecha": "Saturday, July 23, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Academia Cantolao",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-academia-cantolao/3jqni1z0#3797896"
+    },
+    {
+      "fecha": "Saturday, July 23, 2022",
+      "local": "Atletico Grau",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-atletico-grau/bkfyxyhq#3797805"
+    },
+    {
+      "fecha": "Saturday, July 23, 2022",
+      "local": "Sport Boys",
+      "visitante": "Universidad San Martin",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-universidad-san-martin/n7rer#3815890"
+    },
+    {
+      "fecha": "Saturday, July 23, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-carlos-mannucci/1vt7i7kn#3797826"
+    },
+    {
+      "fecha": "Saturday, July 23, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-sport-huancayo/6lr8l04#3797887"
+    },
+    {
+      "fecha": "Sunday, July 24, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Cienciano",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-asociacion-deportiva-tarma/7t9ddj0f#3797934"
+    },
+    {
+      "fecha": "Sunday, July 24, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Carlos Stein",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-carlos-stein/5gmc1pbl#3797901"
+    },
+    {
+      "fecha": "Sunday, July 24, 2022",
+      "local": "Binacional",
+      "visitante": "Deportivo Municipal",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-binacional/5yan7t2y#3797856"
+    },
+    {
+      "fecha": "Tuesday, July 26, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-atletico-grau/hmkg7jqn#3797831"
+    },
+    {
+      "fecha": "Tuesday, July 26, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cd-ut-cajamarca/15ziqkz2#3797870"
+    },
+    {
+      "fecha": "Tuesday, July 26, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-carlos-mannucci/3584ddry#3797792"
+    },
+    {
+      "fecha": "Wednesday, July 27, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-alianza-lima/ys3sq#3797797"
+    },
+    {
+      "fecha": "Wednesday, July 27, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Ayacucho FC",
+      "marcador": "3 - 3",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-ayacucho-fc/6lr8l05#3815891"
+    },
+    {
+      "fecha": "Wednesday, July 27, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-carlos-stein/5gmdp6zu#3797798"
+    },
+    {
+      "fecha": "Wednesday, July 27, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-asociacion-deportiva-tarma/8i1bzyju#3797804"
+    },
+    {
+      "fecha": "Wednesday, July 27, 2022",
+      "local": "Cienciano",
+      "visitante": "Binacional",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-binacional/5dnbt69b#3797869"
+    },
+    {
+      "fecha": "Thursday, July 28, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-universidad-cesar-vallejo/n6mjf#3797811"
+    },
+    {
+      "fecha": "Friday, July 29, 2022",
+      "local": "FBC Melgar",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cd-ut-cajamarca/16hqdrlg#3797812"
+    },
+    {
+      "fecha": "Saturday, July 30, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Cienciano",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-ayacucho-fc/6elg82l#3797832"
+    },
+    {
+      "fecha": "Saturday, July 30, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Deportivo Municipal",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-deportivo-municipal/o2z573#3797788"
+    },
+    {
+      "fecha": "Sunday, July 31, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Carlos Stein",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-carlos-stein/5gmclj7n#3797841"
+    },
+    {
+      "fecha": "Sunday, July 31, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Universidad San Martin",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-atletico-grau/5gmfcoo9#3815892"
+    },
+    {
+      "fecha": "Sunday, July 31, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Academia Cantolao",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-academia-cantolao/afbiltm7#3797931"
+    },
+    {
+      "fecha": "Sunday, July 31, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Binacional",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/binacional-vs-asociacion-deportiva-tarma/q28gomj4#3797838"
+    },
+    {
+      "fecha": "Sunday, July 31, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-lima/k8xcb#3797814"
+    },
+    {
+      "fecha": "Monday, August 1, 2022",
+      "local": "Sport Boys",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-universidad-cesar-vallejo/n76yx#3797801"
+    },
+    {
+      "fecha": "Saturday, August 6, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-universidad-san-martin/n7ds8#3815893"
+    },
+    {
+      "fecha": "Saturday, August 6, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Sporting Cristal",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-academia-cantolao/3iv3y1rf#3797900"
+    },
+    {
+      "fecha": "Saturday, August 6, 2022",
+      "local": "Binacional",
+      "visitante": "Ayacucho FC",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-binacional/7gnlbi42#3797889"
+    },
+    {
+      "fecha": "Saturday, August 6, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-asociacion-deportiva-tarma/aaeffaum#3797828"
+    },
+    {
+      "fecha": "Sunday, August 7, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Atletico Grau",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-atletico-grau/5gmdp6zr#3797871"
+    },
+    {
+      "fecha": "Sunday, August 7, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-deportivo-municipal/o32m4c#3797879"
+    },
+    {
+      "fecha": "Sunday, August 7, 2022",
+      "local": "Cienciano",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universitario-de-deportes/bnbiq#3797921"
+    },
+    {
+      "fecha": "Saturday, August 13, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Carlos Stein",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-carlos-stein/5fj7ana8#3797833"
+    },
+    {
+      "fecha": "Saturday, August 13, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Universidad San Martin",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-carlos-mannucci/1vbgh2uj#3815894"
+    },
+    {
+      "fecha": "Saturday, August 13, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-asociacion-deportiva-tarma/aaeeo30i#3797835"
+    },
+    {
+      "fecha": "Sunday, August 14, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Binacional",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-binacional/5eqbeob1#3797875"
+    },
+    {
+      "fecha": "Sunday, August 14, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-universidad-cesar-vallejo/n6tck#3797865"
+    },
+    {
+      "fecha": "Sunday, August 14, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Deportivo Municipal",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-atletico-grau/609xwbki#3797823"
+    },
+    {
+      "fecha": "Sunday, August 14, 2022",
+      "local": "Sport Boys",
+      "visitante": "Cienciano",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-boys/bnq05#3797868"
+    },
+    {
+      "fecha": "Sunday, August 14, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cd-ut-cajamarca/286okzjs#3797796"
+    },
+    {
+      "fecha": "Tuesday, August 16, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Academia Cantolao",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-academia-cantolao/3jqqlxw7#3797820"
+    },
+    {
+      "fecha": "Friday, August 19, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Ayacucho FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-cd-ut-cajamarca/286o8bnk#3797787"
+    },
+    {
+      "fecha": "Saturday, August 20, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-deportivo-municipal/o30au5#3797930"
+    },
+    {
+      "fecha": "Saturday, August 20, 2022",
+      "local": "Cienciano",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-atletico-grau/5fj3zzt8#3797789"
+    },
+    {
+      "fecha": "Sunday, August 21, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-sport-huancayo/6rcedst#3797933"
+    },
+    {
+      "fecha": "Sunday, August 21, 2022",
+      "local": "Carlos Stein",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-carlos-stein/5gmggcgt#3797923"
+    },
+    {
+      "fecha": "Sunday, August 21, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-carlos-mannucci/1vbfi9p4#3797858"
+    },
+    {
+      "fecha": "Sunday, August 21, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-asociacion-deportiva-tarma/7ukcjr19#3797912"
+    },
+    {
+      "fecha": "Sunday, August 21, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universidad-san-martin/boxht#3815895"
+    },
+    {
+      "fecha": "Sunday, August 21, 2022",
+      "local": "Binacional",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-binacional/5eqd1vny#3797920"
+    },
+    {
+      "fecha": "Friday, August 26, 2022",
+      "local": "Sport Boys",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-asociacion-deportiva-tarma/7ukej2gu#3797866"
+    },
+    {
+      "fecha": "Saturday, August 27, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Universidad San Martin",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-universidad-san-martin/n8phk#3815896"
+    },
+    {
+      "fecha": "Saturday, August 27, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-carlos-mannucci/270fkhyy#3797937"
+    },
+    {
+      "fecha": "Saturday, August 27, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-academia-cantolao/58qpa0ip#3797876"
+    },
+    {
+      "fecha": "Sunday, August 28, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Ayacucho FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-ayacucho-fc/6lqbvhn#3797836"
+    },
+    {
+      "fecha": "Sunday, August 28, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Cienciano",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-atletico/bngci#3797902"
+    },
+    {
+      "fecha": "Sunday, August 28, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Binacional",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/binacional-vs-atletico-grau/lj8fftj8#3797884"
+    },
+    {
+      "fecha": "Sunday, August 28, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universidad-cesar-vallejo/boizn#3797834"
+    },
+    {
+      "fecha": "Sunday, August 28, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cd-ut-cajamarca/16vuu6rh#3797824"
+    },
+    {
+      "fecha": "Friday, September 2, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-ayacucho-fc/6lqmrzk#3797932"
+    },
+    {
+      "fecha": "Saturday, September 3, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-deportivo-municipal/lun7eq#3797907"
+    },
+    {
+      "fecha": "Saturday, September 3, 2022",
+      "local": "Cienciano",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-carlos-mannucci/1uoh4smn#3797898"
+    },
+    {
+      "fecha": "Sunday, September 4, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-academia-cantolao/8otyri2p#3797910"
+    },
+    {
+      "fecha": "Sunday, September 4, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-carlos-stein/7ivh1hy2#3797808"
+    },
+    {
+      "fecha": "Sunday, September 4, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/atletico-grau-vs-asociacion-deportiva-tarma/q6dgtbhr#3797802"
+    },
+    {
+      "fecha": "Sunday, September 4, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-lima/yrvgi#3797848"
+    },
+    {
+      "fecha": "Monday, September 5, 2022",
+      "local": "Binacional",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-binacional/5eqbyerb#3797793"
+    },
+    {
+      "fecha": "Friday, September 9, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Carlos Stein",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-carlos-stein/bkg1cjcq#3797853"
+    },
+    {
+      "fecha": "Saturday, September 10, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-asociacion-deportiva-tarma/7ukd7iuf#3797883"
+    },
+    {
+      "fecha": "Saturday, September 10, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Academia Cantolao",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-academia-cantolao/3kf7c37u#3797862"
+    },
+    {
+      "fecha": "Sunday, September 11, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Cienciano",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sporting-cristal/428ir#3797860"
+    },
+    {
+      "fecha": "Sunday, September 11, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Ayacucho FC",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-atletico-grau/7ivegea5#3797854"
+    },
+    {
+      "fecha": "Sunday, September 11, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Binacional",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-binacional/dh4ivysg#3797799"
+    },
+    {
+      "fecha": "Sunday, September 11, 2022",
+      "local": "Sport Boys",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-boys/n6243#3797861"
+    },
+    {
+      "fecha": "Sunday, September 11, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Deportivo Municipal",
+      "marcador": "6 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-deportivo-municipal/o38ecb#3797843"
+    },
+    {
+      "fecha": "Monday, September 12, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Universidad San Martin",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-sport-huancayo/6lrc7ub#3815897"
+    },
+    {
+      "fecha": "Saturday, September 17, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-sport-huancayo/6lr1bbt#3797891"
+    },
+    {
+      "fecha": "Saturday, September 17, 2022",
+      "local": "Cienciano",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-fbc-melgar/boe5q#3797819"
+    },
+    {
+      "fecha": "Sunday, September 18, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-atletico-grau/5gmae7ni#3797818"
+    },
+    {
+      "fecha": "Sunday, September 18, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-carlos-stein/5hgsuiwl#3797794"
+    },
+    {
+      "fecha": "Sunday, September 18, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 5",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-cd-ut-cajamarca/16hqmzgz#3815898"
+    },
+    {
+      "fecha": "Sunday, September 18, 2022",
+      "local": "Sport Boys",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-academia-cantolao/3jqoe0sx#3797885"
+    },
+    {
+      "fecha": "Sunday, September 18, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-asociacion-deportiva-tarma/h71olt74#3797903"
+    },
+    {
+      "fecha": "Sunday, September 18, 2022",
+      "local": "Binacional",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-binacional/5dndg7ok#3797809"
+    },
+    {
+      "fecha": "Monday, September 19, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-ayacucho-fc/6lqfibl#3797786"
+    },
+    {
+      "fecha": "Thursday, September 22, 2022",
+      "local": "Alianza Lima",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-alianza-lima/ytq72#3797890"
+    },
+    {
+      "fecha": "Saturday, September 24, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "FBC Melgar",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-fbc-melgar/n851d#3797847"
+    },
+    {
+      "fecha": "Sunday, September 25, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-carlos-stein/dk3sc3rw#3797877"
+    },
+    {
+      "fecha": "Tuesday, September 27, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Universidad San Martin",
+      "marcador": "5 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-alianza-lima/ytyji#3815899"
+    },
+    {
+      "fecha": "Wednesday, September 28, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Carlos Stein",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-carlos-stein/hmkj6f8k#3797906"
+    },
+    {
+      "fecha": "Wednesday, September 28, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Deportivo Municipal",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-sport-huancayo/al6td2k#3797850"
+    },
+    {
+      "fecha": "Thursday, September 29, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-atletico-grau/5gmc1pbi#3797897"
+    },
+    {
+      "fecha": "Thursday, September 29, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "4 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-asociacion-deportiva-tarma/7t9fcoic#3797852"
+    },
+    {
+      "fecha": "Thursday, September 29, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Binacional",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-binacional/5eqfsjy1#3797888"
+    },
+    {
+      "fecha": "Friday, September 30, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-atletico/n5oi0#3797899"
+    },
+    {
+      "fecha": "Friday, September 30, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-cd-ut-cajamarca/16hpvbuh#3797904"
+    },
+    {
+      "fecha": "Saturday, October 1, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Ayacucho FC",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-carlos-mannucci/3583yc1e#3797816"
+    },
+    {
+      "fecha": "Tuesday, October 4, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Carlos Stein",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/atletico-grau-vs-carlos-stein/lmzz7yg3#3797928"
+    },
+    {
+      "fecha": "Tuesday, October 4, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-academia-cantolao/3jqr1xbc#3815900"
+    },
+    {
+      "fecha": "Tuesday, October 4, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-cd-ut-cajamarca/1fvnz2h8#3797915"
+    },
+    {
+      "fecha": "Tuesday, October 4, 2022",
+      "local": "Cienciano",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-huancayo/6eljsxa#3797837"
+    },
+    {
+      "fecha": "Wednesday, October 5, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Alianza Lima",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-alianza-lima/yt9i9#3797938"
+    },
+    {
+      "fecha": "Wednesday, October 5, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-asociacion-deportiva-tarma/7ukhtxjd#3797790"
+    },
+    {
+      "fecha": "Wednesday, October 5, 2022",
+      "local": "Ayacucho FC",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-ayacucho-fc/6elqymu#3797936"
+    },
+    {
+      "fecha": "Thursday, October 6, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-carlos-mannucci/1vbdknf1#3797909"
+    },
+    {
+      "fecha": "Thursday, October 6, 2022",
+      "local": "Sport Boys",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-boys/n68x5#3797829"
+    },
+    {
+      "fecha": "Friday, October 7, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Cienciano",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cd-ut-cajamarca/15zhz3at#3797925"
+    },
+    {
+      "fecha": "Saturday, October 8, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-academia-cantolao/3jqppz20#3797795"
+    },
+    {
+      "fecha": "Sunday, October 9, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Ayacucho FC",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-ayacucho-fc/6lr4y5z#3797863"
+    },
+    {
+      "fecha": "Sunday, October 9, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Atletico Grau",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-atletico-grau/5gmay1jh#3797924"
+    },
+    {
+      "fecha": "Sunday, October 9, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-carlos-mannucci/1vbejgjy#3797821"
+    },
+    {
+      "fecha": "Sunday, October 9, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Universidad San Martin",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-carlos-stein/5gmh06d3#3815917"
+    },
+    {
+      "fecha": "Sunday, October 9, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universitario-de-deportes/bnq02#3797846"
+    },
+    {
+      "fecha": "Monday, October 10, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Binacional",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-binacional/7gnlyola#3797908"
+    },
+    {
+      "fecha": "Tuesday, October 11, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Deportivo Municipal",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-deportivo-municipal/pw1889#3797886"
+    },
+    {
+      "fecha": "Friday, October 14, 2022",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Carlos Stein",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-carlos-stein/5gmfcooc#3797839"
+    },
+    {
+      "fecha": "Saturday, October 15, 2022",
+      "local": "Alianza Atletico",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-huancayo/6lqj55j#3797815"
+    },
+    {
+      "fecha": "Saturday, October 15, 2022",
+      "local": "Sport Boys",
+      "visitante": "Sporting Cristal",
+      "marcador": "3 - 5",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-boys/bo4hq#3797791"
+    },
+    {
+      "fecha": "Saturday, October 15, 2022",
+      "local": "Binacional",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-binacional/bhoz1sym#3797827"
+    },
+    {
+      "fecha": "Sunday, October 16, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-academia-cantolao/3zoaqjdx#3797800"
+    },
+    {
+      "fecha": "Sunday, October 16, 2022",
+      "local": "Atletico Grau",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-atletico-grau/dk3pqddw#3797919"
+    },
+    {
+      "fecha": "Sunday, October 16, 2022",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Universidad San Martin",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-asociacion-deportiva-tarma/7ukihpcr#3815918"
+    },
+    {
+      "fecha": "Sunday, October 16, 2022",
+      "local": "Universitario de Deportes",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-fbc-melgar/n705s#3797830"
+    },
+    {
+      "fecha": "Sunday, October 16, 2022",
+      "local": "Cienciano",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-lima/k8e98#3797874"
+    },
+    {
+      "fecha": "Wednesday, October 19, 2022",
+      "local": "Universidad San Martin",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-universidad-san-martin/n8bur#3815919"
+    },
+    {
+      "fecha": "Wednesday, October 19, 2022",
+      "local": "Carlos Stein",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 4",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-carlos-stein/609zmpqu#3797893"
+    },
+    {
+      "fecha": "Wednesday, October 19, 2022",
+      "local": "Sport Huancayo",
+      "visitante": "Ayacucho FC",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-sport-huancayo/p24b128#3797880"
+    },
+    {
+      "fecha": "Wednesday, October 19, 2022",
+      "local": "FBC Melgar",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-fbc-melgar/n7klg#3797895"
+    },
+    {
+      "fecha": "Thursday, October 20, 2022",
+      "local": "Academia Cantolao",
+      "visitante": "Cienciano",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-academia-cantolao/3iv2m9g9#3797807"
+    },
+    {
+      "fecha": "Thursday, October 20, 2022",
+      "local": "Sporting Cristal",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-atletico-grau/5fj5nbjk#3797894"
+    },
+    {
+      "fecha": "Thursday, October 20, 2022",
+      "local": "CD UT Cajamarca",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-asociacion-deportiva-tarma/exziuwem#3797905"
+    },
+    {
+      "fecha": "Thursday, October 20, 2022",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-carlos-mannucci/1vbdw94n#3797851"
+    },
+    {
+      "fecha": "Friday, October 21, 2022",
+      "local": "Alianza Lima",
+      "visitante": "Binacional",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-binacional/5fkmxj61#3797913"
+    },
+    {
+      "fecha": "Saturday, October 22, 2022",
+      "local": "Deportivo Municipal",
+      "visitante": "Universidad San Martin",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-deportivo-municipal/o39jzl#3815920"
+    }
+  ]
+}

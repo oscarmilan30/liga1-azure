@@ -1,0 +1,1743 @@
+{
+  "fuente": "FotMob",
+  "temporada": 2021,
+  "fecha_carga": "2026-06-11 18:32:13",
+  "data": [
+    {
+      "fecha": "12-03-2021",
+      "local": "Deportivo Municipal",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/es/matches/deportivo-municipal-vs-sport-huancayo/al6td2k#3547621"
+    },
+    {
+      "fecha": "12-03-2021",
+      "local": "Cienciano",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/es/matches/cienciano-vs-cd-ut-cajamarca/15zhz3at#3547624"
+    },
+    {
+      "fecha": "12-03-2021",
+      "local": "Binacional",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 4",
+      "url": "https://www.fotmob.com/es/matches/sporting-cristal-vs-binacional/5dndg7ok#3547619"
+    },
+    {
+      "fecha": "13-03-2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Academia Cantolao",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/es/matches/carlos-mannucci-vs-academia-cantolao/afbiltm7#3547615"
+    },
+    {
+      "fecha": "13-03-2021",
+      "local": "Universitario de Deportes",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/es/matches/universitario-de-deportes-vs-fbc-melgar/n705s#3547623"
+    },
+    {
+      "fecha": "13-03-2021",
+      "local": "Sport Boys",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/es/matches/sport-boys-vs-universidad-cesar-vallejo/n76yx#3547622"
+    },
+    {
+      "fecha": "15-03-2021",
+      "local": "Alianza Atletico",
+      "visitante": "Carlos Stein",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/es/matches/alianza-atletico-vs-carlos-stein/5gmclj7n#3547618"
+    },
+    {
+      "fecha": "15-03-2021",
+      "local": "Alianza Universidad",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/es/matches/cusco-fc-vs-alianza-universidad/2g4eysz1#3547620"
+    },
+    {
+      "fecha": "19-03-2021",
+      "local": "Academia Cantolao",
+      "visitante": "Universitario de Deportes",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/es/matches/universitario-de-deportes-vs-academia-cantolao/3jqn22k3#3547617"
+    },
+    {
+      "fecha": "19-03-2021",
+      "local": "Sporting Cristal",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/es/matches/sporting-cristal-vs-sport-boys/bo4hq#3547629"
+    },
+    {
+      "fecha": "Saturday, March 20, 2021",
+      "local": "Carlos Stein",
+      "visitante": "Deportivo Municipal",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-carlos-stein/609zmpqu#3547630"
+    },
+    {
+      "fecha": "Saturday, March 20, 2021",
+      "local": "Universidad San Martin",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-universidad-san-martin/n7ds8#3547616"
+    },
+    {
+      "fecha": "Saturday, March 20, 2021",
+      "local": "Cusco FC",
+      "visitante": "Cienciano",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cusco-fc/lnfwp1z#3547628"
+    },
+    {
+      "fecha": "Monday, March 22, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "Binacional",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-binacional/7gnlyola#3547632"
+    },
+    {
+      "fecha": "Monday, March 22, 2021",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Alianza Universidad",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-alianza-universidad/nbjxuu5#3547631"
+    },
+    {
+      "fecha": "Monday, March 22, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-carlos-mannucci/5wupq6la#3547626"
+    },
+    {
+      "fecha": "Saturday, March 27, 2021",
+      "local": "Cienciano",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-atletico/bngci#3547633"
+    },
+    {
+      "fecha": "Saturday, March 27, 2021",
+      "local": "FBC Melgar",
+      "visitante": "Academia Cantolao",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-academia-cantolao/3jqqlxw7#3547635"
+    },
+    {
+      "fecha": "Saturday, March 27, 2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Universidad San Martin",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-carlos-mannucci/1vbgh2uj#3547634"
+    },
+    {
+      "fecha": "Monday, March 29, 2021",
+      "local": "Sport Boys",
+      "visitante": "Binacional",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-binacional/5eqd1vny#3547649"
+    },
+    {
+      "fecha": "Monday, March 29, 2021",
+      "local": "Alianza Universidad",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-universidad/my33tnw#3547648"
+    },
+    {
+      "fecha": "Monday, March 29, 2021",
+      "local": "Deportivo Municipal",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 4",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-deportivo-municipal/o3631u#3547639"
+    },
+    {
+      "fecha": "Tuesday, March 30, 2021",
+      "local": "Alianza Lima",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cusco-fc/maq553r#3558749"
+    },
+    {
+      "fecha": "Wednesday, March 31, 2021",
+      "local": "Ayacucho FC",
+      "visitante": "Sport Huancayo",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-sport-huancayo/p24b128#3547637"
+    },
+    {
+      "fecha": "Sunday, April 4, 2021",
+      "local": "Carlos Stein",
+      "visitante": "Cusco FC",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-carlos-stein/9l8c86ju#3547638"
+    },
+    {
+      "fecha": "Tuesday, April 6, 2021",
+      "local": "Alianza Lima",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-deportivo-municipal/pw1889#3558748"
+    },
+    {
+      "fecha": "Wednesday, April 7, 2021",
+      "local": "Ayacucho FC",
+      "visitante": "Universidad San Martin",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-ayacucho-fc/6lr8l05#3547625"
+    },
+    {
+      "fecha": "Sunday, April 11, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "Carlos Stein",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-carlos-stein/7ivh1hy2#3547646"
+    },
+    {
+      "fecha": "Monday, April 12, 2021",
+      "local": "FBC Melgar",
+      "visitante": "Ayacucho FC",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-ayacucho-fc/6lr4y5z#3547627"
+    },
+    {
+      "fecha": "Tuesday, April 13, 2021",
+      "local": "Cusco FC",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cusco-fc/m0iwtuc#3547647"
+    },
+    {
+      "fecha": "Tuesday, April 13, 2021",
+      "local": "Binacional",
+      "visitante": "Alianza Universidad",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-binacional/9ntnp7b7#3547645"
+    },
+    {
+      "fecha": "Tuesday, April 13, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Deportivo Municipal",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-deportivo-municipal/lun7eq#3547644"
+    },
+    {
+      "fecha": "Wednesday, April 14, 2021",
+      "local": "Academia Cantolao",
+      "visitante": "Cienciano",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-academia-cantolao/3iv2m9g9#3547642"
+    },
+    {
+      "fecha": "Wednesday, April 14, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-sport-huancayo/6rcedst#3558750"
+    },
+    {
+      "fecha": "Wednesday, April 14, 2021",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-carlos-mannucci/1vbfi9p4#3547643"
+    },
+    {
+      "fecha": "Thursday, April 15, 2021",
+      "local": "Alianza Atletico",
+      "visitante": "Ayacucho FC",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-ayacucho-fc/6lqfibl#3547641"
+    },
+    {
+      "fecha": "Thursday, April 15, 2021",
+      "local": "Universidad San Martin",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-universidad-san-martin/n76z0#3547650"
+    },
+    {
+      "fecha": "Thursday, April 15, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "FBC Melgar",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cd-ut-cajamarca/16hqdrlg#3547640"
+    },
+    {
+      "fecha": "Sunday, April 18, 2021",
+      "local": "Carlos Stein",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-carlos-stein/5gmfcooc#3547657"
+    },
+    {
+      "fecha": "Friday, April 23, 2021",
+      "local": "Academia Cantolao",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-academia-cantolao/8otyri2p#3547651"
+    },
+    {
+      "fecha": "Friday, April 23, 2021",
+      "local": "Deportivo Municipal",
+      "visitante": "Binacional",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-binacional/5yan7t2y#3547659"
+    },
+    {
+      "fecha": "Friday, April 23, 2021",
+      "local": "Ayacucho FC",
+      "visitante": "Cienciano",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-ayacucho-fc/6elg82l#3547653"
+    },
+    {
+      "fecha": "Saturday, April 24, 2021",
+      "local": "Alianza Universidad",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-universidad/nbjdd95#3547656"
+    },
+    {
+      "fecha": "Saturday, April 24, 2021",
+      "local": "FBC Melgar",
+      "visitante": "Universidad San Martin",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-universidad-san-martin/n8phk#3547654"
+    },
+    {
+      "fecha": "Saturday, April 24, 2021",
+      "local": "Alianza Lima",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-alianza-lima/yt9i9#3558751"
+    },
+    {
+      "fecha": "Sunday, April 25, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Carlos Stein",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-carlos-stein/5fj7ana8#3547671"
+    },
+    {
+      "fecha": "Sunday, April 25, 2021",
+      "local": "Universitario de Deportes",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universitario-de-deportes/bnq02#3547655"
+    },
+    {
+      "fecha": "Monday, April 26, 2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-carlos-mannucci/1vbdw94n#3547652"
+    },
+    {
+      "fecha": "Monday, April 26, 2021",
+      "local": "Cusco FC",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cusco-fc/1et4p0cb#3547658"
+    },
+    {
+      "fecha": "Friday, April 30, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "Ayacucho FC",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-cd-ut-cajamarca/286o8bnk#3547662"
+    },
+    {
+      "fecha": "Friday, April 30, 2021",
+      "local": "Universidad San Martin",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-academia-cantolao/3jqr1xbc#3547660"
+    },
+    {
+      "fecha": "Friday, April 30, 2021",
+      "local": "Sport Boys",
+      "visitante": "Deportivo Municipal",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-deportivo-municipal/o32m4c#3547674"
+    },
+    {
+      "fecha": "Saturday, May 1, 2021",
+      "local": "Binacional",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-binacional/5eqfsjy1#3547675"
+    },
+    {
+      "fecha": "Saturday, May 1, 2021",
+      "local": "Alianza Atletico",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-atletico/n5oi0#3547665"
+    },
+    {
+      "fecha": "Sunday, May 2, 2021",
+      "local": "Carlos Stein",
+      "visitante": "Binacional",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/binacional-vs-carlos-stein/lj8ipy58#3547668"
+    },
+    {
+      "fecha": "Sunday, May 2, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Alianza Lima",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-lima/k8xcb#3558752"
+    },
+    {
+      "fecha": "Monday, May 3, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "Alianza Universidad",
+      "marcador": "3 - 3",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-alianza-universidad/1gs7866y#3547672"
+    },
+    {
+      "fecha": "Monday, May 3, 2021",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-cusco-fc/m0jgqh6#3547673"
+    },
+    {
+      "fecha": "Monday, May 3, 2021",
+      "local": "Cienciano",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "5 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-carlos-mannucci/1uoh4smn#3547661"
+    },
+    {
+      "fecha": "Friday, May 7, 2021",
+      "local": "Academia Cantolao",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-academia-cantolao/3jqoe0sx#3547666"
+    },
+    {
+      "fecha": "Friday, May 7, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "Universidad San Martin",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-cd-ut-cajamarca/16hqmzgz#3547677"
+    },
+    {
+      "fecha": "Friday, May 7, 2021",
+      "local": "Alianza Lima",
+      "visitante": "Binacional",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-binacional/5fkmxj61#3558753"
+    },
+    {
+      "fecha": "Saturday, May 8, 2021",
+      "local": "FBC Melgar",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-fbc-melgar/n76yz#3547687"
+    },
+    {
+      "fecha": "Saturday, May 8, 2021",
+      "local": "Universitario de Deportes",
+      "visitante": "Cienciano",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universitario-de-deportes/bnbiq#3547686"
+    },
+    {
+      "fecha": "Saturday, May 8, 2021",
+      "local": "Cusco FC",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cusco-fc/lnggfqt#3547667"
+    },
+    {
+      "fecha": "Saturday, May 8, 2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Ayacucho FC",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-carlos-mannucci/3583yc1e#3547676"
+    },
+    {
+      "fecha": "Sunday, May 9, 2021",
+      "local": "Sport Boys",
+      "visitante": "Carlos Stein",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-carlos-stein/5gmdp6zu#3547680"
+    },
+    {
+      "fecha": "Sunday, May 9, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-sport-huancayo/6lr1bbt#3547670"
+    },
+    {
+      "fecha": "Monday, May 10, 2021",
+      "local": "Deportivo Municipal",
+      "visitante": "Alianza Universidad",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-alianza-universidad/uea6905#3547669"
+    },
+    {
+      "fecha": "Monday, May 10, 2021",
+      "local": "Universitario de Deportes",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cd-ut-cajamarca/16hoc0m8#3547636"
+    },
+    {
+      "fecha": "Wednesday, May 12, 2021",
+      "local": "Alianza Atletico",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-alianza-lima/ys3sq#3558976"
+    },
+    {
+      "fecha": "Saturday, May 15, 2021",
+      "local": "Binacional",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-binacional/5eqep314#3547678"
+    },
+    {
+      "fecha": "Saturday, May 15, 2021",
+      "local": "Deportivo Municipal",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-cusco-fc/swigzxc#3547679"
+    },
+    {
+      "fecha": "Saturday, May 15, 2021",
+      "local": "Ayacucho FC",
+      "visitante": "Universitario de Deportes",
+      "marcador": "3 - 3",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-ayacucho-fc/6lqbvhn#3547682"
+    },
+    {
+      "fecha": "Saturday, May 15, 2021",
+      "local": "Cienciano",
+      "visitante": "Universidad San Martin",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universidad-san-martin/boizq#3547684"
+    },
+    {
+      "fecha": "Sunday, May 16, 2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-carlos-mannucci/1vbg5h4p#3547683"
+    },
+    {
+      "fecha": "Sunday, May 16, 2021",
+      "local": "Carlos Stein",
+      "visitante": "Alianza Universidad",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-carlos-stein/9qci9m4n#3547690"
+    },
+    {
+      "fecha": "Sunday, May 16, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-huancayo/6elujhm#3547688"
+    },
+    {
+      "fecha": "Monday, May 17, 2021",
+      "local": "Alianza Universidad",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-cd-ut-cajamarca/3hr3lh0p#3547681"
+    },
+    {
+      "fecha": "Monday, May 17, 2021",
+      "local": "Sport Boys",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-lima/yskh9#3558754"
+    },
+    {
+      "fecha": "Monday, May 17, 2021",
+      "local": "Alianza Atletico",
+      "visitante": "Academia Cantolao",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-academia-cantolao/3jqni1z0#3547685"
+    },
+    {
+      "fecha": "Friday, May 21, 2021",
+      "local": "Cusco FC",
+      "visitante": "Binacional",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-binacional/9iq5o43a#3547691"
+    },
+    {
+      "fecha": "Friday, May 21, 2021",
+      "local": "Alianza Lima",
+      "visitante": "Alianza Universidad",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-alianza-universidad/nm1awsw#3558755"
+    },
+    {
+      "fecha": "Saturday, May 22, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cd-ut-cajamarca/16hol8hj#3547695"
+    },
+    {
+      "fecha": "Saturday, May 22, 2021",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Sporting Cristal",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universidad-cesar-vallejo/boizn#3547692"
+    },
+    {
+      "fecha": "Sunday, May 23, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-sport-huancayo/6lqqetk#3547689"
+    },
+    {
+      "fecha": "Sunday, May 23, 2021",
+      "local": "Academia Cantolao",
+      "visitante": "Ayacucho FC",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-academia-cantolao/58qoql2u#3547694"
+    },
+    {
+      "fecha": "Sunday, May 23, 2021",
+      "local": "FBC Melgar",
+      "visitante": "Cienciano",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-fbc-melgar/boe5q#3547696"
+    },
+    {
+      "fecha": "Sunday, May 23, 2021",
+      "local": "Universidad San Martin",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-deportivo-municipal/o39jzl#3547693"
+    },
+    {
+      "fecha": "Sunday, May 23, 2021",
+      "local": "Universitario de Deportes",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-carlos-mannucci/1vbdknf1#3547697"
+    },
+    {
+      "fecha": "Sunday, May 30, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Universidad San Martin",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universidad-san-martin/boxht#3593795"
+    },
+    {
+      "fecha": "Saturday, July 17, 2021",
+      "local": "Deportivo Municipal",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-cd-ut-cajamarca/1fvnz2h8#3646390"
+    },
+    {
+      "fecha": "Saturday, July 17, 2021",
+      "local": "Universidad San Martin",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-carlos-mannucci/1vbgh2uj#3646391"
+    },
+    {
+      "fecha": "Saturday, July 17, 2021",
+      "local": "Academia Cantolao",
+      "visitante": "Sporting Cristal",
+      "marcador": "2 - 4",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-academia-cantolao/3iv3y1rf#3646388"
+    },
+    {
+      "fecha": "Sunday, July 18, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-sport-huancayo/6lr8l04#3646393"
+    },
+    {
+      "fecha": "Sunday, July 18, 2021",
+      "local": "Sport Boys",
+      "visitante": "Cienciano",
+      "marcador": "1 - 4",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-boys/bnq05#3646394"
+    },
+    {
+      "fecha": "Sunday, July 18, 2021",
+      "local": "Alianza Lima",
+      "visitante": "Ayacucho FC",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-ayacucho-fc/6rcapfn#3646396"
+    },
+    {
+      "fecha": "Monday, July 19, 2021",
+      "local": "Binacional",
+      "visitante": "Alianza Universidad",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-binacional/9ntnp7b7#3646392"
+    },
+    {
+      "fecha": "Monday, July 19, 2021",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-cusco-fc/m0jgqh6#3646395"
+    },
+    {
+      "fecha": "Monday, July 19, 2021",
+      "local": "Universitario de Deportes",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-atletico/n5oi0#3646389"
+    },
+    {
+      "fecha": "Friday, July 23, 2021",
+      "local": "Cienciano",
+      "visitante": "Academia Cantolao",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-academia-cantolao/3iv2m9g9#3648954"
+    },
+    {
+      "fecha": "Friday, July 23, 2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-carlos-mannucci/270fkhyy#3648955"
+    },
+    {
+      "fecha": "Saturday, July 24, 2021",
+      "local": "Alianza Atletico",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-huancayo/6lqj55j#3648956"
+    },
+    {
+      "fecha": "Saturday, July 24, 2021",
+      "local": "Ayacucho FC",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-ayacucho-fc/6lqmrzk#3648957"
+    },
+    {
+      "fecha": "Saturday, July 24, 2021",
+      "local": "Alianza Universidad",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-alianza-universidad/nm1awsw#3648958"
+    },
+    {
+      "fecha": "Sunday, July 25, 2021",
+      "local": "Cusco FC",
+      "visitante": "Binacional",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-binacional/9iq5o43a#3648959"
+    },
+    {
+      "fecha": "Sunday, July 25, 2021",
+      "local": "FBC Melgar",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-fbc-melgar/n851d#3648960"
+    },
+    {
+      "fecha": "Sunday, July 25, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cd-ut-cajamarca/16hoc0m8#3648961"
+    },
+    {
+      "fecha": "Friday, July 30, 2021",
+      "local": "Academia Cantolao",
+      "visitante": "Ayacucho FC",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-academia-cantolao/58qoql2u#3663656"
+    },
+    {
+      "fecha": "Friday, July 30, 2021",
+      "local": "Universidad San Martin",
+      "visitante": "Cienciano",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universidad-san-martin/boizq#3663655"
+    },
+    {
+      "fecha": "Friday, July 30, 2021",
+      "local": "Deportivo Municipal",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-deportivo-municipal/lun7eq#3663649"
+    },
+    {
+      "fecha": "Saturday, July 31, 2021",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-universidad-cesar-vallejo/n6tck#3663650"
+    },
+    {
+      "fecha": "Saturday, July 31, 2021",
+      "local": "Universitario de Deportes",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-carlos-mannucci/1vbdknf1#3663652"
+    },
+    {
+      "fecha": "Saturday, July 31, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cd-ut-cajamarca/286okzjs#3663651"
+    },
+    {
+      "fecha": "Sunday, August 1, 2021",
+      "local": "Cusco FC",
+      "visitante": "Alianza Universidad",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-alianza-universidad/2g4eysz1#3663654"
+    },
+    {
+      "fecha": "Sunday, August 1, 2021",
+      "local": "Binacional",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 5",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-binacional/5eqfsjy1#3663653"
+    },
+    {
+      "fecha": "Sunday, August 1, 2021",
+      "local": "Sport Boys",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-lima/yskh9#3663657"
+    },
+    {
+      "fecha": "Monday, August 2, 2021",
+      "local": "Ayacucho FC",
+      "visitante": "Universidad San Martin",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-ayacucho-fc/6lr8l05#3663659"
+    },
+    {
+      "fecha": "Tuesday, August 3, 2021",
+      "local": "Cienciano",
+      "visitante": "Deportivo Municipal",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-deportivo-municipal/lujwf5#3663661"
+    },
+    {
+      "fecha": "Tuesday, August 3, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-cd-ut-cajamarca/16hpvbuh#3663666"
+    },
+    {
+      "fecha": "Tuesday, August 3, 2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-carlos-mannucci/3584ddry#3663658"
+    },
+    {
+      "fecha": "Wednesday, August 4, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universitario-de-deportes/bnq02#3663663"
+    },
+    {
+      "fecha": "Wednesday, August 4, 2021",
+      "local": "Alianza Atletico",
+      "visitante": "Binacional",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-binacional/5eqbyerb#3663665"
+    },
+    {
+      "fecha": "Wednesday, August 4, 2021",
+      "local": "FBC Melgar",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cusco-fc/m0ju08j#3663664"
+    },
+    {
+      "fecha": "Wednesday, August 4, 2021",
+      "local": "Alianza Universidad",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-universidad/nbjdd95#3663662"
+    },
+    {
+      "fecha": "Thursday, August 5, 2021",
+      "local": "Alianza Lima",
+      "visitante": "Academia Cantolao",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-academia-cantolao/3kf7c37u#3663660"
+    },
+    {
+      "fecha": "Friday, August 6, 2021",
+      "local": "Deportivo Municipal",
+      "visitante": "Ayacucho FC",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-ayacucho-fc/al6orek#3663674"
+    },
+    {
+      "fecha": "Friday, August 6, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-huancayo/6elujhm#3663667"
+    },
+    {
+      "fecha": "Saturday, August 7, 2021",
+      "local": "Binacional",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-binacional/bhoz1sym#3663670"
+    },
+    {
+      "fecha": "Saturday, August 7, 2021",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-carlos-mannucci/1vbfi9p4#3663671"
+    },
+    {
+      "fecha": "Sunday, August 8, 2021",
+      "local": "Cusco FC",
+      "visitante": "Alianza Atletico",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cusco-fc/m0ijk39#3663668"
+    },
+    {
+      "fecha": "Sunday, August 8, 2021",
+      "local": "Academia Cantolao",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-academia-cantolao/3jqoe0sx#3663672"
+    },
+    {
+      "fecha": "Sunday, August 8, 2021",
+      "local": "Universidad San Martin",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-alianza-lima/ytyji#3663675"
+    },
+    {
+      "fecha": "Monday, August 9, 2021",
+      "local": "Universitario de Deportes",
+      "visitante": "Cienciano",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universitario-de-deportes/bnbiq#3663673"
+    },
+    {
+      "fecha": "Monday, August 9, 2021",
+      "local": "FBC Melgar",
+      "visitante": "Alianza Universidad",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-alianza-universidad/nbkbika#3663669"
+    },
+    {
+      "fecha": "Friday, August 13, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-cd-ut-cajamarca/3ep180ys#3663682"
+    },
+    {
+      "fecha": "Friday, August 13, 2021",
+      "local": "Alianza Atletico",
+      "visitante": "FBC Melgar",
+      "marcador": "3 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-fbc-melgar/n76yz#3663681"
+    },
+    {
+      "fecha": "Friday, August 13, 2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Binacional",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-binacional/dh4ivysg#3663683"
+    },
+    {
+      "fecha": "Saturday, August 14, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universidad-cesar-vallejo/boizn#3663684"
+    },
+    {
+      "fecha": "Saturday, August 14, 2021",
+      "local": "Ayacucho FC",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-ayacucho-fc/6lqbvhn#3663680"
+    },
+    {
+      "fecha": "Saturday, August 14, 2021",
+      "local": "Alianza Lima",
+      "visitante": "Deportivo Municipal",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-deportivo-municipal/pw1889#3663678"
+    },
+    {
+      "fecha": "Saturday, August 14, 2021",
+      "local": "Cienciano",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-huancayo/6eljsxa#3663676"
+    },
+    {
+      "fecha": "Sunday, August 15, 2021",
+      "local": "Alianza Universidad",
+      "visitante": "Academia Cantolao",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-academia-cantolao/73xa87zp#3663677"
+    },
+    {
+      "fecha": "Sunday, August 15, 2021",
+      "local": "Sport Boys",
+      "visitante": "Universidad San Martin",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-universidad-san-martin/n7rer#3663679"
+    },
+    {
+      "fecha": "Tuesday, August 17, 2021",
+      "local": "Cusco FC",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-carlos-mannucci/4iw3nkja#3663688"
+    },
+    {
+      "fecha": "Tuesday, August 17, 2021",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Cienciano",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universidad-cesar-vallejo/bo4ht#3663690"
+    },
+    {
+      "fecha": "Tuesday, August 17, 2021",
+      "local": "FBC Melgar",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cd-ut-cajamarca/16hqdrlg#3663687"
+    },
+    {
+      "fecha": "Wednesday, August 18, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "Ayacucho FC",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-sport-huancayo/p24b128#3663691"
+    },
+    {
+      "fecha": "Thursday, August 19, 2021",
+      "local": "Universitario de Deportes",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-lima/yrvgi#3663692"
+    },
+    {
+      "fecha": "Thursday, August 19, 2021",
+      "local": "Alianza Atletico",
+      "visitante": "Alianza Universidad",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-alianza-universidad/nbizpja#3665188"
+    },
+    {
+      "fecha": "Thursday, August 19, 2021",
+      "local": "Universidad San Martin",
+      "visitante": "Academia Cantolao",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-academia-cantolao/3jqr1xbc#3663685"
+    },
+    {
+      "fecha": "Saturday, August 21, 2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-carlos-mannucci/1vbg5h4p#3663698"
+    },
+    {
+      "fecha": "Sunday, August 22, 2021",
+      "local": "Cienciano",
+      "visitante": "Binacional",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-binacional/5dnbt69b#3663700"
+    },
+    {
+      "fecha": "Sunday, August 22, 2021",
+      "local": "Ayacucho FC",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-ayacucho-fc/6lqxohq#3663701"
+    },
+    {
+      "fecha": "Sunday, August 22, 2021",
+      "local": "Sport Boys",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-boys/n6243#3663697"
+    },
+    {
+      "fecha": "Sunday, August 22, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Cusco FC",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cusco-fc/lnggfqt#3663699"
+    },
+    {
+      "fecha": "Monday, August 23, 2021",
+      "local": "Alianza Universidad",
+      "visitante": "Universidad San Martin",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-alianza-universidad/nbkicfe#3663695"
+    },
+    {
+      "fecha": "Monday, August 23, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "Alianza Atletico",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cd-ut-cajamarca/16hol8hj#3663694"
+    },
+    {
+      "fecha": "Monday, August 23, 2021",
+      "local": "Alianza Lima",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-sport-huancayo/6rcedst#3663693"
+    },
+    {
+      "fecha": "Monday, August 23, 2021",
+      "local": "Academia Cantolao",
+      "visitante": "Deportivo Municipal",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-academia-cantolao/3zoaqjdx#3663696"
+    },
+    {
+      "fecha": "Friday, August 27, 2021",
+      "local": "Binacional",
+      "visitante": "Ayacucho FC",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-binacional/7gnlbi42#3663709"
+    },
+    {
+      "fecha": "Friday, August 27, 2021",
+      "local": "FBC Melgar",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-fbc-melgar/bosnq#3663702"
+    },
+    {
+      "fecha": "Friday, August 27, 2021",
+      "local": "Cusco FC",
+      "visitante": "Cienciano",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cusco-fc/lnfwp1z#3663708"
+    },
+    {
+      "fecha": "Saturday, August 28, 2021",
+      "local": "Alianza Atletico",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-carlos-mannucci/1vbdw94n#3663705"
+    },
+    {
+      "fecha": "Saturday, August 28, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "Alianza Universidad",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-cd-ut-cajamarca/3hr3lh0p#3663706"
+    },
+    {
+      "fecha": "Saturday, August 28, 2021",
+      "local": "Universitario de Deportes",
+      "visitante": "Academia Cantolao",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-academia-cantolao/3jqn22k3#3663704"
+    },
+    {
+      "fecha": "Sunday, August 29, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-sport-huancayo/6lqqetk#3663707"
+    },
+    {
+      "fecha": "Sunday, August 29, 2021",
+      "local": "Deportivo Municipal",
+      "visitante": "Universidad San Martin",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-deportivo-municipal/o39jzl#3663703"
+    },
+    {
+      "fecha": "Sunday, August 29, 2021",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-alianza-lima/yt9i9#3663710"
+    },
+    {
+      "fecha": "Friday, September 3, 2021",
+      "local": "Deportivo Municipal",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-deportivo-municipal/o32m4c#3663689"
+    },
+    {
+      "fecha": "Friday, September 3, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Universidad San Martin",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universidad-san-martin/boxht#3648962"
+    },
+    {
+      "fecha": "Saturday, September 11, 2021",
+      "local": "Academia Cantolao",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-academia-cantolao/58qpa0ip#3663711"
+    },
+    {
+      "fecha": "Saturday, September 11, 2021",
+      "local": "Ayacucho FC",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-cusco-fc/1et4exfw#3663717"
+    },
+    {
+      "fecha": "Saturday, September 11, 2021",
+      "local": "Alianza Universidad",
+      "visitante": "Deportivo Municipal",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-alianza-universidad/uea6905#3663714"
+    },
+    {
+      "fecha": "Sunday, September 12, 2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-carlos-mannucci/5wupq6la#3663713"
+    },
+    {
+      "fecha": "Sunday, September 12, 2021",
+      "local": "Alianza Lima",
+      "visitante": "Binacional",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-binacional/5fkmxj61#3663718"
+    },
+    {
+      "fecha": "Sunday, September 12, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Alianza Atletico",
+      "marcador": "5 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-atletico/bnutx#3663712"
+    },
+    {
+      "fecha": "Sunday, September 12, 2021",
+      "local": "Cienciano",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-fbc-melgar/boe5q#3663716"
+    },
+    {
+      "fecha": "Monday, September 13, 2021",
+      "local": "Sport Boys",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-universidad-cesar-vallejo/n76yx#3663719"
+    },
+    {
+      "fecha": "Monday, September 13, 2021",
+      "local": "Universidad San Martin",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-universidad-san-martin/n76z0#3663715"
+    },
+    {
+      "fecha": "Friday, September 17, 2021",
+      "local": "Alianza Atletico",
+      "visitante": "Cienciano",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-atletico/bngci#3663726"
+    },
+    {
+      "fecha": "Friday, September 17, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 6",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cd-ut-cajamarca/15ziqkz2#3663720"
+    },
+    {
+      "fecha": "Friday, September 17, 2021",
+      "local": "Cusco FC",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cusco-fc/maq553r#3663728"
+    },
+    {
+      "fecha": "Friday, September 17, 2021",
+      "local": "FBC Melgar",
+      "visitante": "Ayacucho FC",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-ayacucho-fc/6lr4y5z#3663727"
+    },
+    {
+      "fecha": "Saturday, September 18, 2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Alianza Universidad",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-carlos-mannucci/4metgw1v#3663725"
+    },
+    {
+      "fecha": "Saturday, September 18, 2021",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Academia Cantolao",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-academia-cantolao/3jqppz20#3663722"
+    },
+    {
+      "fecha": "Saturday, September 18, 2021",
+      "local": "Binacional",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-binacional/5eqd1vny#3663724"
+    },
+    {
+      "fecha": "Sunday, September 19, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "Universidad San Martin",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-sport-huancayo/6lrc7ub#3663721"
+    },
+    {
+      "fecha": "Sunday, September 19, 2021",
+      "local": "Universitario de Deportes",
+      "visitante": "Deportivo Municipal",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-deportivo-municipal/o2z573#3663723"
+    },
+    {
+      "fecha": "Tuesday, September 21, 2021",
+      "local": "Cienciano",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cd-ut-cajamarca/15zhz3at#3663731"
+    },
+    {
+      "fecha": "Tuesday, September 21, 2021",
+      "local": "Ayacucho FC",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-ayacucho-fc/6lqfibl#3663730"
+    },
+    {
+      "fecha": "Wednesday, September 22, 2021",
+      "local": "Sport Boys",
+      "visitante": "Cusco FC",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cusco-fc/m0iwtuc#3663735"
+    },
+    {
+      "fecha": "Wednesday, September 22, 2021",
+      "local": "Alianza Lima",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-alianza-lima/ytq72#3663734"
+    },
+    {
+      "fecha": "Wednesday, September 22, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-carlos-mannucci/1uoi3ftw#3663733"
+    },
+    {
+      "fecha": "Thursday, September 23, 2021",
+      "local": "Deportivo Municipal",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-sport-huancayo/al6td2k#3663729"
+    },
+    {
+      "fecha": "Thursday, September 23, 2021",
+      "local": "Academia Cantolao",
+      "visitante": "Binacional",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/academia-cantolao-vs-binacional/hj67i5zk#3663736"
+    },
+    {
+      "fecha": "Thursday, September 23, 2021",
+      "local": "Alianza Universidad",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 4",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-universidad/nbisvoe#3663732"
+    },
+    {
+      "fecha": "Thursday, September 23, 2021",
+      "local": "Universidad San Martin",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-universidad-san-martin/n8bur#3663737"
+    },
+    {
+      "fecha": "Saturday, September 25, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "Ayacucho FC",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-cd-ut-cajamarca/286o8bnk#3663745"
+    },
+    {
+      "fecha": "Saturday, September 25, 2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Cienciano",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-carlos-mannucci/1uoh4smn#3663744"
+    },
+    {
+      "fecha": "Saturday, September 25, 2021",
+      "local": "Alianza Atletico",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-alianza-lima/ys3sq#3663746"
+    },
+    {
+      "fecha": "Sunday, September 26, 2021",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Deportivo Municipal",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-deportivo-municipal/o3631u#3663740"
+    },
+    {
+      "fecha": "Sunday, September 26, 2021",
+      "local": "FBC Melgar",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-fbc-melgar/n7klg#3663742"
+    },
+    {
+      "fecha": "Sunday, September 26, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-huancayo/6lqfibk#3663741"
+    },
+    {
+      "fecha": "Sunday, September 26, 2021",
+      "local": "Alianza Universidad",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-universidad/my33tnw#3663743"
+    },
+    {
+      "fecha": "Monday, September 27, 2021",
+      "local": "Cusco FC",
+      "visitante": "Academia Cantolao",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-academia-cantolao/6zjz64xu#3663739"
+    },
+    {
+      "fecha": "Monday, September 27, 2021",
+      "local": "Binacional",
+      "visitante": "Universidad San Martin",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-binacional/5eqgcaej#3663738"
+    },
+    {
+      "fecha": "Friday, October 1, 2021",
+      "local": "Ayacucho FC",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-carlos-mannucci/3583yc1e#3663750"
+    },
+    {
+      "fecha": "Friday, October 1, 2021",
+      "local": "Sport Boys",
+      "visitante": "Alianza Atletico",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-boys/n68x5#3663748"
+    },
+    {
+      "fecha": "Friday, October 1, 2021",
+      "local": "Cienciano",
+      "visitante": "Sporting Cristal",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sporting-cristal/428ir#3663747"
+    },
+    {
+      "fecha": "Saturday, October 2, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "Alianza Universidad",
+      "marcador": "4 - 3",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-alianza-universidad/1gs7866y#3663751"
+    },
+    {
+      "fecha": "Saturday, October 2, 2021",
+      "local": "Deportivo Municipal",
+      "visitante": "Binacional",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-binacional/5yan7t2y#3663754"
+    },
+    {
+      "fecha": "Saturday, October 2, 2021",
+      "local": "Alianza Lima",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cd-ut-cajamarca/16vuu6rh#3663749"
+    },
+    {
+      "fecha": "Sunday, October 3, 2021",
+      "local": "Universidad San Martin",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-cusco-fc/m0k0n49#3663753"
+    },
+    {
+      "fecha": "Sunday, October 3, 2021",
+      "local": "Academia Cantolao",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-academia-cantolao/3jqqlxw7#3663752"
+    },
+    {
+      "fecha": "Sunday, October 3, 2021",
+      "local": "Universitario de Deportes",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-universidad-cesar-vallejo/n6mjf#3663755"
+    },
+    {
+      "fecha": "Friday, October 8, 2021",
+      "local": "Binacional",
+      "visitante": "Sporting Cristal",
+      "marcador": "3 - 4",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-binacional/5dndg7ok#3663686"
+    },
+    {
+      "fecha": "Saturday, October 16, 2021",
+      "local": "Alianza Atletico",
+      "visitante": "Academia Cantolao",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-academia-cantolao/3jqni1z0#3663758"
+    },
+    {
+      "fecha": "Saturday, October 16, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cd-ut-cajamarca/16hp3o88#3663762"
+    },
+    {
+      "fecha": "Saturday, October 16, 2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-carlos-mannucci/1vt7i7kn#3663764"
+    },
+    {
+      "fecha": "Sunday, October 17, 2021",
+      "local": "FBC Melgar",
+      "visitante": "Universidad San Martin",
+      "marcador": "6 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-universidad-san-martin/n8phk#3663757"
+    },
+    {
+      "fecha": "Sunday, October 17, 2021",
+      "local": "Alianza Universidad",
+      "visitante": "Cienciano",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-universidad/my2ji0w#3663759"
+    },
+    {
+      "fecha": "Sunday, October 17, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Ayacucho FC",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-ayacucho-fc/6elqymu#3663763"
+    },
+    {
+      "fecha": "Monday, October 18, 2021",
+      "local": "Cusco FC",
+      "visitante": "Deportivo Municipal",
+      "marcador": "3 - 5",
+      "url": "https://www.fotmob.com/matches/deportivo-municipal-vs-cusco-fc/swigzxc#3663760"
+    },
+    {
+      "fecha": "Monday, October 18, 2021",
+      "local": "Binacional",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-binacional/5eqbeob1#3663761"
+    },
+    {
+      "fecha": "Monday, October 18, 2021",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-sport-huancayo/6lr1bbt#3663756"
+    },
+    {
+      "fecha": "Friday, October 22, 2021",
+      "local": "Academia Cantolao",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-academia-cantolao/8otyri2p#3663767"
+    },
+    {
+      "fecha": "Friday, October 22, 2021",
+      "local": "Ayacucho FC",
+      "visitante": "Cienciano",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-ayacucho-fc/6elg82l#3663770"
+    },
+    {
+      "fecha": "Friday, October 22, 2021",
+      "local": "Sport Boys",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "3 - 3",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-carlos-mannucci/1vbejgjy#3663768"
+    },
+    {
+      "fecha": "Saturday, October 23, 2021",
+      "local": "Sport Huancayo",
+      "visitante": "Binacional",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-binacional/7gnlyola#3663772"
+    },
+    {
+      "fecha": "Saturday, October 23, 2021",
+      "local": "Universidad San Martin",
+      "visitante": "Alianza Atletico",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-universidad-san-martin/n7ds8#3663766"
+    },
+    {
+      "fecha": "Saturday, October 23, 2021",
+      "local": "Universitario de Deportes",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cusco-fc/m0icx7r#3663771"
+    },
+    {
+      "fecha": "Sunday, October 24, 2021",
+      "local": "Deportivo Municipal",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-deportivo-municipal/o38ecb#3663769"
+    },
+    {
+      "fecha": "Sunday, October 24, 2021",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Alianza Universidad",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-alianza-universidad/nbjxuu5#3663773"
+    },
+    {
+      "fecha": "Sunday, October 24, 2021",
+      "local": "Alianza Lima",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-lima/k8xcb#3663765"
+    },
+    {
+      "fecha": "Friday, October 29, 2021",
+      "local": "Cienciano",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-lima/k8e98#3663781"
+    },
+    {
+      "fecha": "Saturday, October 30, 2021",
+      "local": "Alianza Atletico",
+      "visitante": "Deportivo Municipal",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-deportivo-municipal/o30au5#3663777"
+    },
+    {
+      "fecha": "Saturday, October 30, 2021",
+      "local": "Alianza Universidad",
+      "visitante": "Ayacucho FC",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-alianza-universidad/1gs6xwb5#3663779"
+    },
+    {
+      "fecha": "Saturday, October 30, 2021",
+      "local": "Binacional",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-binacional/5eqep314#3663782"
+    },
+    {
+      "fecha": "Saturday, October 30, 2021",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Academia Cantolao",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-academia-cantolao/afbiltm7#3663776"
+    },
+    {
+      "fecha": "Saturday, October 30, 2021",
+      "local": "CD UT Cajamarca",
+      "visitante": "Universidad San Martin",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-san-martin-vs-cd-ut-cajamarca/16hqmzgz#3663775"
+    },
+    {
+      "fecha": "Saturday, October 30, 2021",
+      "local": "Cusco FC",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cusco-fc/1et4p0cb#3663774"
+    },
+    {
+      "fecha": "Saturday, October 30, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-boys/bo4hq#3663780"
+    },
+    {
+      "fecha": "Sunday, October 31, 2021",
+      "local": "FBC Melgar",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-fbc-melgar/n705s#3663778"
+    },
+    {
+      "fecha": "Thursday, November 4, 2021",
+      "local": "Carlos Stein",
+      "visitante": "Binacional",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/binacional-vs-carlos-stein/lj8ipy58#3761921"
+    },
+    {
+      "fecha": "Sunday, November 7, 2021",
+      "local": "Binacional",
+      "visitante": "Carlos Stein",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/binacional-vs-carlos-stein/lj8ipy58#3761920"
+    },
+    {
+      "fecha": "Sunday, November 21, 2021",
+      "local": "Alianza Lima",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-lima/k8xcb#3761919"
+    },
+    {
+      "fecha": "Sunday, November 28, 2021",
+      "local": "Sporting Cristal",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-lima/k8xcb#3761918"
+    }
+  ]
+}

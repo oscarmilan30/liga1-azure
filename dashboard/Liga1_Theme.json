@@ -1,0 +1,191 @@
+{
+  "name": "Liga 1 Perú",
+  "dataColors": [
+    "#E30613",
+    "#1A6BB5",
+    "#F5A623",
+    "#7ED321",
+    "#9B59B6",
+    "#E67E22",
+    "#4A90D9",
+    "#2ECC71"
+  ],
+  "cardBackground": "#1A3A5C",
+  "background": "#0D2B4E",
+  "foreground": "#FFFFFF",
+  "tableAccent": "#E30613",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{ "show": false }],
+        "border": [{ "show": false }],
+        "title": [{
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "fontSize": 13,
+          "fontFamily": "Segoe UI",
+          "bold": true,
+          "background": { "solid": { "color": "#0D2B4E" } }
+        }]
+      }
+    },
+    "card": {
+      "*": {
+        "calloutValue": [{
+          "fontSize": 36,
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "fontFamily": "Segoe UI",
+          "bold": true
+        }],
+        "categoryLabel": [{
+          "show": true,
+          "fontSize": 11,
+          "fontColor": { "solid": { "color": "#A0AEC0" } },
+          "fontFamily": "Segoe UI"
+        }],
+        "background": [{
+          "show": true,
+          "color": { "solid": { "color": "#1A3A5C" } },
+          "transparency": 0
+        }],
+        "border": [{ "show": false }]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "grid": [{
+          "gridVertical": false,
+          "gridHorizontal": true,
+          "gridHorizontalColor": { "solid": { "color": "#0D2B4E" } },
+          "rowPadding": 6,
+          "outlineColor": { "solid": { "color": "#E30613" } }
+        }],
+        "columnHeaders": [{
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "backColor": { "solid": { "color": "#0D2B4E" } },
+          "fontSize": 11,
+          "bold": true,
+          "fontFamily": "Segoe UI"
+        }],
+        "values": [{
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "backColor": { "solid": { "color": "#1A3A5C" } },
+          "fontSize": 11,
+          "fontFamily": "Segoe UI",
+          "urlIcon": true
+        }],
+        "total": [{
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "backColor": { "solid": { "color": "#0D2B4E" } },
+          "bold": true
+        }],
+        "background": [{
+          "show": true,
+          "color": { "solid": { "color": "#1A3A5C" } },
+          "transparency": 0
+        }],
+        "border": [{ "show": false }]
+      }
+    },
+    "barChart": {
+      "*": {
+        "dataPoint": [{
+          "defaultColor": { "solid": { "color": "#E30613" } }
+        }],
+        "categoryAxis": [{
+          "labelColor": { "solid": { "color": "#A0AEC0" } },
+          "fontSize": 10,
+          "fontFamily": "Segoe UI"
+        }],
+        "valueAxis": [{
+          "labelColor": { "solid": { "color": "#A0AEC0" } },
+          "fontSize": 10,
+          "gridlineColor": { "solid": { "color": "#243550" } }
+        }],
+        "background": [{
+          "show": true,
+          "color": { "solid": { "color": "#1A3A5C" } },
+          "transparency": 0
+        }],
+        "border": [{ "show": false }]
+      }
+    },
+    "columnChart": {
+      "*": {
+        "dataPoint": [{
+          "defaultColor": { "solid": { "color": "#E30613" } }
+        }],
+        "categoryAxis": [{
+          "labelColor": { "solid": { "color": "#A0AEC0" } },
+          "fontSize": 10,
+          "fontFamily": "Segoe UI"
+        }],
+        "valueAxis": [{
+          "labelColor": { "solid": { "color": "#A0AEC0" } },
+          "fontSize": 10,
+          "gridlineColor": { "solid": { "color": "#243550" } }
+        }],
+        "background": [{
+          "show": true,
+          "color": { "solid": { "color": "#1A3A5C" } },
+          "transparency": 0
+        }],
+        "border": [{ "show": false }]
+      }
+    },
+    "lineChart": {
+      "*": {
+        "dataPoint": [{
+          "defaultColor": { "solid": { "color": "#E30613" } }
+        }],
+        "categoryAxis": [{
+          "labelColor": { "solid": { "color": "#A0AEC0" } },
+          "fontSize": 10
+        }],
+        "valueAxis": [{
+          "labelColor": { "solid": { "color": "#A0AEC0" } },
+          "gridlineColor": { "solid": { "color": "#243550" } }
+        }],
+        "background": [{
+          "show": true,
+          "color": { "solid": { "color": "#1A3A5C" } },
+          "transparency": 0
+        }],
+        "border": [{ "show": false }]
+      }
+    },
+    "donutChart": {
+      "*": {
+        "legend": [{
+          "labelColor": { "solid": { "color": "#FFFFFF" } },
+          "fontSize": 11
+        }],
+        "background": [{
+          "show": true,
+          "color": { "solid": { "color": "#1A3A5C" } },
+          "transparency": 0
+        }],
+        "border": [{ "show": false }]
+      }
+    },
+    "slicer": {
+      "*": {
+        "data": [{
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "backgroundColor": { "solid": { "color": "#1A3A5C" } },
+          "outlineColor": { "solid": { "color": "#E30613" } }
+        }],
+        "header": [{
+          "fontColor": { "solid": { "color": "#A0AEC0" } },
+          "background": { "solid": { "color": "#0D2B4E" } },
+          "fontSize": 11
+        }],
+        "background": [{
+          "show": true,
+          "color": { "solid": { "color": "#1A3A5C" } },
+          "transparency": 0
+        }],
+        "border": [{ "show": false }]
+      }
+    }
+  }
+}

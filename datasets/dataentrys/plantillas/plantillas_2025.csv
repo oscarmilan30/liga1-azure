@@ -1,0 +1,528 @@
+﻿ano|club|numero|jugador|posicion|fecha_nacimiento|nacionalidad|altura|pie|fecha_fichaje|valor_mercado|fuente|temporada|fecha_carga
+2025|Club Alianza Lima|1|Ángelo Campos|Portero|27/04/1993 (32)|Perú|1,81m|Izquierdo|25/03/2021|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|23|Guillermo Viscarra|Portero|07/02/1993 (32)|Bolivia|1,91m|Derecho|01/01/2025|375000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|12|Ángel de la Cruz|Portero|24/05/2002 (23)|Perú|1,98m|Derecho|01/01/2024|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|33|Fabrisio Mesías|Portero|30/01/2007 (18)|Perú|1,85m|Derecho|01/01/2024||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|6|Renzo Garcés|Defensa central|12/06/1996 (29)|Perú|1,81m|Derecho|01/01/2024|1000000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|24|Gianfranco Chávez |Defensa central|10/08/1998 (27)|Perú|1,80m|Derecho|07/08/2025|650000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|5|Carlos Zambrano|Defensa central|10/07/1989 (36)|Perú|1,85m|Derecho|08/01/2023|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|35|Jhoao Velásquez|Defensa central|02/08/2005 (20)|Perú|1,86m|Izquierdo|01/01/2025|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|29|Brian Arias|Defensa central|02/09/2006 (19)|Perú|1,92m|Derecho|01/01/2024|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|21|Miguel Trauco|Lateral izquierdo|25/08/1992 (33)|Perú|1,75m|Izquierdo|06/01/2025|600000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|13|Ricardo Lagos|Lateral izquierdo|20/04/1996 (29)|Perú|1,71m|Izquierdo|30/01/2021|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|36|Rait Alarcón|Lateral izquierdo|05/08/2005 (20)|Perú|1,77m|Izquierdo|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|22|Guillermo Enrique|Lateral derecho|24/02/2000 (25)|Argentina|1,74m|Derecho|03/01/2025|1400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|3|Josué Estrada|Lateral derecho|07/09/1994 (31)|Perú|1,79m|Derecho|08/07/2025|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|14|Marco Huamán|Lateral derecho|25/09/2002 (23)|Perú|1,70m|Derecho|04/01/2024|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|44|Carlos Gómez|Lateral derecho|09/02/2005 (20)|Perú|1,77m|Derecho|01/01/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|55|Pedro Aquino|Pivote|13/04/1995 (30)|Perú|1,75m|Derecho|19/08/2025|1400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|15|Jesús Castillo|Pivote|10/03/1996 (29)|Perú|1,75m|Izquierdo|01/01/2023|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|17|Jean Pierre Archimbaud|Pivote|16/08/1994 (31)|Perú|1,81m|Izquierdo|01/01/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|37|Juan Delgado|Pivote|08/05/2005 (20)|Perú|1,75m|Derecho|01/01/2025|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|18|Sergio Peña|Mediocentro|28/09/1995 (30)|Perú, España|1,76m|Derecho|09/07/2025|1500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|51|Piero Cari|Mediocentro|21/08/2007 (18)|Perú|1,78m|Derecho|01/01/2025|550000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|28|Alessandro Burlamaqui|Mediocentro|18/02/2002 (23)|Perú, España|Ambidiestro|Ambidiestro|10/07/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|7|Fernando Gaibor|Mediocentro|08/10/1991 (34)|Ecuador|1,79m|Derecho|04/01/2025|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|20|Pablo Lavandeira|Mediocentro|11/05/1990 (35)|Uruguay, Perú|1,72m|Derecho|09/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|10|Pablo Ceppelini|Mediocentro ofensivo|11/09/1991 (34)|Uruguay, Italia|1,80m|Derecho|11/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|73|Mauricio Arrasco|Mediocentro ofensivo|26/05/2004 (21)|Perú|1,73m|Derecho|01/01/2023|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|27|Kevin Quevedo|Extremo izquierdo|22/02/1997 (28)|Perú|Ambidiestro|Ambidiestro|25/07/2024|750000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|19|Alan Cantero|Extremo izquierdo|28/06/1998 (27)|Argentina|1,81m|Derecho|11/01/2025|650000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|25|Gaspar Gentile|Extremo izquierdo|16/02/1995 (30)|Argentina, Perú|1,82m|Derecho|24/06/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|8|Eryc Castillo|Extremo derecho|05/02/1995 (30)|Ecuador|1,78m|Derecho|07/01/2025|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|16|Matías Succar|Delantero centro|16/02/1999 (26)|Perú, Líbano|1,84m|Izquierdo|19/07/2024|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|50|Said Peralta|Delantero centro|07/11/2003 (21)|Perú|1,77m|Derecho|01/01/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|9|Hernán Barcos |Delantero centro|11/04/1984 (41)|Argentina, Perú|1,87m|Derecho|01/02/2021|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Alianza Lima|34|Paolo Guerrero|Delantero centro|01/01/1984 (41)|Perú|1,85m|Derecho|31/08/2024|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|1|Diego Enríquez|Portero|24/01/2002 (23)|Perú|1,85m|Derecho|01/01/2022|1000000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|12|Renato Solís|Portero|28/01/1998 (27)|Perú|1,88m|Derecho|01/01/2019|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|13|Alejandro Duarte|Portero|05/04/1994 (31)|Perú, Alemania|1,81m|Derecho|13/01/2021|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|33|César Bautista|Portero|15/01/2007 (18)|Perú|1,96m|Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|96|Luis Abram|Defensa central|27/02/1996 (29)|Perú, Italia|1,81m|Izquierdo|07/08/2025|1600000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|20|Miguel Araujo|Defensa central|24/10/1994 (31)|Perú|1,81m|Derecho|07/07/2025|600000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|5|Rafael Lutiger|Defensa central|03/07/2001 (24)|Perú, Suiza|1,87m|Izquierdo|01/01/2019|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|29|Alejandro Pósito|Defensa central|05/09/2005 (20)|Perú|1,81m|Derecho|01/01/2024|375000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|28|Nicolás Pasquini|Lateral izquierdo|02/01/1991 (34)|Argentina, Italia|1,77m|Izquierdo|07/07/2023|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|18|Axel Cabellos|Lateral izquierdo|18/11/2006 (18)|Perú, Argentina|1,70m|Izquierdo|26/02/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|37|Fabrizio Lora|Lateral izquierdo|30/08/2005 (20)|Perú|1,80m|Izquierdo|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|15|Jhilmar Lora|Lateral derecho|24/10/2000 (25)|Perú|1,74m|Derecho|01/01/2021|700000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|8|Leandro Sosa|Lateral derecho|24/06/1994 (31)|Uruguay, Perú|1,72m|Derecho|01/01/2022|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|2|Duham Ballumbrosio|Lateral derecho|23/06/2008 (17)|Perú|1,78m|Derecho|01/07/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|55|Gustavo Cazonatti |Pivote|03/07/1996 (29)|Brasil|Ambidiestro|Ambidiestro|01/01/2025|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|6|Jesús Pretell|Pivote|26/03/1999 (26)|Perú|1,72m|Derecho|01/01/2018|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|39|Henry Caparó|Pivote|29/01/2005 (20)|Perú|1,81m|Derecho|24/06/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|77|Catriel Cabellos|Mediocentro|18/08/2004 (21)|Perú, Argentina|1,72m|Derecho|16/01/2025|700000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|25|Martín Távara|Mediocentro|25/03/1999 (26)|Perú|1,84m|Izquierdo|01/01/2016|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|26|Ian Wisdom|Mediocentro|14/09/2005 (20)|Perú|1,68m|Derecho|01/01/2024|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|19|Yoshimar Yotún |Mediocentro|07/04/1990 (35)|Perú|1,71m|Izquierdo|08/03/2022|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|10|Christofer Gonzales|Mediocentro ofensivo|12/10/1992 (33)|Perú|1,77m|Derecho|02/08/2024|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|14|Cristian Benavente|Mediocentro ofensivo|19/05/1994 (31)|Perú, España|Ambidiestro|Ambidiestro|08/08/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|23|Maxloren Castro|Extremo izquierdo|08/12/2007 (17)|Perú|1,73m|Izquierdo|01/01/2024|850000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|16|Luis Iberico |Extremo izquierdo|06/02/1998 (27)|Perú|1,78m|Derecho|02/08/2024|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|24|Fernando Pacheco|Extremo izquierdo|26/06/1999 (26)|Perú|1,79m|Derecho|01/01/2022|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|40|Jair Moretti|Extremo izquierdo|01/02/2007 (18)|Perú|1,81m||24/06/2025|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|7|Santiago González|Extremo derecho|25/07/1999 (26)|Argentina|1,70m|Derecho|01/01/2024|1800000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|47|Felipe Vizeu|Delantero centro|12/03/1997 (28)|Brasil|1,85m|Izquierdo|14/08/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|99|Diego Otoya|Delantero centro|13/09/2004 (21)|Perú, Estados Unidos|1,88m|Derecho|05/01/2023|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|11|Írven Ávila|Delantero centro|02/07/1990 (35)|Perú|1,69m|Derecho|01/01/2021|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Sporting Cristal|97|Mateo Rodríguez|Delantero centro|04/08/2006 (19)|Perú|1,91m|Derecho|18/07/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|25|Miguel Vargas|Portero|15/06/1996 (29)|Chile, Perú|1,84m|Derecho|01/01/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|1|Sebastián Britos|Portero|02/01/1988 (37)|Uruguay|1,91m|Derecho|01/01/2024|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|38|Jhefferson Rodríguez|Portero|13/03/2006 (19)|Perú|1,83m|Derecho|01/01/2024|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|12|Aamet Calderón|Portero|01/07/1998 (27)|Perú|1,85m|Derecho|01/01/2020|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|4|Anderson Santamaría|Defensa central|10/01/1992 (33)|Perú|1,84m|Derecho|24/06/2025|700000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|3|Williams Riveros|Defensa central|20/11/1992 (32)|Paraguay|1,86m|Derecho|01/01/2024|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|5|Matías Di Benedetto|Defensa central|19/11/1992 (32)|Argentina|1,84m|Izquierdo|01/01/2023|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|29|Aldo Corzo |Defensa central|20/05/1989 (36)|Perú|1,75m|Derecho|01/01/2017|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|-|Julinho Astudillo|Defensa central|01/07/2005 (20)|Perú|1,78m|Derecho|01/01/2024|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|32|Rafael Guzmán|Defensa central|26/01/2008 (17)|Perú|1,89m|Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|33|César Inga|Lateral izquierdo|30/04/2002 (23)|Perú|1,78m|Derecho|01/01/2025|1000000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|14|Paolo Reyna|Lateral izquierdo|13/10/2001 (24)|Perú|1,83m|Izquierdo|01/01/2025|700000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|27|José Carabalí|Lateral izquierdo|19/05/1997 (28)|Ecuador|1,73m|Izquierdo|02/02/2025|700000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|26|Hugo Ancajima|Lateral derecho|10/02/1998 (27)|Perú|1,80m|Derecho|01/01/2023|375000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|18|Rodrigo Ureña|Pivote|01/03/1993 (32)|Chile|1,81m|Derecho|01/01/2023|800000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|6|Jesús Castillo|Pivote|11/06/2001 (24)|Perú|1,85m|Derecho|01/07/2025|700000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|23|Jorge Murrugarra|Pivote|22/03/1997 (28)|Perú|1,77m|Derecho|04/01/2021|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|34|Esteban Cruz|Pivote|12/02/2006 (19)|Perú|1,79m|Derecho|01/01/2025|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|17|Jairo Concha|Mediocentro|27/05/1999 (26)|Perú|1,75m|Derecho|10/01/2024|1300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|16|Martín Pérez Guedes|Mediocentro|18/08/1991 (34)|Argentina, Perú|1,79m|Derecho|01/01/2023|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|10|Horacio Calcaterra |Mediocentro|22/02/1989 (36)|Perú, Argentina|1,77m|Derecho|01/01/2023|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|36|Sebastian Flores|Mediocentro|15/06/2005 (20)|Perú|1,77m|Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|7|Jairo Vélez|Mediocentro ofensivo|21/04/1995 (30)|Ecuador, Perú|1,76m|Izquierdo|01/01/2025|600000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|19|Edison Flores|Extremo izquierdo|14/05/1994 (31)|Perú|1,70m|Izquierdo|01/01/2025|900000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|24|Andy Polo|Extremo derecho|29/09/1994 (31)|Perú|1,75m|Derecho|21/03/2022|900000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|8|Gabriel Costa|Extremo derecho|02/04/1990 (35)|Perú, Uruguay|1,70m|Derecho|11/07/2024|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|20|Álex Valera|Delantero centro|16/05/1996 (29)|Perú|1,83m|Izquierdo|11/01/2023|800000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|11|José Rivera|Delantero centro|08/05/1997 (28)|Perú|1,73m|Derecho|01/01/2023|700000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|15|Diego Churín|Delantero centro|01/12/1989 (35)|Argentina|Ambidiestro|Ambidiestro|01/01/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|35|Rodrigo Dioses|Delantero centro|20/02/2005 (20)|Perú|1,78m|Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universitario de Deportes|37|Nicolás Rengifo|Delantero centro|15/02/2007 (18)|Perú|1,86m|Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|12|Carlos Cáceda|Portero|27/09/1991 (34)|Perú|1,85m|Derecho|01/01/2020|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|21|Jorge Cabezudo|Portero|21/10/2001 (24)|Perú|1,88m|Derecho|01/01/2020|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|31|Octavio Ramos|Portero|19/12/2004 (20)|Perú|1,82m|Derecho|01/01/2024|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|1|Ricardo Farro|Portero|06/03/1985 (40)|Perú|1,82m|Derecho|01/01/2021|10000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|33|Matías Lazo|Defensa central|11/07/2003 (22)|Perú|1,88m|Derecho|01/01/2021|1000000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|5|Alec Deneumostier|Defensa central|05/05/1999 (26)|Perú, Bélgica|1,86m|Derecho|13/01/2018|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|6|Leonel González|Defensa central|15/03/1994 (31)|Argentina|1,77m|Izquierdo|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|2|Pier Barrios|Defensa central|01/07/1990 (35)|Argentina|1,80m|Derecho|01/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|35|Daniel Meneses|Defensa central|03/02/2005 (20)|Perú|1,86m|Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|27|Nelson Cabanillas|Lateral izquierdo|08/02/2000 (25)|Perú|1,70m|Izquierdo|01/01/2025|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|13|Mathías Llontop|Lateral izquierdo|22/05/2002 (23)|Perú|1,69m|Izquierdo|01/01/2025|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|4|Alejandro Ramos|Lateral derecho|13/09/1998 (27)|Perú|1,70m|Derecho|01/01/2021|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|23|Diego Rodríguez|Lateral derecho|22/06/2002 (23)|Perú|1,74m|Derecho|01/01/2022|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|-|Juan Muñoz|Lateral derecho|01/01/2003 (22)|Perú|1,74m|Derecho|01/01/2024|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|24|Walter Tandazo|Pivote|14/06/2000 (25)|Perú|1,67m|Derecho|22/02/2019|600000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|15|Horacio Orzán|Pivote|14/04/1988 (37)|Argentina, Perú|1,77m|Derecho|01/01/2021|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|37|Andersson Pumacajia|Pivote|23/06/2005 (20)|Perú|1,71m|Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|28|Alexis Arias|Mediocentro|13/12/1995 (29)|Perú|1,65m|Derecho|01/01/2014|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|20|Gian García|Mediocentro|15/10/2005 (20)|Perú|1,78m|Derecho|01/01/2024|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|39|Cesar Doy|Mediocentro|04/05/2005 (20)|Perú|1,80m|Izquierdo|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|10|Tomás Martínez|Mediocentro ofensivo|07/03/1995 (30)|Argentina, Italia|1,72m|Izquierdo|01/01/2023|600000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|18|Nicolás Quagliata|Mediocentro ofensivo|05/06/1999 (26)|Uruguay, Italia|1,72m|Derecho|19/07/2025|550000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|36|Patricio Núñez|Mediocentro ofensivo|15/06/2007 (18)|Perú|1,78m|Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|8|Lautaro Guzmán|Extremo izquierdo|18/01/2000 (25)|Argentina|1,73m|Izquierdo|29/01/2025|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|99|Jhamir D'Arrigo|Extremo izquierdo|15/11/1999 (25)|Perú|1,68m|Izquierdo|09/08/2025|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|19|Gregorio Rodríguez|Extremo derecho|17/01/2000 (25)|Argentina|1,80m|Derecho|20/01/2025|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|7|Cristian Bordacahar|Extremo derecho|27/10/1991 (34)|Argentina, Perú|1,80m|Derecho|27/01/2021|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|14|Jhonny Vidales|Delantero centro|22/04/1992 (33)|Perú|1,80m|Derecho|05/07/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|17|Percy Liza|Delantero centro|10/04/2000 (25)|Perú|1,85m|Derecho|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|9|Bernardo Cuesta |Delantero centro|20/12/1988 (36)|Argentina, Perú|1,81m|Derecho|01/01/2021|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|-|Bruno Portugal|Delantero centro|28/06/2003 (22)|Perú|1,82m|Derecho|01/01/2022|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|25|Mariano Barreda|Delantero centro|07/06/2003 (22)|Perú, Argentina|1,81m|Derecho|01/01/2023|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|FBC Melgar|40|Ryu Yabiku|Delantero centro|25/10/2006 (19)|Perú|1,93m|Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|1|Pedro Ynamine|Portero|14/10/1998 (27)|Perú|1,81m|Izquierdo|01/02/2024|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|31|Ítalo Espinoza|Portero|17/04/1996 (29)|Perú|1,88m|Derecho|01/01/2025|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|12|Eduardo Figueroa|Portero|20/07/1995 (30)|Perú|1,85m|Derecho|11/01/2021|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|66|Paolo Fuentes|Defensa central|11/05/1996 (29)|Perú|1,82m|Derecho|01/07/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|6|Jhon Ibargüen|Defensa central|30/07/1994 (31)|Colombia|1,91m|Derecho|06/01/2022|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|3|Benjamín Ampuero|Defensa central|05/08/2000 (25)|Perú|1,85m|Derecho|01/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|5|Carlos Ascues|Defensa central|19/06/1992 (33)|Perú, Venezuela|1,87m|Derecho|22/07/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|13|Otavio Gut|Defensa central|19/06/1996 (29)|Brasil|1,93m|Derecho|01/01/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|27|Juan Cámara|Defensa central|21/12/1992 (32)|Perú|1,80m|Derecho|01/01/2015|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|19|Jesús Mendieta|Lateral izquierdo|11/04/1998 (27)|Perú|1,74m|Izquierdo|01/01/2025|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|14|Brayan Guevara|Lateral izquierdo|05/05/1998 (27)|Perú|1,70m|Derecho|06/01/2022|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|7|Alexi Gómez|Lateral izquierdo|04/03/1993 (32)|Perú|1,74m|Izquierdo|23/07/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|28|Aldair Perleche|Lateral derecho|04/06/1995 (30)|Perú|1,76m|Derecho|01/01/2025|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|26|Gerson Iraola|Lateral derecho|03/07/1997 (28)|Perú|1,75m|Derecho|11/01/2023|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|23|Jesús Barco|Pivote|09/03/1997 (28)|Perú|1,75m|Derecho|22/07/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|88|Edson Aubert|Pivote|24/11/1988 (36)|Perú|1,72m|Izquierdo|28/08/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|16|Raúl Tapia|Pivote|14/04/2003 (22)|Perú|||11/02/2021|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|18|Alexis Fernández|Pivote|20/03/2001 (24)|Perú|||09/05/2024|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|-|Alvaro Gonzales|Pivote|29/08/2005 (20)|Perú|1,71m|Derecho|09/02/2023|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|15|Nilton Ramirez|Mediocentro|08/08/2005 (20)|Perú|1,69m|Derecho|07/02/2023|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|30|Jorginho Sernaqué|Mediocentro|11/07/1994 (31)|Perú|1,75m|Izquierdo|01/07/2022|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|8|Marcos Lliuya|Mediocentro ofensivo|27/03/1992 (33)|Perú|1,70m|Derecho|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|20|Ray Gómez |Mediocentro ofensivo|29/12/1993 (31)|Perú|1,67m|Derecho|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|11|Omar Vásquez|Mediocentro ofensivo|15/08/1989 (36)|Colombia|1,67m|Izquierdo|18/01/2023|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|22|Rick Campodónico|Extremo izquierdo|10/01/1996 (29)|Perú|1,79m|Derecho|25/01/2023|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|90|Camilo Rodríguez|Extremo izquierdo|01/01/2002 (23)|Perú|||09/01/2024|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|20|Jeremy Canela|Extremo derecho|06/03/1998 (27)|Perú|1,64m|Derecho|24/06/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|10|Jack Durán|Extremo derecho|08/12/1991 (33)|Perú|1,65m|Derecho|21/07/2025|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|24|Diego Saffadi|Delantero centro|16/09/1997 (28)|Perú|1,78m|Derecho|18/07/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|29|Joffré Escobar|Delantero centro|24/10/1996 (29)|Ecuador|1,80m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|9|Diego Martínez|Delantero centro|17/10/1995 (30)|Paraguay|Ambidiestro|Ambidiestro|22/07/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Universidad|17|Yorleys Mena|Delantero centro|20/07/1991 (34)|Colombia, Perú|1,82m|Derecho|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|1|Diego Melián |Portero|04/11/1991 (34)|Uruguay, Perú|1,88m|Derecho|01/01/2023|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|95|Daniel Prieto|Portero|18/09/1995 (30)|Perú|1,91m|Derecho|01/01/2024|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|12|Sebastián Amasifuén|Portero|06/06/2004 (21)|Perú|1,90m|Derecho|10/01/2024|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|13|Horacio Benincasa|Defensa central|11/04/1994 (31)|Perú, Argentina|1,85m|Izquierdo|01/01/2024|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|30|Piero Guzmán|Defensa central|21/01/2000 (25)|Perú|1,93m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|4|José Villegas|Defensa central|17/04/1996 (29)|Argentina|1,90m|Derecho|01/01/2024|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|40|Juan Quiñones|Defensa central|25/03/2001 (24)|Perú|1,84m||01/09/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|24|Anthony Gordillo|Lateral izquierdo|30/04/1994 (31)|Perú|1,74m|Izquierdo|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|2|Alexis Cossio|Lateral izquierdo|11/02/1995 (30)|Perú|1,84m|Izquierdo|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|21|Erick Perleche|Lateral derecho|15/08/2000 (25)|Perú|1,70m|Derecho|01/01/2025|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|3|Christian Vásquez|Lateral derecho|15/10/1999 (26)|Perú|1,77m|Derecho|01/01/2024|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|22|Frank Ysique |Pivote|20/06/1996 (29)|Perú|1,68m|Derecho|01/01/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|15|Hernan Lupu|Pivote|15/01/2004 (21)|Perú|1,75m|Derecho|17/01/2024|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|8|Federico Illanes|Pivote|29/06/1994 (31)|Argentina|1,78m|Derecho|01/01/2025|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|16|Stefano Fernández|Pivote|12/02/2002 (23)|Perú|1,79m|Derecho|16/06/2023|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|20|Jimmy Pérez|Mediocentro|05/06/2001 (24)|Perú|1,75m|Derecho|01/01/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|7|Rodrigo Castro|Mediocentro ofensivo|11/06/1993 (32)|Argentina, Italia|1,69m|Izquierdo|01/01/2024|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|23|Luis Olmedo|Extremo izquierdo|14/04/2000 (25)|Paraguay, Argentina|1,69m|Izquierdo|02/02/2025|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|92|Abraham Aguinaga|Extremo izquierdo|22/08/2002 (23)|Perú|1,62m|Derecho|22/07/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|17|Jorge del Castillo|Extremo izquierdo|28/09/2004 (21)|Perú|1,77m|Derecho|10/01/2024|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|11|Guillermo Larios|Extremo derecho|11/05/2002 (23)|Perú, Chile|1,70m|Derecho|01/01/2023|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|33|Franchesco Flores|Extremo derecho|15/06/2001 (24)|Perú|1,71m|Derecho|08/09/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|29|Agustín Graneros|Delantero centro|28/04/1996 (29)|Argentina|1,80m|Derecho|07/01/2025|550000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|19|Mauro Pérez|Delantero centro|17/02/2003 (22)|Argentina|1,77m|Derecho|24/02/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|27|Rolando Díaz|Delantero centro|07/05/1999 (26)|Perú, Cuba|1,80m|Derecho|01/01/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Alianza Atlético Sullana|37|Álvaro Guevara|Delantero centro|18/05/2005 (20)|Perú||Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|1|Patricio Álvarez|Portero|24/01/1994 (31)|Perú|1,80m|Derecho|27/06/2023|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|12|Aarom Fuentes|Portero|12/06/2002 (23)|Perú|1,87m|Derecho|01/07/2024|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|27|Rodrigo Tapia|Defensa central|28/09/1994 (31)|Argentina|1,84m|Derecho|01/01/2024|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|2|Francesco Cavagna|Defensa central|16/09/2000 (25)|Perú|1,85m|Derecho|01/01/2025|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|13|Daniel Franco |Defensa central|15/07/1991 (34)|Argentina|1,84m|Izquierdo|04/01/2022|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|14|José Bolívar|Lateral izquierdo|17/01/2000 (25)|Perú|1,75m|Izquierdo|01/01/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|6|Elsar Rodas|Lateral izquierdo|28/02/1994 (31)|Perú|1,65m|Izquierdo|01/01/2023|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|26|Arnold Flores|Lateral izquierdo|29/06/2004 (21)|Perú|1,68m|Izquierdo|01/01/2024|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|15|Jeremy Rostaing|Lateral derecho|03/05/1995 (30)|Perú|1,76m|Derecho|01/01/2022|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|17|Jherson Reyes|Lateral derecho|26/08/2004 (21)|Perú|1,80m|Derecho|23/01/2024|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|16|Fabio Rojas|Lateral derecho|04/08/1999 (26)|Perú|1,79m|Derecho|03/01/2024|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|5|Rafael Guarderas|Pivote|12/09/1993 (32)|Perú|1,76m|Izquierdo|01/01/2024|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|8|Diego Soto|Mediocentro|31/08/2001 (24)|Perú|1,75m|Derecho|01/01/2024|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|18|Adriel Trelles|Mediocentro|03/05/2004 (21)|Perú|1,84m|Izquierdo|01/01/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|29|Benjamín García|Mediocentro|18/03/2000 (25)|Argentina|1,74m||01/01/2024|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|20|Aldair Vásquez|Mediocentro ofensivo|23/02/2003 (22)|Perú|1,68m|Derecho|08/01/2024|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|25|Rodrigo Vilca|Mediocentro ofensivo|12/03/1999 (26)|Perú, España|1,75m|Derecho|01/01/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|10|Paulo de la Cruz|Extremo derecho|22/10/1999 (26)|Perú|1,69m|Derecho|05/02/2021|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|7|Juan Garro|Extremo derecho|24/11/1992 (32)|Argentina|1,79m|Izquierdo|01/01/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|22|Joel Herrera|Extremo derecho|15/06/2004 (21)|Perú|1,75m|Derecho|01/01/2025|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|99|Raúl Ruidíaz|Delantero centro|25/07/1990 (35)|Perú, Croacia|1,69m|Derecho|03/04/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|24|Christopher Olivares|Delantero centro|03/04/1999 (26)|Perú, Grecia|1,88m|Derecho|01/01/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|9|Tomás Sandoval|Delantero centro|30/03/1999 (26)|Argentina|1,85m|Derecho|01/07/2024|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|11|Neri Bandiera|Delantero centro|03/07/1989 (36)|Argentina|1,72m|Derecho|01/01/2023|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Atlético Grau|33|Yamir Ruidíaz|Delantero centro|29/12/2001 (23)|Perú, Croacia|1,70m|Derecho|24/07/2025|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|1|Steven Rivadeneyra|Portero|02/11/1994 (31)|Perú|1,90m|Derecho|01/01/2024|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|88|Emile Franco|Portero|03/11/2000 (25)|Perú, Estados Unidos|1,83m|Izquierdo|14/02/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|39|Enzo de la Peña|Portero|14/08/2000 (25)|Perú, Argentina|1,85m|Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|5|Rodrigo Colombo|Defensa central|19/11/1992 (32)|Argentina, Italia|1,92m|Derecho|01/01/2025|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|20|Matías Almirón|Defensa central|04/10/1995 (30)|Uruguay|1,88m|Izquierdo|01/01/2025|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|26|Hansell Riojas|Defensa central|15/10/1991 (34)|Perú|1,85m|Derecho|01/01/2025|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|27|Benjamín Villalta|Defensa central|24/07/2000 (25)|Perú|1,81m|Derecho|27/03/2025|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|35|David Alvarado|Defensa central|13/09/2003 (22)|Perú|1,83m|Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|31|Cristian Carbajal|Lateral izquierdo|20/09/1999 (26)|Perú|1,80m|Izquierdo|01/01/2024|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|16|Sebastián Aranda|Lateral izquierdo|07/10/2003 (22)|Perú|1,80m|Izquierdo|01/01/2025|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|6|Emilio Saba|Lateral derecho|26/03/2001 (24)|Palestina, Perú|1,80m|Derecho|22/07/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|24|Oslimg Mora|Lateral derecho|02/06/1999 (26)|Perú|1,73m|Derecho|01/01/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|25|Renzo Salazar|Lateral derecho|09/04/2003 (22)|Perú|1,78m|Derecho|31/08/2023|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|28|Erick Gonzales |Pivote|11/04/1996 (29)|Perú|1,90m|Derecho|01/01/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|41|Leonel Solís|Pivote|30/08/1996 (29)|Perú|1,81m|Derecho|15/07/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|36|Nicolas Paz|Pivote|23/08/2005 (20)|Perú, Estados Unidos|1,73m|Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|22|Jorge Ríos|Mediocentro|07/12/1999 (25)|Perú|1,65m|Derecho|04/01/2023|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|8|Hernán Da Campo|Mediocentro|06/08/1994 (31)|Argentina|1,78m|Derecho|01/01/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|32|Víctor Flores|Mediocentro|08/08/2004 (21)|Perú|1,67m|Derecho|01/01/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|99|Jostin Alarcón|Extremo izquierdo|12/07/2002 (23)|Perú|1,80m|Derecho|28/07/2025|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|11|Luis Urruti|Extremo izquierdo|11/09/1992 (33)|Uruguay, Perú|1,72m|Derecho|01/01/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|77|Fidel Martínez|Extremo izquierdo|15/02/1990 (35)|Ecuador, México|1,79m|Izquierdo|24/07/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|7|Carlos López|Extremo derecho|01/08/1994 (31)|Colombia, Perú|1,82m|Derecho|01/01/2025|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|23|Juan Carlos Gonzáles|Extremo derecho|20/08/2003 (22)|Perú|1,65m|Izquierdo|01/01/2025|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|30|Axell Domínguez|Extremo derecho|16/03/2001 (24)|Perú|1,78m|Derecho|08/03/2023|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|33|José Davey|Extremo derecho|17/11/2007 (17)|Perú|1,79m|Derecho|01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|13|Fabrizio Roca|Delantero centro|20/03/2002 (23)|Perú|1,80m|Derecho|01/01/2022|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|9|Luciano Nequecaur|Delantero centro|19/07/1992 (33)|Argentina, Italia|1,92m|Derecho|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Boys Association|18|Gilmar Rodríguez|Delantero centro|12/04/2005 (20)|Perú|1,87m|Derecho|01/01/2024|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|24|Juan Bolado|Portero|22/07/1997 (28)|Argentina, Italia|1,82m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|29|Ignacio Barrios|Portero|26/10/1992 (33)|Uruguay, Perú|1,88m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|23|Denzel Caña|Portero|22/02/2003 (22)|Perú|1,95m|Derecho|01/01/2023|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|4|Maximiliano Amondarain|Defensa central|22/01/1993 (32)|Uruguay, Perú|1,85m|Derecho|01/01/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|6|Leonel Galeano|Defensa central|02/08/1991 (34)|Argentina, Italia|1,83m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|2|Danilo Ortiz|Defensa central|28/07/1992 (33)|Paraguay, España|1,88m|Izquierdo|09/01/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|-|Eduardo Rueda|Defensa central|16/06/2005 (20)|Perú|1,86m|Izquierdo|01/01/2023|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|70|Jimmy Valoyes|Defensa central|30/11/1986 (38)|Colombia, Perú|1,90m|Derecho|01/07/2024|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|27|João Ortiz|Lateral izquierdo|10/02/1991 (34)|Perú, Chile|1,75m|Izquierdo|03/01/2025|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|15|Nicolás Amasifuén|Lateral izquierdo|05/07/2005 (20)|Perú|1,88m|Izquierdo|21/07/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|5|Santiago Arias|Pivote|19/06/1995 (30)|Uruguay, Perú|1,80m|Derecho|01/01/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|18|Yimy Gamero|Pivote|07/01/2002 (23)|Perú|1,74m|Derecho|22/07/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|14|Claudio Torrejón |Pivote|14/05/1993 (32)|Perú, Estados Unidos|1,80m|Derecho|01/01/2023|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|26|Rudy Palomino|Pivote|23/07/1998 (27)|Perú|1,70m|Izquierdo|10/07/2024|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|8|Agustín González|Mediocentro|25/01/1997 (28)|Uruguay|1,74m|Izquierdo|03/01/2025|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|39|Gonzalo Aguirre|Mediocentro|06/05/2003 (22)|Perú, Argentina|1,80m|Izquierdo|26/07/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|32|Harol Rodríguez|Mediocentro|02/07/2006 (19)|Perú|1,78m|Derecho|01/01/2024||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|22|Cristian Neira|Mediocentro ofensivo|23/11/2000 (24)|Perú|1,69m|Derecho|01/01/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|55|Alfredo Ramúa|Mediocentro ofensivo|04/09/1986 (39)|Argentina, Perú|Ambidiestro|Ambidiestro|16/06/2023|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|20|Luis Benites|Extremo izquierdo|09/07/1996 (29)|Perú|1,65m|Derecho|01/01/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|13|Alejandro Hohberg|Extremo izquierdo|20/08/1991 (34)|Perú, Uruguay|1,72m|Derecho|23/07/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|30|Beto da Silva|Extremo izquierdo|28/12/1996 (28)|Perú, Brasil|1,84m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|31|Yván Rojas|Extremo izquierdo|05/07/2008 (17)|Perú|1,75m|Derecho|01/01/2024||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|9|Juan Romagnoli |Extremo derecho|20/06/1996 (29)|Argentina, Italia|Ambidiestro|Ambidiestro|17/01/2023|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|99|Ray Sandoval|Extremo derecho|13/02/1995 (30)|Perú|1,74m|Derecho|05/08/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|7|Cristian Souza|Extremo derecho|28/08/1995 (30)|Uruguay, Italia|1,72m|Derecho|16/07/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|17|Osnar Noronha|Delantero centro|17/12/1991 (33)|Perú|1,80m|Izquierdo|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Cienciano|21|Carlos Garcés|Delantero centro|01/03/1990 (35)|Ecuador|1,86m|Derecho|02/01/2023|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|28|Pedro Díaz|Portero|21/04/1998 (27)|Perú|1,84m|Derecho|01/01/2025|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|13|Andy Vidal|Portero|23/08/1994 (31)|Perú|1,92m|Izquierdo|01/01/2024|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|1|Rodolfo Anderson|Portero|10/05/1996 (29)|Perú|1,90m|Derecho|15/02/2024|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|18|Carlos Gamarra|Defensa central|02/03/2000 (25)|Perú|1,85m|Izquierdo|01/01/2025|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|4|Alex Custodio|Defensa central|31/01/2004 (21)|Venezuela, Perú|1,78m|Derecho|01/01/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|8|Aldair Fuentes|Defensa central|25/01/1998 (27)|Perú|1,92m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|3|Alessandro Milesi|Lateral izquierdo|21/12/1999 (25)|Perú, Estados Unidos|1,85m|Izquierdo|01/01/2025|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|6|Álvaro Ampuero|Lateral izquierdo|25/09/1992 (33)|Perú, Italia|1,85m|Izquierdo|01/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|24|Marlon Ruidías|Lateral derecho|13/05/1999 (26)|Perú|1,75m|Derecho|01/01/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|14|José Zevallos|Lateral derecho|13/01/1999 (26)|Perú|1,75m|Derecho|01/01/2024|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|5|Miguel Aucca |Pivote|10/08/1998 (27)|Perú|1,68m|Derecho|01/01/2018|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|16|Oswaldo Valenzuela|Pivote|20/12/2000 (24)|Perú|1,80m|Derecho|01/01/2024|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|14|Carlo Diez|Pivote|18/04/1996 (29)|Perú|1,79m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|29|Eslyn Correa|Mediocentro|29/06/2005 (20)|Perú|1,75m|Derecho|01/01/2024|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|15|Sebastián Zarabia|Mediocentro|22/02/2005 (20)|Perú|1,70m|Izquierdo|01/01/2024|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|10|Iván Colman|Mediocentro ofensivo|06/05/1995 (30)|Argentina|1,73m|Derecho|01/01/2024|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|32|Julián Aquino|Mediocentro ofensivo|27/02/2004 (21)|Argentina|Ambidiestro|Ambidiestro|01/01/2025|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|30|Sergio Quillahuaman|Mediocentro ofensivo|04/07/2007 (18)|Perú|1,71m|Derecho|02/09/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|22|Lucas Colitto|Extremo izquierdo|01/06/1994 (31)|Argentina, Italia|1,72m|Izquierdo|01/01/2024|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|7|Pierre da Silva|Extremo izquierdo|28/07/1998 (27)|Estados Unidos, Perú|1,78m|Izquierdo|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|19|Santiago Gálvez|Extremo derecho|03/01/2004 (21)|Perú|1,73m|Derecho|01/01/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|26|Nicolás Silva|Extremo derecho|24/01/1990 (35)|Argentina|1,63m|Derecho|01/01/2024|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|9|Facundo Callejo|Delantero centro|02/07/1992 (33)|Argentina|1,76m|Derecho|08/02/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Cusco FC|11|Juan Manuel Tévez|Delantero centro|28/08/1987 (38)|Argentina, Ecuador|1,86m|Derecho|01/01/2024|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|12|Ángel Zamudio|Portero|21/04/1997 (28)|Perú|1,85m|Derecho|01/01/2021|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|29|Aldair Ccorahua|Portero|21/06/2001 (24)|Perú|1,82m|Derecho|01/01/2024|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|33|Carlos Solís|Portero|20/09/1990 (35)|Perú|1,82m|Derecho|01/01/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|26|Marcelo Gaona|Defensa central|26/03/1999 (26)|Perú|1,80m|Derecho|01/01/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|4|Juan Barreda|Defensa central|20/03/1993 (32)|Perú|1,86m|Derecho|01/07/2024|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|25|Alan Pérez|Defensa central|20/04/1991 (34)|Argentina|1,83m|Derecho|13/01/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|92|Yonatan Murillo|Defensa central|05/07/1992 (33)|Colombia|1,83m|Izquierdo|09/01/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|44|Luis Torres|Defensa central|24/07/2004 (21)|Perú|1,87m|Derecho|01/04/2024|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|15|Axel Chávez|Lateral izquierdo|22/03/1998 (27)|Perú|1,75m|Izquierdo|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|2|Hugo Ángeles|Lateral izquierdo|18/12/1993 (31)|Perú|1,80m|Izquierdo|05/01/2020|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|18|Cris Huyhua|Lateral izquierdo|18/04/2003 (22)|Perú|1,74m||01/01/2025|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|13|Diego Mesones|Lateral izquierdo|06/11/2004 (20)|Perú|1,82m|Izquierdo|01/01/2024|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|20|Johan Madrid|Lateral derecho|26/11/1996 (28)|Perú|1,79m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|38|Edu Villar|Pivote|12/06/2004 (21)|Perú|1,77m|Derecho|01/08/2024|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|17|Leonardo Villar|Pivote|18/03/2000 (25)|Perú|1,85m|Derecho|01/07/2019|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|22|Ricardo Salcedo |Pivote|23/03/1990 (35)|Perú|1,75m|Derecho|01/01/2016|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|5|José Meza|Pivote|27/12/2004 (20)|Perú|1,78m|Derecho|01/01/2024|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|80|Diego Carabaño|Mediocentro|19/10/1997 (28)|Perú|1,72m|Izquierdo|01/01/2025|375000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|11|Javier Sanguinetti|Mediocentro ofensivo|29/08/1990 (35)|Argentina|1,73m|Derecho|01/01/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|8|Josuee Herrera|Extremo izquierdo|04/02/1999 (26)|Perú|1,70m|Izquierdo|01/01/2025|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|10|Nahuel Luján|Extremo izquierdo|23/08/1995 (30)|Argentina|1,78m|Izquierdo|01/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|21|Cristian Mendoza|Extremo izquierdo|13/08/2003 (22)|Perú|1,78m|Derecho|01/01/2024|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|23|Piero Magallanes|Extremo derecho|03/04/2001 (24)|Perú|1,80m|Derecho|01/01/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|16|Sergio Barboza|Extremo derecho|14/06/2001 (24)|Perú|1,75m|Derecho|01/01/2025|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|28|Enzo Fernández|Extremo derecho|30/05/1992 (33)|Argentina|1,70m|Izquierdo|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|7|Miguel Carranza|Extremo derecho|03/11/1995 (30)|Perú|1,64m|Derecho|01/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|27|Carlos Jiménez|Extremo derecho|07/01/1998 (27)|Perú|1,71m|Derecho|09/07/2024|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|19|Ronal Huaccha|Delantero centro|20/12/1993 (31)|Perú|1,72m|Derecho|01/01/2020|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|9|Marlon de Jesús|Delantero centro|04/09/1991 (34)|Ecuador|1,87m|Derecho|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|89|Janio Pósito|Delantero centro|10/10/1989 (36)|Perú|1,79m|Derecho|05/01/2025|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Sport Huancayo|30|Juan Martínez|Delantero centro|12/02/2005 (20)|Perú|1,78m|Derecho|01/01/2024|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|1|Carlos Grados|Portero|15/05/1995 (30)|Perú|1,83m|Derecho|01/01/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|25|Éder Hermoza|Portero|04/04/1990 (35)|Perú|1,83m|Derecho|03/01/2024|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|13|Edú Azañero|Portero|31/08/2000 (25)|Perú|1,86m|Derecho|06/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|16|Gu-rum Choi |Defensa central|22/08/1998 (27)|Perú|Ambidiestro|Ambidiestro|01/01/2019|500000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|55|Gustavo Dulanto|Defensa central|09/05/1995 (30)|Perú, Italia|1,96m|Izquierdo|29/07/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|3|John Narváez|Defensa central|12/06/1991 (34)|Ecuador|1,80m|Derecho|20/01/2024|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|28|Jhair Soto|Defensa central|03/06/2003 (22)|Perú|1,79m|Derecho|01/01/2024|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|6|Fernando Bersano|Lateral izquierdo|03/01/1998 (27)|Argentina|1,68m|Izquierdo|01/01/2024|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|65|Arthur Gutiérrez|Lateral izquierdo|13/12/2000 (24)|Perú|1,78m|Izquierdo|28/08/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|14|Carlos Cabello|Lateral derecho|22/09/1997 (28)|Perú|1,75m|Derecho|01/01/2025|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|23|D'Alessandro Montenegro|Lateral derecho|14/06/2003 (22)|Perú|1,78m|Derecho|03/01/2024|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|24|Ángel Pérez|Lateral derecho|07/10/1989 (36)|Perú|1,76m|Derecho|01/01/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|8|Axel Moyano|Pivote|03/01/2001 (24)|Perú|1,75m|Derecho|10/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|88|Gerson Barreto|Mediocentro|18/08/1995 (30)|Perú|1,79m|Derecho|14/02/2025|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|29|Ademar Robles|Mediocentro|29/11/1994 (30)|Perú|1,78m|Izquierdo|06/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|15|Josue Alvino|Mediocentro|24/09/2003 (22)|Perú|1,72m|Derecho|01/04/2024|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|22|Jair Reyes|Mediocentro|09/02/2004 (21)|Perú|1,80m|Derecho|01/04/2025|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|10|Víctor Cedrón |Mediocentro ofensivo|06/10/1993 (32)|Perú|1,73m|Izquierdo|01/02/2023|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|7|Joao Rojas|Mediocentro ofensivo|14/06/1989 (36)|Ecuador, México|1,74m|Derecho|01/01/2024|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|27|Alexander Hidalgo|Mediocentro ofensivo|16/05/2003 (22)|Perú|1,78m|Izquierdo|03/01/2024|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|18|Óscar Pinto|Extremo izquierdo|20/01/2002 (23)|Perú|1,79m|Derecho|29/01/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|77|Mauro Da Luz|Extremo derecho|05/09/1994 (31)|Uruguay|1,74m|Derecho|01/01/2025|375000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|26|Jhojan Garcilazo|Extremo derecho|14/01/2005 (20)|Perú|1,78m|Derecho|19/07/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|31|Nazareno Bazán|Delantero centro|08/03/1999 (26)|Argentina|1,84m|Derecho|26/07/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|99|Paulo Rodríguez|Delantero centro|17/03/2003 (22)|Perú|1,77m|Izquierdo|22/08/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Asociación Deportiva Tarma|9|Hernán Rengifo|Delantero centro|18/04/1983 (42)|Perú|1,83m|Derecho|01/01/2022|10000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|21|Diego Campos|Portero|28/05/1996 (29)|Perú|1,89m|Derecho|01/01/2025|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|1|Fernando Sánchez|Portero|09/09/1992 (33)|Perú|1,80m||01/01/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|12|Manuel Heredia|Portero|09/01/1986 (39)|Perú|1,88m|Derecho|01/01/2025|10000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|3|Leonardo Rugel|Defensa central|02/06/2001 (24)|Perú|1,88m|Derecho|01/01/2025|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|24|Farid Romero|Defensa central|08/09/1998 (27)|Colombia|1,90m|Derecho|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|6|José Luján|Defensa central|12/01/1997 (28)|Perú|1,85m|Izquierdo|01/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|4|Koichi Aparicio  |Defensa central|06/06/1992 (33)|Perú|1,89m|Derecho|01/01/2024|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|25|Anthony Rosell|Lateral izquierdo|20/04/1995 (30)|Perú|1,75m|Izquierdo|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|5|Joaquín Aguirre|Lateral izquierdo|24/07/1995 (30)|Perú|1,78m|Izquierdo|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|7|Yehider Ibargüen|Lateral izquierdo|18/06/2003 (22)|Colombia||Izquierdo|01/01/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|17|Luis Garro|Lateral derecho|20/07/1996 (29)|Perú|1,76m|Derecho|01/01/2025|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|16|Roberto Villamarín|Lateral derecho|25/09/1997 (28)|Perú|1,75m|Derecho|01/01/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|23|Mijailov Cabanillas|Lateral derecho|05/01/2000 (25)|Perú|1,78m|Derecho|02/02/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|27|Piero Serra|Pivote|03/07/1997 (28)|Perú|1,80m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|14|Luis Álvarez|Pivote|17/05/1990 (35)|Perú|1,85m|Derecho|01/01/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|15|Joshua Cantt|Pivote|10/03/2003 (22)|Perú|1,69m|Derecho|18/07/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|13|Freddy Oncoy|Mediocentro|29/09/2000 (25)|Perú|1,82m|Derecho|01/01/2025|375000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|8|Cristian Mejía|Mediocentro|15/12/1992 (32)|Perú|1,79m|Derecho|01/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|20|André Vasquez|Mediocentro ofensivo|30/01/2003 (22)|Perú|1,70m|Derecho|01/01/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|10|Erinson Ramírez|Mediocentro ofensivo|15/03/1998 (27)|Perú|1,78m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|26|Juan Cruz Vega|Mediocentro ofensivo|09/06/1998 (27)|Argentina|1,66m|Derecho|23/07/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|19|Brandon Palacios|Extremo derecho|26/03/1998 (27)|Perú, México|1,76m|Izquierdo|01/01/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|22|Geimer Balanta|Extremo derecho|15/01/1993 (32)|Colombia|1,74m|Derecho|01/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|28|Leonardo de la Cruz|Extremo derecho|01/01/2001 (24)|Perú|1,77m|Derecho|01/01/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|30|Maycol Infante|Extremo derecho|20/07/2005 (20)|Perú|1,75m|Derecho|01/07/2022|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Universidad Técnica de Cajamarca|11|Jarlín Quintero|Delantero centro|19/08/1993 (32)|Colombia|1,88m|Derecho|01/01/2024|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|32|Franco Saravia |Portero|02/06/1999 (26)|Perú|1,85m|Derecho|01/01/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|29|Willy Díaz|Portero|15/05/1993 (32)|Perú|1,86m|Derecho|06/08/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|1|Hairo Camacho|Portero|05/04/1994 (31)|Perú|1,81m|Derecho|01/01/2025|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|12|Antony Sánchez|Portero|05/08/2004 (21)|Perú|1,89m|Derecho|15/02/2023|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|3|Franz Schmidt|Defensa central|03/05/2000 (25)|Perú|1,90m|Izquierdo|01/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|4|Ederson Mogollón|Defensa central|04/10/1992 (33)|Perú|1,82m|Derecho|01/02/2022|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|34|Ronald Vega|Defensa central|12/03/2000 (25)|Perú|1,82m|Izquierdo|22/07/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|33|Carlos Pimienta|Defensa central|19/01/1992 (33)|Uruguay|1,85m|Derecho|11/02/2025|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|2|Héctor González|Defensa central|29/08/1992 (33)|Argentina|Ambidiestro|Ambidiestro|01/01/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|31|Ayrthon Quintana|Lateral izquierdo|14/03/2001 (24)|Perú|1,68m|Izquierdo|01/07/2024|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|26|David Gonzáles|Lateral izquierdo|17/01/1997 (28)|Perú|1,75m|Izquierdo|01/01/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|23|Santiago Torres González|Lateral derecho|10/05/2000 (25)|Perú, Argentina|1,74m|Derecho|01/01/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|21|Fred Zamalloa|Lateral derecho|03/01/2004 (21)|Perú|1,83m|Derecho|01/01/2025|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|35|Kelvin Sánchez|Pivote|03/01/1999 (26)|Perú|1,80m|Izquierdo|16/07/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|17|Christian Velarde |Pivote|20/06/1998 (27)|Perú|1,78m|Derecho|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|28|David Dioses|Pivote|20/02/1996 (29)|Perú|1,79m|Derecho|25/07/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|5|Jorge Palomino|Pivote|07/09/1995 (30)|Perú|1,75m|Derecho|26/01/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|6|Jordan Guivin|Mediocentro|23/02/1998 (27)|Perú|1,70m|Derecho|01/01/2025|375000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|8|Adrián Quiroz|Mediocentro|08/06/1999 (26)|Perú|1,84m|Izquierdo|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|38|Braian Rivero|Mediocentro|22/02/1996 (29)|Argentina|1,70m|Derecho|05/08/2025|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|10|Franco Torres|Mediocentro ofensivo|28/08/1996 (29)|Argentina|1,74m|Derecho|02/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|7|José Manzaneda|Extremo izquierdo|10/09/1994 (31)|Perú|1,82m|Derecho|01/01/2024|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|18|Oshiro Takeuchi|Extremo derecho|13/10/1994 (31)|Perú|1,80m|Derecho|01/01/2023|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|11|Félix Espinoza|Extremo derecho|08/05/1999 (26)|Perú|1,75m|Derecho|22/07/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|9|Isaac Camargo|Delantero centro|14/12/1999 (25)|Colombia|1,76m|Derecho|01/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|CD Los Chankas|27|Pablo Bueno|Delantero centro|30/03/1990 (35)|Argentina|1,85m|Derecho|01/01/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|1|Patrick Zubczuk|Portero|21/02/1995 (30)|Perú, Argentina|1,88m|Derecho|01/01/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|31|Juniors Barbieri|Portero|20/01/1996 (29)|Perú|1,83m|Derecho|01/01/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|29|Miguel Ramírez|Portero|05/04/1991 (34)|Perú|1,80m|Derecho|02/01/2025|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|12|Mallki Marmanillo|Portero|08/04/2004 (21)|Perú|Ambidiestro|Ambidiestro|01/01/2024|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|2|Aldair Salazar|Defensa central|19/08/1994 (31)|Perú|1,79m|Derecho|01/01/2023|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|22|Jefferson Portales|Defensa central|29/11/1997 (27)|Perú|1,94m|Derecho|21/07/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|23|Xavi Moreno|Defensa central|13/08/2003 (22)|Perú|1,78m|Izquierdo|10/01/2025|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|13|Juan Diego Lojas|Defensa central|23/04/1989 (36)|Perú|1,88m|Derecho|01/01/2023|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|4|Frank Avendaño|Defensa central|31/05/2003 (22)|Perú|1,82m|Derecho|01/02/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|18|Orlando Núñez|Lateral izquierdo|16/01/2000 (25)|Perú|1,70m|Izquierdo|01/01/2025|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|55|Erick Canales|Lateral derecho|07/06/2001 (24)|Perú|1,77m|Derecho|01/01/2024|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|14|José Gallardo|Lateral derecho|15/02/2001 (24)|Perú|1,74m|Derecho|08/07/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|33|Samir Villacorta|Lateral derecho|13/08/2004 (21)|Perú|||01/01/2024|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|25|Enmanuel Páucar|Pivote|09/08/1996 (29)|Perú|1,76m|Derecho|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|16|Carlos Beltrán|Pivote|18/08/1990 (35)|Argentina, Perú|1,87m|Derecho|01/01/2024|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|6|Inti Garrafa|Pivote|10/09/1995 (30)|Perú|1,75m|Derecho|01/02/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|27|Joao Mendoza|Pivote|12/02/2007 (18)|Perú|||01/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|8|Nicolás Gómez|Mediocentro|25/02/1996 (29)|Argentina|1,79m|Izquierdo|01/01/2025|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|26|Yuriel Celi|Mediocentro ofensivo|20/02/2002 (23)|Perú|1,77m|Izquierdo|23/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|10|Kevin Sandoval|Extremo izquierdo|03/05/1997 (28)|Perú|1,75m|Izquierdo|01/01/2025|450000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|20|James Morales|Extremo izquierdo|12/04/2000 (25)|Perú|1,70m|Derecho|01/02/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|34|Francisco Arancibia |Extremo derecho|12/11/1996 (28)|Chile|1,69m|Izquierdo|21/07/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|38|José Sinisterra|Extremo derecho|23/07/1998 (27)|Colombia|1,71m|Derecho|24/07/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|7|Jorge Bazán|Extremo derecho|23/03/1991 (34)|Perú|1,75m|Derecho|01/01/2023|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|28|Jean Franco Valer|Extremo derecho|09/10/2004 (21)|Perú|1,78m|Derecho|01/01/2024|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|11|Pablo Erustes|Delantero centro|24/03/1994 (31)|Argentina|1,75m|Izquierdo|01/01/2024|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Garcilaso|19|Ezequiel Naya|Delantero centro|04/08/2001 (24)|Argentina|1,91m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|12|Ismael Quispe|Portero|23/08/1999 (26)|Perú|1,82m|Derecho|01/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|1|Jorge Stucchi|Portero|16/01/2002 (23)|Perú, Italia|1,80m|Derecho|25/01/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|23|Matías Vega|Portero|18/04/1986 (39)|Argentina|1,91m|Derecho|19/02/2024|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|3|Arón Sánchez|Defensa central|04/05/2003 (22)|Perú|1,85m|Derecho|20/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|26|Fabio Agurto|Defensa central|26/04/2005 (20)|Perú|1,78m|Derecho|20/02/2024|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|25|Renzo Alfani|Defensa central|18/02/1996 (29)|Argentina|1,90m|Derecho|19/02/2024|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|5|Martín Peralta|Defensa central|27/09/2003 (22)|Perú|1,81m|Derecho|01/01/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|18|Nilson Loyola|Lateral izquierdo|26/10/1994 (31)|Perú|1,75m|Izquierdo|06/09/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|27|Iván Santillán|Lateral izquierdo|06/05/1991 (34)|Perú|1,77m|Izquierdo|01/01/2025|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|17|Adriano Espinoza|Lateral izquierdo|26/05/2005 (20)|Perú|1,70m|Izquierdo|01/08/2024|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|31|Jorge Toledo|Lateral derecho|22/06/1996 (29)|Perú|1,75m|Derecho|01/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|16|Josué Canova|Lateral derecho|06/10/2004 (21)|Perú||Derecho|01/01/2023|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|6|Christian Flores|Pivote|12/01/2001 (24)|Perú|1,75m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|30|José Soto|Pivote|19/05/1997 (28)|Perú|1,78m|Derecho|01/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|21|Jhon Vega|Pivote|21/03/1995 (30)|Perú|1,81m|Derecho|10/07/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|37|Álvaro Rojas|Mediocentro|12/03/2005 (20)|Perú|1,71m|Derecho|08/02/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|32|Cristian Ramírez|Mediocentro ofensivo|29/03/1995 (30)|Argentina|1,80m|Izquierdo|18/07/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|11|Gustavo Aliaga|Mediocentro ofensivo|04/02/1991 (34)|Perú|1,77m|Izquierdo|01/01/2023|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|10|Cristhian Tizón|Extremo izquierdo|26/01/1996 (29)|Uruguay|1,75m|Izquierdo|02/02/2025|350000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|24|Jonathan García|Extremo izquierdo|27/08/2009 (16)|Perú|1,73m|Izquierdo|||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|14|Flavio Fernández |Extremo derecho|06/03/2001 (24)|Perú|1,80m|Derecho|17/07/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|7|Rely Fernández|Extremo derecho|01/11/1997 (28)|Perú|1,77m|Derecho|01/01/2025|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|13|Nahuel Rodríguez|Extremo derecho|04/03/2002 (23)|Perú|1,73m|Derecho|20/02/2024|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|77|Michel Rasmussen|Extremo derecho|14/08/1999 (26)|Perú, Dinamarca|1,75m|Derecho|06/09/2025|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|80|Jorge Barreto|Extremo derecho||Perú|||||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|9|Emiliano Villar|Delantero centro|21/10/1999 (26)|Uruguay|1,76m|Derecho|01/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|8|Tiago Cantoro|Delantero centro|06/01/2001 (24)|Perú, Argentina|1,81m|Derecho|01/01/2025|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|39|Mauricio Affonso|Delantero centro|26/01/1992 (33)|Uruguay|1,92m|Izquierdo|18/07/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Club Juan Pablo II College|19|Randy Ramirez|Delantero centro|17/03/2009 (16)|Perú|1,70m|Izquierdo|05/01/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|23|Juan Valencia|Portero|19/03/1993 (32)|Colombia|1,83m|Derecho|01/01/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|1|Paolo Izaguirre|Portero|12/02/1998 (27)|Perú|1,80m|Derecho|09/02/2025|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|21|Fabián Palomino|Portero|14/07/2003 (22)|Perú|1,83m|Derecho|01/01/2023|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|-|Oscar Cabrera|Portero|26/03/2008 (17)|Perú|1,84m|Derecho|01/02/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|3|Manuel Ganoza|Defensa central|09/06/1999 (26)|Perú|1,83m|Derecho|04/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|22|Jonathan Bilbao|Defensa central|29/07/1999 (26)|Perú, Venezuela|1,84m|Derecho|06/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|25|José Ataupillco |Defensa central|04/04/2001 (24)|Perú|1,80m|Izquierdo|01/01/2021|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|55|Brackson León|Defensa central|13/05/1995 (30)|Perú|1,82m|Derecho|21/07/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|4|Alonso Yovera|Lateral izquierdo|11/02/2001 (24)|Perú|1,82m|Izquierdo|01/02/2025|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|5|Alonso Tamariz|Lateral izquierdo|13/01/1998 (27)|Perú|1,79m|Izquierdo|01/01/2025|325000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|12|Dylan Caro|Lateral izquierdo|23/03/1999 (26)|Perú|1,70m|Izquierdo|06/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|29|Jean Franco Falconí|Lateral derecho|04/06/1996 (29)|Perú|1,75m|Derecho|02/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|26|Hans Aquino|Lateral derecho|07/08/2004 (21)|Perú|1,73m|Derecho|01/01/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|16|Jean Pier Vílchez|Pivote|18/09/2002 (23)|Perú|1,78m|Izquierdo|01/01/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|96|Pedro Peral|Pivote|02/09/1996 (29)|Perú|1,75m|Derecho|20/08/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|18|Derlis Orué|Pivote|02/01/1989 (36)|Paraguay|1,72m|Derecho|22/01/2025|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|20|Carlos Correa|Mediocentro|25/01/1995 (30)|Perú|1,65m|Derecho|04/01/2025|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|8|Diego Ramírez|Mediocentro|02/11/1994 (31)|Perú|1,75m|Derecho|07/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|6|Jime Tuesta|Mediocentro|27/01/2005 (20)|Perú|1,75m|Derecho|01/03/2024|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|66|Adrián de la Cruz|Mediocentro|17/09/2003 (22)|Perú|1,75m|Derecho|01/03/2024|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|-|Andres Aguilar|Mediocentro|30/04/2005 (20)|Perú, Inglaterra||Derecho|08/08/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|10|Marvin Ríos |Mediocentro ofensivo|29/08/1987 (38)|Perú|1,80m|Derecho|13/06/2023|25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|77|Juan Lucumí|Extremo izquierdo|01/06/1999 (26)|Colombia|1,85m|Izquierdo|04/01/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|14|Gustavo Loayza|Extremo izquierdo|09/01/2002 (23)|Perú|1,80m|Derecho|01/01/2025|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|15|Piero Ratto|Extremo izquierdo|11/05/1998 (27)|Perú|1,70m|Izquierdo|07/01/2025|150000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|35|Kevin Ferreyra|Extremo izquierdo|07/06/1999 (26)|Perú|1,80m|Derecho|01/05/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|88|Hideyoshi Arakaki|Extremo derecho|02/01/1998 (27)|Perú|1,65m|Derecho|21/07/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|27|Kenyi Barrios|Extremo derecho|16/03/1996 (29)|Perú|1,80m|Derecho|02/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|24|Maximiliano Pérez|Delantero centro|08/05/1995 (30)|Uruguay|1,85m|Derecho|02/01/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|9|Jiries Salem|Delantero centro|21/08/2001 (24)|Perú, Palestina|1,87m|Derecho|04/01/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|99|Franco Caballero|Delantero centro|07/03/1993 (32)|Argentina|1,82m|Derecho|01/08/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Ayacucho FC|33|Royer Salcedo|Delantero centro|01/02/2002 (23)|Perú|1,78m|Derecho|01/09/2025|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|23|Álvaro Villete|Portero|01/07/1991 (34)|Uruguay|1,88m|Derecho|07/01/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|28|Luis García|Portero|28/09/1999 (26)|Perú|1,90m|Derecho|01/01/2024|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|-|José Charún|Portero|25/01/1997 (28)|Perú|1,85m|Derecho|12/08/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|1|Fabrián Caytuiro|Portero|01/07/1999 (26)|Perú|1,83m|Derecho|01/03/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|37|Yordi Vílchez|Defensa central|13/02/1995 (30)|Perú|1,80m|Derecho|05/08/2025|400000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|31|Rotceh Aguilar|Defensa central|12/06/2001 (24)|Perú|1,75m|Derecho|06/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|40|Flavio Alcedo|Defensa central|19/01/2003 (22)|Perú|1,85m|Derecho|24/07/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|25|Williams Guzmán|Defensa central|21/08/2000 (25)|Perú|1,85m|Derecho|06/01/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|16|Nahuel Tecilla|Defensa central|16/01/1995 (30)|Argentina|1,94m|Izquierdo|22/01/2025|75000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|36|Gabriel Alfaro|Lateral izquierdo|13/06/2003 (22)|Perú|1,81m|Izquierdo|01/07/2024|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|26|Paolo Méndez|Lateral izquierdo|05/11/1998 (26)|Perú|1,67m|Izquierdo|15/02/2025|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|17|Pablo Cárdenas |Lateral derecho|10/02/2000 (25)|Perú, Chile|1,77m|Derecho|15/07/2025|375000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|35|Gilmar Paredes|Lateral derecho|08/01/2003 (22)|Perú|1,69m|Derecho|21/01/2025|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|6|Keyvin Paico|Pivote|08/04/1995 (30)|Perú|1,70m|Derecho|25/02/2023|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|20|José Parodi|Pivote|27/09/1997 (28)|Perú|1,79m|Derecho|01/01/2024|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|34|Ricardo Chipao|Pivote|20/04/1997 (28)|Perú|1,84m|Derecho|06/08/2025|225000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|22|Julián Marchioni|Mediocentro|11/03/1993 (32)|Argentina, España|1,81m|Izquierdo|17/07/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|30|José Marina|Mediocentro|30/05/1997 (28)|Perú|1,81m|Derecho|07/01/2025|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|12|Luis García|Mediocentro ofensivo|05/06/1988 (37)|Perú|1,77m|Derecho|15/02/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|99|Jhosep Núñez|Extremo izquierdo|04/11/2003 (22)|Perú|1,78m|Derecho|20/08/2025|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|15|Mathías Carpio|Extremo izquierdo|15/11/2002 (22)|Perú|1,70m|Izquierdo|22/01/2025|250000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|11|Alexander Lecaros|Extremo izquierdo|13/10/1999 (26)|Perú|1,69m|Izquierdo|01/01/2025|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|29|Carlos Saavedra|Extremo izquierdo|28/10/2007 (18)|Perú|1,70m|Derecho||25000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|9|Matías Sen |Delantero centro|29/10/1991 (34)|Argentina|1,84m|Derecho|01/02/2022|300000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|76|Nicolás Figueroa|Delantero centro|24/05/2002 (23)|Perú|1,87m|Derecho|21/07/2025|175000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Comerciantes Unidos|85|Gonzalo Sánchez|Delantero centro|06/05/2000 (25)|Perú, Italia|1,82m|Derecho|05/08/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Binacional|12|Facundo Silva|Portero|04/07/1996 (29)|Uruguay|1,90m|Derecho|22/07/2025|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Binacional|21|Ángel Azurín|Portero|29/05/1991 (34)|Perú|1,85m|Derecho|17/01/2025|100000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Binacional|3|Renato Montufar|Defensa central|25/01/2002 (23)|Perú|||03/02/2025||Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Binacional|24|Juan Ayqque|Lateral izquierdo|29/08/2003 (22)|Perú|1,73m|Izquierdo|23/01/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Binacional|-|Franco Medina|Lateral derecho|18/07/1999 (26)|Perú|1,79m|Derecho|07/08/2025|275000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Binacional|16|Pedro Ibáñez |Lateral derecho|16/01/2001 (24)|Perú|1,77m|Derecho|23/07/2025|200000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Binacional|19|Joaquín Revilla|Mediocentro|29/03/2004 (21)|Perú|1,84m|Derecho|01/08/2024|50000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Binacional|10|Róger Torres|Mediocentro ofensivo|13/07/1991 (34)|Colombia|1,69m|Derecho|16/01/2025|125000.0|Transfermarkt|2025|2025-11-04 10:17:25
+2025|Deportivo Binacional|-|Jeisson Martínez|Delantero centro|28/12/1994 (30)|Perú, España|1,80m|Derecho|13/08/2025|50000.0|Transfermarkt|2025|2025-11-04 10:17:25

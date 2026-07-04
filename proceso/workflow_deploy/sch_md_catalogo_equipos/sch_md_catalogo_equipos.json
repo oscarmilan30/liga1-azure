@@ -1,0 +1,71 @@
+{
+  "name": "schd_md_catalogo_equipos",
+  "email_notifications": {
+    "on_success": ["{USER}"],
+    "on_failure": ["{USER}"],
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {},
+  "notification_settings": {
+    "no_alert_for_skipped_runs": false,
+    "no_alert_for_canceled_runs": false
+  },
+  "timeout_seconds": 3600,
+  "max_concurrent_runs": 1,
+  "git_source": {
+    "git_url": "https://github.com/oscarmilan30/liga1-azure",
+    "git_provider": "gitHub",
+    "git_branch": "main"
+  },
+  "tasks": [
+    {
+      "task_key": "nb_curated_catalogo_equipos_dataentry",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_rdv/curated_dataentry/nb_curated_dataentry",
+        "base_parameters": {
+          "prm_pipelineid": "3"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false
+    },
+    {
+      "task_key": "nb_md_catalogo_equipos",
+      "depends_on": [
+        {
+          "task_key": "nb_curated_catalogo_equipos_dataentry"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_udv/notebooks/md_catalogo_equipos/nb_md_catalogo_equipos",
+        "base_parameters": {
+          "prm_pipelineid": "4"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false
+    }
+  ],
+  "tags": {
+    "Env": "Prod",
+    "Proyecto": "Liga1",
+    "Unidad": "Catalogo_Equipos"
+  },
+  "queue": {
+    "enabled": true
+  },
+  "performance_target": "PERFORMANCE_OPTIMIZED",
+  "run_as": {
+    "user_name": "{USER}"
+  }
+}

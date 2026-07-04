@@ -1,0 +1,26 @@
+table dm_tipo_tabla
+	lineageTag: d8f3075d-6677-4f9e-b853-4623a289ad96
+
+	column tipo_tabla
+		dataType: string
+		lineageTag: b8ed8702-ac80-42eb-8e29-7f3017cfeea6
+		summarizeBy: none
+		sourceColumn: tipo_tabla
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dm_tipo_tabla = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("adb-7405614695607627.7.azuredatabricks.net", "/sql/1.0/warehouses/b74f62ff6067bdf7", null),
+				    catalog_liga1_Database = Origen{[Name="catalog_liga1",Kind="Database"]}[Data],
+				    vw_ddv_Schema = catalog_liga1_Database{[Name="vw_ddv",Kind="Schema"]}[Data],
+				    dm_tipo_tabla_vw_View = vw_ddv_Schema{[Name="dm_tipo_tabla_vw",Kind="View"]}[Data]
+				in
+				    dm_tipo_tabla_vw_View
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

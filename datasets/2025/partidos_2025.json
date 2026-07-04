@@ -1,0 +1,2226 @@
+{
+  "fuente": "FotMob",
+  "temporada": 2025,
+  "fecha_carga": "2026-06-22 23:32:05",
+  "data": [
+    {
+      "fecha": "07-02-2025",
+      "local": "Sport Huancayo",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/es/matches/alianza-atletico-vs-sport-huancayo/6lqj55j#4711965"
+    },
+    {
+      "fecha": "08-02-2025",
+      "local": "FBC Melgar",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/es/matches/fbc-melgar-vs-cd-ut-cajamarca/16hqdrlg#4711964"
+    },
+    {
+      "fecha": "08-02-2025",
+      "local": "Atletico Grau",
+      "visitante": "Ayacucho FC",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/es/matches/ayacucho-fc-vs-atletico-grau/7ivegea5#4711960"
+    },
+    {
+      "fecha": "09-02-2025",
+      "local": "Alianza Lima",
+      "visitante": "Cusco FC",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/es/matches/alianza-lima-vs-cusco-fc/maq553r#4711961"
+    },
+    {
+      "fecha": "09-02-2025",
+      "local": "Alianza Universidad",
+      "visitante": "Sporting Cristal",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/es/matches/sporting-cristal-vs-alianza-universidad/my33tnw#4711963"
+    },
+    {
+      "fecha": "09-02-2025",
+      "local": "Sport Boys",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/es/matches/sport-boys-vs-adc-juan-pablo-ii/fvndpftb#4711966"
+    },
+    {
+      "fecha": "09-02-2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/es/matches/universitario-de-deportes-vs-comerciantes-unidos/1vbdw94o#4711962"
+    },
+    {
+      "fecha": "09-02-2025",
+      "local": "Cienciano",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/es/matches/cienciano-vs-asociacion-deportiva-tarma/7t9ddj0f#4711967"
+    },
+    {
+      "fecha": "10-02-2025",
+      "local": "Los Chankas",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/es/matches/los-chankas-vs-deportivo-garcilaso/hmkg7jqm#4711968"
+    },
+    {
+      "fecha": "14-02-2025",
+      "local": "Cusco FC",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/es/matches/fbc-melgar-vs-cusco-fc/m0ju08j#4721901"
+    },
+    {
+      "fecha": "Saturday, February 15, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Binacional",
+      "marcador": "0 - 4",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-binacional/bhoz1sym#4721900"
+    },
+    {
+      "fecha": "Saturday, February 15, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Atletico Grau",
+      "marcador": "4 - 3",
+      "url": "https://www.fotmob.com/matches/atletico-grau-vs-asociacion-deportiva-tarma/q6dgtbhr#4721902"
+    },
+    {
+      "fecha": "Saturday, February 15, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Alianza Lima",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-alianza-lima/ys3sq#4721903"
+    },
+    {
+      "fecha": "Sunday, February 16, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "Cienciano",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universitario-de-deportes/bnbiq#4721904"
+    },
+    {
+      "fecha": "Sunday, February 16, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-boys/bo4hq#4721905"
+    },
+    {
+      "fecha": "Sunday, February 16, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-adc-juan-pablo-ii/ja2mtugv#4721906"
+    },
+    {
+      "fecha": "Sunday, February 16, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-deportivo-garcilaso/dk3pqddv#4721907"
+    },
+    {
+      "fecha": "Monday, February 17, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Alianza Universidad",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-alianza-universidad/1gs6xwb5#4721908"
+    },
+    {
+      "fecha": "Saturday, February 22, 2025",
+      "local": "Alianza Lima",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-adc-juan-pablo-ii/fx387s32#4721909"
+    },
+    {
+      "fecha": "Saturday, February 22, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Los Chankas",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-los-chankas/afbk4m9d#4721910"
+    },
+    {
+      "fecha": "Saturday, February 22, 2025",
+      "local": "Sport Boys",
+      "visitante": "Ayacucho FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-ayacucho-fc/6lqmrzk#4721911"
+    },
+    {
+      "fecha": "Saturday, February 22, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-huancayo/6elujhm#4721912"
+    },
+    {
+      "fecha": "Sunday, February 23, 2025",
+      "local": "Cienciano",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-deportivo-garcilaso/5fj3g7wh#4721913"
+    },
+    {
+      "fecha": "Sunday, February 23, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-asociacion-deportiva-tarma/cugx1adv#4721914"
+    },
+    {
+      "fecha": "Monday, February 24, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-fbc-melgar/n76yz#4721916"
+    },
+    {
+      "fecha": "Monday, February 24, 2025",
+      "local": "Binacional",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-binacional/9iq5o43a#4721917"
+    },
+    {
+      "fecha": "Thursday, February 27, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-asociacion-deportiva-tarma/7ukej2gu#4722859"
+    },
+    {
+      "fecha": "Friday, February 28, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-garcilaso-vs-atletico-grau/lmzuu2k2#4722856"
+    },
+    {
+      "fecha": "Saturday, March 1, 2025",
+      "local": "Cusco FC",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-cd-ut-cajamarca/3ep180ys#4722852"
+    },
+    {
+      "fecha": "Saturday, March 1, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Binacional",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-binacional/5eqbyerb#4722857"
+    },
+    {
+      "fecha": "Sunday, March 2, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-lima/k8xcb#4722858"
+    },
+    {
+      "fecha": "Sunday, March 2, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-sport-huancayo/p24b128#4722853"
+    },
+    {
+      "fecha": "Sunday, March 2, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "Alianza Universidad",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-universidad/nbisvoe#4722855"
+    },
+    {
+      "fecha": "Friday, March 7, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-deportivo-garcilaso/9qcfbqd1#4722867"
+    },
+    {
+      "fecha": "Saturday, March 8, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Ayacucho FC",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-ayacucho-fc/6rcapfn#4722865"
+    },
+    {
+      "fecha": "Saturday, March 8, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cd-ut-cajamarca/16hol8hj#4722864"
+    },
+    {
+      "fecha": "Saturday, March 8, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-asociacion-deportiva-tarma/aaeffaum#4722866"
+    },
+    {
+      "fecha": "Saturday, March 8, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-fbc-melgar/bosnq#4722868"
+    },
+    {
+      "fecha": "Sunday, March 9, 2025",
+      "local": "Sport Boys",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-boys/n6243#4722863"
+    },
+    {
+      "fecha": "Monday, March 10, 2025",
+      "local": "Cienciano",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-comerciantes-unidos/1uohgcd2#4722860"
+    },
+    {
+      "fecha": "Monday, March 10, 2025",
+      "local": "Atletico Grau",
+      "visitante": "Los Chankas",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/los-chankas-vs-atletico-grau/hmkh768k#4722862"
+    },
+    {
+      "fecha": "Monday, March 10, 2025",
+      "local": "Binacional",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/binacional-vs-adc-juan-pablo-ii/13jk5jmq1#4722861"
+    },
+    {
+      "fecha": "Sunday, March 23, 2025",
+      "local": "Los Chankas",
+      "visitante": "Cienciano",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-los-chankas/3iv326vz#4722851"
+    },
+    {
+      "fecha": "Thursday, March 27, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-atletico-grau/dk3qlm6i#4722869"
+    },
+    {
+      "fecha": "Thursday, March 27, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-ayacucho-fc/6lr4y5z#4722875"
+    },
+    {
+      "fecha": "Friday, March 28, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 4",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cusco-fc/m0ijk39#4722872"
+    },
+    {
+      "fecha": "Saturday, March 29, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "Sport Huancayo",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-huancayo/6lqfibk#4722874"
+    },
+    {
+      "fecha": "Saturday, March 29, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Alianza Lima",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-asociacion-deportiva-tarma/7vkv5n09#4722876"
+    },
+    {
+      "fecha": "Saturday, March 29, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Binacional",
+      "marcador": "5 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-binacional/5dndg7ok#4722877"
+    },
+    {
+      "fecha": "Saturday, March 29, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Sport Boys",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-deportivo-garcilaso/5gmbhvfg#4722870"
+    },
+    {
+      "fecha": "Sunday, March 30, 2025",
+      "local": "Los Chankas",
+      "visitante": "Alianza Universidad",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-los-chankas/73xauugj#4722873"
+    },
+    {
+      "fecha": "Sunday, March 30, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "4 - 2",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-adc-juan-pablo-ii/phq6ajfj#4722871"
+    },
+    {
+      "fecha": "Friday, April 4, 2025",
+      "local": "Binacional",
+      "visitante": "Ayacucho FC",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-binacional/7gnlbi42#4722878"
+    },
+    {
+      "fecha": "Saturday, April 5, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-deportivo-garcilaso/7ivegea4#4722879"
+    },
+    {
+      "fecha": "Saturday, April 5, 2025",
+      "local": "Atletico Grau",
+      "visitante": "Cienciano",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-atletico-grau/5fj3zzt8#4722880"
+    },
+    {
+      "fecha": "Saturday, April 5, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-asociacion-deportiva-tarma/7ukhtxjd#4722881"
+    },
+    {
+      "fecha": "Sunday, April 6, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-lima/yrvgi#4722883"
+    },
+    {
+      "fecha": "Sunday, April 6, 2025",
+      "local": "Cusco FC",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "4 - 2",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-adc-juan-pablo-ii/mie6vk6t#4722882"
+    },
+    {
+      "fecha": "Sunday, April 6, 2025",
+      "local": "Sport Boys",
+      "visitante": "Los Chankas",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-los-chankas/3jqou07y#4722886"
+    },
+    {
+      "fecha": "Sunday, April 6, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Sporting Cristal",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cd-ut-cajamarca/15ziqkz2#4722885"
+    },
+    {
+      "fecha": "Sunday, April 6, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-comerciantes-unidos/4metz4te#4722884"
+    },
+    {
+      "fecha": "Friday, April 11, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-cd-ut-cajamarca/286o8bnk#4722895"
+    },
+    {
+      "fecha": "Friday, April 11, 2025",
+      "local": "Los Chankas",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-los-chankas/58qptfym#4722889"
+    },
+    {
+      "fecha": "Saturday, April 12, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-adc-juan-pablo-ii/fvnbttas#4722888"
+    },
+    {
+      "fecha": "Sunday, April 13, 2025",
+      "local": "Cienciano",
+      "visitante": "Alianza Universidad",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-universidad/my2ji0w#4722887"
+    },
+    {
+      "fecha": "Sunday, April 13, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cusco-fc/lnggfqt#4722890"
+    },
+    {
+      "fecha": "Sunday, April 13, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 4",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-comerciantes-unidos/1vbev29o#4722892"
+    },
+    {
+      "fecha": "Sunday, April 13, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Binacional",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/binacional-vs-asociacion-deportiva-tarma/q28gomj4#4722894"
+    },
+    {
+      "fecha": "Monday, April 14, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "FBC Melgar",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-fbc-melgar/n705s#4722891"
+    },
+    {
+      "fecha": "Tuesday, April 15, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-deportivo-garcilaso/5hgqn17j#4722893"
+    },
+    {
+      "fecha": "Friday, April 18, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "Atletico Grau",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-atletico-grau/9qcg27aw#4722904"
+    },
+    {
+      "fecha": "Friday, April 18, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-deportivo-garcilaso/5gme90vv#4722899"
+    },
+    {
+      "fecha": "Friday, April 18, 2025",
+      "local": "Binacional",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-binacional/5eqbeob1#4722901"
+    },
+    {
+      "fecha": "Saturday, April 19, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Los Chankas",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-los-chankas/3kf7s461#4722900"
+    },
+    {
+      "fecha": "Saturday, April 19, 2025",
+      "local": "Sport Boys",
+      "visitante": "Cienciano",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-boys/bnq05#4722897"
+    },
+    {
+      "fecha": "Saturday, April 19, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-atletico/bnutx#4722902"
+    },
+    {
+      "fecha": "Sunday, April 20, 2025",
+      "local": "Cusco FC",
+      "visitante": "Ayacucho FC",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-cusco-fc/1et4exfw#4722898"
+    },
+    {
+      "fecha": "Sunday, April 20, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-asociacion-deportiva-tarma/exziuwem#4722896"
+    },
+    {
+      "fecha": "Sunday, April 20, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "4 - 2",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-comerciantes-unidos/3584sfik#4722903"
+    },
+    {
+      "fecha": "Saturday, April 26, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-ayacucho-fc/6lqfibl#4722910"
+    },
+    {
+      "fecha": "Saturday, April 26, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Binacional",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/binacional-vs-deportivo-garcilaso/lj8ecfzy#4722913"
+    },
+    {
+      "fecha": "Sunday, April 27, 2025",
+      "local": "Los Chankas",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-los-chankas/3jqr1xbd#4722912"
+    },
+    {
+      "fecha": "Sunday, April 27, 2025",
+      "local": "Atletico Grau",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 3",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-atletico-grau/5gmc1pbi#4722909"
+    },
+    {
+      "fecha": "Sunday, April 27, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "6 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cd-ut-cajamarca/16hoc0m8#4722911"
+    },
+    {
+      "fecha": "Monday, April 28, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-adc-juan-pablo-ii/ftsjg2cd#4722908"
+    },
+    {
+      "fecha": "Monday, April 28, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-asociacion-deportiva-tarma/col7yt1i#4722905"
+    },
+    {
+      "fecha": "Tuesday, April 29, 2025",
+      "local": "Cienciano",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-huancayo/6eljsxa#4722907"
+    },
+    {
+      "fecha": "Friday, May 2, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-comerciantes-unidos/1vbgh2uk#4722922"
+    },
+    {
+      "fecha": "Friday, May 2, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "Atletico Grau",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-atletico-grau/7ivf3o72#4722917"
+    },
+    {
+      "fecha": "Saturday, May 3, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Cienciano",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-lima/k8e98#4722921"
+    },
+    {
+      "fecha": "Saturday, May 3, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-deportivo-garcilaso/bkfy53jg#4722919"
+    },
+    {
+      "fecha": "Saturday, May 3, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Ayacucho FC",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-adc-juan-pablo-ii/ja2lsl6p#4722920"
+    },
+    {
+      "fecha": "Saturday, May 3, 2025",
+      "local": "Cusco FC",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cusco-fc/m0icx7r#4722918"
+    },
+    {
+      "fecha": "Sunday, May 4, 2025",
+      "local": "Sport Boys",
+      "visitante": "Alianza Universidad",
+      "marcador": "4 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-universidad/nbjdd95#4722915"
+    },
+    {
+      "fecha": "Sunday, May 4, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-asociacion-deportiva-tarma/7ukd7iuf#4722914"
+    },
+    {
+      "fecha": "Sunday, May 4, 2025",
+      "local": "Binacional",
+      "visitante": "Los Chankas",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/los-chankas-vs-binacional/hj68hp1s#4722916"
+    },
+    {
+      "fecha": "Friday, May 9, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Binacional",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-binacional/dh4jr45d#4722926"
+    },
+    {
+      "fecha": "Saturday, May 10, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 4",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-ayacucho-fc/6elqymu#4722923"
+    },
+    {
+      "fecha": "Saturday, May 10, 2025",
+      "local": "Atletico Grau",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-atletico-grau/5hgr6wmr#4722927"
+    },
+    {
+      "fecha": "Sunday, May 11, 2025",
+      "local": "Cienciano",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-fbc-melgar/boe5q#4722929"
+    },
+    {
+      "fecha": "Sunday, May 11, 2025",
+      "local": "Los Chankas",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-los-chankas/8otzgijy#4722931"
+    },
+    {
+      "fecha": "Sunday, May 11, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/asociacion-deportiva-tarma-vs-adc-juan-pablo-ii/19r5neajd#4722930"
+    },
+    {
+      "fecha": "Sunday, May 11, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-deportivo-garcilaso/9l89b2ps#4722924"
+    },
+    {
+      "fecha": "Sunday, May 11, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-atletico/n5oi0#4722925"
+    },
+    {
+      "fecha": "Monday, May 12, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-alianza-universidad/1gs7866y#4722928"
+    },
+    {
+      "fecha": "Friday, May 16, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-deportivo-garcilaso/5gmae7nh#4722940"
+    },
+    {
+      "fecha": "Saturday, May 17, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-comerciantes-unidos/5wuqatd8#4722932"
+    },
+    {
+      "fecha": "Saturday, May 17, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-asociacion-deportiva-tarma/7t9fcoic#4722933"
+    },
+    {
+      "fecha": "Saturday, May 17, 2025",
+      "local": "Cusco FC",
+      "visitante": "Los Chankas",
+      "marcador": "3 - 3",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-los-chankas/6zjzskfa#4722934"
+    },
+    {
+      "fecha": "Sunday, May 18, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-sport-huancayo/6lqqetk#4722939"
+    },
+    {
+      "fecha": "Sunday, May 18, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-adc-juan-pablo-ii/fvnaw01k#4722938"
+    },
+    {
+      "fecha": "Sunday, May 18, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-atletico-grau/5gmesus2#4722935"
+    },
+    {
+      "fecha": "Monday, May 19, 2025",
+      "local": "Binacional",
+      "visitante": "Cienciano",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-binacional/5dnbt69b#4722937"
+    },
+    {
+      "fecha": "Tuesday, May 20, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Alianza Universidad",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-alianza-universidad/nm1awsw#4722936"
+    },
+    {
+      "fecha": "Friday, May 23, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "Sporting Cristal",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universitario-de-deportes/bnq02#4722947"
+    },
+    {
+      "fecha": "Friday, May 23, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-alianza-universidad/nbkbika#4722949"
+    },
+    {
+      "fecha": "Saturday, May 24, 2025",
+      "local": "Sport Boys",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-lima/yskh9#4722944"
+    },
+    {
+      "fecha": "Saturday, May 24, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-comerciantes-unidos/4iw45mbf#4722946"
+    },
+    {
+      "fecha": "Saturday, May 24, 2025",
+      "local": "Atletico Grau",
+      "visitante": "Binacional",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/binacional-vs-atletico-grau/lj8fftj8#4722942"
+    },
+    {
+      "fecha": "Saturday, May 24, 2025",
+      "local": "Cienciano",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "6 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cd-ut-cajamarca/15zhz3at#4722948"
+    },
+    {
+      "fecha": "Sunday, May 25, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Ayacucho FC",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-asociacion-deportiva-tarma/aaeeo30i#4722941"
+    },
+    {
+      "fecha": "Sunday, May 25, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-garcilaso-vs-adc-juan-pablo-ii/13onm3qbv#4722943"
+    },
+    {
+      "fecha": "Sunday, June 1, 2025",
+      "local": "Los Chankas",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-los-chankas/3jqny1dz#4722945"
+    },
+    {
+      "fecha": "Thursday, June 12, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-comerciantes-unidos/1vbe7uub#4722955"
+    },
+    {
+      "fecha": "Friday, June 13, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Atletico Grau",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-atletico-grau/bkfyxyhq#4722953"
+    },
+    {
+      "fecha": "Saturday, June 14, 2025",
+      "local": "Cusco FC",
+      "visitante": "Cienciano",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cusco-fc/lnfwp1z#4722952"
+    },
+    {
+      "fecha": "Saturday, June 14, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-fbc-melgar/n7klg#4722951"
+    },
+    {
+      "fecha": "Saturday, June 14, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Los Chankas",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/los-chankas-vs-adc-juan-pablo-ii/y6g1z2rd#4722950"
+    },
+    {
+      "fecha": "Sunday, June 15, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-sport-huancayo/6rcedst#4722954"
+    },
+    {
+      "fecha": "Sunday, June 15, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-deportivo-garcilaso/5fj53jmq#4722957"
+    },
+    {
+      "fecha": "Sunday, June 15, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-ayacucho-fc/6lqbvhn#4722958"
+    },
+    {
+      "fecha": "Sunday, June 15, 2025",
+      "local": "Binacional",
+      "visitante": "Alianza Universidad",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-binacional/9ntnp7b7#4722956"
+    },
+    {
+      "fecha": "Thursday, June 19, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-comerciantes-unidos/1vt7tuti#4722906"
+    },
+    {
+      "fecha": "Thursday, June 19, 2025",
+      "local": "Atletico Grau",
+      "visitante": "Cusco FC",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-atletico-grau/9l8a1co9#4722966"
+    },
+    {
+      "fecha": "Friday, June 20, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-cd-ut-cajamarca/3hr3lh0p#4722964"
+    },
+    {
+      "fecha": "Saturday, June 21, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "5 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-asociacion-deportiva-tarma/7ukcjr19#4722961"
+    },
+    {
+      "fecha": "Saturday, June 21, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-sport-huancayo/6lr8l04#4722967"
+    },
+    {
+      "fecha": "Saturday, June 21, 2025",
+      "local": "Los Chankas",
+      "visitante": "Sporting Cristal",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-los-chankas/3iv4dz78#4722965"
+    },
+    {
+      "fecha": "Sunday, June 22, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Ayacucho FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-deportivo-garcilaso/7ivdt4d8#4722959"
+    },
+    {
+      "fecha": "Sunday, June 22, 2025",
+      "local": "Sport Boys",
+      "visitante": "Binacional",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-binacional/5eqd1vny#4722963"
+    },
+    {
+      "fecha": "Sunday, June 22, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-adc-juan-pablo-ii/seq8r9ek#4722960"
+    },
+    {
+      "fecha": "Sunday, June 22, 2025",
+      "local": "Cienciano",
+      "visitante": "Alianza Atletico",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-atletico/bngci#4722962"
+    },
+    {
+      "fecha": "Thursday, June 26, 2025",
+      "local": "Atletico Grau",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-atletico-grau/5gmae7ni#4721915"
+    },
+    {
+      "fecha": "Friday, June 27, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Los Chankas",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-los-chankas/58qpa0iq#4722973"
+    },
+    {
+      "fecha": "Friday, June 27, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Cienciano",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-adc-juan-pablo-ii/ftsgmsia#4722971"
+    },
+    {
+      "fecha": "Friday, June 27, 2025",
+      "local": "Binacional",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-binacional/7gnlyola#4722976"
+    },
+    {
+      "fecha": "Saturday, June 28, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-garcilaso-vs-asociacion-deportiva-tarma/q6dflwlm#4722974"
+    },
+    {
+      "fecha": "Saturday, June 28, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cd-ut-cajamarca/16hp3o88#4722968"
+    },
+    {
+      "fecha": "Saturday, June 28, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-alianza-lima/ytq72#4722975"
+    },
+    {
+      "fecha": "Sunday, June 29, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-comerciantes-unidos/1uoiezke#4722969"
+    },
+    {
+      "fecha": "Sunday, June 29, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-atletico-grau/5gmay1jh#4722972"
+    },
+    {
+      "fecha": "Sunday, June 29, 2025",
+      "local": "Cusco FC",
+      "visitante": "Alianza Universidad",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-alianza-universidad/2g4eysz1#4722970"
+    },
+    {
+      "fecha": "Wednesday, July 2, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-adc-juan-pablo-ii/fvniei44#4722854"
+    },
+    {
+      "fecha": "Friday, July 4, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cd-ut-cajamarca/286okzjs#4722985"
+    },
+    {
+      "fecha": "Friday, July 4, 2025",
+      "local": "Los Chankas",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/los-chankas-vs-asociacion-deportiva-tarma/lqs5phz4#4722984"
+    },
+    {
+      "fecha": "Saturday, July 5, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Ayacucho FC",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-comerciantes-unidos/3584ddrz#4722981"
+    },
+    {
+      "fecha": "Saturday, July 5, 2025",
+      "local": "Cienciano",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sporting-cristal/428ir#4722983"
+    },
+    {
+      "fecha": "Saturday, July 5, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-alianza-universidad/nbizpja#4722980"
+    },
+    {
+      "fecha": "Sunday, July 6, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Binacional",
+      "marcador": "5 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-binacional/5fkmxj61#4722977"
+    },
+    {
+      "fecha": "Sunday, July 6, 2025",
+      "local": "Sport Boys",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cusco-fc/m0iwtuc#4722979"
+    },
+    {
+      "fecha": "Sunday, July 6, 2025",
+      "local": "Atletico Grau",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/atletico-grau-vs-adc-juan-pablo-ii/13onnl6o2#4722982"
+    },
+    {
+      "fecha": "Sunday, July 6, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-deportivo-garcilaso/5gm9udrj#4722978"
+    },
+    {
+      "fecha": "Friday, July 11, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-asociacion-deportiva-tarma/h71pkzwx#4722989"
+    },
+    {
+      "fecha": "Saturday, July 12, 2025",
+      "local": "Binacional",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-binacional/5eqfsjy1#4722993"
+    },
+    {
+      "fecha": "Saturday, July 12, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cd-ut-cajamarca/16vuu6rh#4722994"
+    },
+    {
+      "fecha": "Saturday, July 12, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "Los Chankas",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-los-chankas/3jqni1z1#4722991"
+    },
+    {
+      "fecha": "Saturday, July 12, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-boys/n68x5#4722986"
+    },
+    {
+      "fecha": "Sunday, July 13, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-atletico-grau/5fj5nbjk#4722987"
+    },
+    {
+      "fecha": "Sunday, July 13, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Cienciano",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-ayacucho-fc/6elg82l#4722992"
+    },
+    {
+      "fecha": "Sunday, July 13, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Alianza Universidad",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-adc-juan-pablo-ii/mq7zxjpy#4722988"
+    },
+    {
+      "fecha": "Sunday, July 13, 2025",
+      "local": "Cusco FC",
+      "visitante": "Sport Huancayo",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cusco-fc/1et4p0cb#4722990"
+    },
+    {
+      "fecha": "Friday, July 18, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-huancayo/6lqj55j#4841541"
+    },
+    {
+      "fecha": "Saturday, July 19, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Los Chankas",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/los-chankas-vs-deportivo-garcilaso/hmkg7jqm#4841542"
+    },
+    {
+      "fecha": "Saturday, July 19, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-comerciantes-unidos/1vbdw94o#4841543"
+    },
+    {
+      "fecha": "Saturday, July 19, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cd-ut-cajamarca/16hqdrlg#4841544"
+    },
+    {
+      "fecha": "Saturday, July 19, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Cienciano",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-asociacion-deportiva-tarma/7t9ddj0f#4841545"
+    },
+    {
+      "fecha": "Saturday, July 19, 2025",
+      "local": "Cusco FC",
+      "visitante": "Alianza Lima",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cusco-fc/maq553r#4841546"
+    },
+    {
+      "fecha": "Sunday, July 20, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Alianza Universidad",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-universidad/my33tnw#4841547"
+    },
+    {
+      "fecha": "Sunday, July 20, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-atletico-grau/7ivegea5#4841548"
+    },
+    {
+      "fecha": "Sunday, July 20, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-adc-juan-pablo-ii/fvndpftb#4841549"
+    },
+    {
+      "fecha": "Friday, July 25, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "5 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-adc-juan-pablo-ii/ja2mtugv#4841550"
+    },
+    {
+      "fecha": "Friday, July 25, 2025",
+      "local": "Binacional",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-binacional/bhoz1sym#4841551"
+    },
+    {
+      "fecha": "Saturday, July 26, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "Ayacucho FC",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-alianza-universidad/1gs6xwb5#4841552"
+    },
+    {
+      "fecha": "Saturday, July 26, 2025",
+      "local": "Sport Boys",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-boys/bo4hq#4841554"
+    },
+    {
+      "fecha": "Saturday, July 26, 2025",
+      "local": "Cienciano",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universitario-de-deportes/bnbiq#4841555"
+    },
+    {
+      "fecha": "Sunday, July 27, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Cusco FC",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cusco-fc/m0ju08j#4841556"
+    },
+    {
+      "fecha": "Sunday, July 27, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-deportivo-garcilaso/dk3pqddv#4841557"
+    },
+    {
+      "fecha": "Sunday, July 27, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-alianza-lima/ys3sq#4841558"
+    },
+    {
+      "fecha": "Wednesday, July 30, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-ayacucho-fc/6lqmrzk#4864008"
+    },
+    {
+      "fecha": "Wednesday, July 30, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Sport Huancayo",
+      "marcador": "5 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-huancayo/6elujhm#4864009"
+    },
+    {
+      "fecha": "Thursday, July 31, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Alianza Universidad",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-asociacion-deportiva-tarma/cugx1adv#4864010"
+    },
+    {
+      "fecha": "Thursday, July 31, 2025",
+      "local": "Cusco FC",
+      "visitante": "Binacional",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-binacional/9iq5o43a#4864011"
+    },
+    {
+      "fecha": "Friday, August 1, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-adc-juan-pablo-ii/fx387s32#4864012"
+    },
+    {
+      "fecha": "Friday, August 1, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "Atletico Grau",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-atletico-grau/5gmae7ni#4864013"
+    },
+    {
+      "fecha": "Friday, August 1, 2025",
+      "local": "Los Chankas",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-los-chankas/afbk4m9d#4864014"
+    },
+    {
+      "fecha": "Friday, August 1, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-fbc-melgar/n76yz#4864015"
+    },
+    {
+      "fecha": "Saturday, August 2, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Cienciano",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-deportivo-garcilaso/5fj3g7wh#4864016"
+    },
+    {
+      "fecha": "Sunday, August 3, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "Ayacucho FC",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-sport-huancayo/p24b128#4864017"
+    },
+    {
+      "fecha": "Monday, August 4, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-cd-ut-cajamarca/3ep180ys#4864018"
+    },
+    {
+      "fecha": "Monday, August 4, 2025",
+      "local": "Sport Boys",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-asociacion-deportiva-tarma/7ukej2gu#4864019"
+    },
+    {
+      "fecha": "Tuesday, August 5, 2025",
+      "local": "Cienciano",
+      "visitante": "Los Chankas",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-los-chankas/3iv326vz#4864020"
+    },
+    {
+      "fecha": "Tuesday, August 5, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-universidad/nbisvoe#4864021"
+    },
+    {
+      "fecha": "Tuesday, August 5, 2025",
+      "local": "FBC Melgar",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-adc-juan-pablo-ii/fvniei44#4864022"
+    },
+    {
+      "fecha": "Wednesday, August 6, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-lima/k8xcb#4864023"
+    },
+    {
+      "fecha": "Wednesday, August 6, 2025",
+      "local": "Atletico Grau",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-garcilaso-vs-atletico-grau/lmzuu2k2#4864024"
+    },
+    {
+      "fecha": "Wednesday, August 6, 2025",
+      "local": "Binacional",
+      "visitante": "Alianza Atletico",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-binacional/5eqbyerb#4864025"
+    },
+    {
+      "fecha": "Friday, August 8, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Cienciano",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-comerciantes-unidos/1uohgcd2#4911420"
+    },
+    {
+      "fecha": "Saturday, August 9, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-ayacucho-fc/6rcapfn#4911421"
+    },
+    {
+      "fecha": "Saturday, August 9, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-asociacion-deportiva-tarma/aaeffaum#4911422"
+    },
+    {
+      "fecha": "Saturday, August 9, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-boys/n6243#4911423"
+    },
+    {
+      "fecha": "Sunday, August 10, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-fbc-melgar/bosnq#4911424"
+    },
+    {
+      "fecha": "Sunday, August 10, 2025",
+      "local": "Los Chankas",
+      "visitante": "Atletico Grau",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/los-chankas-vs-atletico-grau/hmkh768k#4911425"
+    },
+    {
+      "fecha": "Sunday, August 10, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Binacional",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/binacional-vs-adc-juan-pablo-ii/13jk5jmq1#4911426"
+    },
+    {
+      "fecha": "Monday, August 11, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cd-ut-cajamarca/16hol8hj#4911427"
+    },
+    {
+      "fecha": "Tuesday, August 12, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Alianza Universidad",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-deportivo-garcilaso/9qcfbqd1#4911428"
+    },
+    {
+      "fecha": "Friday, August 15, 2025",
+      "local": "Atletico Grau",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-atletico-grau/dk3qlm6i#4911429"
+    },
+    {
+      "fecha": "Saturday, August 16, 2025",
+      "local": "Sport Boys",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-deportivo-garcilaso/5gmbhvfg#4911430"
+    },
+    {
+      "fecha": "Saturday, August 16, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-adc-juan-pablo-ii/phq6ajfj#4911432"
+    },
+    {
+      "fecha": "Saturday, August 16, 2025",
+      "local": "Binacional",
+      "visitante": "Sporting Cristal",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-binacional/5dndg7ok#4911433"
+    },
+    {
+      "fecha": "Sunday, August 17, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-asociacion-deportiva-tarma/7vkv5n09#4911434"
+    },
+    {
+      "fecha": "Sunday, August 17, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-huancayo/6lqfibk#4911435"
+    },
+    {
+      "fecha": "Sunday, August 17, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Ayacucho FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-ayacucho-fc/6lr4y5z#4911436"
+    },
+    {
+      "fecha": "Sunday, August 17, 2025",
+      "local": "Cusco FC",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cusco-fc/m0ijk39#4911437"
+    },
+    {
+      "fecha": "Friday, August 22, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Binacional",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-binacional/7gnlbi42#4911438"
+    },
+    {
+      "fecha": "Friday, August 22, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Cusco FC",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-adc-juan-pablo-ii/mie6vk6t#4911439"
+    },
+    {
+      "fecha": "Saturday, August 23, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cd-ut-cajamarca/15ziqkz2#4911440"
+    },
+    {
+      "fecha": "Saturday, August 23, 2025",
+      "local": "Los Chankas",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-los-chankas/3jqou07y#4911441"
+    },
+    {
+      "fecha": "Saturday, August 23, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Alianza Universidad",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-comerciantes-unidos/4metz4te#4911442"
+    },
+    {
+      "fecha": "Saturday, August 23, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-deportivo-garcilaso/7ivegea4#4911443"
+    },
+    {
+      "fecha": "Sunday, August 24, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-asociacion-deportiva-tarma/7ukhtxjd#4911444"
+    },
+    {
+      "fecha": "Sunday, August 24, 2025",
+      "local": "Cienciano",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-atletico-grau/5fj3zzt8#4911445"
+    },
+    {
+      "fecha": "Sunday, August 24, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-lima/yrvgi#4911446"
+    },
+    {
+      "fecha": "Saturday, August 30, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "Los Chankas",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-los-chankas/73xauugj#4911431"
+    },
+    {
+      "fecha": "Sunday, August 31, 2025",
+      "local": "Atletico Grau",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/atletico-grau-vs-asociacion-deportiva-tarma/q6dgtbhr#4841553"
+    },
+    {
+      "fecha": "Friday, September 12, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Ayacucho FC",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-cd-ut-cajamarca/286o8bnk#4935839"
+    },
+    {
+      "fecha": "Friday, September 12, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "Los Chankas",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-los-chankas/58qptfym#4935840"
+    },
+    {
+      "fecha": "Saturday, September 13, 2025",
+      "local": "Sport Boys",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-comerciantes-unidos/1vbev29o#4935841"
+    },
+    {
+      "fecha": "Saturday, September 13, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-adc-juan-pablo-ii/fvnbttas#4935842"
+    },
+    {
+      "fecha": "Sunday, September 14, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "3 - 4",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-deportivo-garcilaso/5hgqn17j#4935845"
+    },
+    {
+      "fecha": "Sunday, September 14, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "Cienciano",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-universidad/my2ji0w#4935844"
+    },
+    {
+      "fecha": "Sunday, September 14, 2025",
+      "local": "Binacional",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "Sin jugar",
+      "url": "https://www.fotmob.com/matches/binacional-vs-asociacion-deportiva-tarma/q28gomj4#4935843"
+    },
+    {
+      "fecha": "Sunday, September 14, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-fbc-melgar/n705s#4935846"
+    },
+    {
+      "fecha": "Sunday, September 14, 2025",
+      "local": "Cusco FC",
+      "visitante": "Sporting Cristal",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cusco-fc/lnggfqt#4935847"
+    },
+    {
+      "fecha": "Tuesday, September 16, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-asociacion-deportiva-tarma/exziuwem#4958608"
+    },
+    {
+      "fecha": "Wednesday, September 17, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-atletico/bnutx#4958609"
+    },
+    {
+      "fecha": "Wednesday, September 17, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-comerciantes-unidos/3584sfik#4958612"
+    },
+    {
+      "fecha": "Thursday, September 18, 2025",
+      "local": "Cienciano",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-boys/bnq05#4958610"
+    },
+    {
+      "fecha": "Thursday, September 18, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Cusco FC",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-cusco-fc/1et4exfw#4958611"
+    },
+    {
+      "fecha": "Thursday, September 18, 2025",
+      "local": "Atletico Grau",
+      "visitante": "Alianza Universidad",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-atletico-grau/9qcg27aw#4958615"
+    },
+    {
+      "fecha": "Friday, September 19, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-deportivo-garcilaso/5gme90vv#4958616"
+    },
+    {
+      "fecha": "Sunday, September 21, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cd-ut-cajamarca/16hoc0m8#4958617"
+    },
+    {
+      "fecha": "Sunday, September 21, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Los Chankas",
+      "marcador": "6 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-los-chankas/3jqr1xbd#4958618"
+    },
+    {
+      "fecha": "Sunday, September 21, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-adc-juan-pablo-ii/ftsjg2cd#4958619"
+    },
+    {
+      "fecha": "Sunday, September 21, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "Cienciano",
+      "marcador": "5 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-huancayo/6eljsxa#4958620"
+    },
+    {
+      "fecha": "Monday, September 22, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-comerciantes-unidos/1vt7tuti#4958621"
+    },
+    {
+      "fecha": "Monday, September 22, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Ayacucho FC",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-ayacucho-fc/6lqfibl#4958622"
+    },
+    {
+      "fecha": "Tuesday, September 23, 2025",
+      "local": "Cusco FC",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-asociacion-deportiva-tarma/col7yt1i#4958624"
+    },
+    {
+      "fecha": "Tuesday, September 23, 2025",
+      "local": "Sport Boys",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-atletico-grau/5gmc1pbi#4958625"
+    },
+    {
+      "fecha": "Thursday, September 25, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-adc-juan-pablo-ii/ja2lsl6p#4958626"
+    },
+    {
+      "fecha": "Friday, September 26, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-deportivo-garcilaso/bkfy53jg#4958628"
+    },
+    {
+      "fecha": "Friday, September 26, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-universidad/nbjdd95#4958629"
+    },
+    {
+      "fecha": "Friday, September 26, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-asociacion-deportiva-tarma/7ukd7iuf#4958630"
+    },
+    {
+      "fecha": "Friday, September 26, 2025",
+      "local": "Atletico Grau",
+      "visitante": "Sport Huancayo",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-atletico-grau/7ivf3o72#4958631"
+    },
+    {
+      "fecha": "Saturday, September 27, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-comerciantes-unidos/1vbgh2uk#4958632"
+    },
+    {
+      "fecha": "Saturday, September 27, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "Cusco FC",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cusco-fc/m0icx7r#4958633"
+    },
+    {
+      "fecha": "Sunday, September 28, 2025",
+      "local": "Cienciano",
+      "visitante": "Alianza Lima",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-lima/k8e98#4958634"
+    },
+    {
+      "fecha": "Monday, September 29, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Los Chankas",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-los-chankas/8otzgijy#4958635"
+    },
+    {
+      "fecha": "Monday, September 29, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Ayacucho FC",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-ayacucho-fc/6elqymu#4958637"
+    },
+    {
+      "fecha": "Tuesday, September 30, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "Alianza Universidad",
+      "marcador": "5 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-alianza-universidad/1gs7866y#4958638"
+    },
+    {
+      "fecha": "Tuesday, September 30, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/asociacion-deportiva-tarma-vs-adc-juan-pablo-ii/19r5neajd#4958639"
+    },
+    {
+      "fecha": "Wednesday, October 1, 2025",
+      "local": "Cusco FC",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-deportivo-garcilaso/9l89b2ps#4958640"
+    },
+    {
+      "fecha": "Wednesday, October 1, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-atletico/n5oi0#4958641"
+    },
+    {
+      "fecha": "Thursday, October 2, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-atletico-grau/5hgr6wmr#4958642"
+    },
+    {
+      "fecha": "Friday, October 3, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Cienciano",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-fbc-melgar/boe5q#4958643"
+    },
+    {
+      "fecha": "Friday, October 3, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-comerciantes-unidos/5wuqatd8#4958645"
+    },
+    {
+      "fecha": "Saturday, October 4, 2025",
+      "local": "Los Chankas",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-los-chankas/6zjzskfa#4958646"
+    },
+    {
+      "fecha": "Saturday, October 4, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Sporting Cristal",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-asociacion-deportiva-tarma/7t9fcoic#4958647"
+    },
+    {
+      "fecha": "Sunday, October 5, 2025",
+      "local": "Sport Boys",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-sport-huancayo/6lqqetk#4958648"
+    },
+    {
+      "fecha": "Sunday, October 5, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "Alianza Lima",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-alianza-universidad/nm1awsw#4958649"
+    },
+    {
+      "fecha": "Sunday, October 5, 2025",
+      "local": "Atletico Grau",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-atletico-grau/5gmesus2#4958650"
+    },
+    {
+      "fecha": "Sunday, October 5, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 4",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-deportivo-garcilaso/5gmae7nh#4958652"
+    },
+    {
+      "fecha": "Sunday, October 5, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-adc-juan-pablo-ii/fvnaw01k#4958651"
+    },
+    {
+      "fecha": "Sunday, October 12, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-asociacion-deportiva-tarma/aaeeo30i#4995214"
+    },
+    {
+      "fecha": "Sunday, October 12, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Los Chankas",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-los-chankas/3jqny1dz#4995215"
+    },
+    {
+      "fecha": "Sunday, October 12, 2025",
+      "local": "Cusco FC",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-comerciantes-unidos/4iw45mbf#4995216"
+    },
+    {
+      "fecha": "Monday, October 13, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Cienciano",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cd-ut-cajamarca/15zhz3at#4995217"
+    },
+    {
+      "fecha": "Monday, October 13, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/deportivo-garcilaso-vs-adc-juan-pablo-ii/13onm3qbv#4995218"
+    },
+    {
+      "fecha": "Tuesday, October 14, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Alianza Universidad",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-alianza-universidad/nbkbika#4995219"
+    },
+    {
+      "fecha": "Friday, October 17, 2025",
+      "local": "Alianza Lima",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-lima/yskh9#4995222"
+    },
+    {
+      "fecha": "Saturday, October 18, 2025",
+      "local": "Los Chankas",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/los-chankas-vs-adc-juan-pablo-ii/y6g1z2rd#4995223"
+    },
+    {
+      "fecha": "Saturday, October 18, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-comerciantes-unidos/1vbe7uub#4995224"
+    },
+    {
+      "fecha": "Saturday, October 18, 2025",
+      "local": "Cienciano",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cusco-fc/lnfwp1z#4995225"
+    },
+    {
+      "fecha": "Sunday, October 19, 2025",
+      "local": "Atletico Grau",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-atletico-grau/bkfyxyhq#4995226"
+    },
+    {
+      "fecha": "Sunday, October 19, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-deportivo-garcilaso/5fj53jmq#4995227"
+    },
+    {
+      "fecha": "Monday, October 20, 2025",
+      "local": "Sport Huancayo",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-sport-huancayo/6rcedst#4995229"
+    },
+    {
+      "fecha": "Monday, October 20, 2025",
+      "local": "Sport Boys",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-fbc-melgar/n7klg#4995231"
+    },
+    {
+      "fecha": "Tuesday, October 21, 2025",
+      "local": "Universitario de Deportes",
+      "visitante": "Ayacucho FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-ayacucho-fc/6lqbvhn#4995228"
+    },
+    {
+      "fecha": "Friday, October 24, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universitario-de-deportes/bnq02#4995220"
+    },
+    {
+      "fecha": "Friday, October 24, 2025",
+      "local": "ADC Juan Pablo II",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-adc-juan-pablo-ii/seq8r9ek#4998073"
+    },
+    {
+      "fecha": "Saturday, October 25, 2025",
+      "local": "Ayacucho FC",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "4 - 2",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-deportivo-garcilaso/7ivdt4d8#4998074"
+    },
+    {
+      "fecha": "Saturday, October 25, 2025",
+      "local": "Alianza Atletico",
+      "visitante": "Cienciano",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-atletico/bngci#4998075"
+    },
+    {
+      "fecha": "Saturday, October 25, 2025",
+      "local": "Cusco FC",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-atletico-grau/9l8a1co9#4998076"
+    },
+    {
+      "fecha": "Sunday, October 26, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Los Chankas",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-los-chankas/3iv4dz78#4998077"
+    },
+    {
+      "fecha": "Sunday, October 26, 2025",
+      "local": "CD UT Cajamarca",
+      "visitante": "Alianza Universidad",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-universidad-vs-cd-ut-cajamarca/3hr3lh0p#4998078"
+    },
+    {
+      "fecha": "Sunday, October 26, 2025",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-asociacion-deportiva-tarma/7ukcjr19#4998079"
+    },
+    {
+      "fecha": "Sunday, October 26, 2025",
+      "local": "FBC Melgar",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-sport-huancayo/6lr8l04#4998080"
+    },
+    {
+      "fecha": "Saturday, November 1, 2025",
+      "local": "Alianza Lima",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-alianza-lima/ytq72#4998081"
+    },
+    {
+      "fecha": "Saturday, November 1, 2025",
+      "local": "Los Chankas",
+      "visitante": "Ayacucho FC",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/ayacucho-fc-vs-los-chankas/58qpa0iq#4998082"
+    },
+    {
+      "fecha": "Saturday, November 1, 2025",
+      "local": "Comerciantes Unidos",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 4",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-comerciantes-unidos/1uoiezke#4998083"
+    },
+    {
+      "fecha": "Saturday, November 1, 2025",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-garcilaso-vs-asociacion-deportiva-tarma/q6dflwlm#4998084"
+    },
+    {
+      "fecha": "Sunday, November 2, 2025",
+      "local": "Alianza Universidad",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-alianza-universidad/2g4eysz1#4998085"
+    },
+    {
+      "fecha": "Sunday, November 2, 2025",
+      "local": "Atletico Grau",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-atletico-grau/5gmay1jh#4998086"
+    },
+    {
+      "fecha": "Sunday, November 2, 2025",
+      "local": "Cienciano",
+      "visitante": "ADC Juan Pablo II",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-adc-juan-pablo-ii/ftsgmsia#4998087"
+    },
+    {
+      "fecha": "Sunday, November 2, 2025",
+      "local": "Sport Boys",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cd-ut-cajamarca/16hp3o88#4998088"
+    },
+    {
+      "fecha": "Wednesday, November 5, 2025",
+      "local": "Los Chankas",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-los-chankas/3kf7s461#4958613"
+    },
+    {
+      "fecha": "Friday, November 7, 2025",
+      "local": "Cusco FC",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cusco-fc/m0iwtuc#5031120"
+    },
+    {
+      "fecha": "Friday, November 7, 2025",
+      "local": "Sporting Cristal",
+      "visitante": "Cienciano",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sporting-cristal/428ir#5031121"
+    }
+  ]
+}

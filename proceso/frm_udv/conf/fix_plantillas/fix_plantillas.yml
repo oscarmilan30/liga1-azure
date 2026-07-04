@@ -1,0 +1,143 @@
+fix_plantillas:
+  cols_raw_csv:
+    - jugador
+    - fecha_nacimiento
+    - nacionalidad
+    - altura
+    - pie
+    - valor_mercado
+    - temporada
+
+  case_rules:
+    pie:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower(trim({col})) IN ('sin informacion','null','na','none')
+          THEN NULL
+          ELSE trim({col})
+        END
+
+    altura:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+               OR {col} IN ('0','0.0','0,0')
+               OR NOT regexp_like({col}, '^[0-9,.]*m?$')
+          THEN NULL
+          ELSE regexp_replace(regexp_replace({col}, 'm', ''), ',', '.')
+        END
+
+    valor_mercado:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('0','0.0','0,0','null')
+          THEN NULL
+          WHEN lower({col}) LIKE '%mill%' THEN
+            CAST(CAST(regexp_replace(regexp_extract({col}, '([0-9]+[,.]?[0-9]*)', 1), ',', '.') AS DOUBLE) * 1000000 AS STRING)
+          WHEN lower({col}) LIKE '%mil%' THEN
+            CAST(CAST(regexp_replace(regexp_extract({col}, '([0-9]+[,.]?[0-9]*)', 1), ',', '.') AS DOUBLE) * 1000 AS STRING)
+          ELSE regexp_replace(regexp_extract({col}, '([0-9]+[,.]?[0-9]*)', 1), ',', '.')
+        END
+
+  schema_fix:
+    jugador: string
+    pie: string
+    altura: double
+    valor_mercado: decimal(20,4)
+
+
+fix_hm:
+  cols_catalogo_equipos_hm:
+    - id_equipo
+    - nombre_transfermarkt
+
+  cols_raw_plantillas_hm:
+    - club
+    - temporada
+    - jugador
+    - numero
+    - posicion
+    - fecha_fichaje
+    - fuente
+    - fecha_nacimiento
+    - nacionalidad
+
+  dedup_cols_hm:
+    - club
+    - temporada
+    - jugador
+
+  rename_columns_hm:
+    fuente: fuente_plantilla
+
+  case_rules:
+    numero_camiseta:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion') THEN 'sin informacion'
+          ELSE {col}
+        END
+
+    posicion:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion') THEN 'sin informacion'
+          WHEN lower(trim({col})) = 'goalkeeper'              THEN 'Portero'
+          WHEN lower(trim({col})) = 'centre-back'             THEN 'Defensa Central'
+          WHEN lower(trim({col})) = 'left-back'               THEN 'Lateral Izquierdo'
+          WHEN lower(trim({col})) = 'right-back'              THEN 'Lateral Derecho'
+          WHEN lower(trim({col})) = 'defensive midfield'      THEN 'Mediocampista Defensivo'
+          WHEN lower(trim({col})) = 'central midfield'        THEN 'Mediocampista Central'
+          WHEN lower(trim({col})) = 'attacking midfield'      THEN 'Mediocampista Ofensivo'
+          WHEN lower(trim({col})) = 'left midfield'           THEN 'Mediocampista Izquierdo'
+          WHEN lower(trim({col})) = 'right midfield'          THEN 'Mediocampista Derecho'
+          WHEN lower(trim({col})) = 'left winger'             THEN 'Extremo Izquierdo'
+          WHEN lower(trim({col})) = 'right winger'            THEN 'Extremo Derecho'
+          WHEN lower(trim({col})) = 'second striker'          THEN 'Segundo Delantero'
+          WHEN lower(trim({col})) = 'centre-forward'          THEN 'Delantero Centro'
+          WHEN lower(trim({col})) = 'pivote'                  THEN 'Mediocampista Defensivo'
+          WHEN lower(trim({col})) = 'mediocentro'             THEN 'Mediocampista Central'
+          WHEN lower(trim({col})) = 'mediocentro ofensivo'    THEN 'Mediocampista Ofensivo'
+          WHEN lower(trim({col})) = 'extremo derecho'         THEN 'Extremo Derecho'
+          WHEN lower(trim({col})) = 'extremo izquierdo'       THEN 'Extremo Izquierdo'
+          WHEN lower(trim({col})) = 'defensa central'         THEN 'Defensa Central'
+          WHEN lower(trim({col})) = 'lateral derecho'         THEN 'Lateral Derecho'
+          WHEN lower(trim({col})) = 'lateral izquierdo'       THEN 'Lateral Izquierdo'
+          WHEN lower(trim({col})) = 'delantero centro'        THEN 'Delantero Centro'
+          WHEN lower(trim({col})) = 'portero'                 THEN 'Portero'
+          WHEN lower(trim({col})) = 'segundo delantero'       THEN 'Segundo Delantero'
+          ELSE {col}
+        END
+
+    fecha_fichaje:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+              OR trim({col}) = ''
+              OR lower({col}) IN ('null','na','none','sin informacion')
+          THEN NULL
+          ELSE to_date({col}, 'dd/MM/yyyy')
+        END
+
+  schema_hm:
+    id_plantilla_equipo: string
+    id_equipo: int
+    id_jugador: string
+    id_tm: string
+    temporada: int
+    numero_camiseta: string
+    posicion: string
+    fecha_fichaje: date
+    fuente_plantilla: string
+    fecha_carga: timestamp
+    periodo: int

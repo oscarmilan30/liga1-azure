@@ -1,0 +1,91 @@
+name: Liga 1 - Trigger ADF
+
+on:
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: 'Modo de ejecución'
+        required: true
+        default: 'INCREMENTAL'
+        type: choice
+        options:
+          - INCREMENTAL
+          - HISTORICO
+          - REPROCESO
+      anio_objetivo:
+        description: 'Año a reprocesar (solo modo REPROCESO)'
+        required: false
+        default: ''
+      ambiente:
+        description: 'Ambiente ADF a disparar'
+        required: false
+        default: 'dev'
+        type: choice
+        options:
+          - 'dev'
+          - 'prod'
+
+env:
+  PYTHON_VERSION: '3.10'
+
+jobs:
+  trigger-adf:
+    name: Trigger ADF — ${{ github.event.inputs.modo }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Instalar dependencias
+        run: |
+          pip install --upgrade pip
+          pip install \
+            "azure-identity>=1.15.0" \
+            "azure-keyvault-secrets>=4.7.0" \
+            "requests>=2.31.0" \
+            "pymssql>=2.3.0"
+
+      - name: Disparar ADF E2E
+        env:
+          AZURE_TENANT_ID:     ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID:     ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ADF_SUBSCRIPTION_ID: ${{ secrets.ADF_SUBSCRIPTION_ID }}
+          ADF_KV_URL:          ${{ secrets.ADF_KV_URL }}
+          ADF_RESOURCE_GROUP: >-
+            ${{ github.event.inputs.ambiente == 'prod'
+                && secrets.ADF_RESOURCE_GROUP_PROD
+                || secrets.ADF_RESOURCE_GROUP }}
+          ADF_FACTORY_NAME: >-
+            ${{ github.event.inputs.ambiente == 'prod'
+                && secrets.ADF_FACTORY_NAME_PROD
+                || secrets.ADF_FACTORY_NAME }}
+          ADF_SQL_SERVER: >-
+            ${{ github.event.inputs.ambiente == 'prod'
+                && secrets.SQL_SERVER_PROD
+                || secrets.ADF_SQL_SERVER }}
+          ADF_SQL_DATABASE: >-
+            ${{ github.event.inputs.ambiente == 'prod'
+                && secrets.SQL_DATABASE_PROD
+                || secrets.ADF_SQL_DATABASE }}
+          ADF_SQL_USERNAME: >-
+            ${{ github.event.inputs.ambiente == 'prod'
+                && secrets.SQL_USERNAME_PROD
+                || secrets.ADF_SQL_USERNAME }}
+          ADF_KV_SECRET_SQL_PASSWORD: >-
+            ${{ github.event.inputs.ambiente == 'prod'
+                && 'kv-sql-password-prod'
+                || 'kv-sql-password' }}
+        run: |
+          ARGS="--modo ${{ github.event.inputs.modo }}"
+          if [ -n "${{ github.event.inputs.anio_objetivo }}" ]; then
+            ARGS="$ARGS --anio ${{ github.event.inputs.anio_objetivo }}"
+          fi
+          python frm_landing/adf_trigger.py $ARGS

@@ -1,0 +1,45 @@
+ft_rendimiento_acumulado:
+
+  cols_hm_clasificacion:
+    - id_equipo
+    - temporada
+    - tipo_tabla
+    - partidos_jugados
+    - partidos_ganados
+    - partidos_empatados
+    - partidos_perdidos
+    - goles_favor
+    - goles_contra
+    - diferencia_goles
+    - puntos
+
+  cols_hm_valoracion:
+    - id_equipo
+    - temporada
+    - valor_total
+    - valor_medio
+
+  cols_dm_equipos:
+    - id_equipo
+    - nombre_equipo
+    - alias_equipo
+
+  schema:
+    id_acumulado:           string
+    id_equipo:              int
+    nombre_equipo:          string
+    alias_equipo:           string
+    temporada:              int
+    torneos_disputados:     int
+    total_pj:               int
+    total_pg:               int
+    total_pe:               int
+    total_pp:               int
+    total_goles_favor:      int
+    total_goles_contra:     int
+    total_diferencia_goles: int
+    total_puntos:           int
+    valor_total:            decimal(20,4)
+    valor_medio:            decimal(20,4)
+    fecha_carga:            timestamp
+    periodo:                int
