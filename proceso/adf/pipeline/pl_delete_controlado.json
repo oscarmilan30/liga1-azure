@@ -132,4 +132,9 @@
 			}
 		},
 		"folder": {
-			"name": "pl_pipeline_con
+			"name": "pl_pipeline_control"
+		},
+		"annotations": [],
+		"type": "Microsoft.DataFactory/factories/pipelines"
+	}
+}
