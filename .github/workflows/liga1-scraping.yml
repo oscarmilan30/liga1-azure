@@ -348,6 +348,61 @@ jobs:
           echo "anio=$ADF_ANIO"  >> $GITHUB_OUTPUT
           echo "Modo ADF → $ADF_MODO ${ADF_ANIO:+(año $ADF_ANIO)}"
 
+      - name: Fallback ADLS — subir desde datasets/ archivos que faltan (solo historica+prod)
+        if: github.event.inputs.modo == 'historica' && github.event.inputs.ambiente == 'prod'
+        env:
+          AZURE_TENANT_ID:    ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID:    ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ADLS_ACCOUNT:       ${{ secrets.STORAGE_ACCOUNT_PROD }}
+        run: |
+          pip install azure-storage-file-datalake azure-identity --quiet
+          python3 - << 'PYEOF'
+          import os, glob
+          from pathlib import Path
+          from azure.identity import ClientSecretCredential
+          from azure.storage.filedatalake import DataLakeServiceClient
+
+          account  = os.environ["ADLS_ACCOUNT"]
+          cred     = ClientSecretCredential(
+              tenant_id     = os.environ["AZURE_TENANT_ID"],
+              client_id     = os.environ["AZURE_CLIENT_ID"],
+              client_secret = os.environ["AZURE_CLIENT_SECRET"],
+          )
+          client = DataLakeServiceClient(
+              account_url = f"https://{account}.dfs.core.windows.net",
+              credential  = cred
+          ).get_file_system_client("liga1")
+
+          subidos = 0
+          repo_root = Path(".")  # GitHub Actions checkout es en la raíz del repo
+          datasets_root = repo_root / "datasets"
+
+          for anio_dir in sorted(datasets_root.glob("[0-9][0-9][0-9][0-9]")):
+              anio = anio_dir.name
+              for fpath in sorted(anio_dir.iterdir()):
+                  if fpath.suffix == ".txt" or not fpath.is_file():
+                      continue
+                  adls_path = f"primera_division/landing/{anio}/{fpath.name}"
+                  existe = False
+                  try:
+                      client.get_file_client(adls_path).get_file_properties()
+                      existe = True
+                  except Exception:
+                      existe = False
+                  if not existe:
+                      try:
+                          client.get_file_client(adls_path).upload_data(
+                              fpath.read_bytes(), overwrite=True
+                          )
+                          print(f"  [fallback] {anio}/{fpath.name} -> ADLS OK")
+                          subidos += 1
+                      except Exception as e:
+                          print(f"  [fallback ERROR] {anio}/{fpath.name}: {e}")
+
+          print(f"Fallback completado: {subidos} archivo(s) subidos a ADLS prod")
+          PYEOF
+
       - name: Actualizar parámetros SQL y disparar ADF
         env:
           AZURE_TENANT_ID:     ${{ secrets.AZURE_TENANT_ID }}

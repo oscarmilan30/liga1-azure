@@ -142,9 +142,10 @@
 			}
 		},
 		"folder": {
-			"name": "pl_pipelines_dataentrys"
+			"name": "pl_pipelines_dataentrys/pl_inner_procesos"
 		},
 		"annotations": [],
-		"type": "Microsoft.DataFactory/factories/pipelines"
-	}
+		"lastPublishTime": "2026-05-23T23:49:36Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

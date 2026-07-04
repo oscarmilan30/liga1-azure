@@ -470,7 +470,7 @@ GitHub repo → **Settings → Secrets and variables → Actions**:
 | `DATABRICKS_TOKEN_PROD` | PAT generado |
 | `DATABRICKS_USER_PROD` | Email en Databricks prod |
 | `DATABRICKS_CLUSTER_PROD` | Cluster ID (ej. `0704-032223-khisrcma`) |
-| `DATABRICKS_WAREHOUSE_PROD` | Warehouse ID |
+| `DATABRICKS_WAREHOUSE_PROD` | Warehouse ID del SQL Warehouse — copiar desde Databricks → SQL Warehouses → nombre del warehouse → Connection details → HTTP path: `/sql/1.0/warehouses/{ID}` — usar solo el ID final |
 | `ADF_RESOURCE_GROUP_PROD` | `rg-liga1` |
 | `ADF_FACTORY_NAME_PROD` | `adf-ligafutbol-prod` |
 | `SQL_SERVER_PROD` | `serverfutbol.database.windows.net` |
@@ -522,6 +522,8 @@ El push a `main` dispara `liga1-deploy-prod.yml` con estos jobs en orden:
 - Configura **Delta Sharing prod**: `liga1_share_prod` con 5 vistas, recipient `liga1_powerbi_prod`, GRANT SELECT
 - **Imprime el Activation Link** en el log de GitHub Actions (copiar para Power BI)
 - Sube wheel `liga1_utils` a `/Volumes/catalog_liga1_prod/shared/libs/`
+- Instala el wheel en el cluster prod vía API (`POST /api/2.0/libraries/install`) — sin este paso el cluster no lo tiene disponible aunque esté en el Volume
+- Si algún DDL falla, el step termina con `sys.exit(1)` y el job queda en ❌ — ya no hay fallos silenciosos
 - Crea los 5 jobs Databricks (4 schedules + execute_job_ddl)
 
 **Job 4 — actualizar-job-ids** (depende de jobs 2 y 3)
@@ -557,7 +559,11 @@ Una vez desplegado, cargar datos iniciales en prod:
    - `ambiente`: `prod`
    - `disparar_adf`: `true`
 
-Esto scrapea FotMob + Transfermarkt + Wikipedia hacia `datalakelig1peruprod/liga1/primera_division/landing/` y al terminar dispara automáticamente `pl_Orchestrator_E2E_liga1` en `adf-ligafutbol-prod`.
+Esto scrapea FotMob + Transfermarkt + Wikipedia hacia `datalakelig1peruprod/liga1/primera_division/landing/` y al terminar:
+- **Fallback automático**: el job `trigger-adf` verifica si faltó algún archivo en ADLS (por error de scraping en algún año) y lo sube desde `datasets/{año}/` del repositorio antes de disparar ADF
+- Dispara automáticamente `pl_Orchestrator_E2E_liga1` en `adf-ligafutbol-prod`
+
+> **Nota**: Transfermarkt no tiene datos de Liga 1 Perú para temporadas 2020–2022 (saisons europeas 2019–2022). El scraping de esos años mostrará "sin datos generales para temporada" — es esperado, no es un error.
 
 **Opción B — Solo ADF (si ya tienes datos en landing prod):**
 1. GitHub Actions → `liga1-trigger-adf.yml` → **Run workflow**

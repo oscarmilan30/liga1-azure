@@ -252,9 +252,6 @@
 			"IdEjecucionE2E": {
 				"type": "int",
 				"defaultValue": 0
-			},
-			"AnioReproceso": {
-				"type": "string"
 			}
 		},
 		"variables": {
@@ -266,6 +263,7 @@
 			"name": "pl_pipelines_ml"
 		},
 		"annotations": [],
-		"type": "Microsoft.DataFactory/factories/pipelines"
-	}
+		"lastPublishTime": "2026-07-01T00:00:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

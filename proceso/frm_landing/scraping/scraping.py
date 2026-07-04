@@ -193,45 +193,33 @@ def contar_archivos_generados(año_guardado):
 # CONEXIÓN ADLS
 # =============================================================================
 
-def conectar_adls_keyvault(ambiente="dev"):
-    """
-    Conecta al ADLS correspondiente al ambiente.
-    - ambiente='dev'  → storageaccount / storageaccountkey  (datalakelig1peru)
-    - ambiente='prod' → storageaccount-prod / storageaccountkey-prod (datalakelig1peruprod)
-    El contenedor es siempre 'liga1' (misma clave filesystemname en KV).
-    """
+def conectar_adls_keyvault():
     global _ADLS_CLIENT, _CREDENTIAL
     if _ADLS_CLIENT is not None:
         return _ADLS_CLIENT
-
+    
     try:
-        log_info(f"Conectando a Azure Key Vault (ambiente={ambiente})...")
+        log_info("Conectando a Azure Key Vault...")
         tenant_id = os.environ.get("AZURE_TENANT_ID")
         client_id = os.environ.get("AZURE_CLIENT_ID")
         client_secret = os.environ.get("AZURE_CLIENT_SECRET")
-
+        
         if tenant_id and client_id and client_secret:
             _CREDENTIAL = ClientSecretCredential(tenant_id=tenant_id, client_id=client_id, client_secret=client_secret)
         else:
             _CREDENTIAL = InteractiveBrowserCredential()
-
+        
         key_vault_url = "https://kv-liga1-secreto.vault.azure.net/"
         secret_client = SecretClient(vault_url=key_vault_url, credential=_CREDENTIAL)
-
-        # Seleccionar secrets según ambiente
-        if ambiente == "prod":
-            storage_account = secret_client.get_secret("storageaccount-prod").value
-            storage_key     = secret_client.get_secret("storageaccountkey-prod").value
-        else:
-            storage_account = secret_client.get_secret("storageaccount").value
-            storage_key     = secret_client.get_secret("storageaccountkey").value
-
-        container_name = secret_client.get_secret("filesystemname").value  # siempre 'liga1'
-
+        
+        storage_account = secret_client.get_secret("storageaccount").value
+        storage_key = secret_client.get_secret("storageaccountkey").value
+        container_name = secret_client.get_secret("filesystemname").value
+        
         connection_string = f"DefaultEndpointsProtocol=https;AccountName={storage_account};AccountKey={storage_key};EndpointSuffix=core.windows.net"
         service_client = DataLakeServiceClient.from_connection_string(connection_string)
         _ADLS_CLIENT = service_client.get_file_system_client(container_name)
-        log_info(f"✅ Conexión ADLS exitosa → {storage_account}/{container_name}")
+        log_info("✅ Conexión ADLS exitosa")
         return _ADLS_CLIENT
     except Exception as e:
         log_error("Error en conexión Azure", e)
@@ -1942,6 +1930,12 @@ def scraping_transfermarkt_por_año(año_usuario):
                         pass
 
         if not tabla_cargada:
+            try:
+                page_src = driver.page_source[:500]
+                log_error(f"TM {año_transfermarkt}: tabla NO cargada tras 2 intentos. URL={url_liga}")
+                log_error(f"TM {año_transfermarkt}: page_source inicio → {page_src}")
+            except Exception as _e:
+                log_error(f"TM {año_transfermarkt}: tabla NO cargada y no se pudo leer page_source: {_e}")
             driver.quit()
             return [], [], [], [], []
 
@@ -2680,12 +2674,6 @@ if __name__ == "__main__":
     parser.add_argument("--anio-inicio",   type=int, default=int(os.environ.get("SCRAPING_ANIO_INICIO", "2020")))
     parser.add_argument("--anio-fin",      type=int, default=int(os.environ.get("SCRAPING_ANIO_FIN",    str(_AÑO_ACTUAL))))
     parser.add_argument("--anio-objetivo", type=int, default=None)
-    parser.add_argument(
-        "--ambiente",
-        choices=["dev", "prod"],
-        default=os.environ.get("SCRAPING_AMBIENTE", "dev"),
-        help="Ambiente destino: dev (datalakelig1peru) o prod (datalakelig1peruprod)"
-    )
 
     args = parser.parse_args()
 
@@ -2705,7 +2693,7 @@ if __name__ == "__main__":
 
     adls_client = None
     if os.environ.get("GITHUB_ACTIONS") == "true":
-        adls_client = conectar_adls_keyvault(ambiente=args.ambiente)
+        adls_client = conectar_adls_keyvault()
         if not adls_client:
             log_error(" No se pudo conectar a ADLS. Abortando.")
             exit(1)
@@ -2725,11 +2713,46 @@ if __name__ == "__main__":
             limpiar_memoria()
             time.sleep(5)
 
+        # ── Fallback: subir desde datasets/{año}/ archivos que no llegaron a ADLS ──
+        # Solo aplica en historico porque incremental/reproceso se espera que funcionen.
+        # Si el scraping de TM o FotMob falló para algún año, los archivos que tenga
+        # el usuario en datasets/{año}/ llenan los huecos en ADLS.
+        if adls_client:
+            from pathlib import Path
+            # datasets/ está en la raíz del repo: 3 niveles arriba de este script
+            repo_root     = Path(__file__).parents[3]
+            datasets_root = repo_root / "datasets"
+            log_info("=== Fallback historico: verificando archivos faltantes en ADLS ===")
+            subidos_fb = 0
+            for año in range(args.anio_inicio, args.anio_fin + 1):
+                anio_dir = datasets_root / str(año)
+                if not anio_dir.exists():
+                    continue
+                for fpath in sorted(anio_dir.iterdir()):
+                    if fpath.suffix == ".txt" or not fpath.is_file():
+                        continue
+                    adls_path = f"primera_division/landing/{año}/{fpath.name}"
+                    archivo_en_adls = False
+                    try:
+                        adls_client.get_file_client(adls_path).get_file_properties()
+                        archivo_en_adls = True
+                    except Exception:
+                        archivo_en_adls = False
+                    if not archivo_en_adls:
+                        try:
+                            data = fpath.read_bytes()
+                            adls_client.get_file_client(adls_path).upload_data(data, overwrite=True)
+                            log_info(f"  [fallback] {año}/{fpath.name} -> ADLS OK")
+                            subidos_fb += 1
+                        except Exception as e_up:
+                            log_error(f"  [fallback] {año}/{fpath.name} -> error: {e_up}")
+            if subidos_fb:
+                log_info(f"=== Fallback: {subidos_fb} archivo(s) subidos desde datasets/ a ADLS ===")
+            else:
+                log_info("=== Fallback: sin huecos — ADLS ya tenia todos los archivos ===")
+
     elif args.modo == "repair_tm":
         # Repara plantillas + estadisticas_jugadores para clubes faltantes en ADLS.
-        # Año únioc : --anio-objetivo 2025
-        # Rango     : --anio-inicio 2020 --anio-fin 2024
-        # forzar_todos: env SCRAPING_REPAIR_FORZAR_TODOS=true  → re-scrapea todos
         clubes_forzar_str = os.environ.get("SCRAPING_REPAIR_CLUBES", "")
         solo_clubes       = [c.strip() for c in clubes_forzar_str.split(",") if c.strip()] or None
         forzar_todos      = os.environ.get("SCRAPING_REPAIR_FORZAR_TODOS", "false").lower() == "true"
@@ -2750,7 +2773,7 @@ if __name__ == "__main__":
                 solo_clubes=solo_clubes,
                 forzar_todos=forzar_todos
             )
-            resultados[año] = "OK" if ok else "FALLÓ"
+            resultados[año] = "OK" if ok else "FALLO"
             limpiar_memoria()
             time.sleep(10)
 

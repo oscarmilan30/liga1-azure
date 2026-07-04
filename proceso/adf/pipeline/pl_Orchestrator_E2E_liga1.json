@@ -616,10 +616,8 @@
 		],
 		"parameters": {
 			"PipelineId": {
-				"type": "int"
-			},
-			"RawPipelineId": {
-				"type": "int"
+				"type": "int",
+				"defaultValue": 35
 			},
 			"TablaParametro": {
 				"type": "string",
@@ -628,6 +626,10 @@
 			"pipeline_type": {
 				"type": "string",
 				"defaultValue": "E2E"
+			},
+			"RawPipelineId": {
+				"type": "int",
+				"defaultValue": 1
 			}
 		},
 		"variables": {
@@ -642,9 +644,10 @@
 			}
 		},
 		"folder": {
-			"name": "pl_pipelines_orchestrator"
+			"name": "pl_pipelines_master"
 		},
 		"annotations": [],
-		"type": "Microsoft.DataFactory/factories/pipelines"
-	}
+		"lastPublishTime": "2026-05-23T23:49:36Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }
