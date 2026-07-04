@@ -36,7 +36,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_md_estadios",
@@ -52,7 +57,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_hm_campeones",
@@ -68,7 +78,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_hm_valoracion_equipos",
@@ -84,7 +99,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_hm_tablas_clasificacion",
@@ -100,7 +120,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_hm_plantillas_equipo",
@@ -116,7 +141,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_hm_entrenadores_equipo",
@@ -132,7 +162,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_hm_partidos",
@@ -148,7 +183,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_hm_estadisticas_partidos",
@@ -169,7 +209,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_hm_estadisticas_jugadores",
@@ -190,7 +235,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     }
   ],
   "tags": {

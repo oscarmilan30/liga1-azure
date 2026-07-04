@@ -36,7 +36,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_ft_rendimiento_temporada",
@@ -57,7 +62,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_ft_partidos_detalle",
@@ -78,7 +88,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_ft_plantillas_historico",
@@ -99,7 +114,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_ft_entrenadores_historico",
@@ -120,7 +140,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_ft_evolucion_valoracion",
@@ -141,7 +166,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_ft_rendimiento_acumulado",
@@ -164,7 +194,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     },
     {
       "task_key": "nb_ft_estadisticas_jugadores",
@@ -185,7 +220,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     }
   ],
   "tags": {

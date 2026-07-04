@@ -36,7 +36,12 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {},
-      "disabled": false
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
     }
   ],
   "tags": {
