@@ -532,6 +532,16 @@ jobs:
               parts_clean = content_clean.split(";")
               stmts = [orig.strip() for orig, clean in zip(parts, parts_clean) if clean.strip()]
               print(f"→ {fpath} ({len(stmts)} statements)")
+
+              # DROP TABLE IF EXISTS antes de CREATE OR REPLACE TABLE con LOCATION
+              # para evitar conflictos de metadata de corridas parciales anteriores
+              if "LOCATION" in content_clean:
+                  table_names = re.findall(
+                      r'CREATE\s+(?:OR\s+REPLACE\s+)?TABLE\s+(\S+)', content_clean, re.IGNORECASE
+                  )
+                  for tname in table_names:
+                      run_stmt(f"DROP TABLE IF EXISTS {tname}")
+
               for stmt in stmts:
                   state, err = run_stmt(stmt)
                   if state == "SUCCEEDED":
@@ -862,9 +872,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Login Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS_PROD }}
+        run: |
+          az login --service-principal \
+            --username "${{ secrets.AZURE_CLIENT_ID }}" \
+            --password "${{ secrets.AZURE_CLIENT_SECRET }}" \
+            --tenant   "${{ secrets.AZURE_TENANT_ID }}"
+          az account set --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
 
       - name: Subir dataentrys (estáticos) al contenedor liga1
         run: |
