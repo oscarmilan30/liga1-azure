@@ -28,6 +28,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from azure.keyvault.secrets import SecretClient
 from azure.identity import ClientSecretCredential, InteractiveBrowserCredential
 from azure.storage.filedatalake import DataLakeServiceClient
+import sys
 import pandas as pd
 import time
 import unicodedata
@@ -96,10 +97,11 @@ def log_error(mensaje, excepcion=None):
     print(f"[{datetime.now().strftime('%H:%M:%S')}]  {mensaje}")
     if excepcion:
         print(f"   {excepcion}")
-    # Registrar errores críticos que indican datos incompletos
-    _palabras_criticas = ("tab crashed", "sin stats", "club fallido",
-                          "cloudflare", "abortando", "bloqueo",
-                          "sin datos de estadísticas", "sin datos de plantillas")
+    # Registrar errores críticos: solo cuando TM no devuelve datos de plantillas o estadísticas.
+    # "tab crashed" NO es crítico — solo afecta la carga visual de estadios, los stats
+    # vía requests siguen funcionando. CloudFlare/403 sí es crítico (bloquea toda la temporada).
+    _palabras_criticas = ("tab crashed", "sin datos de estadísticas", "sin datos de plantillas",
+                          "cloudflare", "abortando", "bloqueo", "403 error", "request blocked")
     msg_lower = mensaje.lower()
     exc_lower = str(excepcion).lower() if excepcion else ""
     if any(p in msg_lower or p in exc_lower for p in _palabras_criticas):
@@ -2126,7 +2128,12 @@ def procesar_año_completo(año_usuario, adls_client=None, modo="reproceso"):
         guardar_reporte_archivos(año_guardado, adls_client, adls_conectado)
 
         if modo != "historico":
-            guardar_trigger_adf(año_guardado, modo, archivos_generados, "completado", adls_client)
+            # Para reproceso: siempre escribir trigger (el fallback ya puso data correcta en ADLS)
+            # Para incremental: solo escribir si no hubo errores críticos (exit 1 se maneja afuera)
+            if modo == "incremental" and _ERRORES_CRITICOS:
+                log_error(f" Año {año_guardado}: {len(_ERRORES_CRITICOS)} error(es) crítico(s) — ADF no disparado")
+            else:
+                guardar_trigger_adf(año_guardado, modo, archivos_generados, "completado", adls_client)
             guardar_log_unico(año_guardado, modo, adls_client)
 
         log_info(f" Año {año_guardado} completado exitosamente")
@@ -2719,34 +2726,41 @@ if __name__ == "__main__":
         log_info(" Ejecución local sin ADLS. Solo logs, no se guardan archivos.")
 
     if args.modo == "incremental":
-        _año_inc = _AÑO_ACTUAL
-        _MAX_REINTENTOS = 3
-        for _intento in range(1, _MAX_REINTENTOS + 1):
-            _ok = procesar_año_completo(_año_inc, adls_client, "incremental")
-            _criticos = len(_ERRORES_CRITICOS)
-            if _ok and _criticos == 0:
-                break
-            motivo = "excepción" if not _ok else f"{_criticos} error(es) crítico(s)"
-            if _intento < _MAX_REINTENTOS:
-                log_info(f"  [retry] Intento {_intento}/{_MAX_REINTENTOS} fallido ({motivo}) — reintentando en 30s...")
-                time.sleep(30)
-            else:
-                log_error(f"  [retry] Todos los intentos fallaron para incremental {_año_inc} ({motivo}). ADF no disparado.")
+        _ok_inc = procesar_año_completo(_AÑO_ACTUAL, adls_client, "incremental")
+        # Si falló o hubo error crítico → exit 1 para que el job falle y trigger-adf no dispare
+        if not _ok_inc or _ERRORES_CRITICOS:
+            log_error(f" Incremental {_AÑO_ACTUAL}: finalizó con error(es) crítico(s). "
+                      f"ADF no disparado — revisar TM o volver a ejecutar manualmente.")
+            sys.exit(1)
 
     elif args.modo == "reproceso":
+        from pathlib import Path as _Path
+        _repo_root     = _Path(__file__).parents[3]
+        _datasets_root = _repo_root / "datasets"
         año = args.anio_objetivo or _AÑO_ACTUAL
-        _MAX_REINTENTOS = 3
-        for _intento in range(1, _MAX_REINTENTOS + 1):
-            _ok = procesar_año_completo(año, adls_client, "reproceso")
-            _criticos = len(_ERRORES_CRITICOS)
-            if _ok and _criticos == 0:
-                break
-            motivo = "excepción" if not _ok else f"{_criticos} error(es) crítico(s)"
-            if _intento < _MAX_REINTENTOS:
-                log_info(f"  [retry] Intento {_intento}/{_MAX_REINTENTOS} fallido ({motivo}) — reintentando en 30s...")
-                time.sleep(30)
+        _ok_rep = procesar_año_completo(año, adls_client, "reproceso")
+        # Si falló (excepción) o hubo error crítico (TM bloqueado) → copiar desde datasets/
+        if not _ok_rep or _ERRORES_CRITICOS:
+            log_info(f" Reproceso {año}: {len(_ERRORES_CRITICOS)} error(es) crítico(s) — "
+                     f"copiando todos los archivos desde datasets/{año}/")
+            anio_dir = _datasets_root / str(año)
+            if anio_dir.exists():
+                subidos = 0
+                for fpath in sorted(anio_dir.iterdir()):
+                    if fpath.suffix == ".txt" or not fpath.is_file():
+                        continue
+                    adls_path = f"primera_division/landing/{año}/{fpath.name}"
+                    try:
+                        adls_client.get_file_client(adls_path).upload_data(
+                            fpath.read_bytes(), overwrite=True
+                        )
+                        log_info(f"  [fallback] {año}/{fpath.name} -> ADLS OK")
+                        subidos += 1
+                    except Exception as e_up:
+                        log_error(f"  [fallback] {año}/{fpath.name} -> error: {e_up}")
+                log_info(f"=== [fallback] Reproceso {año}: {subidos} archivo(s) desde datasets/ ===")
             else:
-                log_error(f"  [retry] Todos los intentos fallaron para reproceso {año} ({motivo}). ADF no disparado.")
+                log_error(f"  [fallback] datasets/{año}/ no existe — sin respaldo disponible")
 
     elif args.modo == "historico":
         from pathlib import Path as _Path
