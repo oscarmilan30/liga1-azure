@@ -57,6 +57,7 @@ _ADLS_CLIENT = None
 _CREDENTIAL = None
 _ARCHIVOS_PROCESADOS = {}
 _EJECUCION_LOG = []
+_ERRORES_CRITICOS = []   # errores graves del año en curso (tab crashed, club fallido, sin stats)
 _CACHE_ESTADISTICAS = {}
 _CACHE_EXPIRACION = 3600
 
@@ -95,6 +96,18 @@ def log_error(mensaje, excepcion=None):
     print(f"[{datetime.now().strftime('%H:%M:%S')}]  {mensaje}")
     if excepcion:
         print(f"   {excepcion}")
+    # Registrar errores críticos que indican datos incompletos
+    _palabras_criticas = ("tab crashed", "sin stats", "club fallido",
+                          "cloudflare", "abortando", "bloqueo",
+                          "sin datos de estadísticas", "sin datos de plantillas")
+    msg_lower = mensaje.lower()
+    exc_lower = str(excepcion).lower() if excepcion else ""
+    if any(p in msg_lower or p in exc_lower for p in _palabras_criticas):
+        _ERRORES_CRITICOS.append({
+            "timestamp": datetime.now().strftime("%H:%M:%S"),
+            "mensaje": mensaje,
+            "excepcion": str(excepcion) if excepcion else ""
+        })
 
 def registrar_archivo(nombre_archivo, estado, detalles=""):
     _ARCHIVOS_PROCESADOS[nombre_archivo] = {
@@ -2039,8 +2052,9 @@ def procesar_año_completo(año_usuario, adls_client=None, modo="reproceso"):
         adls_client: cliente ADLS autenticado. Si es None, solo guarda localmente.
         modo: 'reproceso', 'historico' o 'incremental'.
     """
-    global _EJECUCION_LOG
+    global _EJECUCION_LOG, _ERRORES_CRITICOS
     _EJECUCION_LOG = []
+    _ERRORES_CRITICOS = []
 
     registrar_ejecucion("INICIANDO_EJECUCION", f"Modo: {modo}, Año entrada: {año_usuario}")
 
@@ -2087,7 +2101,7 @@ def procesar_año_completo(año_usuario, adls_client=None, modo="reproceso"):
             df_plantillas = pd.DataFrame(datos_plantillas)
             guardar_csv_adls(df_plantillas, año_guardado, "plantillas", adls_client, "Transfermarkt")
         else:
-            log_info(f" Transfermarkt: sin datos de plantillas para temporada {año_transfermarkt}")
+            log_error(f" Transfermarkt: sin datos de plantillas para temporada {año_transfermarkt}")
 
         if datos_estadios:
             df_estadios = pd.DataFrame(datos_estadios)
@@ -2105,7 +2119,7 @@ def procesar_año_completo(año_usuario, adls_client=None, modo="reproceso"):
             df_estadisticas = pd.DataFrame(datos_estadisticas)
             guardar_csv_adls(df_estadisticas, año_guardado, "estadisticas_jugadores", adls_client, "Transfermarkt")
         else:
-            log_info(f" Transfermarkt: sin datos de estadísticas para temporada {año_transfermarkt}")
+            log_error(f" Transfermarkt: sin datos de estadísticas para temporada {año_transfermarkt}")
 
         # VALIDACIÓN Y REPORTE
         archivos_generados = contar_archivos_generados(año_guardado)
@@ -2120,8 +2134,9 @@ def procesar_año_completo(año_usuario, adls_client=None, modo="reproceso"):
 
     except Exception as e:
         log_error(f"Error procesando año {año_guardado}", e)
+        # No se escribe trigger ADF en caso de error — ADF no debe procesar datos incompletos.
+        # Solo se guarda el log para diagnóstico.
         if modo != "historico":
-            guardar_trigger_adf(año_guardado, modo, [], "error", adls_client)
             guardar_log_unico(año_guardado, modo, adls_client)
         return False
 
@@ -2704,55 +2719,73 @@ if __name__ == "__main__":
         log_info(" Ejecución local sin ADLS. Solo logs, no se guardan archivos.")
 
     if args.modo == "incremental":
-        procesar_año_completo(_AÑO_ACTUAL, adls_client, "incremental")
+        _año_inc = _AÑO_ACTUAL
+        _MAX_REINTENTOS = 3
+        for _intento in range(1, _MAX_REINTENTOS + 1):
+            _ok = procesar_año_completo(_año_inc, adls_client, "incremental")
+            _criticos = len(_ERRORES_CRITICOS)
+            if _ok and _criticos == 0:
+                break
+            motivo = "excepción" if not _ok else f"{_criticos} error(es) crítico(s)"
+            if _intento < _MAX_REINTENTOS:
+                log_info(f"  [retry] Intento {_intento}/{_MAX_REINTENTOS} fallido ({motivo}) — reintentando en 30s...")
+                time.sleep(30)
+            else:
+                log_error(f"  [retry] Todos los intentos fallaron para incremental {_año_inc} ({motivo}). ADF no disparado.")
 
     elif args.modo == "reproceso":
         año = args.anio_objetivo or _AÑO_ACTUAL
-        procesar_año_completo(año, adls_client, "reproceso")
+        _MAX_REINTENTOS = 3
+        for _intento in range(1, _MAX_REINTENTOS + 1):
+            _ok = procesar_año_completo(año, adls_client, "reproceso")
+            _criticos = len(_ERRORES_CRITICOS)
+            if _ok and _criticos == 0:
+                break
+            motivo = "excepción" if not _ok else f"{_criticos} error(es) crítico(s)"
+            if _intento < _MAX_REINTENTOS:
+                log_info(f"  [retry] Intento {_intento}/{_MAX_REINTENTOS} fallido ({motivo}) — reintentando en 30s...")
+                time.sleep(30)
+            else:
+                log_error(f"  [retry] Todos los intentos fallaron para reproceso {año} ({motivo}). ADF no disparado.")
 
     elif args.modo == "historico":
+        from pathlib import Path as _Path
+        _repo_root     = _Path(__file__).parents[3]
+        _datasets_root = _repo_root / "datasets"
+
+        def _aplicar_fallback_datasets(año_fb):
+            """Copia TODOS los archivos de datasets/{año}/ a ADLS sobreescribiendo lo scrapeado."""
+            anio_dir = _datasets_root / str(año_fb)
+            if not anio_dir.exists():
+                log_error(f"  [fallback] datasets/{año_fb}/ no existe — sin respaldo disponible para este año")
+                return
+            subidos = 0
+            for fpath in sorted(anio_dir.iterdir()):
+                if fpath.suffix == ".txt" or not fpath.is_file():
+                    continue
+                adls_path = f"primera_division/landing/{año_fb}/{fpath.name}"
+                try:
+                    adls_client.get_file_client(adls_path).upload_data(
+                        fpath.read_bytes(), overwrite=True
+                    )
+                    log_info(f"  [fallback] {año_fb}/{fpath.name} -> ADLS OK")
+                    subidos += 1
+                except Exception as e_up:
+                    log_error(f"  [fallback] {año_fb}/{fpath.name} -> error subiendo: {e_up}")
+            log_info(f"=== [fallback] Año {año_fb}: {subidos} archivo(s) copiados desde datasets/ ===")
+
         for año in range(args.anio_inicio, args.anio_fin + 1):
-            procesar_año_completo(año, adls_client, "historico")
+            ok = procesar_año_completo(año, adls_client, "historico")
+            # Capturar errores críticos ANTES de limpiar memoria
+            hubo_error_critico = len(_ERRORES_CRITICOS) > 0
+            if not ok or hubo_error_critico:
+                motivo = "excepción" if not ok else f"{len(_ERRORES_CRITICOS)} error(es) crítico(s)"
+                log_info(f"=== [historico] Año {año} con errores ({motivo}) — aplicando fallback desde datasets/ ===")
+                _aplicar_fallback_datasets(año)
+            else:
+                log_info(f"=== [historico] Año {año} completado sin errores críticos ===")
             limpiar_memoria()
             time.sleep(5)
-
-        # ── Fallback: subir desde datasets/{año}/ archivos que no llegaron a ADLS ──
-        # Solo aplica en historico porque incremental/reproceso se espera que funcionen.
-        # Si el scraping de TM o FotMob falló para algún año, los archivos que tenga
-        # el usuario en datasets/{año}/ llenan los huecos en ADLS.
-        if adls_client:
-            from pathlib import Path
-            # datasets/ está en la raíz del repo: 3 niveles arriba de este script
-            repo_root     = Path(__file__).parents[3]
-            datasets_root = repo_root / "datasets"
-            log_info("=== Fallback historico: verificando archivos faltantes en ADLS ===")
-            subidos_fb = 0
-            for año in range(args.anio_inicio, args.anio_fin + 1):
-                anio_dir = datasets_root / str(año)
-                if not anio_dir.exists():
-                    continue
-                for fpath in sorted(anio_dir.iterdir()):
-                    if fpath.suffix == ".txt" or not fpath.is_file():
-                        continue
-                    adls_path = f"primera_division/landing/{año}/{fpath.name}"
-                    archivo_en_adls = False
-                    try:
-                        adls_client.get_file_client(adls_path).get_file_properties()
-                        archivo_en_adls = True
-                    except Exception:
-                        archivo_en_adls = False
-                    if not archivo_en_adls:
-                        try:
-                            data = fpath.read_bytes()
-                            adls_client.get_file_client(adls_path).upload_data(data, overwrite=True)
-                            log_info(f"  [fallback] {año}/{fpath.name} -> ADLS OK")
-                            subidos_fb += 1
-                        except Exception as e_up:
-                            log_error(f"  [fallback] {año}/{fpath.name} -> error: {e_up}")
-            if subidos_fb:
-                log_info(f"=== Fallback: {subidos_fb} archivo(s) subidos desde datasets/ a ADLS ===")
-            else:
-                log_info("=== Fallback: sin huecos — ADLS ya tenia todos los archivos ===")
 
     elif args.modo == "repair_tm":
         # Repara plantillas + estadisticas_jugadores para clubes faltantes en ADLS.
