@@ -344,13 +344,22 @@ jobs:
               repo_id   = existing[0]["id"]
               repo_path = existing[0].get("path", "")
               if repo_path == expected_path:
-                  # Ruta correcta — solo actualizar branch
-                  rp = requests.patch(f"{host}/api/2.0/repos/{repo_id}",
-                                      headers=headers, json={"branch": "main"})
+                  # Forzar reset: eliminar y recrear limpio para evitar GIT_CONFLICT
+                  # por cambios locales en el workspace de Databricks
+                  print(f"ℹ️  Forzando reset del repo (id={repo_id}) para evitar conflictos...")
+                  rd = requests.delete(f"{host}/api/2.0/repos/{repo_id}", headers=headers)
+                  if rd.status_code not in (200, 204):
+                      print(f"⚠️  Delete repo: {rd.status_code} {rd.json()}")
+                  payload_fresh = {
+                      "url":      "https://github.com/oscarmilan30/liga1-azure",
+                      "provider": "gitHub",
+                      "path":     expected_path
+                  }
+                  rp = requests.post(f"{host}/api/2.0/repos", headers=headers, json=payload_fresh)
                   if rp.status_code == 200:
-                      print(f"✅ Repo actualizado a main (id={repo_id})")
+                      print(f"✅ Repo recreado en main (id={rp.json().get('id')})")
                   else:
-                      print(f"❌ Error actualizando repo: {rp.status_code} {rp.json()}")
+                      print(f"❌ Error recreando repo: {rp.status_code} {rp.json()}")
                       sys.exit(1)
               else:
                   # Repo bajo otra carpeta de usuario — eliminar y recrear en la correcta
