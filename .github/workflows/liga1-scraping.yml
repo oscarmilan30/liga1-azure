@@ -377,8 +377,12 @@ jobs:
           subidos = 0
           repo_root = Path(".")  # GitHub Actions checkout es en la raíz del repo
           datasets_root = repo_root / "datasets"
+          anio_inicio = int("${{ github.event.inputs.anio_inicio || '2020' }}")
+          anio_fin    = int("${{ needs.preparar-historico.outputs.anio_fin }}")
 
           for anio_dir in sorted(datasets_root.glob("[0-9][0-9][0-9][0-9]")):
+              if not (anio_inicio <= int(anio_dir.name) <= anio_fin):
+                  continue
               anio = anio_dir.name
               for fpath in sorted(anio_dir.iterdir()):
                   if fpath.suffix == ".txt" or not fpath.is_file():

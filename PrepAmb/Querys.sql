@@ -240,7 +240,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (2,'SCHEMA_VISTA',  'vw_udv',           'Esquema vistas'),
 (2,'RUTA_TABLA',    '/md_equipos',       'Ruta tabla Delta'),
 (2,'NOMBRE_TABLA',  'md_equipos',        'Nombre tabla UDV'),
-(2,'YAML_PATH',     '/frm_udv/conf/md_equipos/md_equipos.yml','Ruta YAML');
+(2,'YAML_PATH',     '/proceso/frm_udv/conf/md_equipos/md_equipos.yml','Ruta YAML');
 
 -- ID 3: catalogo_equipos (RDV DataEntry)
 INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -264,7 +264,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (4,'FORMATO_SALIDA','delta',             'Formato Delta'),
 (4,'TIPO_CARGA',    'FULL',              'Carga completa'),
 (4,'NOMBRE_TABLA',  'md_catalogo_equipos','Nombre tabla UDV'),
-(4,'YAML_PATH',     '/frm_udv/conf/md_catalogo_equipos/md_catalogo_equipos.yml','Ruta YAML');
+(4,'YAML_PATH',     '/proceso/frm_udv/conf/md_catalogo_equipos/md_catalogo_equipos.yml','Ruta YAML');
 
 -- ID 5: Job_ddl
 INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -283,7 +283,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (7,'FORMATO_SALIDA','delta',           'Formato Delta'),
 (7,'TIPO_CARGA',    'FULL',            'Carga completa'),
 (7,'NOMBRE_TABLA',  'md_estadios',     'Nombre tabla UDV'),
-(7,'YAML_PATH',     '/frm_udv/conf/md_estadios/md_estadios.yml','Ruta YAML');
+(7,'YAML_PATH',     '/proceso/frm_udv/conf/md_estadios/md_estadios.yml','Ruta YAML');
 
 -- ID 8: md_plantillas (UDV)
 INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -294,7 +294,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (8,'FORMATO_SALIDA','delta',                                                    'Formato Delta'),
 (8,'TIPO_CARGA',    'FULL',                                                     'Carga completa'),
 (8,'NOMBRE_TABLA',  'md_plantillas',                                            'Nombre tabla UDV'),
-(8,'YAML_PATH',     '/frm_udv/conf/hm_plantillas_equipo/hm_plantillas_equipo.yml','Ruta YAML');
+(8,'YAML_PATH',     '/proceso/frm_udv/conf/hm_plantillas_equipo/hm_plantillas_equipo.yml','Ruta YAML');
 
 -- ID 9: hm_plantillas_equipo (UDV)
 INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -305,7 +305,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (9,'FORMATO_SALIDA','delta',                                                    'Formato Delta'),
 (9,'TIPO_CARGA',    'INCREMENTAL',                                              'Tipo carga'),
 (9,'NOMBRE_TABLA',  'hm_plantillas_equipo',                                     'Nombre tabla UDV'),
-(9,'YAML_PATH',     '/frm_udv/conf/hm_plantillas_equipo/hm_plantillas_equipo.yml','Ruta YAML');
+(9,'YAML_PATH',     '/proceso/frm_udv/conf/hm_plantillas_equipo/hm_plantillas_equipo.yml','Ruta YAML');
 
 -- ID 10: plantillas (RAW)
 INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -326,7 +326,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (11,'FORMATO_SALIDA','delta',                                                        'Formato Delta'),
 (11,'TIPO_CARGA',    'FULL',                                                         'Carga completa'),
 (11,'NOMBRE_TABLA',  'md_entrenadores',                                              'Nombre tabla UDV'),
-(11,'YAML_PATH',     '/frm_udv/conf/hm_entrenadores_equipo/hm_entrenadores_equipo.yml','Ruta YAML');
+(11,'YAML_PATH',     '/proceso/frm_udv/conf/hm_entrenadores_equipo/hm_entrenadores_equipo.yml','Ruta YAML');
 
 -- ID 12: hm_entrenadores_equipo (UDV)
 INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -337,7 +337,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (12,'FORMATO_SALIDA','delta',                                                        'Formato Delta'),
 (12,'TIPO_CARGA',    'INCREMENTAL',                                                  'Tipo carga'),
 (12,'NOMBRE_TABLA',  'hm_entrenadores_equipo',                                       'Nombre tabla UDV'),
-(12,'YAML_PATH',     '/frm_udv/conf/hm_entrenadores_equipo/hm_entrenadores_equipo.yml','Ruta YAML');
+(12,'YAML_PATH',     '/proceso/frm_udv/conf/hm_entrenadores_equipo/hm_entrenadores_equipo.yml','Ruta YAML');
 
 -- ID 13: entrenadores (RAW)
 INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -358,7 +358,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (14,'FORMATO_SALIDA','delta',                                                     'Formato Delta'),
 (14,'TIPO_CARGA',    'INCREMENTAL',                                               'Tipo carga'),
 (14,'NOMBRE_TABLA',  'hm_valoracion_equipos',                                     'Nombre tabla UDV'),
-(14,'YAML_PATH',     '/frm_udv/conf/hm_valoracion_equipos/hm_valoracion_equipos.yml','Ruta YAML');
+(14,'YAML_PATH',     '/proceso/frm_udv/conf/hm_valoracion_equipos/hm_valoracion_equipos.yml','Ruta YAML');
 
 -- ID 15: liga1 (RAW)
 INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -379,7 +379,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (16,'FORMATO_SALIDA','delta',                                  'Formato Delta'),
 (16,'TIPO_CARGA',    'INCREMENTAL',                            'Tipo carga'),
 (16,'NOMBRE_TABLA',  'hm_partidos',                            'Nombre tabla UDV'),
-(16,'YAML_PATH',     '/frm_udv/conf/hm_partidos/hm_partidos.yml','Ruta YAML');
+(16,'YAML_PATH',     '/proceso/frm_udv/conf/hm_partidos/hm_partidos.yml','Ruta YAML');
 
 -- ID 17: partidos (RAW)
 INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -400,7 +400,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (18,'FORMATO_SALIDA','delta',                                                                   'Formato Delta'),
 (18,'TIPO_CARGA',    'INCREMENTAL',                                                             'Tipo carga'),
 (18,'NOMBRE_TABLA',  'hm_estadisticas_partidos',                                                'Nombre tabla UDV'),
-(18,'YAML_PATH',     '/frm_udv/conf/hm_estadisticas_partidos/hm_estadisticas_partidos.yml',    'Ruta YAML');
+(18,'YAML_PATH',     '/proceso/frm_udv/conf/hm_estadisticas_partidos/hm_estadisticas_partidos.yml',    'Ruta YAML');
 
 -- ID 19: estadisticas_partidos (RAW)
 INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -421,7 +421,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (20,'FORMATO_SALIDA','delta',                                                                'Formato Delta'),
 (20,'TIPO_CARGA',    'INCREMENTAL',                                                         'Tipo carga'),
 (20,'NOMBRE_TABLA',  'hm_tablas_clasificacion',                                              'Nombre tabla UDV'),
-(20,'YAML_PATH',     '/frm_udv/conf/hm_tablas_clasificacion/hm_tablas_clasificacion.yml',   'Ruta YAML');
+(20,'YAML_PATH',     '/proceso/frm_udv/conf/hm_tablas_clasificacion/hm_tablas_clasificacion.yml',   'Ruta YAML');
 
 -- ID 21: tablas_clasificacion (RAW)
 INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -442,7 +442,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (22,'FORMATO_SALIDA','delta',                                           'Formato Delta'),
 (22,'TIPO_CARGA',    'INCREMENTAL',                                     'Tipo carga'),
 (22,'NOMBRE_TABLA',  'hm_campeones',                                    'Nombre tabla UDV'),
-(22,'YAML_PATH',     '/frm_udv/conf/hm_campeones/hm_campeones.yml',    'Ruta YAML');
+(22,'YAML_PATH',     '/proceso/frm_udv/conf/hm_campeones/hm_campeones.yml',    'Ruta YAML');
 
 -- ID 23: campeones (RAW)
 INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -949,7 +949,7 @@ INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripci
 (27, 'FORMATO_SALIDA','delta',                                         'Formato Delta'),
 (27, 'SCHEMA_TABLA',  'tb_ddv',                                          'Esquema tablas Delta → carpeta ADLS ddv/'),
 (27, 'NOMBRE_TABLA',  'dm_equipos',                                   'Nombre tabla DDV'),
-(27, 'YAML_PATH',     '/frm_ddv/conf/dm_equipos/dm_equipos.yml',      'Ruta YAML');
+(27, 'YAML_PATH',     '/proceso/frm_ddv/conf/dm_equipos/dm_equipos.yml',      'Ruta YAML');
 
 -- ID 28: ft_rendimiento_temporada (DDV)
 INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -959,7 +959,7 @@ INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripci
 (28, 'FORMATO_SALIDA','delta',                                                                       'Formato Delta'),
 (28, 'SCHEMA_TABLA',  'tb_ddv',                                                                        'Esquema tablas Delta → carpeta ADLS ddv/'),
 (28, 'NOMBRE_TABLA',  'ft_rendimiento_temporada',                                                   'Nombre tabla DDV'),
-(28, 'YAML_PATH',     '/frm_ddv/conf/ft_rendimiento_temporada/ft_rendimiento_temporada.yml',        'Ruta YAML');
+(28, 'YAML_PATH',     '/proceso/frm_ddv/conf/ft_rendimiento_temporada/ft_rendimiento_temporada.yml',        'Ruta YAML');
 
 -- ID 29: ft_partidos_detalle (DDV)
 INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -969,7 +969,7 @@ INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripci
 (29, 'FORMATO_SALIDA','delta',                                                         'Formato Delta'),
 (29, 'SCHEMA_TABLA',  'tb_ddv',                                                          'Esquema tablas Delta → carpeta ADLS ddv/'),
 (29, 'NOMBRE_TABLA',  'ft_partidos_detalle',                                          'Nombre tabla DDV'),
-(29, 'YAML_PATH',     '/frm_ddv/conf/ft_partidos_detalle/ft_partidos_detalle.yml',    'Ruta YAML');
+(29, 'YAML_PATH',     '/proceso/frm_ddv/conf/ft_partidos_detalle/ft_partidos_detalle.yml',    'Ruta YAML');
 
 -- ID 30: ft_plantillas_historico (DDV)
 INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -979,7 +979,7 @@ INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripci
 (30, 'FORMATO_SALIDA','delta',                                                                     'Formato Delta'),
 (30, 'SCHEMA_TABLA',  'tb_ddv',                                                                      'Esquema tablas Delta → carpeta ADLS ddv/'),
 (30, 'NOMBRE_TABLA',  'ft_plantillas_historico',                                                  'Nombre tabla DDV'),
-(30, 'YAML_PATH',     '/frm_ddv/conf/ft_plantillas_historico/ft_plantillas_historico.yml',        'Ruta YAML');
+(30, 'YAML_PATH',     '/proceso/frm_ddv/conf/ft_plantillas_historico/ft_plantillas_historico.yml',        'Ruta YAML');
 
 -- ID 31: ft_entrenadores_historico (DDV)
 INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -989,7 +989,7 @@ INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripci
 (31, 'FORMATO_SALIDA','delta',                                                                         'Formato Delta'),
 (31, 'SCHEMA_TABLA',  'tb_ddv',                                                                          'Esquema tablas Delta → carpeta ADLS ddv/'),
 (31, 'NOMBRE_TABLA',  'ft_entrenadores_historico',                                                    'Nombre tabla DDV'),
-(31, 'YAML_PATH',     '/frm_ddv/conf/ft_entrenadores_historico/ft_entrenadores_historico.yml',        'Ruta YAML');
+(31, 'YAML_PATH',     '/proceso/frm_ddv/conf/ft_entrenadores_historico/ft_entrenadores_historico.yml',        'Ruta YAML');
 
 -- ID 32: ft_evolucion_valoracion (DDV)
 INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -999,7 +999,7 @@ INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripci
 (32, 'FORMATO_SALIDA','delta',                                                                     'Formato Delta'),
 (32, 'SCHEMA_TABLA',  'tb_ddv',                                                                      'Esquema tablas Delta → carpeta ADLS ddv/'),
 (32, 'NOMBRE_TABLA',  'ft_evolucion_valoracion',                                                  'Nombre tabla DDV'),
-(32, 'YAML_PATH',     '/frm_ddv/conf/ft_evolucion_valoracion/ft_evolucion_valoracion.yml',        'Ruta YAML');
+(32, 'YAML_PATH',     '/proceso/frm_ddv/conf/ft_evolucion_valoracion/ft_evolucion_valoracion.yml',        'Ruta YAML');
 GO
 
 -- ══════════════════════════════════════════════════════════════
@@ -1143,7 +1143,7 @@ INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripci
 (40, 'FORMATO_SALIDA','delta',                                                                             'Formato Delta'),
 (40, 'SCHEMA_TABLA',  'tb_ddv',                                                                            'Esquema tablas Delta → carpeta ADLS ddv/'),
 (40, 'NOMBRE_TABLA',  'ft_rendimiento_acumulado',                                                         'Nombre tabla DDV'),
-(40, 'YAML_PATH',     '/frm_ddv/conf/ft_rendimiento_acumulado/ft_rendimiento_acumulado.yml',              'Ruta YAML');
+(40, 'YAML_PATH',     '/proceso/frm_ddv/conf/ft_rendimiento_acumulado/ft_rendimiento_acumulado.yml',              'Ruta YAML');
 GO
 
 -- ══════════════════════════════════════════════════════════════
@@ -1162,7 +1162,7 @@ GO
 -- ══════════════════════════════════════════════════════════════
 INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
 (36, 'FILESYSTEM',        'liga1',                                                      'Contenedor ADLS'),
-(36, 'YAML_PATH',         '/frm_udv/conf/fix_plantillas/fix_plantillas.yml',            'Ruta YAML config fix'),
+(36, 'YAML_PATH',         '/proceso/frm_udv/conf/fix_plantillas/fix_plantillas.yml',            'Ruta YAML config fix'),
 (36, 'LANDING_CSV_PATH',  'primera_division/landing/dataentrys/plantillas',             'CSVs plantillas en landing'),
 (36, 'RDV_FIX_PATH',      'primera_division/rdv/plantillas_fix',                        'Carpeta fix parquet — separada de rdv/plantillas FotMob');
 GO
@@ -1180,7 +1180,7 @@ GO
 -- ══════════════════════════════════════════════════════════════
 INSERT INTO dbo.tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
 (41, 'FILESYSTEM',         'liga1',                                                                          'Contenedor ADLS'),
-(41, 'YAML_PATH',          '/frm_udv/conf/hm_estadisticas_partidos_fix/hm_estadisticas_partidos_fix.yml',   'Ruta YAML config fix'),
+(41, 'YAML_PATH',          '/proceso/frm_udv/conf/hm_estadisticas_partidos_fix/hm_estadisticas_partidos_fix.yml',   'Ruta YAML config fix'),
 (41, 'SCHEMA_TABLA',       'tb_udv',                                                                        'Schema Unity Catalog'),
 (41, 'NOMBRE_TABLA',       'hm_estadisticas_partidos',                                                      'Nombre tabla UDV de salida'),
 (41, 'LANDING_JSON_PATH',  'primera_division/landing/dataentrys/estadisticas_historicas',                   'JSONs estadísticas en landing'),
@@ -1233,7 +1233,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (43,'FORMATO_SALIDA','delta',                                                                          'Formato Delta'),
 (43,'TIPO_CARGA',    'INCREMENTAL',                                                                    'Tipo carga'),
 (43,'NOMBRE_TABLA',  'hm_estadisticas_jugadores',                                                      'Nombre tabla UDV'),
-(43,'YAML_PATH',     '/frm_udv/conf/hm_estadisticas_jugadores/hm_estadisticas_jugadores.yml',          'Ruta YAML');
+(43,'YAML_PATH',     '/proceso/frm_udv/conf/hm_estadisticas_jugadores/hm_estadisticas_jugadores.yml',          'Ruta YAML');
 
 -- ID 44: ft_estadisticas_jugadores (DDV)
 INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) VALUES
@@ -1243,7 +1243,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (44,'FORMATO_SALIDA','delta',                                                                              'Formato Delta'),
 (44,'SCHEMA_TABLA',  'tb_ddv',                                                                              'Esquema tablas Delta → carpeta ADLS ddv/'),
 (44,'NOMBRE_TABLA',  'ft_estadisticas_jugadores',                                                           'Nombre tabla DDV'),
-(44,'YAML_PATH',     '/frm_ddv/conf/ft_estadisticas_jugadores/ft_estadisticas_jugadores.yml',               'Ruta YAML');
+(44,'YAML_PATH',     '/proceso/frm_ddv/conf/ft_estadisticas_jugadores/ft_estadisticas_jugadores.yml',               'Ruta YAML');
 GO
 
 -- ══════════════════════════════════════════════════════════════
@@ -1347,7 +1347,7 @@ INSERT INTO tbl_pipeline_parametros (PipelineId, Parametro, Valor, Descripcion) 
 (45,'FORMATO_SALIDA','delta',                                                         'Formato Delta'),
 (45,'SCHEMA_TABLA',  'tb_ddv',                                                        'Esquema tablas Delta → carpeta ADLS ddv/'),
 (45,'NOMBRE_TABLA',  'ft_score_ml',                                                   'Nombre tabla ML'),
-(45,'YAML_PATH',     '/frm_ml/conf/ft_score_ml/ft_score_ml.yml',                     'Ruta YAML configuración ML');
+(45,'YAML_PATH',     '/proceso/frm_ml/conf/ft_score_ml/ft_score_ml.yml',                     'Ruta YAML configuración ML');
 
 -- ID 46: pl_Orchestrator_ligaperuana_ml
 -- Sin parámetros adicionales; PipelineId y MLWorkflowPipelineId se pasan desde E2E.
