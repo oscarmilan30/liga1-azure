@@ -281,6 +281,17 @@ jobs:
             echo "   El Job 4 actualizará los JOB_IDs con los valores de prod."
           fi
 
+      - name: Corregir YAML_PATH — agregar prefijo proceso/ si falta
+        run: |
+          sqlcmd \
+            -S "${{ secrets.SQL_SERVER_PROD }}" \
+            -d "${{ secrets.SQL_DATABASE_PROD }}" \
+            -U "${{ secrets.SQL_USERNAME_PROD }}" \
+            -P "${{ secrets.SQL_PASSWORD_PROD }}" \
+            -Q "UPDATE dbo.tbl_pipeline_parametros SET Valor = '/proceso' + Valor WHERE Parametro = 'YAML_PATH' AND Valor NOT LIKE '/proceso/%';" \
+            -b
+          echo "✅ YAML_PATH actualizados"
+
   # ═══════════════════════════════════════════════════════════
   # JOB 3 — Databricks: Repo + catalog + schemas + DDL + Jobs + wheel
   # ═══════════════════════════════════════════════════════════
