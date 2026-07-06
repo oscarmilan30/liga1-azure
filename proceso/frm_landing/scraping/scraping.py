@@ -1977,29 +1977,29 @@ def scraping_transfermarkt_por_año(año_usuario):
             filas = driver.find_elements(By.XPATH, '//div[@id="yw1"]//table[contains(@class,"items")]/tbody/tr')
             # Bucle mejorado: filtra SOLO clubes (con escudo y URL que contenga "/verein/")
             for fila in filas:
-            try:
-                columnas = fila.find_elements(By.XPATH, './/td')
-                if len(columnas) >= 7:
-                    # Verificar que la fila tenga imagen de escudo (tiny_wappen) -> es club, no jugador
-                    tiene_escudo = fila.find_elements(By.XPATH, './/img[contains(@class, "tiny_wappen")]')
-                    if not tiene_escudo:
-                        continue
-                    club = columnas[1].text.strip()
-                    if club and len(club) > 2:
-                        link_equipo = columnas[1].find_element(By.XPATH, './/a').get_attribute('href')
-                        # Asegurar que la URL sea de un club (contiene "/verein/")
-                        if "/verein/" in link_equipo:
-                            urls_equipos.append((club, link_equipo))
-                            datos_generales.append({
-                                "Año": año_guardado, "Club": club,
-                                "Jugadores en plantilla": columnas[2].text.strip(),
-                                "Edad promedio": columnas[3].text.strip(),
-                                "Extranjeros": columnas[4].text.strip(),
-                                "Valor medio (€)": columnas[5].text.strip(),
-                                "Valor total (€)": columnas[6].text.strip()
-                            })
-            except Exception as e:
-                continue
+                try:
+                    columnas = fila.find_elements(By.XPATH, './/td')
+                    if len(columnas) >= 7:
+                        # Verificar que la fila tenga imagen de escudo (tiny_wappen) -> es club, no jugador
+                        tiene_escudo = fila.find_elements(By.XPATH, './/img[contains(@class, "tiny_wappen")]')
+                        if not tiene_escudo:
+                            continue
+                        club = columnas[1].text.strip()
+                        if club and len(club) > 2:
+                            link_equipo = columnas[1].find_element(By.XPATH, './/a').get_attribute('href')
+                            # Asegurar que la URL sea de un club (contiene "/verein/")
+                            if "/verein/" in link_equipo:
+                                urls_equipos.append((club, link_equipo))
+                                datos_generales.append({
+                                    "Año": año_guardado, "Club": club,
+                                    "Jugadores en plantilla": columnas[2].text.strip(),
+                                    "Edad promedio": columnas[3].text.strip(),
+                                    "Extranjeros": columnas[4].text.strip(),
+                                    "Valor medio (€)": columnas[5].text.strip(),
+                                    "Valor total (€)": columnas[6].text.strip()
+                                })
+                except Exception as e:
+                    continue
 
         datos_plantillas = []
         datos_estadios = []
