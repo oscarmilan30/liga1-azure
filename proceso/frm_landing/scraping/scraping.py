@@ -1947,6 +1947,9 @@ def scraping_transfermarkt_por_año(año_usuario):
                     except:
                         pass
 
+        datos_generales = []
+        urls_equipos    = []
+
         if not tabla_cargada:
             try:
                 page_src = driver.page_source[:500]
@@ -1954,15 +1957,26 @@ def scraping_transfermarkt_por_año(año_usuario):
                 log_error(f"TM {año_transfermarkt}: page_source inicio → {page_src}")
             except Exception as _e:
                 log_error(f"TM {año_transfermarkt}: tabla NO cargada y no se pudo leer page_source: {_e}")
-            driver.quit()
-            return [], [], [], [], []
 
-        filas = driver.find_elements(By.XPATH, '//div[@id="yw1"]//table[contains(@class,"items")]/tbody/tr')
-        datos_generales = []
-        urls_equipos = []
-        
-        # Bucle mejorado: filtra SOLO clubes (con escudo y URL que contenga "/verein/")
-        for fila in filas:
+            # ── Fallback requests: igual que repair_tm ──
+            log_info(f"TM {año_transfermarkt}: intentando obtener clubes vía requests...")
+            urls_equipos = _obtener_urls_equipos_tm_requests(año_transfermarkt)
+            if not urls_equipos:
+                log_error(f"TM {año_transfermarkt}: fallback requests también falló — sin datos TM")
+                driver.quit()
+                return [], [], [], [], []
+            log_info(f"TM {año_transfermarkt}: {len(urls_equipos)} clubes vía requests — continuando con Chrome para detalles")
+            # datos_generales mínimos (sin valores de mercado, Chrome estaba bloqueado)
+            for club, _ in urls_equipos:
+                datos_generales.append({
+                    "Año": año_guardado, "Club": club,
+                    "Jugadores en plantilla": "", "Edad promedio": "",
+                    "Extranjeros": "", "Valor medio (€)": "", "Valor total (€)": ""
+                })
+        else:
+            filas = driver.find_elements(By.XPATH, '//div[@id="yw1"]//table[contains(@class,"items")]/tbody/tr')
+            # Bucle mejorado: filtra SOLO clubes (con escudo y URL que contenga "/verein/")
+            for fila in filas:
             try:
                 columnas = fila.find_elements(By.XPATH, './/td')
                 if len(columnas) >= 7:
