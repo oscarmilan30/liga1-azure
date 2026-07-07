@@ -78,4 +78,7 @@ def main():
     print(f"\nGuardado: {CSV_OUTPUT}")
     print(f"  Con base64: {ok}")
     print(f"  Con URL (fallback): {len(results) - ok}")
-    print("\nSiguiente paso: sube fotos_base64.csv a Da
+    print("\nSiguiente paso: sube fotos_base64.csv a Databricks como tabla ft_jugadores_fotos")
+
+if __name__ == "__main__":
+    main()
