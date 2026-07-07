@@ -260,4 +260,9 @@ def calcular_ft_score_ml(
     df_ml['fecha_carga'] = datetime.utcnow()
     df_ml['periodo']     = df_ml['temporada'].astype(int)
 
-    # 5. Seleccionar columnas del schema antes de convertir a Sp
+    # 5. Seleccionar columnas del schema antes de convertir a Spark (reduce transferencia)
+    cols_ok = [c for c in schema if c in df_ml.columns]
+    df_out  = df_ml[cols_ok]
+
+    # 6. Convertir a Spark y castear tipos exactos del DDL — igual que DDV
+    return cast_dataframe_schema(spark.createDataFrame(df_out), schema)

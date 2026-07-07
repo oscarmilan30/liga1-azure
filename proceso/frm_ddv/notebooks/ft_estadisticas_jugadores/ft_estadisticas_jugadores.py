@@ -146,4 +146,9 @@ def carga_final_ft_estadisticas_jugadores(
             col("e.datos_disponibles"),
             col("p.posicion"),
             col("j.nacionalidad_principal"),
-      
+            current_timestamp().alias("fecha_carga"),
+            col("e.periodo")
+        )
+    )
+
+    return cast_dataframe_schema(df_join, prm_schema)
