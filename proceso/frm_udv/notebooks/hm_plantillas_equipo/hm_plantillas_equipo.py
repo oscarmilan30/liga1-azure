@@ -396,10 +396,15 @@ def carga_final_hm_plantillas(df_md_catalogo_equipos, prm_cols_catalogo_equipos_
     # 3.8) Renombrar columnas
     df_rename_hm = rename_columns(df_hm, prm_rename_columns_hm)
 
-    # 3.9) Castear schema final
-    df_cast = cast_dataframe_schema(df_rename_hm, prm_schema_hm)
+    # 3.9) Castear segun schema_hm
+    df_cast_hm = cast_dataframe_schema(df_rename_hm, prm_schema_hm)
 
-    # 3.10) Consolidar descartados (sin match catálogo + sin match dimensión jugadores)
-    df_discarded = df_sin_match_catalogo.unionByName(df_sin_match_dimension, allowMissingColumns=True)
+    # 3.10) Dedup final por jugador+equipo+temporada
+    df_cast_hm = df_cast_hm.dropDuplicates(["id_equipo", "id_jugador", "temporada"])
 
-    return df_cast, df_discarded
+    df_discarded = df_sin_match_catalogo.unionByName(
+        df_sin_match_dimension,
+        allowMissingColumns=True
+    )
+
+    return df_cast_hm, df_discarded

@@ -171,5 +171,6 @@ except Exception as e:
 finally:
     log_quality(
         prm_pipelineid, "DDV", f"{prm_schema_tb}.{prm_tabla_output}",
-        cnt_entrada, cnt_salida,
-   
+        cnt_entrada, cnt_salida, id_ejecucion=prm_id_ejecucion, id_ejecucion_e2e=prm_id_ejecucion_e2e, registros_nulos_clave=cnt_nulos)
+
+log("Fin DDV ft_estadisticas_jugadores", "INFO", entity_name)
