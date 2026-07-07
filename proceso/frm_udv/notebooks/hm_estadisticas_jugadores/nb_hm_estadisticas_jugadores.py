@@ -185,6 +185,10 @@ except Exception as e:
 finally:
     log_quality(
         prm_pipelineid, "UDV", f"{prm_schema_tb}.{prm_tabla_output}",
-        cnt_entrada, cnt_salida, id_ejecucion=prm_id_ejecucion, id_ejecucion_e2e=prm_id_ejecucion_e2e, registros_nulos_clave=cnt_nulos)
+        cnt_entrada, cnt_salida,
+        id_ejecucion=prm_id_ejecucion,
+        id_ejecucion_e2e=prm_id_ejecucion_e2e,
+        registros_nulos_clave=cnt_nulos
+    )
 
-log("Fin UDV hm_estadisticas_jugadores", "INFO", entity_name)
+log("Finalización del pipeline UDV hm_estadisticas_jugadores", "INFO", entity_name)
