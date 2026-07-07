@@ -184,7 +184,7 @@ jobs:
   scraping-historico:
     name: Histórico - Año ${{ matrix.anio }}
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 240
     needs: preparar-historico
     if: github.event.inputs.modo == 'historica'
     
