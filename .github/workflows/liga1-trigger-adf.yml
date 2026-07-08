@@ -84,8 +84,10 @@ jobs:
                 && 'kv-sql-password-prod'
                 || 'kv-sql-password' }}
         run: |
-          ARGS="--modo ${{ github.event.inputs.modo }}"
+          ANIO_ARG=""
           if [ -n "${{ github.event.inputs.anio_objetivo }}" ]; then
-            ARGS="$ARGS --anio ${{ github.event.inputs.anio_objetivo }}"
+            ANIO_ARG="--anio ${{ github.event.inputs.anio_objetivo }}"
           fi
-          python proceso/frm_landing/adf_trigger.py
+          python proceso/frm_landing/adf_trigger.py \
+            --modo "${{ github.event.inputs.modo }}" \
+            $ANIO_ARG
