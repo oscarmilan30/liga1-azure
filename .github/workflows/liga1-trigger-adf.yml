@@ -88,4 +88,4 @@ jobs:
           if [ -n "${{ github.event.inputs.anio_objetivo }}" ]; then
             ARGS="$ARGS --anio ${{ github.event.inputs.anio_objetivo }}"
           fi
-          python proceso/frm_landing/adf_trigger.py $ARGS
+          python proceso/frm_landing/adf_trigger.py
