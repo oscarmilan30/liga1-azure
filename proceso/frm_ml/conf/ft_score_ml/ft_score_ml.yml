@@ -190,4 +190,9 @@ ft_score_ml:
     gc_p90:                double
     pi_p90:                double
     score_ml:              double
-    score
+    score_100:             double
+    var_explicada:         double
+    nivel_num:             int
+    nivel:                 string
+    fecha_carga:           timestamp
+    periodo:               int
