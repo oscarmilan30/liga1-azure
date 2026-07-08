@@ -100,7 +100,7 @@ def log_error(mensaje, excepcion=None):
     # Registrar errores críticos: solo cuando TM no devuelve datos de plantillas o estadísticas.
     # "tab crashed" NO es crítico — solo afecta la carga visual de estadios, los stats
     # vía requests siguen funcionando. CloudFlare/403 sí es crítico (bloquea toda la temporada).
-    _palabras_criticas = ("tab crashed", "sin datos de estadísticas", "sin datos de plantillas",
+    _palabras_criticas = ("sin datos de estadísticas", "sin datos de plantillas",
                           "cloudflare", "abortando", "bloqueo", "403 error", "request blocked")
     msg_lower = mensaje.lower()
     exc_lower = str(excepcion).lower() if excepcion else ""
