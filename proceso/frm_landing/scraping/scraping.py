@@ -2134,6 +2134,23 @@ def procesar_año_completo(año_usuario, adls_client=None, modo="reproceso"):
         if datos_estadisticas:
             df_estadisticas = pd.DataFrame(datos_estadisticas)
             guardar_csv_adls(df_estadisticas, año_guardado, "estadisticas_jugadores", adls_client, "Transfermarkt")
+
+            # Auto-repair si hay demasiados jugadores sin stats (datos_disponibles=False)
+            if modo in ("incremental", "reproceso"):
+                total = len(df_estadisticas)
+                sin_stats = (df_estadisticas.get("datos_disponibles", pd.Series(dtype=str))
+                             .astype(str).str.strip().isin(["False", "false", ""])).sum()
+                pct_sin_stats = sin_stats / total if total > 0 else 0
+                if pct_sin_stats > 0.10:
+                    log_info(f" {sin_stats}/{total} jugadores sin stats ({pct_sin_stats:.0%}) → auto-repair con forzar_solo_stats")
+                    try:
+                        reparar_plantillas_y_estadisticas(
+                            año_guardado, adls_client, forzar_solo_stats=True)
+                        log_info(f" Auto-repair completado — estadisticas_jugadores actualizado en ADLS")
+                    except Exception as e_rep:
+                        log_error(f" Auto-repair falló", e_rep)
+                else:
+                    log_info(f" Calidad OK: {sin_stats}/{total} jugadores sin stats ({pct_sin_stats:.0%})")
         else:
             log_error(f" Transfermarkt: sin datos de estadísticas para temporada {año_transfermarkt}")
 
@@ -2817,34 +2834,13 @@ if __name__ == "__main__":
 
     elif args.modo == "repair_tm":
         # Repara plantillas + estadisticas_jugadores para clubes faltantes en ADLS.
-        clubes_forzar_str = os.environ.get("SCRAPING_REPAIR_CLUBES", "")
-        solo_clubes       = [c.strip() for c in clubes_forzar_str.split(",") if c.strip()] or None
-        forzar_todos      = os.environ.get("SCRAPING_REPAIR_FORZAR_TODOS", "false").lower() == "true"
-
-        if args.anio_objetivo is not None:
-            años_a_reparar = [args.anio_objetivo]
+        forzar_todos = os.environ.get("SCRAPING_REPAIR_FORZAR_TODOS", "false").lower() == "true"
+        if args.anio_objetivo:
+            reparar_plantillas_y_estadisticas(
+                args.anio_objetivo, adls_client, forzar_todos=forzar_todos)
         else:
-            años_a_reparar = list(range(args.anio_inicio, args.anio_fin + 1))
-
-        log_info(f" repair_tm años: {años_a_reparar}")
-        if solo_clubes:
-            log_info(f" Forzando clubes: {solo_clubes}")
-
-        resultados = {}
-        for año in años_a_reparar:
-            ok = reparar_plantillas_y_estadisticas(
-                año, adls_client,
-                solo_clubes=solo_clubes,
-                forzar_todos=forzar_todos
-            )
-            resultados[año] = "OK" if ok else "FALLO"
-            limpiar_memoria()
-            time.sleep(10)
-
-        print("\n--- Resumen repair_tm ---")
-        for año, res in resultados.items():
-            print(f"  {año}: {res}")
-
-    print("\n" + "=" * 70)
-    print(" PROCESO COMPLETADO")
-    print("=" * 70)
+            for año in range(args.anio_inicio, args.anio_fin + 1):
+                reparar_plantillas_y_estadisticas(
+                    año, adls_client, forzar_todos=forzar_todos)
+                limpiar_memoria()
+                time.sleep(5)
