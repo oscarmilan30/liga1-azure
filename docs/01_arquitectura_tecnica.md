@@ -74,7 +74,7 @@ El diagrama muestra la arquitectura completa incluyendo la capa de despliegue a 
 | **Machine Learning** | Python · scikit-learn (PCA + K-means) | Notebook Databricks manual · PCA por posición sobre stats normalizadas · K-means 4 clusters (Elite/Bueno/Regular/Suplente) · resultado en `ft_score_ml` (DDV) |
 | **Delta Sharing** | Unity Catalog Delta Sharing | Expone `ft_score_ml_vw` al conector Power BI Scouting ML sin mover datos fuera de Databricks |
 | **Visualización** | Power BI | Dos proyectos: Modelo Analítico en formato PBIP (Import · SQL Warehouse · 16 tablas · 8 dashboards · versionado en Git) y Scouting ML en formato PBIX (Delta Sharing · ft_score_ml · 3 páginas) |
-| **Control de versiones** | Git + GitHub | Repo `oscarmilan30/liga1-azure` · Branch `test-construccion` (desarrollo, migrará a `main`) · `adf_publish` para ADF publicado |
+| **Control de versiones** | Git + GitHub | Repo `oscarmilan30/liga1-azure` · Branches: `test-construccion` (desarrollo) → `develop` → `main` (prod, dispara CI/CD) · `adf_publish` para ADF publicado |
 
 ![Resource Group rg-liga1](./imagenes/azure/rg_liga1_recursos.png)
 

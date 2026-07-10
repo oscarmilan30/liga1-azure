@@ -1,0 +1,1537 @@
+table Tabla_Medidas
+	lineageTag: 7ecd2786-b825-43f9-9a03-99512b9e5c87
+
+	measure 'Valor Promedio Jugador PEN' = ```
+			
+			/*
+			Convierte el valor medio de mercado de EUR a PEN
+			AVERAGE: promedio según filtro activo (temporada, equipo, etc.)
+			SELECTEDVALUE: lee el tipo de cambio desde _Parametros (tabla de 1 sola fila)
+			*/
+			AVERAGE(ft_evolucion_valoracion[valor_medio])  * SELECTEDVALUE(_Parametros[TipoCambio])
+			
+			```
+		formatString: "S/ "#,##0.00
+		lineageTag: c33470db-c3e8-4722-ae0f-980890b78409
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	measure 'Valor Total Plantel PEN' =
+			
+			/* Suma total del valor del plantel convertido de EUR a PEN
+			   SUM: total según filtro activo
+			   SELECTEDVALUE: tipo de cambio centralizado en _Parametros*/
+			SUM(ft_evolucion_valoracion[valor_total])  * SELECTEDVALUE(_Parametros[TipoCambio])
+		formatString: "S/ "#,##0.00
+		lineageTag: 08a95322-8eb3-4e52-8dbd-8e5839fe24ae
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	measure 'Valor Total Plantel MM PEN' = ```
+			
+			   /*Valor total de plantillas de la última temporada en millones de PEN
+			     Filtra siempre la temporada más reciente ignorando filtros externos
+			     DIVIDE: retorna BLANK si denominador es 0*/
+			VAR ultimaTemp =
+			    CALCULATE(MAX(ft_evolucion_valoracion[temporada]), ALL(ft_evolucion_valoracion))
+			RETURN
+			
+			    CALCULATE(
+			        SUM(ft_evolucion_valoracion[valor_total]),
+			        ft_evolucion_valoracion[temporada] = ultimaTemp
+			    ) * SELECTEDVALUE(_Parametros[TipoCambio])
+			
+			```
+		formatString: "S/"\ #,0.00;-"S/"\ #,0.00;"S/"\ #,0.00
+		lineageTag: 421ab290-4d1e-46d0-9aa5-cccb889bd591
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-PE"}
+
+	measure 'Total Temporadas' =
+			
+			DISTINCTCOUNT(hm_campeones[temporada])
+		formatString: 0
+		lineageTag: 8f1e4b3f-1fe3-47bd-9150-17c63c3fabcc
+
+	measure 'Total Partidos' =
+			
+			DISTINCTCOUNT(ft_partidos_equipo[id_partido])
+		formatString: 0
+		lineageTag: 5ddd44eb-d154-4ff9-b9ba-abab39660782
+
+	measure 'Total Equipos' =
+			
+			DISTINCTCOUNT(ft_rendimiento_posiciones[id_equipo])
+		formatString: #,##0
+		lineageTag: 69e1ce07-134f-49e7-82d7-50dac8e1a80b
+
+	measure 'Campeon Ultimo' =
+			
+			VAR ultimaTemporada = MAX(hm_campeones[temporada])
+			VAR idCampeon = CALCULATE(
+			    MAX(hm_campeones[id_equipo_campeon]),
+			    hm_campeones[temporada] = ultimaTemporada
+			)
+			RETURN
+			LOOKUPVALUE(
+			    dm_equipos[nombre_equipo],
+			    dm_equipos[id_equipo],
+			    idCampeon
+			)
+		lineageTag: 1edf837f-f4e0-46e7-abf4-356dd1235638
+
+	measure 'Logo Campeon' =
+			
+			VAR ultimaTemporada = MAX(hm_campeones[temporada])
+			VAR idCampeon = CALCULATE(
+			    MAX(hm_campeones[id_equipo_campeon]),
+			    hm_campeones[temporada] = ultimaTemporada
+			)
+			RETURN
+			LOOKUPVALUE(
+			    dm_equipos[url_logo],
+			    dm_equipos[id_equipo],
+			    idCampeon
+			)
+		lineageTag: 82a411ee-11cb-4703-b1f7-5b18d09d0246
+		dataCategory: ImageUrl
+
+	measure 'Partidos Segun Posiciones' =
+			
+			DIVIDE(
+			    SUM(ft_rendimiento_posiciones[partidos_jugados]),
+			    2
+			)
+		lineageTag: c624e0a5-98bd-490d-8666-a511eb581e51
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Puntos Históricos' =
+			
+			CALCULATE(
+			    SUM(ft_rendimiento_posiciones[puntos]),
+			    ALL(dm_temporada),
+			    ALL(dm_tipo_tabla)
+			)
+		formatString: 0
+		lineageTag: 4caf9f7c-86a0-4e48-be06-e11cbaaa238d
+
+	measure 'Posición Promedio Histórica' =
+			
+			CALCULATE(
+			    AVERAGE(ft_rendimiento_posiciones[posicion]),
+			    ALL(dm_temporada),
+			    ALL(dm_tipo_tabla)
+			)
+		formatString: 0.0
+		lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+
+	measure 'Posicion Temporada' =
+			
+			MIN(ft_rendimiento_posiciones[posicion])
+		formatString: 0
+		lineageTag: c0d1e2f3-a4b5-6789-cdef-890123456780
+
+	measure 'Puntos por Partido' =
+			
+			DIVIDE(
+			    SUM(ft_rendimiento_posiciones[puntos]),
+			    SUM(ft_rendimiento_posiciones[partidos_jugados])
+			)
+		formatString: 0.00
+		lineageTag: a8b9c0d1-e2f3-4567-abcd-678901234568
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	measure 'Mejor PTS Temporada' =
+			
+			CALCULATE(
+			    MAX(ft_rendimiento_posiciones[puntos]),
+			    ALL(dm_temporada)
+			)
+		formatString: 0
+		lineageTag: b9c0d1e2-f3a4-5678-bcde-789012345679
+
+	measure 'Pct Victorias' =
+			
+			DIVIDE(
+			    SUM(ft_rendimiento_posiciones[partidos_ganados]),
+			    SUM(ft_rendimiento_posiciones[partidos_jugados]),
+			    0
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: e6f7a8b9-c0d1-2345-efab-456789012346
+
+	measure 'Torneos Ganados' =
+			
+			CALCULATE(
+			    COUNTROWS(hm_campeones),
+			    hm_campeones[id_equipo_campeon] = SELECTEDVALUE(ft_rendimiento_posiciones[id_equipo])
+			)
+		formatString: 0
+		lineageTag: d3e4f5a6-b7c8-9012-defa-123456789013
+
+	measure 'Total Victorias' =
+			
+			SUM(ft_rendimiento_posiciones[partidos_ganados])
+		formatString: 0
+		lineageTag: d9e0f1a2-b3c4-5678-defa-789012345679
+
+	measure 'Total Empates' =
+			
+			SUM(ft_rendimiento_posiciones[partidos_empatados])
+		formatString: 0
+		lineageTag: e0f1a2b3-c4d5-6789-efab-890123456780
+
+	measure 'Total Derrotas' =
+			
+			SUM(ft_rendimiento_posiciones[partidos_perdidos])
+		formatString: 0
+		lineageTag: f1a2b3c4-d5e6-7890-fabc-901234567891
+
+	measure 'Logo Seleccionado' =
+			
+			VAR EquipoSeleccionado =
+			    SELECTEDVALUE(
+			        ft_rendimiento_posiciones[nombre_equipo]
+			    )
+			RETURN
+			LOOKUPVALUE(
+			    dm_equipos[url_logo],
+			    dm_equipos[nombre_equipo],
+			    EquipoSeleccionado
+			)
+		lineageTag: e4f5a6b7-c8d9-0123-efab-234567890124
+		dataCategory: ImageUrl
+
+	measure 'SubCampeon Ultimo' =
+			
+			VAR ultimaTemporada = MAX(hm_campeones[temporada])
+			VAR idSubCampeon = CALCULATE(
+			    MAX(hm_campeones[id_equipo_subcampeon]),
+			    hm_campeones[temporada] = ultimaTemporada
+			)
+			RETURN
+			LOOKUPVALUE(
+			    dm_equipos[nombre_equipo],
+			    dm_equipos[id_equipo],
+			    idSubCampeon
+			)
+		lineageTag: b1c2d3e4-f5a6-7890-bcde-f01234567891
+
+	measure 'Logo SubCampeon' =
+			
+			VAR ultimaTemporada = MAX(hm_campeones[temporada])
+			VAR idSubCampeon = CALCULATE(
+			    MAX(hm_campeones[id_equipo_subcampeon]),
+			    hm_campeones[temporada] = ultimaTemporada
+			)
+			RETURN
+			LOOKUPVALUE(
+			    dm_equipos[url_logo],
+			    dm_equipos[id_equipo],
+			    idSubCampeon
+			)
+		lineageTag: c2d3e4f5-a6b7-8901-cdef-012345678902
+		dataCategory: ImageUrl
+
+	measure 'Goles Favor por Partido' =
+			
+			DIVIDE(
+			    SUM(ft_partidos_equipo[goles_favor]),
+			    COUNTROWS(ft_partidos_equipo)
+			)
+		formatString: 0.00
+		lineageTag: c4d5e6f7-a8b9-0123-cdef-234567890124
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	measure 'Nombre Rival' =
+			
+			VAR idRival = SELECTEDVALUE(ft_partidos_equipo[id_rival])
+			RETURN
+			LOOKUPVALUE(
+			    dm_equipos[nombre_equipo],
+			    dm_equipos[id_equipo],
+			    idRival
+			)
+		lineageTag: a6b7c8d9-e0f1-2345-abcd-456789012346
+
+	measure 'Logo Rival' =
+			
+			VAR pid = [Partido Seleccionado Id]
+			VAR idVisit =
+			    CALCULATE(
+			        MAX(ft_partidos_equipo[id_equipo]),
+			        FILTER(
+			            ALL(ft_partidos_equipo),
+			            ft_partidos_equipo[id_partido] = pid
+			                && ft_partidos_equipo[rol_equipo] = "VISITANTE"
+			        )
+			    )
+			RETURN
+			LOOKUPVALUE(
+			    dm_equipos[url_logo],
+			    dm_equipos[id_equipo],
+			    idVisit
+			)
+		lineageTag: f5a6b7c8-d9e0-1234-fabc-345678901235
+		dataCategory: ImageUrl
+
+	measure Partidos =
+			
+			COUNTROWS(ft_partidos_equipo)
+		formatString: 0
+		lineageTag: b7c8d9e0-f1a2-3456-bcde-567890123457
+
+	measure Victorias =
+			
+			CALCULATE(
+			    COUNTROWS(ft_partidos_equipo),
+			    ft_partidos_equipo[resultado] = "G"
+			)
+		formatString: 0
+		lineageTag: c8d9e0f1-a2b3-4567-cdef-678901234568
+
+	measure 'Goles Marcados' =
+			
+			SUM(ft_partidos_equipo[goles_favor])
+		formatString: 0
+		lineageTag: a2b3c4d5-e6f7-8901-abcd-012345678902
+
+	measure 'Goles Recibidos' =
+			
+			SUM(ft_partidos_equipo[goles_contra])
+		formatString: 0
+		lineageTag: b3c4d5e6-f7a8-9012-bcde-123456789013
+
+	measure 'Posesion Media' =
+			
+			AVERAGEX(
+			    FILTER(ft_partidos_equipo, ft_partidos_equipo[posesion_pct] > 0),
+			    ft_partidos_equipo[posesion_pct]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: a1b2c3d4-1111-2222-3333-444455556666
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	measure 'Promedio Goles Partido' =
+			
+			DIVIDE(
+			    [Goles Marcados],
+			    [Total Partidos]
+			)
+		formatString: 0.00
+		lineageTag: b2c3d4e5-2222-3333-4444-555566667777
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	measure 'Mayor Goleada' =
+			
+			VAR PartidoTop =
+			    TOPN(
+			        1,
+			        FILTER(
+			            ft_partidos_equipo,
+			            ft_partidos_equipo[rol_equipo] = "LOCAL"
+			        ),
+			        ABS(ft_partidos_equipo[diferencia_goles]), DESC,
+			        ft_partidos_equipo[goles_favor], DESC,
+			        ft_partidos_equipo[fecha_partido], DESC
+			    )
+			RETURN
+			CONCATENATEX(
+			    PartidoTop,
+			    UPPER(ft_partidos_equipo[alias_equipo])
+			        & " ("
+			        & ft_partidos_equipo[goles_favor]
+			        & "-"
+			        & ft_partidos_equipo[goles_contra]
+			        & ") "
+			        & UPPER(
+			            LOOKUPVALUE(
+			                dm_equipos[alias_equipo],
+			                dm_equipos[id_equipo],
+			                ft_partidos_equipo[id_rival]
+			            )
+			        ),
+			    ""
+			)
+		lineageTag: c3d4e5f6-3333-4444-5555-666677778888
+
+	measure '% Victorias Local' =
+			
+			DIVIDE(
+			    CALCULATE(
+			        DISTINCTCOUNT(ft_partidos_equipo[id_partido]),
+			        ft_partidos_equipo[rol_equipo] = "LOCAL",
+			        ft_partidos_equipo[resultado] = "G"
+			    ),
+			    DISTINCTCOUNT(ft_partidos_equipo[id_partido])
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: d4e5f6a7-4444-5555-6666-777788889999
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	measure '% Empates' =
+			
+			DIVIDE(
+			    CALCULATE(
+			        DISTINCTCOUNT(ft_partidos_equipo[id_partido]),
+			        ft_partidos_equipo[rol_equipo] = "LOCAL",
+			        ft_partidos_equipo[resultado] = "E"
+			    ),
+			    DISTINCTCOUNT(ft_partidos_equipo[id_partido])
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: e5f6a7b8-5555-6666-7777-888899990000
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	measure '% Victorias Visitante' =
+			
+			DIVIDE(
+			    CALCULATE(
+			        DISTINCTCOUNT(ft_partidos_equipo[id_partido]),
+			        ft_partidos_equipo[rol_equipo] = "VISITANTE",
+			        ft_partidos_equipo[resultado] = "G"
+			    ),
+			    DISTINCTCOUNT(ft_partidos_equipo[id_partido])
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: f6a7b8c9-6666-7777-8888-999900001111
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	measure 'Precision Disparo' =
+			
+			DIVIDE(
+			    SUM(ft_partidos_equipo[disparos_puerta]),
+			    SUM(ft_partidos_equipo[tiros_totales]),
+			    0
+			)
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 98023ddf-ab17-4a9b-a610-a45bf920e8d4
+
+	measure 'Efectividad Ofensiva' =
+			
+			DIVIDE(
+			    SUM(ft_partidos_equipo[goles_favor]),
+			    SUM(ft_partidos_equipo[tiros_totales]),
+			    0
+			)
+		lineageTag: 46b8ad68-9c3f-4263-adb8-901ebef9663c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Partidos Válidos' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(ft_partidos_equipo[id_partido]),
+			    ft_partidos_equipo[partido_sin_info] = 0
+			)
+		formatString: 0
+		lineageTag: 968fb52b-8059-4c78-bd8f-b5c3b5e948ea
+
+	measure 'Partidos Aplazado/Sin Jugar' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(ft_partidos_equipo[id_partido]),
+			    ft_partidos_equipo[partido_sin_info] = 1
+			)
+		formatString: 0
+		lineageTag: d698e48f-cc82-47d9-91be-b1a61479d9fd
+
+	/// Total de jugadores registrados en la plantilla según filtros activos
+	measure 'Total Jugadores' =
+			
+			DISTINCTCOUNT(
+			    ft_plantillas_historico[id_jugador]
+			)
+		formatString: 0
+		lineageTag: a1b2c3d4-0001-0001-0001-000000000001
+
+	/// Edad promedio del plantel (excluye filas sin edad)
+	measure 'Edad Promedio' =
+			
+			AVERAGE(ft_plantillas_historico[edad_historica])
+		formatString: 0.0
+		lineageTag: a1b2c3d4-0001-0001-0001-000000000002
+
+	/// Jugadores cuya nacionalidad principal no es peruana
+	measure 'Total Extranjeros' =
+			
+			CALCULATE(
+			    COUNTROWS(ft_plantillas_historico),
+			    NOT(ft_plantillas_historico[nacionalidad_principal] IN {"Perú", "Peru", "Peruana"})
+			)
+		formatString: 0
+		lineageTag: a1b2c3d4-0001-0001-0001-000000000003
+
+	/// Valor total del plantel en millones de soles (PEN), usando tipo de cambio de _Parametros
+	measure 'Valor Total Plantel EUR MM' =
+			
+			DIVIDE(
+			    SUM(ft_plantillas_historico[valor_mercado]) * SELECTEDVALUE(_Parametros[TipoCambio]),
+			    1000000
+			)
+		formatString: """S/ ""#,##0.0"" M"""
+		lineageTag: a1b2c3d4-0001-0001-0001-000000000004
+
+	/// Nombre del jugador con mayor valor de mercado del plantel
+	measure 'Jugador Más Valioso' =
+			
+			VAR TopJugador =
+			    TOPN(
+			        1,
+			        ft_plantillas_historico,
+			        ft_plantillas_historico[valor_mercado], DESC,
+			        ft_plantillas_historico[edad_historica], ASC,
+			        ft_plantillas_historico[jugador], ASC
+			    )
+			RETURN
+			CONCATENATEX(
+			    TopJugador, ft_plantillas_historico[jugador]
+			)
+		lineageTag: c1c2c3c4-0003-0003-0003-000000000001
+
+	/// Jugador más viejo del plantel con su edad
+	measure 'Jugador Veterano' =
+			
+			VAR EdadMax =
+			    MAX(ft_plantillas_historico[edad_historica])
+			
+			VAR TopJugador =
+			    TOPN(
+			        1,
+			        FILTER(
+			            ft_plantillas_historico,
+			            ft_plantillas_historico[edad_historica] = EdadMax
+			        ),
+			        ft_plantillas_historico[valor_mercado], DESC,
+			        ft_plantillas_historico[jugador], ASC
+			    )
+			
+			RETURN
+			CONCATENATEX(
+			    TopJugador,
+			        ft_plantillas_historico[jugador]
+			        & " ("
+			        & ft_plantillas_historico[edad_historica]
+			        & " años)"
+			)
+		lineageTag: c1c2c3c4-0003-0003-0003-000000000002
+
+	/// Jugador más joven del plantel con su edad
+	measure 'Jugador Joven' =
+			
+			VAR EdadMin =
+			    MIN(ft_plantillas_historico[edad_historica])
+			
+			VAR TopJugador =
+			    TOPN(
+			        1,
+			        FILTER(
+			            ft_plantillas_historico,
+			            ft_plantillas_historico[edad_historica] = EdadMin
+			        ),
+			        ft_plantillas_historico[valor_mercado], DESC,
+			        ft_plantillas_historico[jugador], ASC
+			    )
+			
+			RETURN
+			CONCATENATEX(
+			    TopJugador,
+			        ft_plantillas_historico[jugador]
+			        & " ("
+			        & ft_plantillas_historico[edad_historica]
+			        & " años)"
+			)
+		lineageTag: c1c2c3c4-0003-0003-0003-000000000003
+
+	/// PPP promedio de la liga (DTs con >= 5 partidos)
+	measure 'PPP Promedio Liga' =
+			
+			AVERAGEX(
+			    FILTER(ft_entrenadores_historico, ft_entrenadores_historico[partidos] >= 10),
+			    ft_entrenadores_historico[ppp]
+			)
+		formatString: 0.00
+		lineageTag: b1b2c3d4-0002-0002-0002-000000000001
+
+	/// Número de entrenadores distintos
+	measure 'Total Entrenadores' =
+			
+			DISTINCTCOUNT(ft_entrenadores_historico[id_entrenador])
+		formatString: 0
+		lineageTag: b1b2c3d4-0002-0002-0002-000000000002
+
+	/// Promedio de partidos dirigidos por DT
+	measure 'Promedio de Partidos por DT' =
+			
+			AVERAGEX(
+			    FILTER(ft_entrenadores_historico, ft_entrenadores_historico[partidos] >= 10),
+			    ft_entrenadores_historico[partidos]
+			)
+		formatString: 0.0
+		lineageTag: b1b2c3d4-0002-0002-0002-000000000003
+
+	/// Entrenadores cuya nacionalidad no es peruana
+	measure 'Entrenadores Extranjeros' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(ft_entrenadores_historico[id_entrenador]),
+			    NOT(ft_entrenadores_historico[nacionalidad_principal] IN {"Perú", "Peru", "Peruana"})
+			)
+		formatString: 0
+		lineageTag: b1b2c3d4-0002-0002-0002-000000000004
+
+	/// Valor de mercado individual del jugador en soles (para tabla Plantillas)
+	measure 'Valor Mercado PEN' =
+			
+			SUM(ft_plantillas_historico[valor_mercado]) * SELECTEDVALUE(_Parametros[TipoCambio])
+		lineageTag: 381595a2-ce6f-4637-9d08-159873c959c5
+
+	/// Valor total de la liga en millones de PEN (respeta filtros activos de temporada/equipo)
+	measure 'Valor Total Liga Val MM' = ```
+			
+			
+			    SUM(ft_evolucion_valoracion[valor_total]) * SELECTEDVALUE(_Parametros[TipoCambio])
+			
+			```
+		formatString: "S/"\ #,0.00;-"S/"\ #,0.00;"S/"\ #,0.00
+		lineageTag: aa010001-0001-0001-0001-000000000001
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-PE"}
+
+	/// Nombre del equipo con mayor valor total de mercado (respeta filtros)
+	measure 'Equipo Más Valioso Val' =
+			
+			VAR resumen =
+			    SUMMARIZE(
+			        ft_evolucion_valoracion,
+			        ft_evolucion_valoracion[nombre_equipo],
+			        "VT", SUM(ft_evolucion_valoracion[valor_total])
+			    )
+			VAR top1 = TOPN(1, resumen, [VT], DESC)
+			RETURN CONCATENATEX(top1, ft_evolucion_valoracion[nombre_equipo])
+		lineageTag: aa010001-0001-0001-0001-000000000002
+
+	/// Valor del equipo más valioso en millones de PEN
+	measure 'Valor Equipo Top MM' =
+			
+			VAR resumen =
+			    SUMMARIZE(
+			        ft_evolucion_valoracion,
+			        ft_evolucion_valoracion[nombre_equipo],
+			        "VT", SUM(ft_evolucion_valoracion[valor_total])
+			    )
+			RETURN
+			DIVIDE(
+			    MAXX(resumen, [VT]) * SELECTEDVALUE(_Parametros[TipoCambio]),
+			    1000000
+			)
+		formatString: \"S/ \"#,##0.0\" MM\"
+		lineageTag: aa010001-0001-0001-0001-000000000003
+
+	/// Edad promedio de la liga (ft_evolucion_valoracion, respeta filtros)
+	measure 'Edad Promedio Liga Val' =
+			
+			AVERAGE(ft_evolucion_valoracion[edad_promedio])
+		formatString: 0.0
+		lineageTag: aa010001-0001-0001-0001-000000000004
+
+	/// Promedio de jugadores extranjeros por equipo
+	measure 'Extranjeros Promedio Equipo Val' =
+			
+			AVERAGE(ft_evolucion_valoracion[extranjeros])
+		formatString: 0.0
+		lineageTag: aa010001-0001-0001-0001-000000000005
+
+	/// Crecimiento interanual del valor total de la liga (ultima temporada vs anterior)
+	measure 'Crecimiento Valor Liga %' =
+			
+			VAR TempActual =
+			    SELECTEDVALUE(ft_evolucion_valoracion[temporada])
+			
+			VAR TempAnterior =
+			    TempActual - 1
+			
+			VAR ValorActual =
+			    CALCULATE(
+			        SUM(ft_evolucion_valoracion[valor_total]),
+			        ft_evolucion_valoracion[temporada] = TempActual
+			    )
+			
+			VAR ValorAnterior =
+			    CALCULATE(
+			        SUM(ft_evolucion_valoracion[valor_total]),
+			        ft_evolucion_valoracion[temporada] = TempAnterior
+			    )
+			
+			RETURN
+			DIVIDE(
+			    ValorActual - ValorAnterior,
+			    ValorAnterior
+			)
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: aa010001-0001-0001-0001-000000000006
+
+	/// Promedio de jugadores por plantel (ft_evolucion_valoracion)
+	measure 'Jugadores Promedio Plantel Val' =
+			
+			AVERAGE(ft_evolucion_valoracion[jugadores_en_plantilla])
+		formatString: 0.0
+		lineageTag: aa010001-0001-0001-0001-000000000007
+
+	/// % del valor total de la liga concentrado en los 3 equipos mas valiosos
+	measure 'Concentracion Top 3 Valor' =
+			
+			VAR resumen =
+			    SUMMARIZE(
+			        ft_evolucion_valoracion,
+			        ft_evolucion_valoracion[nombre_equipo],
+			        "VT", SUM(ft_evolucion_valoracion[valor_total])
+			    )
+			VAR top3 = SUMX(TOPN(3, resumen, [VT], DESC), [VT])
+			VAR total  = SUMX(resumen, [VT])
+			RETURN DIVIDE(top3, total)
+		formatString: 0.0%
+		lineageTag: aa010001-0001-0001-0001-000000000008
+
+	/// Puntos acumulados por equipo para correlacion valor/rendimiento (scatter)
+	measure 'Puntos Acumulado Val' =
+			
+			CALCULATE(
+			    SUM(ft_rendimiento_posiciones[puntos]),
+			    ALL(dm_tipo_tabla)
+			)
+		formatString: 0
+		lineageTag: aa010001-0001-0001-0001-000000000009
+
+	measure 'Mejor DT' =
+			
+			VAR TopDT =
+			    TOPN(
+			        1,
+			        FILTER(
+			            ft_entrenadores_historico,
+			            ft_entrenadores_historico[partidos] >= 10 &&
+			            ft_entrenadores_historico[ppp] > 0
+			        ),
+			        ft_entrenadores_historico[ppp], DESC,
+			        ft_entrenadores_historico[partidos], DESC,
+			        ft_entrenadores_historico[entrenador], ASC
+			    )
+			RETURN
+			CONCATENATEX(TopDT, ft_entrenadores_historico[entrenador])
+		lineageTag: c39f2cd7-661b-45d4-9825-ea0c5454bccd
+
+	measure 'DT Más Partidos' =
+			
+			VAR TopDT =
+			    TOPN(
+			        1,
+			        ft_entrenadores_historico,
+			        ft_entrenadores_historico[partidos],
+			        DESC
+			    )
+			RETURN
+			CONCATENATEX(
+			    TopDT,
+			    ft_entrenadores_historico[entrenador]
+			)
+		lineageTag: d28f3d4a-2dc5-4756-9cea-24503c20e3d7
+
+	measure 'DT Activo' =
+			
+			CONCATENATEX(
+			    FILTER(
+			        ft_entrenadores_historico,
+			        ft_entrenadores_historico[entrenador_activo] = 1
+			    ),
+			    ft_entrenadores_historico[entrenador]
+			)
+		lineageTag: 760e70ed-85ae-4b23-bfa9-e35107fb835d
+
+	measure 'PPP Promedio Nacionalidad' =
+			
+			AVERAGE(ft_entrenadores_historico[ppp])
+		lineageTag: 4c5b0a07-1b68-47d1-a9eb-8d49e7b67c23
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Logo Seleccionado Plantillas' =
+			
+			VAR EquipoSeleccionado =
+			    SELECTEDVALUE(
+			        ft_plantillas_historico[nombre_equipo]
+			    )
+			RETURN
+			LOOKUPVALUE(
+			    dm_equipos[url_logo],
+			    dm_equipos[nombre_equipo],
+			    EquipoSeleccionado
+			)
+		lineageTag: afe2d1cb-6cd4-44dd-8dd6-bc6a885da2b7
+
+	measure 'Logo Seleccionado Entrenador' =
+			
+			VAR EquipoSeleccionado =
+			    SELECTEDVALUE(
+			        ft_entrenadores_historico[nombre_equipo]
+			    )
+			RETURN
+			LOOKUPVALUE(
+			    dm_equipos[url_logo],
+			    dm_equipos[nombre_equipo],
+			    EquipoSeleccionado
+			)
+		lineageTag: 470b2cd6-e2ec-4f31-b2cc-28f2b331b7ad
+
+	measure 'Puntos Equipo Temporada' =
+			
+			SUM(ft_rendimiento_posiciones[puntos])
+		formatString: 0
+		lineageTag: 29d06fbd-6559-48c8-82ed-294a9568d9cd
+
+	measure 'Equipo Más Eficiente' =
+			
+			
+			VAR T =
+			    TOPN(
+			        1,
+			        VALUES(dm_equipos[nombre_equipo]),
+			        [Eficiencia Inversion],
+			        DESC
+			    )
+			RETURN
+			CONCATENATEX(T, dm_equipos[nombre_equipo])
+		lineageTag: f0f068a2-6e07-44d2-b167-72ba0f9b78cb
+
+	measure 'Eficiencia Inversion' =
+			
+			
+			DIVIDE(
+			    [Puntos Equipo Temporada],
+			    [Valor Total Plantel PEN] / 1000000,
+			    0
+			)
+		formatString: #,0.00
+		lineageTag: 2fa0a715-f928-42fe-892b-b38a1b3183cf
+
+	measure 'Medida 2'
+		lineageTag: d5441255-4bec-4969-9c09-3c76371cbd16
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Costo por Punto' =
+			
+			DIVIDE(
+			    [Valor Total Plantel PEN],
+			    [Puntos Equipo Temporada]
+			)
+		formatString: "S/"\ #,0.00;-"S/"\ #,0.00;"S/"\ #,0.00
+		lineageTag: ac491439-8015-4d4a-887b-ed32fdc9a56f
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-PE"}
+
+	measure 'Puntos Equipo Temporada Val' =
+			
+			VAR TempSel = SELECTEDVALUE(ft_evolucion_valoracion[temporada])
+			RETURN
+			CALCULATE(
+			    SUM(ft_rendimiento_posiciones[puntos]),
+			    REMOVEFILTERS(dm_tipo_tabla),
+			    TREATAS({TempSel}, dm_temporada[temporada])
+			)
+		formatString: 0
+		lineageTag: 487c0e45-bcd6-4f33-85e3-6bdbcbce9e2e
+
+	measure 'Puntos por Millon' =
+			
+			DIVIDE(
+			    [Puntos Equipo Temporada],
+			    [Valor Total Plantel PEN] / 1000000,
+			    0
+			)
+		lineageTag: 605bfd9d-932c-4805-ac34-9967f88ae974
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Valor Medio Liga Val MM' = ```
+			
+			
+			    SUM(ft_evolucion_valoracion[valor_medio]) * SELECTEDVALUE(_Parametros[TipoCambio])
+			
+			```
+		lineageTag: 0156e6d8-ac72-42b0-ac67-b1f867aea73a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Promedio de pases por partido (solo partidos con dato)
+	measure 'Promedio Pases' =
+			
+			AVERAGEX(
+			    FILTER(ft_partidos_equipo, ft_partidos_equipo[pases] > 0),
+			    ft_partidos_equipo[pases]
+			)
+		formatString: #,##0.0
+		lineageTag: pa001001-0001-0001-0001-000000000001
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Promedio de tiros totales por partido
+	measure 'Promedio Tiros Totales' =
+			
+			AVERAGEX(
+			    FILTER(ft_partidos_equipo, ft_partidos_equipo[tiros_totales] > 0),
+			    ft_partidos_equipo[tiros_totales]
+			)
+		formatString: #,##0.0
+		lineageTag: pa001001-0001-0001-0001-000000000002
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Promedio de disparos a portería por partido
+	measure 'Promedio Disparos Puerta' =
+			
+			AVERAGEX(
+			    FILTER(ft_partidos_equipo, ft_partidos_equipo[disparos_puerta] > 0),
+			    ft_partidos_equipo[disparos_puerta]
+			)
+		formatString: #,##0.0
+		lineageTag: pa001001-0001-0001-0001-000000000003
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Promedio de saques de esquina por partido
+	measure 'Promedio Tiros Esquina' =
+			
+			AVERAGEX(
+			    FILTER(ft_partidos_equipo, ft_partidos_equipo[saques_esquina] > 0),
+			    ft_partidos_equipo[saques_esquina]
+			)
+		formatString: #,##0.0
+		lineageTag: pa001001-0001-0001-0001-000000000004
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Promedio de tarjetas amarillas por partido
+	measure 'Promedio Tarjetas Amarillas' =
+			
+			AVERAGEX(
+			    FILTER(ft_partidos_equipo, ft_partidos_equipo[tarjetas_amarillas] > 0),
+			    ft_partidos_equipo[tarjetas_amarillas]
+			)
+		formatString: #,##0.0
+		lineageTag: pa001001-0001-0001-0001-000000000005
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total de empates según filtros activos
+	measure Empates =
+			
+			CALCULATE(
+			    COUNTROWS(ft_partidos_equipo),
+			    ft_partidos_equipo[resultado] = "E"
+			)
+		formatString: 0
+		lineageTag: pa001001-0001-0001-0001-000000000006
+
+	/// Total de derrotas según filtros activos
+	measure Derrotas =
+			
+			CALCULATE(
+			    COUNTROWS(ft_partidos_equipo),
+			    ft_partidos_equipo[resultado] = "P"
+			)
+		formatString: 0
+		lineageTag: pa001001-0001-0001-0001-000000000007
+
+	/// Porcentaje de tiros que no fueron a portería (1 - Precision Disparo)
+	measure 'Tiros Fuera Pct' =
+			
+			1 - [Precision Disparo]
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: pa001001-0001-0001-0001-000000000008
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Porcentaje de disparos a portería que terminaron en gol
+	measure 'Pct Conversion Porteria' =
+			
+			DIVIDE(
+			    SUM(ft_partidos_equipo[goles_favor]),
+			    SUM(ft_partidos_equipo[disparos_puerta]),
+			    0
+			)
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: pa001001-0001-0001-0001-000000000009
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Complemento de conversión a portería (disparos_puerta sin gol)
+	measure 'Pct No Conversion Porteria' =
+			
+			1 - [Pct Conversion Porteria]
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: pa001001-0001-0001-0001-000000000010
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	measure 'Logo Local' =
+			
+			VAR pid = [Partido Seleccionado Id]
+			VAR idLocal =
+			    CALCULATE(
+			        MAX(ft_partidos_equipo[id_equipo]),
+			        FILTER(
+			            ALL(ft_partidos_equipo),
+			            ft_partidos_equipo[id_partido] = pid
+			                && ft_partidos_equipo[rol_equipo] = "LOCAL"
+			        )
+			    )
+			RETURN
+			LOOKUPVALUE(
+			    dm_equipos[url_logo],
+			    dm_equipos[id_equipo],
+			    idLocal
+			)
+		lineageTag: f9d36015-4009-40a4-9489-1d981a3ab470
+		dataCategory: ImageUrl
+
+	measure 'Victorias Local' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(ft_partidos_equipo[id_partido]),
+			    ft_partidos_equipo[rol_equipo] = "LOCAL",
+			    ft_partidos_equipo[resultado] = "G"
+			)
+		formatString: 0
+		lineageTag: 0691b51b-27d6-4e25-8645-80247a14d734
+
+	measure 'Fuera de Porteria' =
+			
+			SUM(ft_partidos_equipo[tiros_totales]) - SUM(ft_partidos_equipo[disparos_puerta])
+		formatString: 0
+		lineageTag: 921085fb-7f5a-437b-a752-9a6f662a54dc
+
+	measure 'Precision Porteria' =
+			
+			DIVIDE(
+			    SUM(ft_partidos_equipo[disparos_puerta]),
+			    SUM(ft_partidos_equipo[tiros_totales])
+			)
+		lineageTag: f6d91acb-3a46-4e76-abf4-cc67e315811d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Precision Tiro Fuera' =
+			
+			DIVIDE(
+			    [Fuera de Porteria],
+			    SUM(ft_partidos_equipo[tiros_totales])
+			)
+		lineageTag: 92625332-f1c5-46f8-824b-fbcd4cea90d0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Valor Indicador Partido' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Indicadores Partido'[Indicador]),
+			    "Tiros Totales", SUM(ft_partidos_equipo[tiros_totales]),
+			    "Disparos a Portería", SUM(ft_partidos_equipo[disparos_puerta]),
+			    "Posesión %", AVERAGE(ft_partidos_equipo[posesion_pct]),
+			    "Saques de Esquina", SUM(ft_partidos_equipo[saques_esquina]),
+			    "Gran Probabilidad", SUM(ft_partidos_equipo[gran_probabilidad])
+			)
+		lineageTag: 9afa424c-f07a-476e-9690-bb6ecf710518
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Equipo Local' =
+			
+			VAR pid = [Partido Seleccionado Id]
+			RETURN
+			CALCULATE(
+			    MAX(ft_partidos_equipo[nombre_equipo]),
+			    FILTER(
+			        ALL(ft_partidos_equipo),
+			        ft_partidos_equipo[id_partido] = pid
+			            && ft_partidos_equipo[rol_equipo] = "LOCAL"
+			    )
+			)
+		lineageTag: c01ce42a-c38f-4ed9-8e4e-7bf077e22e08
+
+	measure Medida
+		lineageTag: 72aeffef-c220-4a95-8b2a-1f02fcc21ece
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Marcador Partido' =
+			
+			VAR pid = [Partido Seleccionado Id]
+			VAR gL =
+			    CALCULATE(
+			        MAX(ft_partidos_equipo[goles_favor]),
+			        FILTER(
+			            ALL(ft_partidos_equipo),
+			            ft_partidos_equipo[id_partido] = pid
+			                && ft_partidos_equipo[rol_equipo] = "LOCAL"
+			        )
+			    )
+			VAR gV =
+			    CALCULATE(
+			        MAX(ft_partidos_equipo[goles_favor]),
+			        FILTER(
+			            ALL(ft_partidos_equipo),
+			            ft_partidos_equipo[id_partido] = pid
+			                && ft_partidos_equipo[rol_equipo] = "VISITANTE"
+			        )
+			    )
+			RETURN
+			FORMAT(gL, "0") & " - " & FORMAT(gV, "0")
+		lineageTag: c44184db-c2e0-4d35-8712-a463006505a7
+
+	measure 'Tiros Local' =
+			
+			CALCULATE(
+			    SUM(ft_partidos_equipo[tiros_totales]),
+			    ft_partidos_equipo[rol_equipo]="LOCAL"
+			)
+		formatString: 0
+		lineageTag: ff5a4477-b0a9-491a-ab5a-7a0c39e0a610
+
+	measure 'Tiros Visitante' =
+			
+			CALCULATE(
+			    SUM(ft_partidos_equipo[tiros_totales]),
+			    ft_partidos_equipo[rol_equipo]="VISITANTE"
+			)
+		formatString: 0
+		lineageTag: c0f8353c-d09c-4062-bc8d-2ec464a6076a
+
+	measure 'Puerta Local' =
+			
+			CALCULATE(
+			    SUM(ft_partidos_equipo[disparos_puerta]),
+			    ft_partidos_equipo[rol_equipo]="LOCAL"
+			)
+		formatString: 0
+		lineageTag: 95e6f7f4-7c30-4491-96f3-766a301cb9fe
+
+	measure 'Puerta Visitante' =
+			
+			CALCULATE(
+			    SUM(ft_partidos_equipo[disparos_puerta]),
+			    ft_partidos_equipo[rol_equipo]="VISITANTE"
+			)
+		formatString: 0
+		lineageTag: 4d13ecbf-d1da-4eec-8424-f962f667d569
+
+	measure 'Corners Local' =
+			
+			CALCULATE(
+			    SUM(ft_partidos_equipo[saques_esquina]),
+			    ft_partidos_equipo[rol_equipo]="LOCAL"
+			)
+		formatString: 0
+		lineageTag: 35398138-4155-4bea-aa9c-d0a844cdb81f
+
+	measure 'Corners Visitante' =
+			
+			CALCULATE(
+			    SUM(ft_partidos_equipo[saques_esquina]),
+			    ft_partidos_equipo[rol_equipo]="VISITANTE"
+			)
+		formatString: 0
+		lineageTag: 976d7f17-3454-4cd2-8398-2aeb96089e0b
+
+	measure 'Posesion Local' =
+			
+			CALCULATE(
+			    AVERAGE(ft_partidos_equipo[posesion_pct]),
+			    ft_partidos_equipo[rol_equipo]="LOCAL"
+			)
+		lineageTag: c7f82077-fb34-4cd9-b614-9e7a5fc20461
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Posesion Visitante' =
+			
+			CALCULATE(
+			    AVERAGE(ft_partidos_equipo[posesion_pct]),
+			    ft_partidos_equipo[rol_equipo]="VISITANTE"
+			)
+		lineageTag: c9a30f45-32ae-425c-a731-0d1f2e6cb209
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Equipo Visitante' =
+			
+			VAR pid = [Partido Seleccionado Id]
+			RETURN
+			CALCULATE(
+			    MAX(ft_partidos_equipo[nombre_equipo]),
+			    FILTER(
+			        ALL(ft_partidos_equipo),
+			        ft_partidos_equipo[id_partido] = pid
+			            && ft_partidos_equipo[rol_equipo] = "VISITANTE"
+			    )
+			)
+		lineageTag: c605d6a3-6307-4abe-a819-3510256ab358
+
+	measure 'Valor Local' =
+			
+			VAR pid = [Partido Seleccionado Id]
+			VAR ind = SELECTEDVALUE('Indicadores Partido'[Indicador])
+			RETURN
+			SWITCH(
+			    ind,
+			    "Tiros Totales",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[tiros_totales]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "LOCAL")
+			        ),
+			    "Tiros a Puerta",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[disparos_puerta]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "LOCAL")
+			        ),
+			    "Posesion %",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[posesion_pct]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "LOCAL")
+			        ),
+			    "Saques de Esquina",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[saques_esquina]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "LOCAL")
+			        ),
+			    "Pases",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[pases]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "LOCAL")
+			        ),
+			    "Faltas",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[faltas]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "LOCAL")
+			        ),
+			    "Tarjetas Amarillas",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[tarjetas_amarillas]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "LOCAL")
+			        ),
+			    "Tarjetas Rojas",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[tarjetas_rojas]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "LOCAL")
+			        )
+			)
+		lineageTag: 083cb2f8-beab-41e5-b1af-d80040fac63e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Valor Visitante' =
+			
+			VAR pid = [Partido Seleccionado Id]
+			VAR ind = SELECTEDVALUE('Indicadores Partido'[Indicador])
+			RETURN
+			SWITCH(
+			    ind,
+			    "Tiros Totales",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[tiros_totales]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "VISITANTE")
+			        ),
+			    "Tiros a Puerta",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[disparos_puerta]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "VISITANTE")
+			        ),
+			    "Posesion %",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[posesion_pct]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "VISITANTE")
+			        ),
+			    "Saques de Esquina",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[saques_esquina]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "VISITANTE")
+			        ),
+			    "Pases",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[pases]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "VISITANTE")
+			        ),
+			    "Faltas",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[faltas]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "VISITANTE")
+			        ),
+			    "Tarjetas Amarillas",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[tarjetas_amarillas]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "VISITANTE")
+			        ),
+			    "Tarjetas Rojas",
+			        CALCULATE(
+			            MAX(ft_partidos_equipo[tarjetas_rojas]),
+			            FILTER(ALL(ft_partidos_equipo), ft_partidos_equipo[id_partido] = pid && ft_partidos_equipo[rol_equipo] = "VISITANTE")
+			        )
+			)
+		lineageTag: 6fbbc5ec-afc0-4741-9018-d6c6971765d1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Partido Default Id' =
+			
+			VAR t =
+			    TOPN(
+			        1,
+			        FILTER(
+			            ALLSELECTED(ft_partidos_equipo),
+			            ft_partidos_equipo[rol_equipo] = "LOCAL"
+			                && ft_partidos_equipo[partido_sin_info] = 0
+			        ),
+			        ft_partidos_equipo[fecha_partido], ASC,
+			        ft_partidos_equipo[id_partido], ASC
+			    )
+			RETURN
+			    MAXX(t, ft_partidos_equipo[id_partido])
+		lineageTag: ac30076c-2edc-4bd8-a7ab-493b6aeb7cb2
+
+	measure 'Partido Seleccionado Id' =
+			
+			COALESCE(
+			    SELECTEDVALUE(ft_partidos_equipo[id_partido]),
+			    [Partido Default Id]
+			)
+		lineageTag: 1e8bbcc1-cc67-44ac-961d-4e3e426c57eb
+
+	measure 'XI Ideal Campo' =
+			
+			VAR Tabla =
+			    SELECTCOLUMNS(
+			        jugadores_slots,
+			        "slot",          jugadores_slots[slot],
+			        "jugador",       jugadores_slots[jugador],
+			        "foto_url",      jugadores_slots[foto_url],
+			        "posicion_xi",   jugadores_slots[posicion_xi],
+			        "x_coord",       jugadores_slots[x_coord],
+			        "y_coord",       jugadores_slots[y_coord],
+			        "score",         jugadores_slots[score],
+			        "goles",         jugadores_slots[goles],
+			        "asistencias",   jugadores_slots[asistencias],
+			        "minutos",       jugadores_slots[minutos_jugados],
+			        "partidos",      jugadores_slots[partidos_jugados],
+			        "titularidades", jugadores_slots[titularidades],
+			        "tarj_am",       jugadores_slots[tarjetas_amarillas],
+			        "tarj_2am",      jugadores_slots[segunda_amarilla],
+			        "tarj_roj",      jugadores_slots[tarjetas_rojas],
+			        "entrada",       jugadores_slots[entrada_suplente],
+			        "salida",        jugadores_slots[salida_suplente],
+			        "min_gol",       jugadores_slots[min_por_gol],
+			        "ppp",           jugadores_slots[ppp],
+			        "pie",           jugadores_slots[pie],
+			        "equipo",        jugadores_slots[alias_equipo],
+			        "id_equipo",     jugadores_slots[id_equipo],
+			        "goles_contra",  jugadores_slots[goles_en_contra],
+			        "p_imbatido",    jugadores_slots[partidos_imbatido]
+			    )
+			
+			VAR UniqueSlots = DISTINCT(SELECTCOLUMNS(Tabla, "s", [slot]))
+			
+			VAR BestXI =
+			    GENERATE(
+			        UniqueSlots,
+			        VAR thisSlot = [s]
+			        VAR filtered = FILTER(Tabla, [slot] = thisSlot)
+			        RETURN ADDCOLUMNS(
+			            TOPN(1, filtered, [score], DESC),
+			            "cands", COUNTROWS(filtered)
+			        )
+			    )
+			
+			VAR Cards =
+			    CONCATENATEX(
+			        BestXI,
+			        VAR xp   = FORMAT([x_coord], "0") & "%"
+			        VAR yp   = FORMAT([y_coord], "0") & "%"
+			        VAR nm   = LEFT([jugador], 18)
+			        VAR sc   = FORMAT([score], "0.0")
+			        VAR pos  = [posicion_xi]
+			        VAR pie  = IF(ISBLANK([pie]), "", " | " & [pie])
+			        VAR eq   = UPPER(IF(ISBLANK([equipo]), "", [equipo]))
+			        VAR nc   = FORMAT([cands], "0")
+			        VAR logo = LOOKUPVALUE(dm_equipos[url_logo], dm_equipos[id_equipo], [id_equipo])
+			        VAR col  =
+			            IF(pos = "POR", "#F1C40F",
+			            IF(pos = "DFC" || pos = "LD" || pos = "LI", "#3498DB",
+			            IF(pos = "MC"  || pos = "MCD" || pos = "MCO", "#2ECC71",
+			            "#E74C3C")))
+			
+			        -- ── Pesos rendimiento ────────────────────────────────────────────
+			        VAR wg   = IF(pos="DC",8,   IF(pos="EI"||pos="ED",6,   IF(pos="MCO",5,  IF(pos="MC",3,  IF(pos="MCD",2, 0)))))
+			        VAR wa   = IF(pos="DC",3,   IF(pos="EI"||pos="ED",5,   IF(pos="MCO",6,  IF(pos="MC",4,  IF(pos="MCD",3, IF(pos="LD"||pos="LI",2, 0))))))
+			        VAR dm   = IF(pos="POR",70, IF(pos="DFC",80, IF(pos="LD"||pos="LI",90, 100)))
+			        VAR wp   = IF(pos="DC"||pos="EI"||pos="ED", 0.5, 0.3)
+			        VAR wt   = 1.5
+			
+			        -- ── Pesos tarjetas / sustituciones ───────────────────────────────
+			        VAR wam  = IF(pos="DC"||pos="EI"||pos="ED", 1,
+			                   IF(pos="MCO"||pos="MC"||pos="LD"||pos="LI", 1.5, 2))
+			        VAR wppp = IF(pos="DC"||pos="EI"||pos="ED", 2,
+			                   IF(pos="MCO"||pos="MC"||pos="MCD", 1.5, 1))
+			        VAR wsal = 0.5
+			        VAR went = 0.3
+			
+			        -- ── Contribuciones específicas portero ────────────────────────────
+			        VAR cgec = IF(pos="POR", [goles_contra] * 0.5, 0)   -- magnitud (penalización)
+			        VAR cpib = IF(pos="POR", [p_imbatido]   * 2,   0)   -- bonificación
+			
+			        -- ── Escalones eficiencia (min_por_gol) ───────────────────────────
+			        VAR eff_top = IF(pos="DC",10, IF(pos="EI"||pos="ED",8, IF(pos="MCO",5, IF(pos="MC",3, 0))))
+			        VAR eff_mid = IF(pos="DC",6,  IF(pos="EI"||pos="ED",5, IF(pos="MCO",3, IF(pos="MC",2, 0))))
+			        VAR eff_low = IF(pos="DC",3,  IF(pos="EI"||pos="ED",2, IF(pos="MCO",1, IF(pos="MC",1, 0))))
+			        VAR ceff    = IF([min_gol] > 0   && [min_gol] <= 90,  eff_top,
+			                     IF([min_gol] > 90  && [min_gol] <= 130, eff_mid,
+			                     IF([min_gol] > 130 && [min_gol] <= 180, eff_low, 0)))
+			
+			        -- ── Contribuciones positivas ─────────────────────────────────────
+			        VAR cg   = [goles]         * wg
+			        VAR ca   = [asistencias]   * wa
+			        VAR cm   = [minutos]       / dm
+			        VAR cp   = [partidos]      * wp
+			        VAR ct   = [titularidades] * wt
+			        VAR cppp = [ppp]           * wppp
+			
+			        -- ── Penalizaciones (cgec incluida para POR) ───────────────────────
+			        VAR cam  = [tarj_am]  * wam
+			        VAR csal = [salida]   * wsal
+			        VAR cent = [entrada]  * went
+			        VAR pen  = [tarj_2am] * 3 + [tarj_roj] * 5 + cam + csal + cent + cgec
+			
+			        -- ── Totales para barras de % (cpib incluido para POR) ────────────
+			        VAR tp   = cg + ca + cm + cp + ct + cppp + ceff + cpib
+			        VAR tp2  = IF(tp > 0, tp, 1)
+			        VAR pg   = FORMAT(IF(cg/tp2*100<100,   cg/tp2*100,   100), "0")
+			        VAR pa   = FORMAT(IF(ca/tp2*100<100,   ca/tp2*100,   100), "0")
+			        VAR pm   = FORMAT(IF(cm/tp2*100<100,   cm/tp2*100,   100), "0")
+			        VAR pp   = FORMAT(IF(cp/tp2*100<100,   cp/tp2*100,   100), "0")
+			        VAR pt   = FORMAT(IF(ct/tp2*100<100,   ct/tp2*100,   100), "0")
+			        VAR pppp = FORMAT(IF(cppp/tp2*100<100, cppp/tp2*100, 100), "0")
+			        VAR peff = FORMAT(IF(ceff/tp2*100<100, ceff/tp2*100, 100), "0")
+			        VAR ppib = FORMAT(IF(cpib/tp2*100<100, cpib/tp2*100, 100), "0")
+			
+			        -- ── Score máx referencia por posición ────────────────────────────
+			        VAR rm  = IF(pos="DC",290, IF(pos="EI"||pos="ED",240, IF(pos="MCO"||pos="MC",185, IF(pos="MCD",130, IF(pos="POR",100, 80)))))
+			        VAR po  = FORMAT(IF([score]/rm*100<100, [score]/rm*100, 100), "0")
+			
+			        -- ── Valores display ───────────────────────────────────────────────
+			        VAR zone = IF([y_coord] < 40, "top", IF([y_coord] >= 65, "bottom", "side"))
+			        VAR tt_v = IF(zone = "side",   "top:-10px;bottom:auto",
+			                IF(zone = "top",    "top:105%;bottom:auto",
+			                                    "bottom:105%;top:auto"))
+			        VAR tt_h = IF(zone = "side",
+			                    IF([x_coord] <= 50, "left:calc(100% + 12px);right:auto;transform:none",
+			                                        "right:calc(100% + 12px);left:auto;transform:none"),
+			                IF([x_coord] < 30, "left:0;right:auto;transform:none",
+			                IF([x_coord] > 68, "right:0;left:auto;transform:none",
+			                                    "left:50%;transform:translateX(-50%)")))
+			        VAR vg   = FORMAT([goles],         "0")
+			        VAR va   = FORMAT([asistencias],   "0")
+			        VAR vm   = FORMAT([minutos],       "0")
+			        VAR vp   = FORMAT([partidos],      "0")
+			        VAR vt   = FORMAT([titularidades], "0")
+			        VAR vam  = FORMAT([tarj_am],       "0")
+			        VAR vsal = FORMAT([salida],        "0")
+			        VAR vent = FORMAT([entrada],       "0")
+			        VAR vppp = FORMAT([ppp],           "0.00")
+			        VAR vmg  = FORMAT([min_gol],       "0")
+			        VAR vcg  = FORMAT(cg,   "0.1")
+			        VAR vca  = FORMAT(ca,   "0.1")
+			        VAR vcm  = FORMAT(cm,   "0.1")
+			        VAR vcp  = FORMAT(cp,   "0.1")
+			        VAR vct  = FORMAT(ct,   "0.1")
+			        VAR vcppp= FORMAT(cppp, "0.1")
+			        VAR vceff= FORMAT(ceff, "0.1")
+			        VAR vpen = IF(pen > 0, "-" & FORMAT(pen, "0.1"), "0")
+			        VAR vpib = FORMAT([p_imbatido],   "0")
+			        VAR vgec = FORMAT([goles_contra], "0")
+			        VAR vcpib = FORMAT(cpib, "0.1")
+			        VAR vcgec = FORMAT(cgec, "0.1")
+			        RETURN
+			        "<div class='pc' style='position:absolute;left:" & xp & ";top:" & yp & ";transform:translate(-50%,-50%);text-align:center;z-index:10;min-width:70px;'>"
+			        & "<div style='width:58px;height:58px;border-radius:50%;border:3px solid " & col & ";box-shadow:0 0 0 2px white,0 4px 14px rgba(0,0,0,0.9);overflow:hidden;margin:0 auto;'>"
+			        & "<img src='" & [foto_url] & "' style='width:58px;height:58px;object-fit:cover;display:block;'/>"
+			        & "</div>"
+			        & "<div style='color:white;font-size:12px;font-weight:800;margin-top:3px;text-shadow:2px 2px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000;white-space:nowrap;'>" & nm & "</div>"
+			        & "<div style='display:flex;align-items:center;justify-content:center;gap:4px;margin-top:1px;'>"
+			        & IF(ISBLANK(logo),"","<img src='" & logo & "' style='width:14px;height:14px;object-fit:contain;'/>")
+			        & "<span style='color:#FFE566;font-size:11px;font-weight:800;text-shadow:1px 1px 0 #000;letter-spacing:1px;'>" & eq & "</span>"
+			        & "</div>"
+			        & "<div style='display:flex;gap:3px;justify-content:center;margin-top:3px;'>"
+			        & "<span style='background:" & col & ";color:white;font-size:10px;border-radius:4px;padding:2px 6px;font-weight:800;'>" & sc & "</span>"
+			        & "<span style='background:rgba(0,0,0,0.85);color:#fff;font-size:10px;border-radius:4px;padding:2px 6px;font-weight:700;border:1px solid rgba(255,255,255,0.3);'>" & pos & pie & "</span>"
+			        & "</div>"
+			        & "<div class='tt' style='position:absolute;" & tt_v & ";" & tt_h & ";width:240px;background:rgba(8,15,25,0.97);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:10px;z-index:200;text-align:left;box-shadow:0 8px 32px rgba(0,0,0,0.8);'>"
+			        & "<div style='display:flex;align-items:center;gap:8px;margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.15);padding-bottom:8px;'>"
+			        & IF(ISBLANK(logo),"","<img src='" & logo & "' style='width:28px;height:28px;object-fit:contain;flex-shrink:0;'/>")
+			        & "<div><div style='color:" & col & ";font-size:12px;font-weight:800;letter-spacing:1px;'>" & pos & "</div>"
+			        & "<div style='color:white;font-size:13px;font-weight:700;'>" & [jugador] & "</div></div>"
+			        & "</div>"
+			        & "<div style='color:#aaa;font-size:11px;margin-bottom:4px;'>PUNTUACION TOTAL</div>"
+			        & "<div style='background:rgba(255,255,255,0.1);border-radius:6px;height:10px;overflow:hidden;margin-bottom:4px;'>"
+			        & "<div style='background:linear-gradient(90deg," & col & ",white);width:" & po & "%;height:100%;border-radius:6px;'></div>"
+			        & "</div>"
+			        & "<div style='display:flex;justify-content:space-between;color:white;font-size:13px;font-weight:800;margin-bottom:8px;'>"
+			        & "<span>" & sc & " pts</span><span style='color:#aaa;font-size:9px;'>" & po & "% del máximo</span>"
+			        & "</div>"
+			        & "<div style='color:#aaa;font-size:11px;margin-bottom:6px;border-top:1px solid rgba(255,255,255,0.1);padding-top:6px;'>DESGLOSE</div>"
+			        & IF(wg=0,"","<div style='margin-bottom:4px;'><div style='display:flex;justify-content:space-between;color:#ccc;font-size:11px;margin-bottom:2px;'><span>Goles (" & vg & ")</span><span style='color:white;font-weight:700;'>+" & vcg & "</span></div><div style='background:rgba(255,255,255,0.1);border-radius:3px;height:7px;'><div style='background:#E74C3C;width:" & pg & "%;height:7px;border-radius:3px;'></div></div></div>")
+			        & IF(wa=0,"","<div style='margin-bottom:4px;'><div style='display:flex;justify-content:space-between;color:#ccc;font-size:11px;margin-bottom:2px;'><span>Asistencias (" & va & ")</span><span style='color:white;font-weight:700;'>+" & vca & "</span></div><div style='background:rgba(255,255,255,0.1);border-radius:3px;height:7px;'><div style='background:#3498DB;width:" & pa & "%;height:7px;border-radius:3px;'></div></div></div>")
+			        & "<div style='margin-bottom:4px;'><div style='display:flex;justify-content:space-between;color:#ccc;font-size:11px;margin-bottom:2px;'><span>Minutos (" & vm & ")</span><span style='color:white;font-weight:700;'>+" & vcm & "</span></div><div style='background:rgba(255,255,255,0.1);border-radius:3px;height:7px;'><div style='background:#2ECC71;width:" & pm & "%;height:7px;border-radius:3px;'></div></div></div>"
+			        & "<div style='margin-bottom:4px;'><div style='display:flex;justify-content:space-between;color:#ccc;font-size:11px;margin-bottom:2px;'><span>Partidos (" & vp & ")</span><span style='color:white;font-weight:700;'>+" & vcp & "</span></div><div style='background:rgba(255,255,255,0.1);border-radius:3px;height:7px;'><div style='background:#F1C40F;width:" & pp & "%;height:7px;border-radius:3px;'></div></div></div>"
+			        & "<div style='margin-bottom:4px;'><div style='display:flex;justify-content:space-between;color:#ccc;font-size:11px;margin-bottom:2px;'><span>Titularidades (" & vt & ")</span><span style='color:white;font-weight:700;'>+" & vct & "</span></div><div style='background:rgba(255,255,255,0.1);border-radius:3px;height:7px;'><div style='background:#9B59B6;width:" & pt & "%;height:7px;border-radius:3px;'></div></div></div>"
+			        & "<div style='margin-bottom:4px;'><div style='display:flex;justify-content:space-between;color:#ccc;font-size:11px;margin-bottom:2px;'><span>Rend. Equipo (PPP:" & vppp & ")</span><span style='color:white;font-weight:700;'>+" & vcppp & "</span></div><div style='background:rgba(255,255,255,0.1);border-radius:3px;height:7px;'><div style='background:#1ABC9C;width:" & pppp & "%;height:7px;border-radius:3px;'></div></div></div>"
+			        & IF(ceff=0,"","<div style='margin-bottom:4px;'><div style='display:flex;justify-content:space-between;color:#ccc;font-size:11px;margin-bottom:2px;'><span>Eficiencia (" & vmg & " min/gol)</span><span style='color:white;font-weight:700;'>+" & vceff & "</span></div><div style='background:rgba(255,255,255,0.1);border-radius:3px;height:7px;'><div style='background:#E67E22;width:" & peff & "%;height:7px;border-radius:3px;'></div></div></div>")
+			        & IF(pos<>"POR","",
+			            "<div style='margin-bottom:4px;'><div style='display:flex;justify-content:space-between;color:#ccc;font-size:11px;margin-bottom:2px;'><span>Porterías imbatidas (" & vpib & ")</span><span style='color:white;font-weight:700;'>+" & vcpib & "</span></div><div style='background:rgba(255,255,255,0.1);border-radius:3px;height:7px;'><div style='background:#27AE60;width:" & ppib & "%;height:7px;border-radius:3px;'></div></div></div>"
+			            & "<div style='display:flex;justify-content:space-between;color:#E74C3C;font-size:11px;margin-bottom:4px;padding:4px 0;border-top:1px solid rgba(255,0,0,0.2);'><span>Goles en contra (" & vgec & ")</span><span style='font-weight:700;'>-" & vcgec & "</span></div>"
+			        )
+			        & "<div style='color:#ccc;font-size:11px;border-top:1px solid rgba(255,255,255,0.1);padding-top:6px;margin-top:4px;text-align:center;'>Elegido entre <span style='color:" & col & ";font-weight:800;'>" & nc & "</span> candidatos</div>"
+			        & "</div>"
+			        & "</div>",
+			        ""
+			    )
+			
+			RETURN
+			"<style>html,body{margin:0;padding:0;overflow:visible;width:100%;height:100%;background:transparent;}.tt{display:none;}.pc:hover{z-index:500!important;}div:hover>.tt{display:block!important;}</style>"
+			& "<div style='position:fixed;top:0;left:0;width:100%;height:100%;overflow:visible;font-family:Arial,sans-serif;background:transparent;'>"
+			& Cards
+			& "</div>"
+		lineageTag: 22bf1c1a-3a89-40c8-8ab0-77d75a623c23
+
+	column dummy
+		dataType: int64
+		isHidden
+		lineageTag: 0a47c84b-99b0-4a40-820b-9a1c97eb1c05
+		summarizeBy: none
+		sourceColumn: [dummy]
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Tabla_Medidas = calculated
+		mode: import
+		source = ROW("dummy", 0)
+
+	annotation PBI_ResultType = Table
+

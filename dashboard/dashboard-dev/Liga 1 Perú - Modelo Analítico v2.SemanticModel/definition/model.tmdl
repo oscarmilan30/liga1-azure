@@ -1,0 +1,39 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-ES
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["dm_equipos","ft_entrenadores_historico","ft_evolucion_valoracion","ft_plantillas_historico","hm_campeones","TipoCambioEURPEN","_Parametros","ft_rendimiento_general","ft_rendimiento_posiciones","dm_tipo_tabla","dm_temporada","ft_partidos_equipo","Indicadores Partido","dm_estilo_juego","dm_formacion","jugadores_slots"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dm_equipos
+ref table ft_entrenadores_historico
+ref table DateTableTemplate_c2d6276d-8152-4509-bdb4-0335b6c342a4
+ref table LocalDateTable_f4655fc4-ff02-4c07-8482-914c3fd1e90f
+ref table LocalDateTable_88da75a8-8b27-4cec-a26f-38475ce3dff8
+ref table ft_evolucion_valoracion
+ref table ft_plantillas_historico
+ref table LocalDateTable_97e0ae96-83c4-4c61-9e42-fbacb780bdf4
+ref table Calendario
+ref table hm_campeones
+ref table Tabla_Medidas
+ref table _Parametros
+ref table ft_rendimiento_posiciones
+ref table dm_tipo_tabla
+ref table dm_temporada
+ref table ft_partidos_equipo
+ref table LocalDateTable_5f7026b6-b5b1-4b74-8fc6-404bf7946817
+ref table LocalDateTable_813ab083-ddc1-42cf-a81e-83d91c90130b
+ref table 'Indicadores Partido'
+ref table dm_estilo_juego
+ref table dm_formacion
+ref table jugadores_slots
+
+ref cultureInfo es-ES
+

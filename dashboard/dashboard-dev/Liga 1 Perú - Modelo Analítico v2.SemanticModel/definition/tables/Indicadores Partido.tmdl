@@ -1,0 +1,46 @@
+table 'Indicadores Partido'
+	lineageTag: cc487d8e-ed98-4014-8f0e-c2c6845004e0
+
+	column Indicador
+		dataType: string
+		lineageTag: e0e00a3e-157d-4dfe-bad4-864d74c8340d
+		summarizeBy: none
+		sourceColumn: Indicador
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Orden Indicador' =
+			
+			SWITCH(
+			    'Indicadores Partido'[Indicador],
+			    "Tiros Totales", 1,
+			    "Tiros a Puerta", 2,
+			    "Posesion %", 3,
+			    "Saques de Esquina", 4,
+			    "Pases", 5,
+			    "Faltas", 6,
+			    "Tarjetas Amarillas", 7,
+			    "Tarjetas Rojas", 8
+			)
+		formatString: 0
+		lineageTag: 236dea59-256e-4601-88ee-fa0b449d8b25
+		summarizeBy: sum
+		sortByColumn: Indicador
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Indicadores Partido' = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("XcwxCoAwEETRqyyCnZew0DpoupBiwC0i0cVscn81xMZyHsN3rrMhiZKVjMja+eETkCmcMioZUdYgJ/V1rrgKK21Mk14lnO0EbYUZMaPFkHZ+Bo0HUojxz4vsL/kb", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Indicador = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Indicador", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

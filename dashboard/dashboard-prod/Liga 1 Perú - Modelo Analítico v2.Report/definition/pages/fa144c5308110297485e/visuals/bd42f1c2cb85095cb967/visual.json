@@ -1,0 +1,192 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "bd42f1c2cb85095cb967",
+  "position": {
+    "x": 1048.1889763779527,
+    "y": 28.556430446194224,
+    "z": 8000,
+    "height": 655.11811023622045,
+    "width": 208.29396325459317,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "ChicletSlicer1448559807354",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "jugadores_slots"
+                    }
+                  },
+                  "Property": "alias_equipo"
+                }
+              },
+              "queryRef": "jugadores_slots.alias_equipo",
+              "nativeQueryRef": "alias_equipo"
+            }
+          ]
+        },
+        "Image": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dm_equipos"
+                    }
+                  },
+                  "Property": "url_logo"
+                }
+              },
+              "queryRef": "dm_equipos.url_logo",
+              "nativeQueryRef": "url_logo"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "jugadores_slots"
+                  }
+                },
+                "Property": "alias_equipo"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "showDisabled": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Bottom'"
+                }
+              }
+            },
+            "forcedSelection": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "columns": {
+              "expr": {
+                "Literal": {
+                  "Value": "4D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "header": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "rows": [
+        {
+          "properties": {
+            "background": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0D2B4E'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "tooltips": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "0cdb2e19caf2322b7591",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "jugadores_slots"
+              }
+            },
+            "Property": "alias_equipo"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "19dd10d6964b8c228387",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dm_equipos"
+              }
+            },
+            "Property": "url_logo"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "f244594886d1777c588e",
+  "displayName": "POSICIONES",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "13ff6f5fa87b075bb3c3",
+      "target": "d56335b7d09e61eca704",
+      "type": "NoFilter"
+    },
+    {
+      "source": "070e05980372420ca50e",
+      "target": "d56335b7d09e61eca704",
+      "type": "NoFilter"
+    },
+    {
+      "source": "13ff6f5fa87b075bb3c3",
+      "target": "c305734777c4a7a25b18",
+      "type": "NoFilter"
+    },
+    {
+      "source": "070e05980372420ca50e",
+      "target": "c305734777c4a7a25b18",
+      "type": "NoFilter"
+    }
+  ]
+}

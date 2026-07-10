@@ -1,0 +1,21 @@
+expression TipoCambioEURPEN = 3.85 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: 41f1cdce-fb34-4086-a37a-760f7ce2f5bd
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Number
+
+expression ft_rendimiento_general =
+		let
+		    Origen = Databricks.Catalogs("adb-7405608228887680.0.azuredatabricks.net", "/sql/1.0/warehouses/8f3fbabc301b89f4", [Catalog="catalog_liga1_prod", Database="vw_ddv", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation=null]),
+		    ft_rendimiento_general_vw_vw_ddv_catalog_liga1_prod = Origen{[Item="ft_rendimiento_general_vw",Schema="vw_ddv",Catalog="catalog_liga1_prod"]}[Data],
+		    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(ft_rendimiento_general_vw_vw_ddv_catalog_liga1_prod,{{"nombre_equipo", Text.Proper, type text}}),
+		    #"Texto en mayúsculas" = Table.TransformColumns(#"Poner En Mayúsculas Cada Palabra",{{"alias_equipo", Text.Upper, type text}})
+		in
+		    #"Texto en mayúsculas"
+	lineageTag: cb58b145-68e2-41c0-898a-e92466f481b3
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

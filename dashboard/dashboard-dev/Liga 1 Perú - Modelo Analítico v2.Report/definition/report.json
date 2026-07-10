@@ -1,0 +1,104 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.0.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY25SU11",
+      "reportVersionAtImport": {
+        "visual": "2.4.0",
+        "report": "3.0.0",
+        "page": "2.3.0"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "AccessibleDefault",
+      "reportVersionAtImport": {
+        "visual": "2.4.0",
+        "report": "3.0.0",
+        "page": "2.3.0"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "imageDB603108E3FF4EBFB8047F5653368E8C",
+    "deneb7E15AEF80B9E4D4F8E12924291ECE89A",
+    "htmlContent443BE3AD55E043BF878BED274D3A6855",
+    "ChicletSlicer1448559807354"
+  ],
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY25SU11",
+          "path": "BaseThemes/CY25SU11.json",
+          "type": "BaseTheme"
+        },
+        {
+          "name": "AccessibleDefault",
+          "path": "BuiltInThemes/AccessibleDefault.json",
+          "type": "CustomTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "logo5173608282281146.png",
+          "path": "logo5173608282281146.png",
+          "type": "Image"
+        },
+        {
+          "name": "liga1_logo_sidebar_white5079709544703912.png",
+          "path": "liga1_logo_sidebar_white5079709544703912.png",
+          "type": "Image"
+        },
+        {
+          "name": "cancha_cropped9943157940038801.jpg",
+          "path": "cancha_cropped9943157940038801.jpg",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

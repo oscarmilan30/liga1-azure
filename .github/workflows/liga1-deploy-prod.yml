@@ -8,6 +8,7 @@ on:
       - 'PrepAmb/**'
       - 'datasets/dataentrys/**'
       - 'datasets/[0-9][0-9][0-9][0-9]/**'
+      - 'databricks_app/**'
       - '.github/workflows/liga1-deploy-prod.yml'
   workflow_dispatch:
 
@@ -414,14 +415,18 @@ jobs:
           # Landing y RDV: get_abfss_path() usa storageaccount → escribe en prod ADLS
           # UDV/DDV: saveAsTable() usa catalogname → apunta a catalog_liga1_prod en Unity Catalog
           secrets_prod = {
-              "filesystemname":  "liga1",
-              "storageaccount":  "${{ secrets.STORAGE_ACCOUNT_PROD }}",
-              "catalogname":     "catalog_liga1_prod",
-              "kv-sql-sqlserver":"${{ secrets.SQL_SERVER_PROD }}",
-              "kv-sql-sqldb":    "${{ secrets.SQL_DATABASE_PROD }}",
-              "kv-sql-sqluser":  "${{ secrets.SQL_USERNAME_PROD }}",
-              "kv-sql-password": "${{ secrets.SQL_PASSWORD_PROD }}",
-              "databricks-token":"${{ secrets.DATABRICKS_TOKEN_PROD }}",
+              "filesystemname":     "liga1",
+              "storageaccount":     "${{ secrets.STORAGE_ACCOUNT_PROD }}",
+              "catalogname":        "catalog_liga1_prod",
+              "kv-sql-sqlserver":   "${{ secrets.SQL_SERVER_PROD }}",
+              "kv-sql-sqldb":       "${{ secrets.SQL_DATABASE_PROD }}",
+              "kv-sql-sqluser":     "${{ secrets.SQL_USERNAME_PROD }}",
+              "kv-sql-password":    "${{ secrets.SQL_PASSWORD_PROD }}",
+              "databricks-token":   "${{ secrets.DATABRICKS_TOKEN_PROD }}",
+              # Secrets requeridos por el asistente IA (rag.py)
+              "aoai-api-key":         "${{ secrets.AOAI_API_KEY }}",
+              "rag-databricks-token": "${{ secrets.DATABRICKS_TOKEN_PROD }}",
+              "databricks-http-path": "/sql/1.0/warehouses/8f3fbabc301b89f4",
           }
           for key, value in secrets_prod.items():
               r2 = requests.post(f"{host}/api/2.0/secrets/put", headers=headers,
@@ -944,4 +949,116 @@ jobs:
               --only-show-errors
           done
           echo "✅ Dataentrys subidos"
+
+  # ═══════════════════════════════════════════════════════════
+  # JOB 6 — Databricks App IA: crear/actualizar y desplegar
+  # El Repo ya fue sincronizado a main en el Job 3 (deploy-databricks).
+  # Este job solo necesita llamar la Apps API para hacer el deploy.
+  # ═══════════════════════════════════════════════════════════
+  deploy-databricks-app:
+    name: Deploy Databricks App IA (prod)
+    runs-on: ubuntu-latest
+    needs: [deploy-databricks]
+    env:
+      APP_NAME: liga1-ia
+    steps:
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Instalar dependencias
+        run: pip install requests
+
+      - name: Crear app si no existe
+        env:
+          DATABRICKS_HOST:  ${{ secrets.DATABRICKS_HOST_PROD }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
+        run: |
+          python3 - << 'PYEOF'
+          import requests, os, sys
+
+          host     = os.environ["DATABRICKS_HOST"].rstrip("/")
+          token    = os.environ["DATABRICKS_TOKEN"]
+          headers  = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+          app_name = "${{ env.APP_NAME }}"
+
+          r = requests.get(f"{host}/api/2.0/apps/{app_name}", headers=headers)
+          if r.status_code == 404:
+              print(f"ℹ️  App '{app_name}' no existe — creando...")
+              r2 = requests.post(
+                  f"{host}/api/2.0/apps",
+                  headers=headers,
+                  json={
+                      "name":        app_name,
+                      "description": "Asistente IA Liga 1 Perú — RAG sobre Databricks"
+                  }
+              )
+              if r2.status_code == 200:
+                  print(f"✅ App '{app_name}' creada")
+              else:
+                  print(f"❌ Error creando app: {r2.status_code} {r2.json()}")
+                  sys.exit(1)
+          elif r.status_code == 200:
+              state = r.json().get("compute_status", {}).get("state", "?")
+              print(f"ℹ️  App '{app_name}' ya existe (estado: {state})")
+          else:
+              print(f"❌ Error verificando app: {r.status_code} {r.json()}")
+              sys.exit(1)
+          PYEOF
+
+      - name: Desplegar Databricks App
+        env:
+          DATABRICKS_HOST:  ${{ secrets.DATABRICKS_HOST_PROD }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_PROD }}
+        run: |
+          python3 - << 'PYEOF'
+          import requests, os, sys, time
+
+          host     = os.environ["DATABRICKS_HOST"].rstrip("/")
+          token    = os.environ["DATABRICKS_TOKEN"]
+          headers  = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+          app_name = "${{ env.APP_NAME }}"
+          user     = "${{ secrets.DATABRICKS_USER_PROD }}"
+          src_path = f"/Repos/{user}/liga1-azure/databricks_app"
+
+          print(f"🚀 Iniciando deployment de '{app_name}' desde {src_path}...")
+
+          r = requests.post(
+              f"{host}/api/2.0/apps/{app_name}/deployments",
+              headers=headers,
+              json={"source_code_path": src_path}
+          )
+          if r.status_code != 200:
+              print(f"❌ Error al iniciar deployment: {r.status_code} {r.json()}")
+              sys.exit(1)
+
+          deployment_id = r.json().get("deployment_id")
+          print(f"   Deployment ID: {deployment_id}")
+
+          # Polling cada 10 s durante máx 5 min (30 intentos)
+          for i in range(1, 31):
+              time.sleep(10)
+              r2 = requests.get(
+                  f"{host}/api/2.0/apps/{app_name}/deployments/{deployment_id}",
+                  headers=headers
+              )
+              status = r2.json().get("status", {})
+              state  = status.get("state", "UNKNOWN")
+              msg    = status.get("message", "")
+              print(f"  [{i:02d}/30] {state}" + (f" — {msg}" if msg else ""))
+
+              if state == "SUCCEEDED":
+                  r3 = requests.get(f"{host}/api/2.0/apps/{app_name}", headers=headers)
+                  url = r3.json().get("url", "(URL disponible en Databricks UI)")
+                  print(f"\n✅ App '{app_name}' desplegada")
+                  print(f"   URL: {url}")
+                  sys.exit(0)
+              elif state in ("FAILED", "CANCELLED"):
+                  print(f"\n❌ Deployment {state}: {msg}")
+                  sys.exit(1)
+
+          print(f"\n⚠️  Timeout (5 min) — verificar estado en Databricks UI")
+          sys.exit(1)
+          PYEOF
 

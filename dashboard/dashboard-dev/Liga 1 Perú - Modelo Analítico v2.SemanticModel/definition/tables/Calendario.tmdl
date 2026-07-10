@@ -1,0 +1,75 @@
+/// Tabla de fechas para análisis temporal
+table Calendario
+	lineageTag: 61f33d8a-17fb-43c2-a0e3-499c384c0b95
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: Short Date
+		lineageTag: f131577f-5cfa-486c-88f7-61aedea95820
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Año
+		formatString: 0
+		lineageTag: fa2c8293-fea5-4d8e-bdde-5bfb6f3f0281
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Año]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		formatString: 0
+		lineageTag: 4fe08b21-5fe3-443e-a84b-c3c607adf7b4
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Mes]
+
+		annotation SummarizationSetBy = Automatic
+
+	column NombreMes
+		lineageTag: 353a22e9-274e-4bc7-b966-48fc7dc6d806
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [NombreMes]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		lineageTag: 315e9b8e-3ec3-4597-8d1e-deb229f105a1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Trimestre]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AñoMes
+		lineageTag: 4d4ea110-05c8-45a3-b22d-effd4d4f9ffc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [AñoMes]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendario = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS(
+				    CALENDAR(
+				        DATE(2020, 1, 1),
+				        DATE(YEAR(TODAY()) + 1, 12, 31)
+				    ),
+				    "Año",       YEAR([Date]),
+				    "Mes",       MONTH([Date]),
+				    "NombreMes", FORMAT([Date], "MMMM", "es-PE"),
+				    "Trimestre", "T" & QUARTER([Date]),
+				    "AñoMes",    FORMAT([Date], "YYYY-MM")
+				)
+
+	annotation PBI_Id = d9be68fd6df44882bb7a3e08ffd18761
+

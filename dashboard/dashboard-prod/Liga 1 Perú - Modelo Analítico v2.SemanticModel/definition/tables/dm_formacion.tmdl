@@ -1,0 +1,49 @@
+table dm_formacion
+	lineageTag: 6cdecf7a-5d50-4c4c-9b00-62c121a0911d
+
+	column id_formacion
+		dataType: int64
+		formatString: 0
+		lineageTag: 4187b58e-9ad2-4bfc-a2af-83c83bb08a88
+		summarizeBy: none
+		sourceColumn: id_formacion
+
+		annotation SummarizationSetBy = Automatic
+
+	column formacion
+		dataType: string
+		lineageTag: 033ca6bd-0946-4538-86d2-68c3620636c2
+		summarizeBy: none
+		sourceColumn: formacion
+
+		annotation SummarizationSetBy = Automatic
+
+	column estilo
+		dataType: string
+		lineageTag: fc781418-6125-4c5f-969f-55265078910b
+		summarizeBy: none
+		sourceColumn: estilo
+
+		annotation SummarizationSetBy = Automatic
+
+	column formacion_display
+		dataType: string
+		lineageTag: 150ed16e-1b39-48e8-9754-4b73e0a980c8
+		summarizeBy: none
+		sourceColumn: formacion_display
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dm_formacion = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("adb-7405608228887680.0.azuredatabricks.net", "/sql/1.0/warehouses/8f3fbabc301b89f4", [Catalog="catalog_liga1_prod", Database="vw_ddv", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation=null]),
+				    dm_formacion_vw_ddv_catalog_liga1_prod = Origen{[Item="dm_formacion",Schema="vw_ddv",Catalog="catalog_liga1_prod"]}[Data]
+				in
+				    dm_formacion_vw_ddv_catalog_liga1_prod
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

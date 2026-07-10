@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Liga 1 Perú - Modelo Analítico v2"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c784141a-b390-430e-98eb-7535dc6265aa"
+  }
+}
