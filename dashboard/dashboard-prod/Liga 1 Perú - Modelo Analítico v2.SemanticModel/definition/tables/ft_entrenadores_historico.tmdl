@@ -1,0 +1,178 @@
+table ft_entrenadores_historico
+	lineageTag: 605f445b-3f1c-40d3-bfca-f52254d64383
+
+	column id_entrenador_equipo
+		dataType: string
+		isHidden
+		lineageTag: 13625d76-5fd1-4514-ba91-86e50e498664
+		summarizeBy: none
+		sourceColumn: id_entrenador_equipo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_equipo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b09cf51e-b471-40ee-b58b-113d51b1ff80
+		summarizeBy: none
+		sourceColumn: id_equipo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_equipo
+		dataType: string
+		lineageTag: 9e973e24-5f5a-4967-8095-2d0046d1509c
+		summarizeBy: none
+		sourceColumn: nombre_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column alias_equipo
+		dataType: string
+		lineageTag: cd00e669-c4f6-475a-a7bc-12682c37d7d6
+		summarizeBy: none
+		sourceColumn: alias_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_entrenador
+		dataType: string
+		isHidden
+		lineageTag: 4af318dc-7efd-4cf7-b758-c1c68b2e6c3c
+		summarizeBy: none
+		sourceColumn: id_entrenador
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column entrenador
+		dataType: string
+		lineageTag: b2f38eac-cd66-41a3-92ff-73c77e46a178
+		summarizeBy: none
+		sourceColumn: entrenador
+
+		annotation SummarizationSetBy = Automatic
+
+	column edad
+		dataType: int64
+		formatString: 0
+		lineageTag: 4074ac94-54f6-4174-9aa2-6e3e6092c644
+		summarizeBy: none
+		sourceColumn: edad
+
+		annotation SummarizationSetBy = User
+
+	column nacionalidad_principal
+		dataType: string
+		lineageTag: 5791ce45-d900-42f2-9566-61c65e79daf0
+		summarizeBy: none
+		sourceColumn: nacionalidad_principal
+
+		annotation SummarizationSetBy = Automatic
+
+	column segunda_nacionalidad
+		dataType: string
+		lineageTag: aa497b89-d1f8-45d2-ae4b-d9a2085bf7ff
+		summarizeBy: none
+		sourceColumn: segunda_nacionalidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column temporada
+		dataType: int64
+		formatString: 0
+		lineageTag: f5ef61dc-a7d8-4460-885b-caf69e4c3d82
+		summarizeBy: none
+		sourceColumn: temporada
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_inicio
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 13768378-b016-4ab5-97bc-037375f094f9
+		summarizeBy: none
+		sourceColumn: fecha_inicio
+
+		variation Variación
+			isDefault
+			relationship: 099f4126-2dec-4c01-870f-9956a57a39c6
+			defaultHierarchy: LocalDateTable_f4655fc4-ff02-4c07-8482-914c3fd1e90f.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fecha_termino
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: f40891f8-81da-4f76-b99a-225d135627f1
+		summarizeBy: none
+		sourceColumn: fecha_termino
+
+		variation Variación
+			isDefault
+			relationship: 62d13ef7-3bd2-43e4-9a5a-9c21c6c916c0
+			defaultHierarchy: LocalDateTable_88da75a8-8b27-4cec-a26f-38475ce3dff8.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column tiempo_en_cargo
+		dataType: string
+		lineageTag: a390a8bc-07bb-4d51-b393-177bae40bdc2
+		summarizeBy: none
+		sourceColumn: tiempo_en_cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column partidos
+		dataType: int64
+		formatString: 0
+		lineageTag: 545305c8-7951-4e0f-ac54-20eaa8e66600
+		summarizeBy: none
+		sourceColumn: partidos
+
+		annotation SummarizationSetBy = User
+
+	column ppp
+		dataType: double
+		formatString: 0.00
+		lineageTag: 0216ea40-b981-4c55-b09f-e0e0b3f80737
+		summarizeBy: sum
+		sourceColumn: ppp
+
+		annotation SummarizationSetBy = User
+
+	column entrenador_activo
+		dataType: int64
+		formatString: 0
+		lineageTag: 999e5400-13e0-4d3d-bd60-069f4847b6ea
+		summarizeBy: none
+		sourceColumn: entrenador_activo
+
+		annotation SummarizationSetBy = User
+
+	partition ft_entrenadores_historico = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("adb-7405608228887680.0.azuredatabricks.net", "/sql/1.0/warehouses/8f3fbabc301b89f4", [Catalog="catalog_liga1_prod", Database="vw_ddv", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation=null]),
+				    ft_entrenadores_historico_vw_vw_ddv_catalog_liga1_prod = Origen{[Item="ft_entrenadores_historico_vw",Schema="vw_ddv",Catalog="catalog_liga1_prod"]}[Data],
+				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(ft_entrenadores_historico_vw_vw_ddv_catalog_liga1_prod,{{"nombre_equipo", Text.Proper, type text}}),
+				    #"Texto en mayúsculas" = Table.TransformColumns(#"Poner En Mayúsculas Cada Palabra",{{"alias_equipo", Text.Upper, type text}}),
+				    #"Poner En Mayúsculas Cada Palabra1" = Table.TransformColumns(#"Texto en mayúsculas",{{"entrenador", Text.Proper, type text}, {"nacionalidad_principal", Text.Proper, type text}, {"segunda_nacionalidad", Text.Proper, type text}})
+				in
+				    #"Poner En Mayúsculas Cada Palabra1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

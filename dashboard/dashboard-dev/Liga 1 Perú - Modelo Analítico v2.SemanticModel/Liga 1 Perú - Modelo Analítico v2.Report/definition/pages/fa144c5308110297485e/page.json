@@ -1,0 +1,72 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "fa144c5308110297485e",
+  "displayName": "XI IDEAL",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'cancha_cropped.jpg'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "cancha_cropped9943157940038801.jpg"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Normal'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "1693988e7d05d7fb6b70",
+      "target": "2274fe8bcaa943cbda2d",
+      "type": "NoFilter"
+    },
+    {
+      "source": "1693988e7d05d7fb6b70",
+      "target": "100f125c4257c09e1f6b",
+      "type": "NoFilter"
+    },
+    {
+      "source": "2274fe8bcaa943cbda2d",
+      "target": "100f125c4257c09e1f6b",
+      "type": "NoFilter"
+    },
+    {
+      "source": "bd42f1c2cb85095cb967",
+      "target": "100f125c4257c09e1f6b",
+      "type": "NoFilter"
+    }
+  ]
+}

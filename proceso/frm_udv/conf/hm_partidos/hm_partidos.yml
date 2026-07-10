@@ -1,0 +1,90 @@
+hm_partidos:
+
+  campo_json: "data"
+
+
+  cols_catalogo_equipos_hm:
+    - id_equipo
+    - nombre_fotmob
+
+  cols_raw_partidos_hm:
+    - fecha_carga
+    - fuente
+    - temporada
+    - marcador
+    - url
+    - local
+    - fecha
+    - visitante
+
+  dedup_cols_hm:
+    - temporada
+    - url   
+
+  case_rules:
+    fecha_partido:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+          THEN NULL
+          ELSE coalesce(
+            to_date({col}, 'dd-MM-yyyy'),
+            to_date(
+              concat(
+                lpad(regexp_extract({col}, '^[A-Za-z]+, [A-Za-z]+ ([0-9]{1,2})', 1), 2, '0'),
+                '-',
+                CASE lower(regexp_extract({col}, '^[A-Za-z]+, ([A-Za-z]+) ', 1))
+                  WHEN 'january'   THEN '01'
+                  WHEN 'february'  THEN '02'
+                  WHEN 'march'     THEN '03'
+                  WHEN 'april'     THEN '04'
+                  WHEN 'may'       THEN '05'
+                  WHEN 'june'      THEN '06'
+                  WHEN 'july'      THEN '07'
+                  WHEN 'august'    THEN '08'
+                  WHEN 'september' THEN '09'
+                  WHEN 'october'   THEN '10'
+                  WHEN 'november'  THEN '11'
+                  WHEN 'december'  THEN '12'
+                  ELSE '00'
+                END,
+                '-',
+                coalesce(
+                  nullif(regexp_extract({col}, '([0-9]{4})$', 1), ''),
+                  cast(temporada as string)
+                )
+              ),
+              'dd-MM-yyyy'
+            )
+          )
+        END
+
+    marcador:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion')
+               OR NOT regexp_like({col}, '^[0-9]+\\s*-\\s*[0-9]+$')
+          THEN 'sin informacion'
+          ELSE {col}
+        END
+
+  rename_columns_hm:
+    fuente: fuente_partido
+
+  schema_hm:
+    id_partido: string
+    id_equipo_local: int
+    id_equipo_visitante: int
+    temporada: int
+    fecha_partido: date
+    marcador: string
+    goles_local: int
+    goles_visitante: int
+    url: string
+    fuente_partido: string
+    fecha_carga: timestamp
+    periodo: int

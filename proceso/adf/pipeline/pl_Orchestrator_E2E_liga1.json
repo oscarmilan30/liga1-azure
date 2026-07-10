@@ -1,0 +1,653 @@
+{
+	"name": "pl_Orchestrator_E2E_liga1",
+	"properties": {
+		"activities": [
+			{
+				"name": "sp_cancelar_huerfanos",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_cancelar_ejecuciones_huerfanas]",
+					"storedProcedureParameters": {
+						"MinutosUmbral": {
+							"value": "30",
+							"type": "Int32"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sql_liga1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "tb_ctrl_start",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "sp_cancelar_huerfanos",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_start",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"ExecutionId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"pipeline_name": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"pipeline_type": {
+							"value": "@pipeline().parameters.pipeline_type",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set_IdEjecucion",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "tb_ctrl_start",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "IdEjecucion",
+					"value": {
+						"value": "@activity('tb_ctrl_start').output.pipelineReturnValue.IdEjecucion",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "lkp_raw_params",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Set_IdEjecucion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_parametros]",
+						"storedProcedureParameters": {
+							"PipelineId": {
+								"type": "Int32",
+								"value": {
+									"value": "@pipeline().parameters.RawPipelineId",
+									"type": "Expression"
+								}
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sql_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TablaParametro",
+								"type": "Expression"
+							},
+							"SchemaName": "dbo"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "Set_ModoEjecucion",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "lkp_raw_params",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "ModoEjecucion",
+					"value": {
+						"value": "@activity('lkp_raw_params').output.firstRow.MODO_EJECUCION",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set_AnioReproceso",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "lkp_raw_params",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "AnioReproceso",
+					"value": {
+						"value": "@activity('lkp_raw_params').output.firstRow.ANIO_REPROCESO",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "raw",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set_ModoEjecucion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set_AnioReproceso",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_Orchestrator_ligaperuana_Rdv",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "1",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"pipeline_type": {
+							"value": "PADRE",
+							"type": "Expression"
+						},
+						"IdEjecucionE2E": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "dataentrys",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "raw",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_Orchestrator_dataentrys",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "39",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"pipeline_type": {
+							"value": "DATAENTRY",
+							"type": "Expression"
+						},
+						"IdEjecucionE2E": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "udv",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "dataentrys",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_Orchestrator_ligaperuana_udv",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "24",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"pipeline_type": {
+							"value": "UDV",
+							"type": "Expression"
+						},
+						"UDVWorkflowPipelineId": {
+							"value": "25",
+							"type": "Expression"
+						},
+						"ModoEjecucion": {
+							"value": "@variables('ModoEjecucion')",
+							"type": "Expression"
+						},
+						"IdEjecucionE2E": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "If_Historico_Fix",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "udv",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@or(equals(variables('ModoEjecucion'), 'HISTORICO'), equals(variables('ModoEjecucion'), 'REPROCESO'))",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "run_fix",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_Orchestrator_fix",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"PipelineId": {
+										"value": "26",
+										"type": "Expression"
+									},
+									"PipelineId_Plantillas": {
+										"value": "36",
+										"type": "Expression"
+									},
+									"TablaParametro": {
+										"value": "@pipeline().parameters.TablaParametro",
+										"type": "Expression"
+									},
+									"pipeline_type": {
+										"value": "FIX",
+										"type": "Expression"
+									},
+									"PipelineId_EstadisticasPartidos": {
+										"value": "41",
+										"type": "Expression"
+									},
+									"IdEjecucionE2E": {
+										"value": "@variables('IdEjecucion')",
+										"type": "Expression"
+									},
+									"AnioReproceso": {
+										"value": "@variables('AnioReproceso')",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "ddv",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "If_Historico_Fix",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_Orchestrator_ligaperuana_ddv",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "33",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"pipeline_type": {
+							"value": "DDV",
+							"type": "Expression"
+						},
+						"DDVWorkflowPipelineId": {
+							"value": "34",
+							"type": "Expression"
+						},
+						"ModoEjecucion": {
+							"value": "@variables('ModoEjecucion')",
+							"type": "Expression"
+						},
+						"AnioReproceso": {
+							"value": "@variables('AnioReproceso')",
+							"type": "Expression"
+						},
+						"IdEjecucionE2E": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "ml",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "ddv",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_Orchestrator_ligaperuana_ml",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "46",
+							"type": "Expression"
+						},
+						"TablaParametro": {
+							"value": "@pipeline().parameters.TablaParametro",
+							"type": "Expression"
+						},
+						"pipeline_type": {
+							"value": "ML",
+							"type": "Expression"
+						},
+						"MLWorkflowPipelineId": {
+							"value": "47",
+							"type": "Expression"
+						},
+						"ModoEjecucion": {
+							"value": "@variables('ModoEjecucion')",
+							"type": "Expression"
+						},
+						"AnioReproceso": {
+							"value": "@variables('AnioReproceso')",
+							"type": "Expression"
+						},
+						"IdEjecucionE2E": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "sp_act_estado",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "ml",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_actualizar_modo_ejecucion]",
+					"storedProcedureParameters": {
+						"NuevoModo": {
+							"value": "INCREMENTAL",
+							"type": "String"
+						},
+						"PipelineId": {
+							"value": {
+								"value": "@pipeline().parameters.RawPipelineId",
+								"type": "Expression"
+							},
+							"type": "Int32"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sql_liga1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "tb_ctrl_end_success",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "sp_act_estado",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_end_success",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "tb_ctrl_end_fail",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "sp_act_estado",
+						"dependencyConditions": [
+							"Failed",
+							"Skipped"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_ctrl_end_fail",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"PipelineId": {
+							"value": "@pipeline().parameters.PipelineId",
+							"type": "Expression"
+						},
+						"IdEjecucion": {
+							"value": "@variables('IdEjecucion')",
+							"type": "Expression"
+						},
+						"MensajeError": {
+							"value": "@if(equals(activity('dataentrys').Status,'Failed'),activity('dataentrys').error.message,if(equals(activity('udv').Status,'Failed'),activity('udv').error.message,if(equals(activity('If_Historico_Fix').Status,'Failed'),'Fix falló: revisar pl_Orchestrator_fix',if(equals(activity('ddv').Status,'Failed'),activity('ddv').error.message,if(equals(activity('ml').Status,'Failed'),activity('ml').error.message,if(equals(activity('sp_act_estado').Status,'Failed'),activity('sp_act_estado').error.message,'Error en etapa inicial del E2E'))))))",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"PipelineId": {
+				"type": "int",
+				"defaultValue": 35
+			},
+			"TablaParametro": {
+				"type": "string",
+				"defaultValue": "tbl_pipeline_parametros"
+			},
+			"pipeline_type": {
+				"type": "string",
+				"defaultValue": "E2E"
+			},
+			"RawPipelineId": {
+				"type": "int",
+				"defaultValue": 1
+			}
+		},
+		"variables": {
+			"IdEjecucion": {
+				"type": "Integer"
+			},
+			"ModoEjecucion": {
+				"type": "String"
+			},
+			"AnioReproceso": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "pl_pipelines_master"
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-05-23T23:49:36Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

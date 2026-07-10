@@ -1,0 +1,2149 @@
+{
+  "fuente": "FotMob",
+  "temporada": 2024,
+  "fecha_carga": "2026-06-11 20:45:48",
+  "data": [
+    {
+      "fecha": "26-01-2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/es/matches/cd-ut-cajamarca-vs-deportivo-garcilaso/bkfy53jg#4397978"
+    },
+    {
+      "fecha": "27-01-2024",
+      "local": "FBC Melgar",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/es/matches/fbc-melgar-vs-cusco-fc/m0ju08j#4397983"
+    },
+    {
+      "fecha": "27-01-2024",
+      "local": "Sporting Cristal",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "6 - 2",
+      "url": "https://www.fotmob.com/es/matches/sporting-cristal-vs-asociacion-deportiva-tarma/7t9fcoic#4397981"
+    },
+    {
+      "fecha": "27-01-2024",
+      "local": "Sport Huancayo",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/es/matches/sport-boys-vs-sport-huancayo/6lqqetk#4397986"
+    },
+    {
+      "fecha": "28-01-2024",
+      "local": "Cienciano",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/es/matches/cienciano-vs-comerciantes-unidos/1uohgcd2#4397979"
+    },
+    {
+      "fecha": "28-01-2024",
+      "local": "Atletico Grau",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/es/matches/alianza-atletico-vs-atletico-grau/5gmay1jh#4397985"
+    },
+    {
+      "fecha": "28-01-2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 4",
+      "url": "https://www.fotmob.com/es/matches/universitario-de-deportes-vs-carlos-mannucci/1vbdknf1#4397982"
+    },
+    {
+      "fecha": "29-01-2024",
+      "local": "Alianza Lima",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/es/matches/universidad-cesar-vallejo-vs-alianza-lima/yt9i9#4397984"
+    },
+    {
+      "fecha": "29-01-2024",
+      "local": "Los Chankas",
+      "visitante": "Union Comercio",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/es/matches/union-comercio-vs-los-chankas/6744sue8#4397980"
+    },
+    {
+      "fecha": "02-02-2024",
+      "local": "Cusco FC",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/es/matches/cusco-fc-vs-cd-ut-cajamarca/3ep180ys#4405675"
+    },
+    {
+      "fecha": "Saturday, February 3, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "FBC Melgar",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-fbc-melgar/n851d#4405676"
+    },
+    {
+      "fecha": "Saturday, February 3, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Cienciano",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-asociacion-deportiva-tarma/7t9ddj0f#4405677"
+    },
+    {
+      "fecha": "Saturday, February 3, 2024",
+      "local": "Union Comercio",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-carlos-mannucci/3w6764kw#4405678"
+    },
+    {
+      "fecha": "Sunday, February 4, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-atletico-grau/5gmae7ni#4405679"
+    },
+    {
+      "fecha": "Sunday, February 4, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-alianza-lima/ys3sq#4405680"
+    },
+    {
+      "fecha": "Sunday, February 4, 2024",
+      "local": "Sport Boys",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-boys/bo4hq#4405681"
+    },
+    {
+      "fecha": "Monday, February 5, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-deportivo-garcilaso/7ivegea4#4405682"
+    },
+    {
+      "fecha": "Monday, February 5, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Los Chankas",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-los-chankas/afbk4m9d#4405683"
+    },
+    {
+      "fecha": "Friday, February 9, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-cd-ut-cajamarca/16hpvbuh#4412093"
+    },
+    {
+      "fecha": "Saturday, February 10, 2024",
+      "local": "Cienciano",
+      "visitante": "Sporting Cristal",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sporting-cristal/428ir#4412094"
+    },
+    {
+      "fecha": "Saturday, February 10, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-fbc-melgar/n76yz#4412095"
+    },
+    {
+      "fecha": "Saturday, February 10, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-comerciantes-unidos/7cw8kw5e#4412096"
+    },
+    {
+      "fecha": "Sunday, February 11, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-lima/yrvgi#4412097"
+    },
+    {
+      "fecha": "Sunday, February 11, 2024",
+      "local": "Los Chankas",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/los-chankas-vs-asociacion-deportiva-tarma/lqs5phz4#4412098"
+    },
+    {
+      "fecha": "Sunday, February 11, 2024",
+      "local": "Sport Boys",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-deportivo-garcilaso/5gmbhvfg#4412099"
+    },
+    {
+      "fecha": "Sunday, February 11, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cusco-fc/1et4p0cb#4412100"
+    },
+    {
+      "fecha": "Monday, February 12, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Union Comercio",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-atletico-grau/8nrkoe6n#4412101"
+    },
+    {
+      "fecha": "Friday, February 16, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Los Chankas",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-los-chankas/3iv4dz78#4416336"
+    },
+    {
+      "fecha": "Friday, February 16, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cd-ut-cajamarca/16hol8hj#4416331"
+    },
+    {
+      "fecha": "Saturday, February 17, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-asociacion-deportiva-tarma/h71olt74#4416332"
+    },
+    {
+      "fecha": "Saturday, February 17, 2024",
+      "local": "Cusco FC",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-deportivo-garcilaso/9l89b2ps#4416333"
+    },
+    {
+      "fecha": "Sunday, February 18, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-fbc-melgar/n705s#4416339"
+    },
+    {
+      "fecha": "Sunday, February 18, 2024",
+      "local": "Union Comercio",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-union-comercio/efggel5#4416337"
+    },
+    {
+      "fecha": "Sunday, February 18, 2024",
+      "local": "Cienciano",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-boys/bnq05#4416338"
+    },
+    {
+      "fecha": "Monday, February 19, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-sport-huancayo/6lr1bbt#4416334"
+    },
+    {
+      "fecha": "Monday, February 19, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-atletico-grau/dk3qlm6i#4416335"
+    },
+    {
+      "fecha": "Friday, February 23, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Alianza Atletico",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-huancayo/6lqj55j#4423179"
+    },
+    {
+      "fecha": "Saturday, February 24, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cd-ut-cajamarca/16hoc0m8#4423180"
+    },
+    {
+      "fecha": "Saturday, February 24, 2024",
+      "local": "Sport Boys",
+      "visitante": "Cusco FC",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cusco-fc/m0iwtuc#4423181"
+    },
+    {
+      "fecha": "Saturday, February 24, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Union Comercio",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-union-comercio/e7a0fah#4423182"
+    },
+    {
+      "fecha": "Saturday, February 24, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 4",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-carlos-mannucci/1uoi3ftw#4423183"
+    },
+    {
+      "fecha": "Sunday, February 25, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/atletico-grau-vs-asociacion-deportiva-tarma/q6dgtbhr#4423184"
+    },
+    {
+      "fecha": "Sunday, February 25, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "5 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-comerciantes-unidos/1vt7tuti#4423185"
+    },
+    {
+      "fecha": "Monday, February 26, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-deportivo-garcilaso/5gmd5d3m#4423186"
+    },
+    {
+      "fecha": "Monday, February 26, 2024",
+      "local": "Los Chankas",
+      "visitante": "Cienciano",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-los-chankas/3iv326vz#4423187"
+    },
+    {
+      "fecha": "Thursday, February 29, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-deportivo-garcilaso/5gmae7nh#4427910"
+    },
+    {
+      "fecha": "Friday, March 1, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Alianza Lima",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-asociacion-deportiva-tarma/7vkv5n09#4427911"
+    },
+    {
+      "fecha": "Saturday, March 2, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-huancayo/6lqfibk#4427912"
+    },
+    {
+      "fecha": "Saturday, March 2, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-atletico-grau/5fj5nbjk#4427913"
+    },
+    {
+      "fecha": "Saturday, March 2, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-comerciantes-unidos/1vbgh2uk#4427914"
+    },
+    {
+      "fecha": "Sunday, March 3, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-cusco-fc/m0jgqh6#4427915"
+    },
+    {
+      "fecha": "Sunday, March 3, 2024",
+      "local": "Los Chankas",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-los-chankas/3jqou07y#4427916"
+    },
+    {
+      "fecha": "Monday, March 4, 2024",
+      "local": "Cienciano",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-carlos-mannucci/1uoh4smn#4427917"
+    },
+    {
+      "fecha": "Monday, March 4, 2024",
+      "local": "Union Comercio",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-cd-ut-cajamarca/2v38nxv2#4427918"
+    },
+    {
+      "fecha": "Thursday, March 7, 2024",
+      "local": "Cusco FC",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cusco-fc/m0ijk39#4431512"
+    },
+    {
+      "fecha": "Friday, March 8, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-comerciantes-unidos/5wuqatd8#4431513"
+    },
+    {
+      "fecha": "Saturday, March 9, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-deportivo-garcilaso/5gm9udrj#4431514"
+    },
+    {
+      "fecha": "Saturday, March 9, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Cienciano",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-atletico-grau/5fj3zzt8#4431515"
+    },
+    {
+      "fecha": "Saturday, March 9, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-asociacion-deportiva-tarma/7ukhtxjd#4431516"
+    },
+    {
+      "fecha": "Saturday, March 9, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Los Chankas",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-los-chankas/afbjd7xs#4431517"
+    },
+    {
+      "fecha": "Sunday, March 10, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-lima/k8xcb#4431518"
+    },
+    {
+      "fecha": "Sunday, March 10, 2024",
+      "local": "Sport Boys",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-universidad-cesar-vallejo/n76yx#4431520"
+    },
+    {
+      "fecha": "Sunday, March 10, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Union Comercio",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-union-comercio/12hvxyyp#4431519"
+    },
+    {
+      "fecha": "Wednesday, March 13, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cusco-fc/m0icx7r#4433139"
+    },
+    {
+      "fecha": "Wednesday, March 13, 2024",
+      "local": "Cienciano",
+      "visitante": "Alianza Lima",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-lima/k8e98#4433142"
+    },
+    {
+      "fecha": "Thursday, March 14, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-fbc-melgar/bosnq#4433140"
+    },
+    {
+      "fecha": "Thursday, March 14, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-universidad-cesar-vallejo/n6tck#4433144"
+    },
+    {
+      "fecha": "Thursday, March 14, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Sport Huancayo",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-comerciantes-unidos/3584sfik#4433143"
+    },
+    {
+      "fecha": "Friday, March 15, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-carlos-mannucci/1vbejgjy#4433146"
+    },
+    {
+      "fecha": "Friday, March 15, 2024",
+      "local": "Union Comercio",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 4",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-deportivo-garcilaso/8nrjzf8q#4433147"
+    },
+    {
+      "fecha": "Friday, March 15, 2024",
+      "local": "Los Chankas",
+      "visitante": "Atletico Grau",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/los-chankas-vs-atletico-grau/hmkh768k#4433141"
+    },
+    {
+      "fecha": "Saturday, March 16, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-asociacion-deportiva-tarma/exziuwem#4433145"
+    },
+    {
+      "fecha": "Thursday, March 28, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-deportivo-garcilaso/dk3pqddv#4433132"
+    },
+    {
+      "fecha": "Friday, March 29, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Los Chankas",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-los-chankas/3kf7s461#4433137"
+    },
+    {
+      "fecha": "Saturday, March 30, 2024",
+      "local": "Cusco FC",
+      "visitante": "Union Comercio",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-cusco-fc/1xc1leue#4433131"
+    },
+    {
+      "fecha": "Saturday, March 30, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-atletico-grau/dk3pqddw#4433130"
+    },
+    {
+      "fecha": "Saturday, March 30, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Cienciano",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-fbc-melgar/boe5q#4433133"
+    },
+    {
+      "fecha": "Sunday, March 31, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-universidad-cesar-vallejo/n6mjf#4433138"
+    },
+    {
+      "fecha": "Sunday, March 31, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-asociacion-deportiva-tarma/aaeffaum#4433136"
+    },
+    {
+      "fecha": "Sunday, March 31, 2024",
+      "local": "Sport Boys",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-boys/n68x5#4433135"
+    },
+    {
+      "fecha": "Sunday, March 31, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cd-ut-cajamarca/15ziqkz2#4433134"
+    },
+    {
+      "fecha": "Friday, April 5, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-atletico-grau/5gmc1pbi#4433063"
+    },
+    {
+      "fecha": "Saturday, April 6, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-atletico/n5oi0#4433065"
+    },
+    {
+      "fecha": "Saturday, April 6, 2024",
+      "local": "Los Chankas",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-los-chankas/3jqr1xbd#4433072"
+    },
+    {
+      "fecha": "Saturday, April 6, 2024",
+      "local": "Union Comercio",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-union-comercio/e79prk8#4433040"
+    },
+    {
+      "fecha": "Saturday, April 6, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 4",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-carlos-mannucci/1vt7i7kn#4433069"
+    },
+    {
+      "fecha": "Sunday, April 7, 2024",
+      "local": "Cienciano",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cd-ut-cajamarca/15zhz3at#4433064"
+    },
+    {
+      "fecha": "Sunday, April 7, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/deportivo-garcilaso-vs-asociacion-deportiva-tarma/q6dflwlm#4433067"
+    },
+    {
+      "fecha": "Sunday, April 7, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Sport Huancayo",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-huancayo/6elujhm#4433066"
+    },
+    {
+      "fecha": "Monday, April 8, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Cusco FC",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-comerciantes-unidos/4iw45mbf#4433068"
+    },
+    {
+      "fecha": "Friday, April 12, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Cienciano",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-huancayo/6eljsxa#4433071"
+    },
+    {
+      "fecha": "Saturday, April 13, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Union Comercio",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-union-comercio/e78z493#4433062"
+    },
+    {
+      "fecha": "Saturday, April 13, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-carlos-mannucci/1vbg5h4p#4433073"
+    },
+    {
+      "fecha": "Sunday, April 14, 2024",
+      "local": "Sport Boys",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-boys/n6243#4433077"
+    },
+    {
+      "fecha": "Sunday, April 14, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-comerciantes-unidos/1vbftvex#4433078"
+    },
+    {
+      "fecha": "Sunday, April 14, 2024",
+      "local": "Cusco FC",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-asociacion-deportiva-tarma/col7yt1i#4433075"
+    },
+    {
+      "fecha": "Monday, April 15, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-atletico-grau/5hgr6wmr#4433070"
+    },
+    {
+      "fecha": "Monday, April 15, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Los Chankas",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-los-chankas/8otzgijy#4433074"
+    },
+    {
+      "fecha": "Tuesday, April 16, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Sporting Cristal",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-deportivo-garcilaso/5fj53jmq#4433076"
+    },
+    {
+      "fecha": "Friday, April 19, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-lima/yskh9#4433080"
+    },
+    {
+      "fecha": "Friday, April 19, 2024",
+      "local": "Union Comercio",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-union-comercio/e78tse5#4433079"
+    },
+    {
+      "fecha": "Saturday, April 20, 2024",
+      "local": "Cienciano",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-deportivo-garcilaso/5fj3g7wh#4433081"
+    },
+    {
+      "fecha": "Saturday, April 20, 2024",
+      "local": "Los Chankas",
+      "visitante": "Sport Huancayo",
+      "marcador": "6 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-los-chankas/58qptfym#4433052"
+    },
+    {
+      "fecha": "Saturday, April 20, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-asociacion-deportiva-tarma/7ukgidwo#4433045"
+    },
+    {
+      "fecha": "Saturday, April 20, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-carlos-mannucci/5wupq6la#4433046"
+    },
+    {
+      "fecha": "Sunday, April 21, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cusco-fc/lnggfqt#4433043"
+    },
+    {
+      "fecha": "Sunday, April 21, 2024",
+      "local": "Atletico Grau",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-atletico-grau/5gmesus2#4433042"
+    },
+    {
+      "fecha": "Tuesday, April 23, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-comerciantes-unidos/1vbe7uub#4433044"
+    },
+    {
+      "fecha": "Friday, April 26, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-carlos-mannucci/3584ddry#4433054"
+    },
+    {
+      "fecha": "Saturday, April 27, 2024",
+      "local": "Sport Boys",
+      "visitante": "Union Comercio",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-union-comercio/e799rz2#4433047"
+    },
+    {
+      "fecha": "Saturday, April 27, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Atletico Grau",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-atletico-grau/bkfyxyhq#4433050"
+    },
+    {
+      "fecha": "Saturday, April 27, 2024",
+      "local": "Cusco FC",
+      "visitante": "Cienciano",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cusco-fc/lnfwp1z#4433055"
+    },
+    {
+      "fecha": "Sunday, April 28, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-asociacion-deportiva-tarma/7ukd7iuf#4433048"
+    },
+    {
+      "fecha": "Sunday, April 28, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-alianza-lima/ytq72#4433051"
+    },
+    {
+      "fecha": "Monday, April 29, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Los Chankas",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/los-chankas-vs-deportivo-garcilaso/hmkg7jqm#4433049"
+    },
+    {
+      "fecha": "Monday, April 29, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "6 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-comerciantes-unidos/1vbdw94o#4433053"
+    },
+    {
+      "fecha": "Tuesday, April 30, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Sporting Cristal",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universidad-cesar-vallejo/boizn#4433041"
+    },
+    {
+      "fecha": "Friday, May 3, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-asociacion-deportiva-tarma/7ukcjr19#4433061"
+    },
+    {
+      "fecha": "Friday, May 3, 2024",
+      "local": "Cienciano",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universidad-cesar-vallejo/bo4ht#4433084"
+    },
+    {
+      "fecha": "Saturday, May 4, 2024",
+      "local": "Alianza Lima",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cd-ut-cajamarca/16vuu6rh#4433056"
+    },
+    {
+      "fecha": "Saturday, May 4, 2024",
+      "local": "Los Chankas",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-los-chankas/6zjzskfa#4433059"
+    },
+    {
+      "fecha": "Saturday, May 4, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-deportivo-garcilaso/dk3ov4la#4433082"
+    },
+    {
+      "fecha": "Saturday, May 4, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Union Comercio",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-comerciantes-unidos/3w67mvch#4433058"
+    },
+    {
+      "fecha": "Sunday, May 5, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-atletico/bnutx#4433083"
+    },
+    {
+      "fecha": "Sunday, May 5, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-fbc-melgar/n7klg#4433057"
+    },
+    {
+      "fecha": "Monday, May 6, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-atletico-grau/7ivf3o72#4433060"
+    },
+    {
+      "fecha": "Friday, May 10, 2024",
+      "local": "Union Comercio",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-asociacion-deportiva-tarma/blz62v40#4433089"
+    },
+    {
+      "fecha": "Saturday, May 11, 2024",
+      "local": "Sport Boys",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-comerciantes-unidos/1vbev29o#4433119"
+    },
+    {
+      "fecha": "Saturday, May 11, 2024",
+      "local": "Cusco FC",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-carlos-mannucci/4iw3nkja#4433118"
+    },
+    {
+      "fecha": "Saturday, May 11, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-sport-huancayo/6rcedst#4433086"
+    },
+    {
+      "fecha": "Sunday, May 12, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Los Chankas",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-los-chankas/3jqq5yh4#4433085"
+    },
+    {
+      "fecha": "Sunday, May 12, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 6",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cd-ut-cajamarca/16hqdrlg#4433117"
+    },
+    {
+      "fecha": "Sunday, May 12, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Atletico Grau",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-garcilaso-vs-atletico-grau/lmzuu2k2#4433087"
+    },
+    {
+      "fecha": "Sunday, May 12, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Sporting Cristal",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universitario-de-deportes/bnq02#4433088"
+    },
+    {
+      "fecha": "Monday, May 13, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Cienciano",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-atletico/bngci#4433105"
+    },
+    {
+      "fecha": "Friday, May 17, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Cusco FC",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-atletico-grau/9l8a1co9#4433110"
+    },
+    {
+      "fecha": "Saturday, May 18, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Union Comercio",
+      "marcador": "5 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-union-comercio/dwrsmff#4433111"
+    },
+    {
+      "fecha": "Saturday, May 18, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Sport Huancayo",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-sport-huancayo/6lr8l04#4433113"
+    },
+    {
+      "fecha": "Sunday, May 19, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-asociacion-deportiva-tarma/h71pkzwx#4433116"
+    },
+    {
+      "fecha": "Sunday, May 19, 2024",
+      "local": "Los Chankas",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-los-chankas/3jqny1dz#4433109"
+    },
+    {
+      "fecha": "Sunday, May 19, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-carlos-mannucci/1vbfi9p4#4433112"
+    },
+    {
+      "fecha": "Monday, May 20, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-deportivo-garcilaso/5hgqn17j#4433115"
+    },
+    {
+      "fecha": "Monday, May 20, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 4",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cd-ut-cajamarca/16hp3o88#4433108"
+    },
+    {
+      "fecha": "Tuesday, May 21, 2024",
+      "local": "Cienciano",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universitario-de-deportes/bnbiq#4433114"
+    },
+    {
+      "fecha": "Friday, May 24, 2024",
+      "local": "Cusco FC",
+      "visitante": "Alianza Lima",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cusco-fc/maq553r#4433090"
+    },
+    {
+      "fecha": "Saturday, May 25, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Atletico Grau",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-atletico-grau/5gmdp6zr#4433107"
+    },
+    {
+      "fecha": "Saturday, May 25, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cd-ut-cajamarca/286okzjs#4433106"
+    },
+    {
+      "fecha": "Saturday, May 25, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-comerciantes-unidos/1uoiezke#4433099"
+    },
+    {
+      "fecha": "Saturday, May 25, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-deportivo-garcilaso/5gme90vv#4433101"
+    },
+    {
+      "fecha": "Saturday, May 25, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Los Chankas",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-los-chankas/3jqni1z1#4433104"
+    },
+    {
+      "fecha": "Sunday, May 26, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-carlos-mannucci/1vbdw94n#4433103"
+    },
+    {
+      "fecha": "Sunday, May 26, 2024",
+      "local": "Sport Boys",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-asociacion-deportiva-tarma/7ukej2gu#4433100"
+    },
+    {
+      "fecha": "Monday, May 27, 2024",
+      "local": "Union Comercio",
+      "visitante": "Cienciano",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-union-comercio/dwrcss9#4433102"
+    },
+    {
+      "fecha": "Friday, July 12, 2024",
+      "local": "Union Comercio",
+      "visitante": "Los Chankas",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-los-chankas/6744sue8#4524331"
+    },
+    {
+      "fecha": "Friday, July 12, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Sporting Cristal",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-asociacion-deportiva-tarma/7t9fcoic#4524333"
+    },
+    {
+      "fecha": "Saturday, July 13, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-deportivo-garcilaso/bkfy53jg#4524332"
+    },
+    {
+      "fecha": "Saturday, July 13, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Cienciano",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-comerciantes-unidos/1uohgcd2#4524334"
+    },
+    {
+      "fecha": "Saturday, July 13, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Alianza Lima",
+      "marcador": "2 - 3",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-alianza-lima/yt9i9#4524336"
+    },
+    {
+      "fecha": "Saturday, July 13, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "6 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-carlos-mannucci/1vbdknf1#4524335"
+    },
+    {
+      "fecha": "Sunday, July 14, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Atletico Grau",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-atletico-grau/5gmay1jh#4524337"
+    },
+    {
+      "fecha": "Sunday, July 14, 2024",
+      "local": "Sport Boys",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-sport-huancayo/6lqqetk#4524339"
+    },
+    {
+      "fecha": "Sunday, July 14, 2024",
+      "local": "Cusco FC",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cusco-fc/m0ju08j#4524338"
+    },
+    {
+      "fecha": "Friday, July 19, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Cusco FC",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-cd-ut-cajamarca/3ep180ys#4530174"
+    },
+    {
+      "fecha": "Friday, July 19, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-deportivo-garcilaso/7ivegea4#4530175"
+    },
+    {
+      "fecha": "Saturday, July 20, 2024",
+      "local": "Los Chankas",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-los-chankas/afbk4m9d#4530176"
+    },
+    {
+      "fecha": "Saturday, July 20, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "5 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-fbc-melgar/n851d#4530177"
+    },
+    {
+      "fecha": "Sunday, July 21, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-alianza-lima/ys3sq#4530178"
+    },
+    {
+      "fecha": "Sunday, July 21, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-atletico-grau/5gmae7ni#4530179"
+    },
+    {
+      "fecha": "Sunday, July 21, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Union Comercio",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-carlos-mannucci/3w6764kw#4530180"
+    },
+    {
+      "fecha": "Sunday, July 21, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Sport Boys",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-boys/bo4hq#4530181"
+    },
+    {
+      "fecha": "Sunday, July 21, 2024",
+      "local": "Cienciano",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-asociacion-deportiva-tarma/7t9ddj0f#4530182"
+    },
+    {
+      "fecha": "Thursday, July 25, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "FBC Melgar",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-fbc-melgar/n76yz#4536471"
+    },
+    {
+      "fecha": "Thursday, July 25, 2024",
+      "local": "Cusco FC",
+      "visitante": "Sport Huancayo",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cusco-fc/1et4p0cb#4536481"
+    },
+    {
+      "fecha": "Friday, July 26, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-cd-ut-cajamarca/16hpvbuh#4536482"
+    },
+    {
+      "fecha": "Friday, July 26, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-comerciantes-unidos/7cw8kw5e#4536478"
+    },
+    {
+      "fecha": "Friday, July 26, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-deportivo-garcilaso/5gmbhvfg#4536479"
+    },
+    {
+      "fecha": "Saturday, July 27, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Alianza Lima",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-lima/yrvgi#4536477"
+    },
+    {
+      "fecha": "Saturday, July 27, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Cienciano",
+      "marcador": "5 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sporting-cristal/428ir#4536476"
+    },
+    {
+      "fecha": "Saturday, July 27, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Los Chankas",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/los-chankas-vs-asociacion-deportiva-tarma/lqs5phz4#4536475"
+    },
+    {
+      "fecha": "Monday, July 29, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Cusco FC",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-deportivo-garcilaso/9l89b2ps#4536474"
+    },
+    {
+      "fecha": "Tuesday, July 30, 2024",
+      "local": "Sport Boys",
+      "visitante": "Cienciano",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-boys/bnq05#4536472"
+    },
+    {
+      "fecha": "Tuesday, July 30, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-sport-huancayo/6lr1bbt#4536473"
+    },
+    {
+      "fecha": "Wednesday, July 31, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Union Comercio",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-union-comercio/efggel5#4536458"
+    },
+    {
+      "fecha": "Wednesday, July 31, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-atletico-grau/dk3qlm6i#4536470"
+    },
+    {
+      "fecha": "Wednesday, July 31, 2024",
+      "local": "Los Chankas",
+      "visitante": "Sporting Cristal",
+      "marcador": "3 - 3",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-los-chankas/3iv4dz78#4536469"
+    },
+    {
+      "fecha": "Thursday, August 1, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-asociacion-deportiva-tarma/h71olt74#4536468"
+    },
+    {
+      "fecha": "Thursday, August 1, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-fbc-melgar/n705s#4536467"
+    },
+    {
+      "fecha": "Thursday, August 1, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cd-ut-cajamarca/16hol8hj#4536466"
+    },
+    {
+      "fecha": "Saturday, August 3, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-comerciantes-unidos/1vt7tuti#4536465"
+    },
+    {
+      "fecha": "Saturday, August 3, 2024",
+      "local": "Cienciano",
+      "visitante": "Los Chankas",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-los-chankas/3iv326vz#4536464"
+    },
+    {
+      "fecha": "Sunday, August 4, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-deportivo-garcilaso/5gmd5d3m#4536463"
+    },
+    {
+      "fecha": "Sunday, August 4, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-carlos-mannucci/1uoi3ftw#4536462"
+    },
+    {
+      "fecha": "Sunday, August 4, 2024",
+      "local": "Union Comercio",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-union-comercio/e7a0fah#4536461"
+    },
+    {
+      "fecha": "Sunday, August 4, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/atletico-grau-vs-asociacion-deportiva-tarma/q6dgtbhr#4536460"
+    },
+    {
+      "fecha": "Monday, August 5, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cd-ut-cajamarca/16hoc0m8#4536459"
+    },
+    {
+      "fecha": "Monday, August 5, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-huancayo/6lqj55j#4536483"
+    },
+    {
+      "fecha": "Monday, August 5, 2024",
+      "local": "Cusco FC",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cusco-fc/m0iwtuc#4536484"
+    },
+    {
+      "fecha": "Friday, August 9, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Union Comercio",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-cd-ut-cajamarca/2v38nxv2#4551096"
+    },
+    {
+      "fecha": "Saturday, August 10, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-deportivo-garcilaso/5gmae7nh#4551097"
+    },
+    {
+      "fecha": "Saturday, August 10, 2024",
+      "local": "Sport Boys",
+      "visitante": "Los Chankas",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-los-chankas/3jqou07y#4551098"
+    },
+    {
+      "fecha": "Sunday, August 11, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-asociacion-deportiva-tarma/7vkv5n09#4551100"
+    },
+    {
+      "fecha": "Sunday, August 11, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-atletico-grau/5fj5nbjk#4551101"
+    },
+    {
+      "fecha": "Sunday, August 11, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Cienciano",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-carlos-mannucci/1uoh4smn#4551102"
+    },
+    {
+      "fecha": "Sunday, August 11, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-huancayo/6lqfibk#4551103"
+    },
+    {
+      "fecha": "Sunday, August 11, 2024",
+      "local": "Cusco FC",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-cusco-fc/m0jgqh6#4551104"
+    },
+    {
+      "fecha": "Thursday, August 15, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-cusco-fc/m0ijk39#4570278"
+    },
+    {
+      "fecha": "Thursday, August 15, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-comerciantes-unidos/5wuqatd8#4570274"
+    },
+    {
+      "fecha": "Friday, August 16, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-asociacion-deportiva-tarma/7ukhtxjd#4570273"
+    },
+    {
+      "fecha": "Friday, August 16, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-universidad-cesar-vallejo/n76yx#4570277"
+    },
+    {
+      "fecha": "Saturday, August 17, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-deportivo-garcilaso/5gm9udrj#4570276"
+    },
+    {
+      "fecha": "Saturday, August 17, 2024",
+      "local": "Union Comercio",
+      "visitante": "Sport Huancayo",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-union-comercio/12hvxyyp#4570280"
+    },
+    {
+      "fecha": "Saturday, August 17, 2024",
+      "local": "Cienciano",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-atletico-grau/5fj3zzt8#4570272"
+    },
+    {
+      "fecha": "Sunday, August 18, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-lima/k8xcb#4570279"
+    },
+    {
+      "fecha": "Sunday, August 18, 2024",
+      "local": "Los Chankas",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-los-chankas/afbjd7xs#4570275"
+    },
+    {
+      "fecha": "Monday, August 19, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-universidad-cesar-vallejo/n6tck#4570300"
+    },
+    {
+      "fecha": "Tuesday, August 20, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-asociacion-deportiva-tarma/exziuwem#4570271"
+    },
+    {
+      "fecha": "Tuesday, August 20, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-comerciantes-unidos/3584sfik#4570334"
+    },
+    {
+      "fecha": "Tuesday, August 20, 2024",
+      "local": "Cusco FC",
+      "visitante": "Universitario de Deportes",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-cusco-fc/m0icx7r#4570335"
+    },
+    {
+      "fecha": "Wednesday, August 21, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Cienciano",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-lima/k8e98#4570299"
+    },
+    {
+      "fecha": "Wednesday, August 21, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Los Chankas",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/los-chankas-vs-atletico-grau/hmkh768k#4570298"
+    },
+    {
+      "fecha": "Wednesday, August 21, 2024",
+      "local": "Sport Boys",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 6",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-carlos-mannucci/1vbejgjy#4570301"
+    },
+    {
+      "fecha": "Wednesday, August 21, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Union Comercio",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-deportivo-garcilaso/8nrjzf8q#4570302"
+    },
+    {
+      "fecha": "Thursday, August 22, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Sporting Cristal",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-fbc-melgar/bosnq#4570320"
+    },
+    {
+      "fecha": "Saturday, August 24, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Sport Boys",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-sport-boys/n68x5#4570328"
+    },
+    {
+      "fecha": "Saturday, August 24, 2024",
+      "local": "Los Chankas",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-los-chankas/3kf7s461#4570326"
+    },
+    {
+      "fecha": "Sunday, August 25, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-universidad-cesar-vallejo/n6mjf#4570331"
+    },
+    {
+      "fecha": "Sunday, August 25, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cd-ut-cajamarca/15ziqkz2#4570332"
+    },
+    {
+      "fecha": "Sunday, August 25, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-asociacion-deportiva-tarma/aaeffaum#4570330"
+    },
+    {
+      "fecha": "Sunday, August 25, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-deportivo-garcilaso/dk3pqddv#4570327"
+    },
+    {
+      "fecha": "Monday, August 26, 2024",
+      "local": "Cienciano",
+      "visitante": "FBC Melgar",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-fbc-melgar/boe5q#4570325"
+    },
+    {
+      "fecha": "Monday, August 26, 2024",
+      "local": "Union Comercio",
+      "visitante": "Cusco FC",
+      "marcador": "3 - 3",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-cusco-fc/1xc1leue#4570329"
+    },
+    {
+      "fecha": "Tuesday, August 27, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-atletico-grau/dk3pqddw#4570333"
+    },
+    {
+      "fecha": "Sunday, September 1, 2024",
+      "local": "Union Comercio",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-atletico-grau/8nrkoe6n#4536480"
+    },
+    {
+      "fecha": "Saturday, September 7, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-comerciantes-unidos/1vbgh2uk#4551099"
+    },
+    {
+      "fecha": "Friday, September 13, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Cienciano",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cd-ut-cajamarca/15zhz3at#4570323"
+    },
+    {
+      "fecha": "Friday, September 13, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/deportivo-garcilaso-vs-asociacion-deportiva-tarma/q6dflwlm#4570304"
+    },
+    {
+      "fecha": "Friday, September 13, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Union Comercio",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-union-comercio/e79prk8#4570324"
+    },
+    {
+      "fecha": "Saturday, September 14, 2024",
+      "local": "Cusco FC",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-comerciantes-unidos/4iw45mbf#4570307"
+    },
+    {
+      "fecha": "Saturday, September 14, 2024",
+      "local": "Sport Boys",
+      "visitante": "Atletico Grau",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-atletico-grau/5gmc1pbi#4570312"
+    },
+    {
+      "fecha": "Saturday, September 14, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-sport-huancayo/6elujhm#4570322"
+    },
+    {
+      "fecha": "Sunday, September 15, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-carlos-mannucci/1vt7i7kn#4570321"
+    },
+    {
+      "fecha": "Sunday, September 15, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-alianza-atletico/n5oi0#4570306"
+    },
+    {
+      "fecha": "Sunday, September 15, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Los Chankas",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-los-chankas/3jqr1xbd#4570305"
+    },
+    {
+      "fecha": "Tuesday, September 17, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-deportivo-garcilaso/5fj53jmq#4570308"
+    },
+    {
+      "fecha": "Tuesday, September 17, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-asociacion-deportiva-tarma/col7yt1i#4570311"
+    },
+    {
+      "fecha": "Wednesday, September 18, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-atletico-grau/5hgr6wmr#4570303"
+    },
+    {
+      "fecha": "Wednesday, September 18, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-comerciantes-unidos/1vbftvex#4570315"
+    },
+    {
+      "fecha": "Wednesday, September 18, 2024",
+      "local": "Cienciano",
+      "visitante": "Sport Huancayo",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-sport-huancayo/6eljsxa#4570316"
+    },
+    {
+      "fecha": "Thursday, September 19, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Sport Boys",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-sport-boys/n6243#4570310"
+    },
+    {
+      "fecha": "Thursday, September 19, 2024",
+      "local": "Union Comercio",
+      "visitante": "Alianza Atletico",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-union-comercio/e78z493#4570309"
+    },
+    {
+      "fecha": "Thursday, September 19, 2024",
+      "local": "Los Chankas",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-los-chankas/8otzgijy#4570313"
+    },
+    {
+      "fecha": "Friday, September 20, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-carlos-mannucci/1vbg5h4p#4570314"
+    },
+    {
+      "fecha": "Saturday, September 21, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Cienciano",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-deportivo-garcilaso/5fj3g7wh#4570367"
+    },
+    {
+      "fecha": "Sunday, September 22, 2024",
+      "local": "Sport Boys",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 3",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-alianza-lima/yskh9#4570338"
+    },
+    {
+      "fecha": "Sunday, September 22, 2024",
+      "local": "Cusco FC",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-cusco-fc/lnggfqt#4570336"
+    },
+    {
+      "fecha": "Sunday, September 22, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Union Comercio",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-union-comercio/e78tse5#4570319"
+    },
+    {
+      "fecha": "Monday, September 23, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-asociacion-deportiva-tarma/7ukgidwo#4570318"
+    },
+    {
+      "fecha": "Monday, September 23, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-comerciantes-unidos/1vbe7uub#4570317"
+    },
+    {
+      "fecha": "Monday, September 23, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Los Chankas",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-los-chankas/58qptfym#4570337"
+    },
+    {
+      "fecha": "Tuesday, September 24, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Atletico Grau",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-atletico-grau/5gmesus2#4570368"
+    },
+    {
+      "fecha": "Tuesday, September 24, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-carlos-mannucci/5wupq6la#4570354"
+    },
+    {
+      "fecha": "Friday, September 27, 2024",
+      "local": "Union Comercio",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-union-comercio/e799rz2#4570364"
+    },
+    {
+      "fecha": "Saturday, September 28, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Alianza Atletico",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-asociacion-deportiva-tarma/7ukd7iuf#4570363"
+    },
+    {
+      "fecha": "Saturday, September 28, 2024",
+      "local": "Cienciano",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-cusco-fc/lnfwp1z#4570361"
+    },
+    {
+      "fecha": "Sunday, September 29, 2024",
+      "local": "Alianza Lima",
+      "visitante": "FBC Melgar",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-alianza-lima/ytq72#4570365"
+    },
+    {
+      "fecha": "Sunday, September 29, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universidad-cesar-vallejo/boizn#4570359"
+    },
+    {
+      "fecha": "Sunday, September 29, 2024",
+      "local": "Los Chankas",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/los-chankas-vs-deportivo-garcilaso/hmkg7jqm#4570366"
+    },
+    {
+      "fecha": "Sunday, September 29, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-carlos-mannucci/3584ddry#4570360"
+    },
+    {
+      "fecha": "Sunday, September 29, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-comerciantes-unidos/1vbdw94o#4570358"
+    },
+    {
+      "fecha": "Monday, September 30, 2024",
+      "local": "Atletico Grau",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "4 - 0",
+      "url": "https://www.fotmob.com/matches/cd-ut-cajamarca-vs-atletico-grau/bkfyxyhq#4570362"
+    },
+    {
+      "fecha": "Thursday, October 17, 2024",
+      "local": "Union Comercio",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "3 - 2",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-comerciantes-unidos/3w67mvch#4570350"
+    },
+    {
+      "fecha": "Thursday, October 17, 2024",
+      "local": "Cusco FC",
+      "visitante": "Los Chankas",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-los-chankas/6zjzskfa#4570351"
+    },
+    {
+      "fecha": "Thursday, October 17, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "Atletico Grau",
+      "marcador": "1 - 3",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-atletico-grau/7ivf3o72#4570349"
+    },
+    {
+      "fecha": "Friday, October 18, 2024",
+      "local": "Sport Boys",
+      "visitante": "FBC Melgar",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-fbc-melgar/n7klg#4570352"
+    },
+    {
+      "fecha": "Friday, October 18, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Alianza Lima",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cd-ut-cajamarca/16vuu6rh#4570355"
+    },
+    {
+      "fecha": "Friday, October 18, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Cienciano",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universidad-cesar-vallejo/bo4ht#4570339"
+    },
+    {
+      "fecha": "Saturday, October 19, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/carlos-mannucci-vs-deportivo-garcilaso/dk3ov4la#4570357"
+    },
+    {
+      "fecha": "Saturday, October 19, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Sporting Cristal",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-alianza-atletico/bnutx#4570356"
+    },
+    {
+      "fecha": "Sunday, October 20, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-asociacion-deportiva-tarma/7ukcjr19#4570353"
+    },
+    {
+      "fecha": "Tuesday, October 22, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/deportivo-garcilaso-vs-atletico-grau/lmzuu2k2#4570342"
+    },
+    {
+      "fecha": "Tuesday, October 22, 2024",
+      "local": "Los Chankas",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-los-chankas/3jqq5yh4#4570348"
+    },
+    {
+      "fecha": "Tuesday, October 22, 2024",
+      "local": "FBC Melgar",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-cd-ut-cajamarca/16hqdrlg#4570344"
+    },
+    {
+      "fecha": "Wednesday, October 23, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Sport Huancayo",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-sport-huancayo/6rcedst#4570340"
+    },
+    {
+      "fecha": "Wednesday, October 23, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Union Comercio",
+      "marcador": "2 - 0",
+      "url": "https://www.fotmob.com/matches/union-comercio-vs-asociacion-deportiva-tarma/blz62v40#4570341"
+    },
+    {
+      "fecha": "Wednesday, October 23, 2024",
+      "local": "Cienciano",
+      "visitante": "Alianza Atletico",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-alianza-atletico/bngci#4570343"
+    },
+    {
+      "fecha": "Thursday, October 24, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Cusco FC",
+      "marcador": "4 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-carlos-mannucci/4iw3nkja#4570345"
+    },
+    {
+      "fecha": "Thursday, October 24, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Universitario de Deportes",
+      "marcador": "2 - 1",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-universitario-de-deportes/bnq02#4570347"
+    },
+    {
+      "fecha": "Thursday, October 24, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Sport Boys",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-comerciantes-unidos/1vbev29o#4570346"
+    },
+    {
+      "fecha": "Saturday, October 26, 2024",
+      "local": "Deportivo Garcilaso",
+      "visitante": "Alianza Lima",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-deportivo-garcilaso/5hgqn17j#4570380"
+    },
+    {
+      "fecha": "Sunday, October 27, 2024",
+      "local": "Universidad Cesar Vallejo",
+      "visitante": "Carlos A. Mannucci",
+      "marcador": "0 - 2",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-carlos-mannucci/1vbfi9p4#4570378"
+    },
+    {
+      "fecha": "Sunday, October 27, 2024",
+      "local": "Sport Boys",
+      "visitante": "CD UT Cajamarca",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-cd-ut-cajamarca/16hp3o88#4570383"
+    },
+    {
+      "fecha": "Sunday, October 27, 2024",
+      "local": "Union Comercio",
+      "visitante": "Sporting Cristal",
+      "marcador": "0 - 12",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-union-comercio/dwrsmff#4570381"
+    },
+    {
+      "fecha": "Sunday, October 27, 2024",
+      "local": "Sport Huancayo",
+      "visitante": "FBC Melgar",
+      "marcador": "2 - 4",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-sport-huancayo/6lr8l04#4570369"
+    },
+    {
+      "fecha": "Sunday, October 27, 2024",
+      "local": "Universitario de Deportes",
+      "visitante": "Cienciano",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-universitario-de-deportes/bnbiq#4570379"
+    },
+    {
+      "fecha": "Monday, October 28, 2024",
+      "local": "Alianza Atletico",
+      "visitante": "Los Chankas",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-los-chankas/3jqny1dz#4570377"
+    },
+    {
+      "fecha": "Monday, October 28, 2024",
+      "local": "Comerciantes Unidos",
+      "visitante": "Asociacion Deportiva Tarma",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/comerciantes-unidos-vs-asociacion-deportiva-tarma/h71pkzwx#4570384"
+    },
+    {
+      "fecha": "Monday, October 28, 2024",
+      "local": "Cusco FC",
+      "visitante": "Atletico Grau",
+      "marcador": "0 - 1",
+      "url": "https://www.fotmob.com/matches/cusco-fc-vs-atletico-grau/9l8a1co9#4570382"
+    },
+    {
+      "fecha": "Thursday, October 31, 2024",
+      "local": "Cienciano",
+      "visitante": "Union Comercio",
+      "marcador": "7 - 0",
+      "url": "https://www.fotmob.com/matches/cienciano-vs-union-comercio/dwrcss9#4570386"
+    },
+    {
+      "fecha": "Friday, November 1, 2024",
+      "local": "Asociacion Deportiva Tarma",
+      "visitante": "Sport Boys",
+      "marcador": "1 - 0",
+      "url": "https://www.fotmob.com/matches/sport-boys-vs-asociacion-deportiva-tarma/7ukej2gu#4570372"
+    },
+    {
+      "fecha": "Saturday, November 2, 2024",
+      "local": "Atletico Grau",
+      "visitante": "Universidad Cesar Vallejo",
+      "marcador": "3 - 1",
+      "url": "https://www.fotmob.com/matches/universidad-cesar-vallejo-vs-atletico-grau/5gmdp6zr#4570373"
+    },
+    {
+      "fecha": "Saturday, November 2, 2024",
+      "local": "Carlos A. Mannucci",
+      "visitante": "Alianza Atletico",
+      "marcador": "2 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-atletico-vs-carlos-mannucci/1vbdw94n#4570370"
+    },
+    {
+      "fecha": "Saturday, November 2, 2024",
+      "local": "CD UT Cajamarca",
+      "visitante": "Sport Huancayo",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/sport-huancayo-vs-cd-ut-cajamarca/286okzjs#4570374"
+    },
+    {
+      "fecha": "Sunday, November 3, 2024",
+      "local": "Sporting Cristal",
+      "visitante": "Comerciantes Unidos",
+      "marcador": "3 - 0",
+      "url": "https://www.fotmob.com/matches/sporting-cristal-vs-comerciantes-unidos/1uoiezke#4570375"
+    },
+    {
+      "fecha": "Sunday, November 3, 2024",
+      "local": "Alianza Lima",
+      "visitante": "Cusco FC",
+      "marcador": "1 - 2",
+      "url": "https://www.fotmob.com/matches/alianza-lima-vs-cusco-fc/maq553r#4570371"
+    },
+    {
+      "fecha": "Sunday, November 3, 2024",
+      "local": "FBC Melgar",
+      "visitante": "Deportivo Garcilaso",
+      "marcador": "1 - 1",
+      "url": "https://www.fotmob.com/matches/fbc-melgar-vs-deportivo-garcilaso/5gme90vv#4570385"
+    },
+    {
+      "fecha": "Sunday, November 3, 2024",
+      "local": "Los Chankas",
+      "visitante": "Universitario de Deportes",
+      "marcador": "0 - 0",
+      "url": "https://www.fotmob.com/matches/universitario-de-deportes-vs-los-chankas/3jqni1z1#4570376"
+    }
+  ]
+}

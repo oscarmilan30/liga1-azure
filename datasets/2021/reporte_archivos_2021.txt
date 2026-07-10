@@ -1,0 +1,16 @@
+======================================================================
+ REPORTE DETALLADO DE ARCHIVOS - SCRAPING LIGA 1
+======================================================================
+ partidos_2021.json | Estado: éxito | Hora: 2026-06-11 18:32:14
+ equipos_2021.json | Estado: éxito | Hora: 2026-06-11 18:32:14
+ campeones_2021.json | Estado: éxito | Hora: 2026-06-11 18:32:15
+ tablas_clasificacion_2021.json | Estado: éxito | Hora: 2026-06-11 18:32:15
+ estadisticas_partidos_2021.json | Estado: éxito | Hora: 2026-06-11 18:32:15
+ liga1_2021.csv | Estado: éxito | Hora: 2026-06-11 19:18:48
+ plantillas_2021.csv | Estado: éxito | Hora: 2026-06-11 19:18:49
+ estadios_2021.csv | Estado: éxito | Hora: 2026-06-11 19:18:49
+ entrenadores_2021.csv | Estado: éxito | Hora: 2026-06-11 19:18:49
+ estadisticas_jugadores_2021.csv | Estado: éxito | Hora: 2026-06-11 19:18:50
+======================================================================
+ RESUMEN: 10 exitosos, 0 errores
+======================================================================

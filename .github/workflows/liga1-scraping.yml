@@ -10,28 +10,239 @@ on:
         type: choice
         options:
           - incremental
-          - historica
           - reproceso
+          - historica
+          - repair_tm
       anio_objetivo:
-        description: 'Año a reprocesar (solo modo reproceso, ej: 2023)'
+        description: 'Año a reparar/reprocesar (modos reproceso y repair_tm)'
         required: false
         default: ''
       anio_inicio:
-        description: 'Año inicio (solo modo historica, default: 2020)'
+        description: 'Año inicio (modos historica y repair_tm con rango)'
         required: false
         default: '2020'
+      anio_fin:
+        description: 'Año fin (modos historica y repair_tm, vacío = año actual - 1)'
+        required: false
+        default: ''
+      repair_forzar_todos:
+        description: 'repair_tm: re-scrapea los 19 clubes aunque ya existan en ADLS (para corregir stats)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+      disparar_adf:
+        description: 'Disparar ADF después del scraping'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      ambiente:
+        description: 'Ambiente destino del scraping (dev=datalakelig1peru, prod=datalakelig1peruprod)'
+        required: false
+        default: 'dev'
+        type: choice
+        options:
+          - 'dev'
+          - 'prod'
 
-  schedule:
-    - cron: '0 14 * * 1'   # Lunes 14:00 UTC = 09:00 Lima
+  # schedule:
+  #   - cron: '0 14 * * 1'   # todos los lunes 09:00 AM hora Perú (UTC-5) — descomenta para activar
 
 env:
   PYTHON_VERSION: '3.10'
 
 jobs:
-  scraping:
-    name: Ejecutar Scraping Liga 1
+  # =========================================================================
+  # PREPARACIÓN PARA MODO HISTÓRICO: genera dinámicamente la lista de años con jq
+  # =========================================================================
+  preparar-historico:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    outputs:
+      anios:    ${{ steps.generar.outputs.anios }}
+      anio_fin: ${{ steps.generar.outputs.anio_fin }}
+    if: github.event.inputs.modo == 'historica'
+    steps:
+      - name: Instalar jq
+        run: sudo apt-get install -y jq
+
+      - name: Generar lista de años
+        id: generar
+        run: |
+          INICIO=${{ github.event.inputs.anio_inicio || '2020' }}
+          # anio_fin vacío → año actual - 1 (el año en curso lo cubre INCREMENTAL)
+          INPUT_FIN="${{ github.event.inputs.anio_fin }}"
+          if [ -z "$INPUT_FIN" ]; then
+            FIN=$(( $(date +%Y) - 1 ))
+          else
+            FIN=$INPUT_FIN
+          fi
+          ANIOS=$(seq $INICIO $FIN | jq -R -s -c 'split("\n")[:-1]')
+          echo "anios=$ANIOS"  >> $GITHUB_OUTPUT
+          echo "anio_fin=$FIN" >> $GITHUB_OUTPUT
+          echo "✅ Años generados: $INICIO - $FIN -> $ANIOS"
+
+  # =========================================================================
+  # MODO INCREMENTAL (ejecución normal, solo el año actual)
+  # =========================================================================
+  scraping-incremental:
+    name: Scraping Incremental
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    if: github.event.inputs.modo == 'incremental' || github.event_name == 'schedule'
+    
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          cache-dependency-path: proceso/frm_landing/scraping/requirements.txt
+
+      - name: Instalar dependencias
+        run: |
+          pip install --upgrade pip
+          pip install -r proceso/frm_landing/scraping/requirements.txt
+
+      - name: Instalar Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          echo "Chrome instalado: $(google-chrome --version)"
+          # Eliminar chromedriver del sistema para evitar conflicto de versiones
+          # (webdriver_manager descarga automáticamente la versión correcta)
+          sudo rm -f /usr/bin/chromedriver
+          echo "chromedriver del sistema eliminado"
+
+      - name: Ejecutar scraping incremental
+        env:
+          AZURE_TENANT_ID:    ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID:    ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          GITHUB_ACTIONS:     "true"
+          SCRAPING_AMBIENTE:  ${{ github.event.inputs.ambiente || 'dev' }}
+        run: |
+          cd proceso/frm_landing/scraping
+          python scraping.py --modo incremental
+
+  # =========================================================================
+  # MODO REPROCESO (un año específico elegido por el usuario)
+  # =========================================================================
+  scraping-reproceso:
+    name: Reproceso Año ${{ github.event.inputs.anio_objetivo }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    if: github.event.inputs.modo == 'reproceso' && github.event.inputs.anio_objetivo != ''
+    
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          cache-dependency-path: proceso/frm_landing/scraping/requirements.txt
+
+      - name: Instalar dependencias
+        run: |
+          pip install --upgrade pip
+          pip install -r proceso/frm_landing/scraping/requirements.txt
+
+      - name: Instalar Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          echo "Chrome instalado: $(google-chrome --version)"
+          # Eliminar chromedriver del sistema para evitar conflicto de versiones
+          # (webdriver_manager descarga automáticamente la versión correcta)
+          sudo rm -f /usr/bin/chromedriver
+          echo "chromedriver del sistema eliminado"
+
+      - name: Ejecutar scraping para año ${{ github.event.inputs.anio_objetivo }}
+        env:
+          AZURE_TENANT_ID:    ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID:    ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          GITHUB_ACTIONS:     "true"
+          SCRAPING_AMBIENTE:  ${{ github.event.inputs.ambiente || 'dev' }}
+        run: |
+          cd proceso/frm_landing/scraping
+          python scraping.py --modo reproceso --anio-objetivo ${{ github.event.inputs.anio_objetivo }}
+
+  # =========================================================================
+  # MODO HISTÓRICO (PARALELO) – usa la matriz generada dinámicamente con jq
+  # =========================================================================
+  scraping-historico:
+    name: Histórico - Año ${{ matrix.anio }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    needs: preparar-historico
+    if: github.event.inputs.modo == 'historica'
+    
+    strategy:
+      matrix:
+        anio: ${{ fromJson(needs.preparar-historico.outputs.anios) }}
+      max-parallel: 2   # Ejecuta 2 años simultáneamente
+    
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          cache-dependency-path: proceso/frm_landing/scraping/requirements.txt
+
+      - name: Instalar dependencias
+        run: |
+          pip install --upgrade pip
+          pip install -r proceso/frm_landing/scraping/requirements.txt
+
+      - name: Instalar Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          echo "Chrome instalado: $(google-chrome --version)"
+          # Eliminar chromedriver del sistema para evitar conflicto de versiones
+          # (webdriver_manager descarga automáticamente la versión correcta)
+          sudo rm -f /usr/bin/chromedriver
+          echo "chromedriver del sistema eliminado"
+
+      - name: Ejecutar scraping para año ${{ matrix.anio }}
+        env:
+          AZURE_TENANT_ID:    ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID:    ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          GITHUB_ACTIONS:     "true"
+          SCRAPING_AMBIENTE:  ${{ github.event.inputs.ambiente || 'dev' }}
+        run: |
+          cd proceso/frm_landing/scraping
+          python scraping.py --modo reproceso --anio-objetivo ${{ matrix.anio }}
+
+  # =========================================================================
+  # MODO REPAIR_TM — Re-scrapea TM (plantillas + estadisticas) para clubes
+  # faltantes en ADLS. Gap-fill: no toca los clubes que ya tienen datos.
+  #
+  # Año único : anio_objetivo=2025
+  # Rango     : anio_inicio=2020, anio_fin=2024  (anio_objetivo vacío)
+  # Clubes    : repair_clubes="Cusco FC,Ayacucho FC"  (vacío = auto-detectar)
+  # =========================================================================
+  scraping-repair-tm:
+    name: Repair TM ${{ github.event.inputs.anio_objetivo || format('{0}-{1}', github.event.inputs.anio_inicio, github.event.inputs.anio_fin) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    if: github.event.inputs.modo == 'repair_tm'
 
     steps:
       - name: Checkout repositorio
@@ -42,28 +253,136 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: 'pip'
-          cache-dependency-path: frm_landing/scraping/requirements.txt
+          cache-dependency-path: proceso/frm_landing/scraping/requirements.txt
 
       - name: Instalar dependencias
-        run: pip install -r frm_landing/scraping/requirements.txt
-
-      - name: Verificar Chrome
-        run: google-chrome --version || chromium-browser --version
-
-      - name: Ejecutar scraping
-        env:
-          AZURE_TENANT_ID:          ${{ secrets.AZURE_TENANT_ID }}
-          AZURE_CLIENT_ID:          ${{ secrets.AZURE_CLIENT_ID }}
-          AZURE_CLIENT_SECRET:      ${{ secrets.AZURE_CLIENT_SECRET }}
-          SCRAPING_MODO:            ${{ github.event.inputs.modo || 'incremental' }}
-          SCRAPING_ANIO_INICIO:     ${{ github.event.inputs.anio_inicio || '2020' }}
-          SCRAPING_ANIO_OBJETIVO:   ${{ github.event.inputs.anio_objetivo || '' }}
         run: |
-          ARGS="--modo $SCRAPING_MODO"
-          if [ "$SCRAPING_MODO" = "historica" ]; then
-            ARGS="$ARGS --anio-inicio $SCRAPING_ANIO_INICIO"
+          pip install --upgrade pip
+          pip install -r proceso/frm_landing/scraping/requirements.txt
+
+      - name: Instalar Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          echo "Chrome instalado: $(google-chrome --version)"
+          sudo rm -f /usr/bin/chromedriver
+
+      - name: Ejecutar repair_tm
+        env:
+          AZURE_TENANT_ID:              ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID:              ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET:          ${{ secrets.AZURE_CLIENT_SECRET }}
+          GITHUB_ACTIONS:               "true"
+          SCRAPING_REPAIR_FORZAR_TODOS: ${{ github.event.inputs.repair_forzar_todos }}
+          SCRAPING_AMBIENTE:            ${{ github.event.inputs.ambiente || 'dev' }}
+          PYTHONUNBUFFERED:             "1"
+        run: |
+          cd proceso/frm_landing/scraping
+          # Año único si anio_objetivo fue especificado; rango si no
+          if [ -n "${{ github.event.inputs.anio_objetivo }}" ]; then
+            python scraping.py --modo repair_tm \
+              --anio-objetivo ${{ github.event.inputs.anio_objetivo }}
+          else
+            INPUT_FIN="${{ github.event.inputs.anio_fin }}"
+            if [ -z "$INPUT_FIN" ]; then
+              FIN=$(( $(date +%Y) - 1 ))
+            else
+              FIN=$INPUT_FIN
+            fi
+            python scraping.py --modo repair_tm \
+              --anio-inicio ${{ github.event.inputs.anio_inicio }} \
+              --anio-fin $FIN
           fi
-          if [ "$SCRAPING_MODO" = "reproceso" ] && [ -n "$SCRAPING_ANIO_OBJETIVO" ]; then
-            ARGS="$ARGS --anio-objetivo $SCRAPING_ANIO_OBJETIVO"
+
+  # =========================================================================
+  # TRIGGER ADF — Se ejecuta después de cualquier scraping exitoso
+  # Actualiza parámetros en Azure SQL y dispara pl_Orchestrator_E2E_liga1
+  #
+  # Secrets requeridos en GitHub (Settings → Secrets → Actions):
+  #   ADF_SUBSCRIPTION_ID  → ID de suscripción Azure
+  #   ADF_RESOURCE_GROUP   → Nombre del resource group
+  #   ADF_FACTORY_NAME     → Nombre de la Azure Data Factory
+  # =========================================================================
+  trigger-adf:
+    name: Trigger ADF — ${{ github.event.inputs.modo || 'incremental' }}
+    runs-on: ubuntu-latest
+    needs: [scraping-incremental, scraping-reproceso, scraping-historico, scraping-repair-tm]
+    if: |
+      always() &&
+      github.event.inputs.disparar_adf != 'false' && (
+        needs.scraping-incremental.result == 'success' ||
+        needs.scraping-reproceso.result  == 'success' ||
+        needs.scraping-historico.result  == 'success' ||
+        needs.scraping-repair-tm.result  == 'success'
+      )
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Instalar dependencias ADF trigger
+        run: |
+          pip install --upgrade pip
+          pip install \
+            "azure-identity>=1.15.0" \
+            "azure-keyvault-secrets>=4.7.0" \
+            "requests>=2.31.0" \
+            "pymssql>=2.3.0"
+
+      - name: Determinar modo ADF
+        id: params
+        run: |
+          INPUT_MODO="${{ github.event.inputs.modo }}"
+          case "$INPUT_MODO" in
+            historica)  ADF_MODO="HISTORICO"   ; ADF_ANIO="" ;;
+            reproceso)  ADF_MODO="REPROCESO"   ; ADF_ANIO="${{ github.event.inputs.anio_objetivo }}" ;;
+            repair_tm)  ADF_MODO="REPROCESO"   ; ADF_ANIO="${{ github.event.inputs.anio_objetivo }}" ;;
+            *)          ADF_MODO="INCREMENTAL" ; ADF_ANIO="" ;;
+          esac
+          echo "modo=$ADF_MODO"  >> $GITHUB_OUTPUT
+          echo "anio=$ADF_ANIO"  >> $GITHUB_OUTPUT
+          echo "Modo ADF → $ADF_MODO ${ADF_ANIO:+(año $ADF_ANIO)}"
+
+      - name: Actualizar parámetros SQL y disparar ADF
+        env:
+          AZURE_TENANT_ID:     ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID:     ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ADF_SUBSCRIPTION_ID: ${{ secrets.ADF_SUBSCRIPTION_ID }}
+          ADF_KV_URL:          ${{ secrets.ADF_KV_URL }}
+          # Si ambiente=prod → apuntar a ADF prod y BD prod; si no → dev
+          ADF_RESOURCE_GROUP: >-
+            ${{ github.event.inputs.ambiente == 'prod'
+                && secrets.ADF_RESOURCE_GROUP_PROD
+                || secrets.ADF_RESOURCE_GROUP }}
+          ADF_FACTORY_NAME: >-
+            ${{ github.event.inputs.ambiente == 'prod'
+                && secrets.ADF_FACTORY_NAME_PROD
+                || secrets.ADF_FACTORY_NAME }}
+          ADF_SQL_SERVER: >-
+            ${{ github.event.inputs.ambiente == 'prod'
+                && secrets.SQL_SERVER_PROD
+                || secrets.ADF_SQL_SERVER }}
+          ADF_SQL_DATABASE: >-
+            ${{ github.event.inputs.ambiente == 'prod'
+                && secrets.SQL_DATABASE_PROD
+                || secrets.ADF_SQL_DATABASE }}
+          ADF_SQL_USERNAME: >-
+            ${{ github.event.inputs.ambiente == 'prod'
+                && secrets.SQL_USERNAME_PROD
+                || secrets.ADF_SQL_USERNAME }}
+          ADF_KV_SECRET_SQL_PASSWORD: >-
+            ${{ github.event.inputs.ambiente == 'prod'
+                && 'kv-sql-password-prod'
+                || 'kv-sql-password' }}
+        run: |
+          ARGS="--modo ${{ steps.params.outputs.modo }}"
+          if [ -n "${{ steps.params.outputs.anio }}" ]; then
+            ARGS="$ARGS --anio ${{ steps.params.outputs.anio }}"
           fi
-          python frm_landing/scraping/scraping.py $ARGS
+          python proceso/frm_landing/adf_trigger.py $ARGS

@@ -1,0 +1,21 @@
+hm_campeones:
+  campo_json: data
+
+  cols_raw_campeones_hm:
+    - fecha_carga
+    - fuente
+    - temporada
+    - campeon
+    - subcampeon
+
+  schema_hm:
+    id_campeonato: string
+    id_equipo_campeon: int
+    id_equipo_subcampeon: int
+    temporada: int
+    fuente: string
+    fecha_carga: timestamp
+    periodo: int
+
+  fecha_ddMMyyyy: []
+  numeric_no_parse: []

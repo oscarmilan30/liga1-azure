@@ -1,0 +1,198 @@
+ft_score_ml:
+
+  # Columnas a leer de ft_estadisticas_jugadores antes del toPandas (evita traer columnas innecesarias)
+  cols_ft_estadisticas:
+    - id_jugador
+    - id_tm
+    - jugador
+    - foto_url
+    - id_equipo
+    - nombre_equipo
+    - alias_equipo
+    - temporada
+    - partidos_jugados
+    - titularidades
+    - minutos_jugados
+    - goles
+    - asistencias
+    - ppp
+    - tarjetas_amarillas
+    - tarjeta_amarilla_roja
+    - tarjetas_rojas
+    - entrada_suplente
+    - salida_suplente
+    - min_por_gol
+    - goles_en_contra
+    - partidos_imbatido
+
+  # Columnas a leer de ft_plantillas_historico antes del toPandas
+  cols_ft_plantillas:
+    - id_jugador
+    - temporada
+    - posicion
+    - pie
+    - altura
+
+  # Umbral mínimo de minutos para considerar un jugador representativo
+  umbral_minutos: 300
+
+  # Número de clusters K-means (Elite / Bueno / Regular / Suplente)
+  n_clusters: 4
+
+  # Variable de referencia para corregir el signo del PCA por posición
+  # (PCA no sabe si "más" es mejor → correlacionamos PC1 con esta variable)
+  ref_signo:
+    DC:  participacion_p90
+    EI:  participacion_p90
+    ED:  participacion_p90
+    MCO: participacion_p90
+    MC:  participacion_p90
+    MCD: ppp
+    DFC: ppp
+    LD:  asistencias_p90
+    LI:  asistencias_p90
+    POR: pi_p90
+
+  # Features por posición para PCA y K-means
+  # Nota: valor_mercado y edad_historica excluidos (datos TM desactualizados → ruido)
+  features_por_posicion:
+    DC:
+      - goles_p90
+      - asistencias_p90
+      - participacion_p90
+      - ppp
+      - titularidades
+      - amarillas_p90
+      - rojas_p90
+      - segunda_am_p90
+      - minutos_jugados
+      - altura
+    EI:
+      - goles_p90
+      - asistencias_p90
+      - participacion_p90
+      - ppp
+      - titularidades
+      - amarillas_p90
+      - rojas_p90
+      - segunda_am_p90
+      - minutos_jugados
+      - pie_zurdo
+    ED:
+      - goles_p90
+      - asistencias_p90
+      - participacion_p90
+      - ppp
+      - titularidades
+      - amarillas_p90
+      - rojas_p90
+      - segunda_am_p90
+      - minutos_jugados
+      - pie_zurdo
+    MCO:
+      - goles_p90
+      - asistencias_p90
+      - participacion_p90
+      - ppp
+      - titularidades
+      - amarillas_p90
+      - rojas_p90
+      - segunda_am_p90
+      - minutos_jugados
+    MC:
+      - goles_p90
+      - asistencias_p90
+      - participacion_p90
+      - ppp
+      - titularidades
+      - amarillas_p90
+      - rojas_p90
+      - segunda_am_p90
+      - minutos_jugados
+    MCD:
+      - asistencias_p90
+      - participacion_p90
+      - ppp
+      - titularidades
+      - amarillas_p90
+      - rojas_p90
+      - segunda_am_p90
+      - minutos_jugados
+    DFC:
+      - ppp
+      - titularidades
+      - amarillas_p90
+      - rojas_p90
+      - segunda_am_p90
+      - minutos_jugados
+      - altura
+    LD:
+      - asistencias_p90
+      - participacion_p90
+      - ppp
+      - titularidades
+      - amarillas_p90
+      - rojas_p90
+      - segunda_am_p90
+      - minutos_jugados
+    LI:
+      - asistencias_p90
+      - participacion_p90
+      - ppp
+      - titularidades
+      - amarillas_p90
+      - rojas_p90
+      - segunda_am_p90
+      - minutos_jugados
+    POR:
+      - ppp
+      - titularidades
+      - amarillas_p90
+      - rojas_p90
+      - minutos_jugados
+      - altura
+      - gc_p90
+      - pi_p90
+
+  # Schema final de la tabla DDV ft_score_ml
+  schema:
+    id_score_ml:           string
+    id_jugador:            string
+    id_tm:                 string
+    jugador:               string
+    foto_url:              string
+    id_equipo:             int
+    nombre_equipo:         string
+    alias_equipo:          string
+    temporada:             int
+    posicion:              string
+    posicion_xi:           string
+    partidos_jugados:      int
+    titularidades:         int
+    minutos_jugados:       int
+    goles:                 int
+    asistencias:           int
+    ppp:                   double
+    tarjetas_amarillas:    int
+    tarjeta_amarilla_roja: int
+    tarjetas_rojas:        int
+    entrada_suplente:      int
+    salida_suplente:       int
+    min_por_gol:           int
+    goles_en_contra:       int
+    partidos_imbatido:     int
+    goles_p90:             double
+    asistencias_p90:       double
+    participacion_p90:     double
+    amarillas_p90:         double
+    rojas_p90:             double
+    segunda_am_p90:        double
+    gc_p90:                double
+    pi_p90:                double
+    score_ml:              double
+    score_100:             double
+    var_explicada:         double
+    nivel_num:             int
+    nivel:                 string
+    fecha_carga:           timestamp
+    periodo:               int

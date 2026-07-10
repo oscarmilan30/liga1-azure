@@ -1,0 +1,258 @@
+{
+  "name": "schd_udv_liga1",
+  "email_notifications": {
+    "on_success": [
+      "{USER}"
+    ],
+    "on_failure": [
+      "{USER}"
+    ],
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {},
+  "notification_settings": {
+    "no_alert_for_skipped_runs": false,
+    "no_alert_for_canceled_runs": false
+  },
+  "timeout_seconds": 14400,
+  "max_concurrent_runs": 1,
+  "git_source": {
+    "git_url": "https://github.com/oscarmilan30/liga1-azure",
+    "git_provider": "gitHub",
+    "git_branch": "main"
+  },
+  "tasks": [
+    {
+      "task_key": "nb_md_equipos",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_udv/notebooks/md_equipos/nb_md_equipos",
+        "base_parameters": {
+          "prm_pipelineid": "2"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
+    },
+    {
+      "task_key": "nb_md_estadios",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_udv/notebooks/md_estadios/nb_md_estadios",
+        "base_parameters": {
+          "prm_pipelineid": "7"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
+    },
+    {
+      "task_key": "nb_hm_campeones",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_udv/notebooks/hm_campeones/nb_hm_campeones",
+        "base_parameters": {
+          "prm_pipelineid": "22"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
+    },
+    {
+      "task_key": "nb_hm_valoracion_equipos",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_udv/notebooks/hm_valoracion_equipos/nb_hm_valoracion_equipos",
+        "base_parameters": {
+          "prm_pipelineid": "14"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
+    },
+    {
+      "task_key": "nb_hm_tablas_clasificacion",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_udv/notebooks/hm_tablas_clasificacion/nb_hm_tablas_clasificacion",
+        "base_parameters": {
+          "prm_pipelineid": "20"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
+    },
+    {
+      "task_key": "nb_hm_plantillas_equipo",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_udv/notebooks/hm_plantillas_equipo/nb_hm_plantillas_equipo",
+        "base_parameters": {
+          "prm_pipelineid": "9"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
+    },
+    {
+      "task_key": "nb_hm_entrenadores_equipo",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_udv/notebooks/hm_entrenadores_equipo/nb_hm_entrenadores_equipo",
+        "base_parameters": {
+          "prm_pipelineid": "12"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
+    },
+    {
+      "task_key": "nb_hm_partidos",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_udv/notebooks/hm_partidos/nb_hm_partidos",
+        "base_parameters": {
+          "prm_pipelineid": "16"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
+    },
+    {
+      "task_key": "nb_hm_estadisticas_partidos",
+      "depends_on": [
+        {
+          "task_key": "nb_hm_partidos"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_udv/notebooks/hm_estadisticas_partidos/nb_hm_estadisticas_partidos",
+        "base_parameters": {
+          "prm_pipelineid": "18"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
+    },
+    {
+      "task_key": "nb_hm_estadisticas_jugadores",
+      "depends_on": [
+        {
+          "task_key": "nb_hm_plantillas_equipo"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "proceso/frm_udv/notebooks/hm_estadisticas_jugadores/nb_hm_estadisticas_jugadores",
+        "base_parameters": {
+          "prm_pipelineid": "43"
+        },
+        "source": "GIT"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "disabled": false,
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
+    }
+  ],
+  "tags": {
+    "Env": "Prod",
+    "Proyecto": "Liga1",
+    "Unidad": "UDV"
+  },
+  "queue": {
+    "enabled": true
+  },
+  "performance_target": "PERFORMANCE_OPTIMIZED",
+  "run_as": {
+    "user_name": "{USER}"
+  }
+}

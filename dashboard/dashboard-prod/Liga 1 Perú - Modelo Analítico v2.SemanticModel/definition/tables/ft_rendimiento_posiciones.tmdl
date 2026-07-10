@@ -1,0 +1,185 @@
+table ft_rendimiento_posiciones
+	lineageTag: 11c04e64-ff31-475a-9f99-5b1d7210a3f9
+
+	column id_rendimiento
+		dataType: string
+		isHidden
+		lineageTag: 50a68cef-19f7-4d8b-a935-17a0f87d2554
+		summarizeBy: none
+		sourceColumn: id_rendimiento
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_equipo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dc751ef2-e2cb-437a-af8f-2230227c34f3
+		summarizeBy: none
+		sourceColumn: id_equipo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_equipo
+		dataType: string
+		lineageTag: 83e442c2-dc78-431a-b369-04e235cfe250
+		summarizeBy: none
+		sourceColumn: nombre_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column alias_equipo
+		dataType: string
+		lineageTag: f9a22ab2-bf1f-4cb3-929f-4d1d99a9e468
+		summarizeBy: none
+		sourceColumn: alias_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column temporada
+		dataType: int64
+		formatString: 0
+		lineageTag: 28a4b5f3-a1b4-4b05-8fa9-d6c536ee9d51
+		summarizeBy: none
+		sourceColumn: temporada
+
+		annotation SummarizationSetBy = User
+
+	column tipo_tabla
+		dataType: string
+		lineageTag: 9afb782b-9c5c-43b9-bea1-fd0c8d252e35
+		summarizeBy: none
+		sourceColumn: tipo_tabla
+
+		annotation SummarizationSetBy = Automatic
+
+	column posicion
+		dataType: int64
+		formatString: 0
+		lineageTag: dc3a9471-d46a-4283-8757-0cc127df5b57
+		summarizeBy: none
+		sourceColumn: posicion
+
+		annotation SummarizationSetBy = User
+
+	column partidos_jugados
+		dataType: int64
+		formatString: 0
+		lineageTag: 8b89c838-3225-409f-9343-a9744bc3783e
+		summarizeBy: none
+		sourceColumn: partidos_jugados
+
+		annotation SummarizationSetBy = User
+
+	column partidos_ganados
+		dataType: int64
+		formatString: 0
+		lineageTag: bd189f49-a3cb-45eb-96b3-101de12937a5
+		summarizeBy: none
+		sourceColumn: partidos_ganados
+
+		annotation SummarizationSetBy = User
+
+	column partidos_empatados
+		dataType: int64
+		formatString: 0
+		lineageTag: 73238103-58b0-4d3b-9eb7-c1868fa31e11
+		summarizeBy: none
+		sourceColumn: partidos_empatados
+
+		annotation SummarizationSetBy = User
+
+	column partidos_perdidos
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f03bf75-adff-439f-9c3d-a5565811fdc1
+		summarizeBy: none
+		sourceColumn: partidos_perdidos
+
+		annotation SummarizationSetBy = User
+
+	column goles_favor
+		dataType: int64
+		formatString: 0
+		lineageTag: 4292842d-2cf8-46b3-a227-c9a85890787b
+		summarizeBy: none
+		sourceColumn: goles_favor
+
+		annotation SummarizationSetBy = User
+
+	column goles_contra
+		dataType: int64
+		formatString: 0
+		lineageTag: 5872785f-ee25-44a8-a8d9-66b2156e76e8
+		summarizeBy: none
+		sourceColumn: goles_contra
+
+		annotation SummarizationSetBy = User
+
+	column diferencia_goles
+		dataType: int64
+		formatString: 0
+		lineageTag: 1fa793b8-8ec5-400b-90bd-778bebbc4d31
+		summarizeBy: none
+		sourceColumn: diferencia_goles
+
+		annotation SummarizationSetBy = User
+
+	column puntos
+		dataType: int64
+		formatString: 0
+		lineageTag: e6ae1376-159d-47f7-a050-ae6031df7925
+		summarizeBy: none
+		sourceColumn: puntos
+
+		annotation SummarizationSetBy = User
+
+	column valor_total
+		dataType: double
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: 5b026248-3574-443f-b15a-0bb0ce95385f
+		summarizeBy: sum
+		sourceColumn: valor_total
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_medio
+		dataType: double
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: 7ce2643f-d272-4a4e-ac43-e148edcea1a4
+		summarizeBy: sum
+		sourceColumn: valor_medio
+
+		annotation SummarizationSetBy = Automatic
+
+	column torneos_disputados
+		dataType: int64
+		formatString: 0
+		lineageTag: 9bad68f1-e383-45bf-bc54-ff47521ccc96
+		summarizeBy: none
+		sourceColumn: torneos_disputados
+
+		annotation SummarizationSetBy = User
+
+	partition ft_rendimiento_posiciones = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("adb-7405608228887680.0.azuredatabricks.net", "/sql/1.0/warehouses/8f3fbabc301b89f4", null),
+				    catalog_liga1_prod_Database = Origen{[Name="catalog_liga1_prod",Kind="Database"]}[Data],
+				    vw_ddv_Schema = catalog_liga1_prod_Database{[Name="vw_ddv",Kind="Schema"]}[Data],
+				    ft_rendimiento_posiciones_vw_View = vw_ddv_Schema{[Name="ft_rendimiento_posiciones_vw",Kind="View"]}[Data],
+				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(ft_rendimiento_posiciones_vw_View,{{"nombre_equipo", Text.Proper, type text}}),
+				    #"Texto en mayúsculas" = Table.TransformColumns(#"Poner En Mayúsculas Cada Palabra",{{"alias_equipo", Text.Upper, type text}}),
+				    #"Poner En Mayúsculas Cada Palabra1" = Table.TransformColumns(#"Texto en mayúsculas",{{"tipo_tabla", Text.Proper, type text}})
+				in
+				    #"Poner En Mayúsculas Cada Palabra1"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

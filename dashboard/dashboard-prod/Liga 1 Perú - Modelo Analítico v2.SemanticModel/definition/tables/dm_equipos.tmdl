@@ -1,0 +1,161 @@
+/// Dimensión maestro de equipos Liga 1
+table dm_equipos
+	lineageTag: 0efb603d-d441-4641-931b-71fa9fba155d
+
+	column id_equipo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9d65e0c0-2483-4ce5-ac01-ec1945485e47
+		summarizeBy: none
+		sourceColumn: id_equipo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_equipo
+		dataType: string
+		lineageTag: b0fc70c9-568b-4e43-b7eb-37c15145ee69
+		summarizeBy: none
+		sourceColumn: nombre_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column alias_equipo
+		dataType: string
+		lineageTag: 9ce67c0f-8261-4d62-a927-a4c57f0e6f3e
+		summarizeBy: none
+		sourceColumn: alias_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column url_equipo
+		dataType: string
+		isHidden
+		lineageTag: 847d8425-29d1-4159-b699-db62c4bbd639
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: url_equipo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column estadio
+		dataType: string
+		lineageTag: 4e49f789-5597-49c6-b865-99afc6d2840a
+		summarizeBy: none
+		sourceColumn: estadio
+
+		annotation SummarizationSetBy = Automatic
+
+	column capacidad
+		dataType: string
+		lineageTag: 2ce4f625-0e0e-4507-90f8-1fdf97d70b84
+		summarizeBy: none
+		sourceColumn: capacidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column aforo
+		dataType: string
+		lineageTag: 0085cd28-2300-4627-a42e-0579f5b336d3
+		summarizeBy: none
+		sourceColumn: aforo
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_total_actual
+		dataType: double
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: 6cc77826-d177-446e-b107-bae82e7d5136
+		summarizeBy: sum
+		sourceColumn: valor_total_actual
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_medio_actual
+		dataType: double
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: 0a9bef96-6363-4839-87e2-e44f83e11420
+		summarizeBy: sum
+		sourceColumn: valor_medio_actual
+
+		annotation SummarizationSetBy = Automatic
+
+	column jugadores_plantilla_actual
+		dataType: int64
+		formatString: 0
+		lineageTag: 39e1b8ec-ff88-4710-a2e4-7b6bc0153659
+		summarizeBy: none
+		sourceColumn: jugadores_plantilla_actual
+
+		annotation SummarizationSetBy = User
+
+	column edad_promedio_actual
+		dataType: double
+		formatString: 0.0
+		lineageTag: 361a2432-fc91-4287-a5ce-d229454da69e
+		summarizeBy: none
+		sourceColumn: edad_promedio_actual
+
+		annotation SummarizationSetBy = User
+
+	column extranjeros_actual
+		dataType: int64
+		formatString: 0
+		lineageTag: 3e0c644b-3c58-44e6-b849-bd50089b282b
+		summarizeBy: none
+		sourceColumn: extranjeros_actual
+
+		annotation SummarizationSetBy = User
+
+	column temporada_ultima_valoracion
+		dataType: int64
+		formatString: 0
+		lineageTag: 23b8bf1a-40e3-4906-a347-340e06dd726b
+		summarizeBy: none
+		sourceColumn: temporada_ultima_valoracion
+
+		annotation SummarizationSetBy = User
+
+	column fotmob_id
+		dataType: string
+		isHidden
+		lineageTag: b177dfa9-1f29-4597-b1b2-5ebf471ee104
+		summarizeBy: none
+		sourceColumn: fotmob_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column url_logo
+		dataType: string
+		lineageTag: 14d6de64-36f1-448c-804d-06fbb7da042e
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: url_logo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dm_equipos = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("adb-7405608228887680.0.azuredatabricks.net", "/sql/1.0/warehouses/8f3fbabc301b89f4", [Catalog="catalog_liga1_prod", Database="vw_ddv", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation=null]),
+				    dm_equipos_vw_vw_ddv_catalog_liga1_prod = Origen{[Item="dm_equipos_vw",Schema="vw_ddv",Catalog="catalog_liga1_prod"]}[Data],
+				    #"Texto insertado entre delimitadores" = Table.AddColumn(dm_equipos_vw_vw_ddv_catalog_liga1_prod, "Texto entre delimitadores", each Text.BetweenDelimiters([url_equipo], "teams/", "/overview"), type text),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Texto insertado entre delimitadores",{{"Texto entre delimitadores", "fotmob_id"}}),
+				    #"Personalizada agregada" = Table.AddColumn(#"Columnas con nombre cambiado", "url_logo", each "https://images.fotmob.com/image_resources/logo/teamlogo/" & [fotmob_id] & "_large.png"),
+				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(#"Personalizada agregada",{{"nombre_equipo", Text.Proper, type text}}),
+				    #"Texto en mayúsculas" = Table.TransformColumns(#"Poner En Mayúsculas Cada Palabra",{{"alias_equipo", Text.Upper, type text}}),
+				    #"Poner En Mayúsculas Cada Palabra1" = Table.TransformColumns(#"Texto en mayúsculas",{{"estadio", Text.Proper, type text}})
+				in
+				    #"Poner En Mayúsculas Cada Palabra1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

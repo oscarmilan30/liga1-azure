@@ -1,0 +1,20 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "e4e281d2190c0120b289",
+  "displayName": "PLANTILLAS",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "65783c7e009c532c2524",
+      "target": "bbbaf49c6720537965dc",
+      "type": "DataFilter"
+    },
+    {
+      "source": "65783c7e009c532c2524",
+      "target": "aa7cad028b7024e61cda",
+      "type": "NoFilter"
+    }
+  ]
+}

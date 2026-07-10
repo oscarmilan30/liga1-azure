@@ -1,0 +1,42 @@
+dm_equipos:
+
+  cols_md_catalogo:
+    - id_equipo
+    - nombre_equipo
+
+  cols_md_equipos:
+    - id_equipo
+    - alias_equipo
+    - url_equipo
+
+  cols_md_estadios:
+    - id_equipo
+    - estadio
+    - capacidad
+    - aforo
+    - fecha_carga
+
+  cols_hm_valoracion:
+    - id_equipo
+    - temporada
+    - valor_total
+    - valor_medio
+    - jugadores_en_plantilla
+    - edad_promedio
+    - extranjeros
+
+  schema:
+    id_equipo:                   int
+    nombre_equipo:               string
+    alias_equipo:                string
+    url_equipo:                  string
+    estadio:                     string
+    capacidad:                   string
+    aforo:                       string
+    valor_total_actual:          decimal(20,4)
+    valor_medio_actual:          decimal(20,4)
+    jugadores_plantilla_actual:  int
+    edad_promedio_actual:        double
+    extranjeros_actual:          int
+    temporada_ultima_valoracion: int
+    fecha_carga:                 timestamp

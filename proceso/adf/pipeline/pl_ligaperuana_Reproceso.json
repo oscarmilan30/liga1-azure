@@ -1,0 +1,179 @@
+{
+	"name": "pl_ligaperuana_Reproceso",
+	"properties": {
+		"activities": [
+			{
+				"name": "foreach_procesar_anios",
+				"description": "",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "lkp_lista_archivos",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@json(concat('[{\"Anio\":', pipeline().parameters.Year_Reprocess, '}]'))",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 2,
+					"activities": [
+						{
+							"name": "pl_procesar_archivos_por_anio",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_procesar_archivos_por_anio",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"anio": {
+										"value": "@item().Anio",
+										"type": "Expression"
+									},
+									"rutaBase": {
+										"value": "@pipeline().parameters.rutaBase",
+										"type": "Expression"
+									},
+									"lista_archivos": {
+										"value": "@json(activity('lkp_lista_archivos').output.firstRow.lista_archivos)",
+										"type": "Expression"
+									},
+									"capa_rdv": {
+										"value": "@pipeline().parameters.capa_rdv",
+										"type": "Expression"
+									},
+									"capa_landing": {
+										"value": "@pipeline().parameters.capa_landing",
+										"type": "Expression"
+									},
+									"filesystem": {
+										"value": "@pipeline().parameters.filesystem",
+										"type": "Expression"
+									},
+									"ModoEjecucion": {
+										"value": "@pipeline().parameters.ModoEjecucion",
+										"type": "Expression"
+									},
+									"FechaCarga": {
+										"value": "@pipeline().parameters.FechaCarga",
+										"type": "Expression"
+									},
+									"PipelineId": {
+										"value": "@pipeline().parameters.Pipeline_Id",
+										"type": "Expression"
+									},
+									"cluster_id": {
+										"value": "@pipeline().parameters.cluster_id",
+										"type": "Expression"
+									},
+									"area": {
+										"value": "@pipeline().parameters.area",
+										"type": "Expression"
+									},
+									"user": {
+										"value": "@pipeline().parameters.user",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "lkp_lista_archivos",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[sp_obtener_archivos]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sql_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TablaParametro",
+								"type": "Expression"
+							},
+							"SchemaName": "dbo"
+						}
+					},
+					"firstRowOnly": true
+				}
+			}
+		],
+		"parameters": {
+			"Pipeline_Id": {
+				"type": "int"
+			},
+			"TablaParametro": {
+				"type": "string"
+			},
+			"capa_rdv": {
+				"type": "string"
+			},
+			"capa_landing": {
+				"type": "string"
+			},
+			"filesystem": {
+				"type": "string"
+			},
+			"Year_Reprocess": {
+				"type": "string"
+			},
+			"rutaBase": {
+				"type": "string"
+			},
+			"ModoEjecucion": {
+				"type": "string"
+			},
+			"FechaCarga": {
+				"type": "string"
+			},
+			"cluster_id": {
+				"type": "string"
+			},
+			"area": {
+				"type": "string"
+			},
+			"user": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"var_archivos": {
+				"type": "Array"
+			}
+		},
+		"folder": {
+			"name": "pl_pipelines_rdv/pl_inner_procesos"
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-05-23T23:49:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

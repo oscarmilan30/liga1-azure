@@ -1,0 +1,112 @@
+/// Evolución del valor de mercado por equipo
+table ft_evolucion_valoracion
+	lineageTag: 5d09d5e8-05c4-445b-829f-b65a76233910
+
+	column id_valoracion_equipo
+		dataType: string
+		isHidden
+		lineageTag: 3c740409-ea56-409f-a318-0157fd447a35
+		summarizeBy: none
+		sourceColumn: id_valoracion_equipo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_equipo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 94a11d4d-bc35-47fa-828a-fad2972481cc
+		summarizeBy: none
+		sourceColumn: id_equipo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_equipo
+		dataType: string
+		lineageTag: d00e6872-d575-4d51-945b-545ff43ce131
+		summarizeBy: none
+		sourceColumn: nombre_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column alias_equipo
+		dataType: string
+		lineageTag: a465c10c-a3e4-498c-8a4a-4cc820a49e28
+		summarizeBy: none
+		sourceColumn: alias_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column temporada
+		dataType: int64
+		formatString: 0
+		lineageTag: 83150912-eb2e-4352-b962-f20b04eda1eb
+		summarizeBy: none
+		sourceColumn: temporada
+
+		annotation SummarizationSetBy = Automatic
+
+	column jugadores_en_plantilla
+		dataType: int64
+		formatString: 0
+		lineageTag: 2a0ee2d8-307d-4820-a470-0fb9c15cbf77
+		summarizeBy: none
+		sourceColumn: jugadores_en_plantilla
+
+		annotation SummarizationSetBy = User
+
+	column edad_promedio
+		dataType: double
+		formatString: 0.0
+		lineageTag: bef2198f-44f0-4782-88eb-dca22eebc653
+		summarizeBy: none
+		sourceColumn: edad_promedio
+
+		annotation SummarizationSetBy = User
+
+	column extranjeros
+		dataType: int64
+		formatString: 0
+		lineageTag: 83dd67ae-3afa-4c35-b783-19a633f41b27
+		summarizeBy: none
+		sourceColumn: extranjeros
+
+		annotation SummarizationSetBy = User
+
+	column valor_medio
+		dataType: double
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: f5e512bc-e088-40f7-af7e-2ca9260f4c9f
+		summarizeBy: sum
+		sourceColumn: valor_medio
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_total
+		dataType: double
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		lineageTag: 5a5cb575-4700-4dad-afdf-55987f69f0ca
+		summarizeBy: sum
+		sourceColumn: valor_total
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ft_evolucion_valoracion = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("adb-7405608228887680.0.azuredatabricks.net", "/sql/1.0/warehouses/8f3fbabc301b89f4", [Catalog="catalog_liga1_prod", Database="vw_ddv", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation=null]),
+				    ft_evolucion_valoracion_vw_vw_ddv_catalog_liga1_prod = Origen{[Item="ft_evolucion_valoracion_vw",Schema="vw_ddv",Catalog="catalog_liga1_prod"]}[Data],
+				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(ft_evolucion_valoracion_vw_vw_ddv_catalog_liga1_prod,{{"nombre_equipo", Text.Proper, type text}}),
+				    #"Texto en mayúsculas" = Table.TransformColumns(#"Poner En Mayúsculas Cada Palabra",{{"alias_equipo", Text.Upper, type text}})
+				in
+				    #"Texto en mayúsculas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

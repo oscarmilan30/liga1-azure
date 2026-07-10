@@ -1,0 +1,326 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "d006090c5adc8250d513",
+  "position": {
+    "x": 758.04878048780483,
+    "y": 23.414634146341463,
+    "z": 10000,
+    "height": 654.14634146341461,
+    "width": 499.02439024390242,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dm_equipos"
+                    }
+                  },
+                  "Property": "url_logo"
+                }
+              },
+              "queryRef": "dm_equipos.url_logo",
+              "nativeQueryRef": " Escudo",
+              "displayName": " Escudo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dm_equipos"
+                    }
+                  },
+                  "Property": "nombre_equipo"
+                }
+              },
+              "queryRef": "dm_equipos.nombre_equipo",
+              "nativeQueryRef": "Equipo",
+              "displayName": "Equipo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ft_rendimiento_posiciones"
+                    }
+                  },
+                  "Property": "partidos_jugados"
+                }
+              },
+              "queryRef": "ft_rendimiento_posiciones.partidos_jugados",
+              "nativeQueryRef": "PJ",
+              "displayName": "PJ"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ft_rendimiento_posiciones"
+                    }
+                  },
+                  "Property": "partidos_ganados"
+                }
+              },
+              "queryRef": "ft_rendimiento_posiciones.partidos_ganados",
+              "nativeQueryRef": "PG",
+              "displayName": "PG"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ft_rendimiento_posiciones"
+                    }
+                  },
+                  "Property": "partidos_perdidos"
+                }
+              },
+              "queryRef": "ft_rendimiento_posiciones.partidos_perdidos",
+              "nativeQueryRef": "PP",
+              "displayName": "PP"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ft_rendimiento_posiciones"
+                    }
+                  },
+                  "Property": "partidos_empatados"
+                }
+              },
+              "queryRef": "ft_rendimiento_posiciones.partidos_empatados",
+              "nativeQueryRef": "PE",
+              "displayName": "PE"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ft_rendimiento_posiciones"
+                    }
+                  },
+                  "Property": "goles_favor"
+                }
+              },
+              "queryRef": "ft_rendimiento_posiciones.goles_favor",
+              "nativeQueryRef": "GF",
+              "displayName": "GF"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ft_rendimiento_posiciones"
+                    }
+                  },
+                  "Property": "goles_contra"
+                }
+              },
+              "queryRef": "ft_rendimiento_posiciones.goles_contra",
+              "nativeQueryRef": "GC",
+              "displayName": "GC"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ft_rendimiento_posiciones"
+                    }
+                  },
+                  "Property": "diferencia_goles"
+                }
+              },
+              "queryRef": "ft_rendimiento_posiciones.diferencia_goles",
+              "nativeQueryRef": "DF",
+              "displayName": "DF"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ft_rendimiento_posiciones"
+                    }
+                  },
+                  "Property": "puntos"
+                }
+              },
+              "queryRef": "ft_rendimiento_posiciones.puntos",
+              "nativeQueryRef": "PT",
+              "displayName": "PT"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "ft_rendimiento_posiciones"
+                  }
+                },
+                "Property": "puntos"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "142.5861724489363D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dm_equipos.nombre_equipo"
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "gridVertical": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "gridHorizontalColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0D2B4E'"
+                    }
+                  }
+                }
+              }
+            },
+            "gridVerticalColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0D2B4E'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0D2B4E'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

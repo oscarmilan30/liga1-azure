@@ -1,0 +1,53 @@
+{
+  "name": "execute_job_ddl",
+  "email_notifications": {
+    "on_success": [
+      "{USER}"
+    ],
+    "on_failure": [
+      "{USER}"
+    ],
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {},
+  "notification_settings": {
+    "no_alert_for_skipped_runs": false,
+    "no_alert_for_canceled_runs": false
+  },
+  "timeout_seconds": 3600,
+  "max_concurrent_runs": 1,
+  "tasks": [
+    {
+      "task_key": "execute_job_ddl",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Repos/{USER}/liga1-azure/proceso/workflow_deploy/execute_job_ddl",
+        "base_parameters": {
+          "prm_name_ddl": ""
+        },
+        "source": "WORKSPACE"
+      },
+      "existing_cluster_id": "{CLUSTER_ID}",
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "libraries": [
+        {
+          "whl": "{WHEEL_PATH}"
+        }
+      ]
+    }
+  ],
+  "tags": {
+    "Env": "Prod",
+    "Proyecto": "Liga1",
+    "Unidad": "DDL_Deploy"
+  },
+  "queue": {
+    "enabled": true
+  },
+  "performance_target": "PERFORMANCE_OPTIMIZED",
+  "run_as": {
+    "user_name": "{USER}"
+  }
+}

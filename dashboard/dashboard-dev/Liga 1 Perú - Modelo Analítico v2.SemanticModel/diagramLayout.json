@@ -1,0 +1,256 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 136.1772471678062,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 810.78251365681524,
+            "y": 583.21245371193527
+          },
+          "nodeIndex": "Calendario",
+          "nodeLineageTag": "61f33d8a-17fb-43c2-a0e3-499c384c0b95",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "ft_plantillas_historico",
+          "nodeLineageTag": "6b56a15f-bc0d-4cf2-9b75-334c2b42345a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 286.80632344893411,
+            "y": 553.088059928652
+          },
+          "nodeIndex": "ft_evolucion_valoracion",
+          "nodeLineageTag": "5d09d5e8-05c4-445b-829f-b65a76233910",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 425.28227594396003
+          },
+          "nodeIndex": "ft_entrenadores_historico",
+          "nodeLineageTag": "605f445b-3f1c-40d3-bfca-f52254d64383",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 551.47884008478309,
+            "y": 299.96306013913693
+          },
+          "nodeIndex": "dm_equipos",
+          "nodeLineageTag": "0efb603d-d441-4641-931b-71fa9fba155d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 16
+        },
+        {
+          "location": {
+            "x": 1183.32913203175,
+            "y": 0
+          },
+          "nodeIndex": "hm_campeones",
+          "nodeLineageTag": "1a897d2c-17df-4165-bcd8-74ca1a8428b5",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 1500.479880059469,
+            "y": 0
+          },
+          "nodeIndex": "Tabla_Medidas",
+          "nodeLineageTag": "7ecd2786-b825-43f9-9a03-99512b9e5c87",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 1745.6719643528781,
+            "y": 8.6161379867045014
+          },
+          "nodeIndex": "_Parametros",
+          "nodeLineageTag": "74ad56aa-11a0-4ab6-8f88-89f19eac4790",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 823.49385773353572,
+            "y": 0
+          },
+          "nodeIndex": "ft_rendimiento_posiciones",
+          "nodeLineageTag": "11c04e64-ff31-475a-9f99-5b1d7210a3f9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1029.6508826064228,
+            "y": 370.96153800227921
+          },
+          "nodeIndex": "dm_temporada",
+          "nodeLineageTag": "45607e08-87df-4b70-a6ee-61172f72bb23",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 17
+        },
+        {
+          "location": {
+            "x": 1724.2776586816533,
+            "y": 274.5899476989087
+          },
+          "nodeIndex": "dm_tipo_tabla",
+          "nodeLineageTag": "d8f3075d-6677-4f9e-b853-4623a289ad96",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1439.8336987285529,
+            "y": 300.56672010929418
+          },
+          "nodeIndex": "ft_partidos_equipo",
+          "nodeLineageTag": "9f1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1149.8872883433544,
+            "y": 579.20631816034381
+          },
+          "nodeIndex": "ft_estadisticas_jugadores",
+          "nodeLineageTag": "f07490b8-9cc3-4aa1-a927-1cc66d99b4eb",
+          "size": {
+            "height": 300,
+            "width": 264.64286529384663
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 2005.9737749312872,
+            "y": 0
+          },
+          "nodeIndex": "Indicadores Partido",
+          "nodeLineageTag": "cc487d8e-ed98-4014-8f0e-c2c6845004e0",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1713.4975280209717,
+            "y": 645.15983347573138
+          },
+          "nodeIndex": "dm_estilo_juego",
+          "nodeLineageTag": "2727d9f2-e1e4-4370-bab2-0d00a6e3c67e",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 2026.4008921659984,
+            "y": 487.92659283152216
+          },
+          "nodeIndex": "dm_formacion",
+          "nodeLineageTag": "6cdecf7a-5d50-4c4c-9b00-62c121a0911d",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 2302.020753878749,
+            "y": 71.719563611681991
+          },
+          "nodeIndex": "jugadores_slots",
+          "nodeLineageTag": "23f4ca65-6228-4b0f-9f0d-c2a8f1416e25",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 2586.020753878749,
+            "y": 387.60315908017191
+          },
+          "nodeIndex": "tbl_Cancha",
+          "nodeLineageTag": "9e301e75-78e3-48c8-a3b2-a63c1fdf5a46",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 47.731909222619912,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

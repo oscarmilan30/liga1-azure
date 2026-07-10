@@ -1,0 +1,22 @@
+{
+    "cluster_name": "cluster-scraping-liga1",
+    "spark_version": "15.4.x-scala2.12",
+    "spark_conf": {
+        "spark.driver.memory": "7g",
+        "spark.executor.memory": "6g",
+        "spark.driver.maxResultSize": "2g",
+        "spark.sql.shuffle.partitions": "8",
+        "spark.sql.files.maxPartitionBytes": "64m",
+        "spark.sql.adaptive.enabled": "true",
+        "spark.sql.execution.arrow.pyspark.enabled": "true",
+        "spark.databricks.io.cache.enabled": "true"
+    },
+    "node_type_id": "Standard_D4s_v3",
+    "autotermination_minutes": 30,
+    "data_security_mode": "DATA_SECURITY_MODE_AUTO",
+    "runtime_engine": "STANDARD",
+    "kind": "CLASSIC_PREVIEW",
+    "is_single_node": true,
+    "num_workers": 0,
+    "apply_policy_default_values": false
+}

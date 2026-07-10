@@ -1,0 +1,16 @@
+======================================================================
+ REPORTE DETALLADO DE ARCHIVOS - SCRAPING LIGA 1
+======================================================================
+ partidos_2024.json | Estado: éxito | Hora: 2026-06-11 20:45:49
+ equipos_2024.json | Estado: éxito | Hora: 2026-06-11 20:45:49
+ campeones_2024.json | Estado: éxito | Hora: 2026-06-11 20:45:49
+ tablas_clasificacion_2024.json | Estado: éxito | Hora: 2026-06-11 20:45:49
+ estadisticas_partidos_2024.json | Estado: éxito | Hora: 2026-06-11 20:45:50
+ liga1_2024.csv | Estado: éxito | Hora: 2026-06-11 21:32:20
+ plantillas_2024.csv | Estado: éxito | Hora: 2026-06-11 21:32:21
+ estadios_2024.csv | Estado: éxito | Hora: 2026-06-11 21:32:21
+ entrenadores_2024.csv | Estado: éxito | Hora: 2026-06-11 21:32:21
+ estadisticas_jugadores_2024.csv | Estado: éxito | Hora: 2026-06-11 21:32:21
+======================================================================
+ RESUMEN: 10 exitosos, 0 errores
+======================================================================

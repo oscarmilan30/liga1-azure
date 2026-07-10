@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "55d147f6e049bd710459",
+  "displayName": "PARTIDOS",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "caed8248ed2180794eab",
+      "target": "c5acb72b043e42be9609",
+      "type": "NoFilter"
+    },
+    {
+      "source": "caed8248ed2180794eab",
+      "target": "a58f0e200781b952c8d6",
+      "type": "NoFilter"
+    },
+    {
+      "source": "caed8248ed2180794eab",
+      "target": "cda2f844e98a6eee4ce2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "caed8248ed2180794eab",
+      "target": "deaa97c047b7d051cca1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "caed8248ed2180794eab",
+      "target": "4281b6c38ad59d92da80",
+      "type": "DataFilter"
+    },
+    {
+      "source": "caed8248ed2180794eab",
+      "target": "8033e91b20ed054e0433",
+      "type": "DataFilter"
+    },
+    {
+      "source": "caed8248ed2180794eab",
+      "target": "71b14ea219d66e7cc3d3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "caed8248ed2180794eab",
+      "target": "bb40631259d9b8c060d6",
+      "type": "DataFilter"
+    },
+    {
+      "source": "caed8248ed2180794eab",
+      "target": "b34c6ee380d4ee64e655",
+      "type": "DataFilter"
+    },
+    {
+      "source": "c6ed3ea04b007b95856e",
+      "target": "1ffb6dc4e4dc75cc8334",
+      "type": "DataFilter"
+    },
+    {
+      "source": "caed8248ed2180794eab",
+      "target": "1ffb6dc4e4dc75cc8334",
+      "type": "NoFilter"
+    },
+    {
+      "source": "a85f7ab00b8c45e44dde",
+      "target": "1ffb6dc4e4dc75cc8334",
+      "type": "NoFilter"
+    },
+    {
+      "source": "cda2f844e98a6eee4ce2",
+      "target": "1ffb6dc4e4dc75cc8334",
+      "type": "NoFilter"
+    },
+    {
+      "source": "a58f0e200781b952c8d6",
+      "target": "1ffb6dc4e4dc75cc8334",
+      "type": "NoFilter"
+    },
+    {
+      "source": "c5acb72b043e42be9609",
+      "target": "1ffb6dc4e4dc75cc8334",
+      "type": "NoFilter"
+    }
+  ]
+}

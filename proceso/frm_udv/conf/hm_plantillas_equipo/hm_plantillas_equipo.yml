@@ -1,0 +1,155 @@
+hm_plantillas_equipo:
+  cols_raw_plantillas_md:
+    - jugador
+    - fecha_nacimiento
+    - nacionalidad
+    - altura
+    - pie
+    - valor_mercado
+    - fuente
+    - id_tm
+    - foto_url
+  
+  case_rules:
+    altura:
+      expr: >
+          CASE
+            WHEN {col} IS NULL
+                OR trim({col}) = ''
+                OR lower({col}) IN ('null','na','none','sin informacion')
+                OR {col} IN ('0','0.0','0,0')
+                OR NOT regexp_like(regexp_replace({col}, ' ', ''), '^[0-9,.]+m?$') THEN '0'
+            ELSE regexp_replace(regexp_replace(regexp_replace({col}, ' ', ''), 'm', ''), ',', '.')
+          END
+    pie:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = '' THEN 'sin informacion'
+          ELSE {col}
+        END
+
+    valor_mercado:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('0','0.0','0,0','null') THEN '0'
+          WHEN lower({col}) LIKE '%mill%' THEN
+            CAST(CAST(regexp_replace(regexp_extract({col}, '([0-9]+[,.]?[0-9]*)', 1), ',', '.') AS DOUBLE) * 1000000 AS STRING)
+          WHEN lower({col}) LIKE '%mil%' THEN
+            CAST(CAST(regexp_replace(regexp_extract({col}, '([0-9]+[,.]?[0-9]*)', 1), ',', '.') AS DOUBLE) * 1000 AS STRING)
+          ELSE regexp_replace(regexp_extract({col}, '([0-9]+[,.]?[0-9]*)', 1), ',', '.')
+        END
+
+    nacionalidad_principal:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = '' THEN 'sin informacion'
+          ELSE {col}
+        END
+
+    segunda_nacionalidad:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = '' THEN 'sin informacion'
+          ELSE {col}
+        END
+    
+    numero_camiseta:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion') THEN 'sin informacion'
+          ELSE {col}
+        END
+
+    posicion:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+               OR trim({col}) = ''
+               OR lower({col}) IN ('null','na','none','sin informacion') THEN 'sin informacion'
+          WHEN lower(trim({col})) = 'goalkeeper'          THEN 'Portero'
+          WHEN lower(trim({col})) = 'centre-back'         THEN 'Defensa Central'
+          WHEN lower(trim({col})) = 'left-back'           THEN 'Lateral Izquierdo'
+          WHEN lower(trim({col})) = 'right-back'          THEN 'Lateral Derecho'
+          WHEN lower(trim({col})) = 'defensive midfield'  THEN 'Mediocampista Defensivo'
+          WHEN lower(trim({col})) = 'central midfield'    THEN 'Mediocampista Central'
+          WHEN lower(trim({col})) = 'attacking midfield'  THEN 'Mediocampista Ofensivo'
+          WHEN lower(trim({col})) = 'left midfield'       THEN 'Mediocampista Izquierdo'
+          WHEN lower(trim({col})) = 'right midfield'      THEN 'Mediocampista Derecho'
+          WHEN lower(trim({col})) = 'left winger'         THEN 'Extremo Izquierdo'
+          WHEN lower(trim({col})) = 'right winger'        THEN 'Extremo Derecho'
+          WHEN lower(trim({col})) = 'second striker'      THEN 'Segundo Delantero'
+          WHEN lower(trim({col})) = 'centre-forward'      THEN 'Delantero Centro'
+          ELSE {col}
+        END
+
+    fecha_fichaje:
+      expr: >
+        CASE
+          WHEN {col} IS NULL
+              OR trim({col}) = ''
+              OR lower({col}) IN ('null','na','none','sin informacion')
+          THEN NULL
+          ELSE to_date({col}, 'dd/MM/yyyy')
+        END
+    
+  
+  rename_columns_md:
+    fuente: fuente_plantilla
+
+  schema_md:
+    id_jugador: string
+    id_tm: string
+    jugador: string
+    edad: int
+    nacionalidad_principal: string
+    segunda_nacionalidad: string
+    altura: double
+    pie: string
+    valor_mercado: decimal(20,4)
+    foto_url: string
+    fuente_plantilla: string
+    fecha_carga: timestamp
+    periododia: int
+
+  cols_catalogo_equipos_hm:
+    - id_equipo
+    - nombre_transfermarkt
+
+  cols_raw_plantillas_hm:
+    - club
+    - temporada
+    - jugador
+    - numero
+    - posicion
+    - fecha_fichaje
+    - fuente
+    - id_tm
+
+  dedup_cols_hm:
+    - club
+    - temporada
+    - jugador
+    - numero
+
+  rename_columns_hm:
+    fuente: fuente_plantilla
+
+  schema_hm:
+    id_plantilla_equipo: string
+    id_equipo: int
+    id_jugador: string
+    id_tm: string
+    temporada: int
+    numero_camiseta: string
+    posicion: string
+    fecha_fichaje: date
+    fuente_plantilla: string
+    fecha_carga: timestamp
+    periodo: int

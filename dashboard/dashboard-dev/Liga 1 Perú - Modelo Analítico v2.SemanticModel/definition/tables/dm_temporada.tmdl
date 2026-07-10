@@ -1,0 +1,27 @@
+table dm_temporada
+	lineageTag: 45607e08-87df-4b70-a6ee-61172f72bb23
+
+	column temporada
+		dataType: int64
+		formatString: 0
+		lineageTag: 73a53f83-ddc1-444b-9302-d4e6ddc9acf4
+		summarizeBy: none
+		sourceColumn: temporada
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dm_temporada = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("adb-7405614695607627.7.azuredatabricks.net", "/sql/1.0/warehouses/b74f62ff6067bdf7", null),
+				    catalog_liga1_Database = Origen{[Name="catalog_liga1",Kind="Database"]}[Data],
+				    vw_ddv_Schema = catalog_liga1_Database{[Name="vw_ddv",Kind="Schema"]}[Data],
+				    dm_temporada_vw_View = vw_ddv_Schema{[Name="dm_temporada_vw",Kind="View"]}[Data]
+				in
+				    dm_temporada_vw_View
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

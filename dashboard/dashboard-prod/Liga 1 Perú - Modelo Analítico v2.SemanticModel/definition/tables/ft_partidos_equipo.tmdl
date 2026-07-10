@@ -1,0 +1,523 @@
+/// Partidos expandidos por equipo (una fila por equipo por partido)
+table ft_partidos_equipo
+	lineageTag: 9f1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c
+
+	column id_partido
+		dataType: string
+		lineageTag: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+		summarizeBy: none
+		sourceColumn: id_partido
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column temporada
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d
+		summarizeBy: none
+		sourceColumn: temporada
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_partido
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 8b9c0d1e-2f3a-4b5c-6d7e-8f9a0b1c2d3e
+		summarizeBy: none
+		sourceColumn: fecha_partido
+
+		variation Variación
+			isDefault
+			relationship: 61fa06b2-d53d-495a-aa26-fe7e910b5bb9
+			defaultHierarchy: LocalDateTable_5f7026b6-b5b1-4b74-8fc6-404bf7946817.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column id_equipo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e
+		summarizeBy: none
+		sourceColumn: id_equipo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_equipo
+		dataType: string
+		lineageTag: 3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f
+		summarizeBy: none
+		sourceColumn: nombre_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column alias_equipo
+		dataType: string
+		lineageTag: 4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a
+		summarizeBy: none
+		sourceColumn: alias_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_rival
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b
+		summarizeBy: sum
+		sourceColumn: id_rival
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column rol_equipo
+		dataType: string
+		lineageTag: 6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9a0b1c
+		summarizeBy: none
+		sourceColumn: rol_equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column goles_favor
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d1e2f3a-4b5c-6d7e-8f9a-0b1c2d3e4f5a
+		summarizeBy: sum
+		sourceColumn: goles_favor
+
+		annotation SummarizationSetBy = User
+
+	column goles_contra
+		dataType: int64
+		formatString: 0
+		lineageTag: 1e2f3a4b-5c6d-7e8f-9a0b-1c2d3e4f5a6b
+		summarizeBy: sum
+		sourceColumn: goles_contra
+
+		annotation SummarizationSetBy = User
+
+	column diferencia_goles
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f3a4b5c-6d7e-8f9a-0b1c-2d3e4f5a6b7c
+		summarizeBy: sum
+		sourceColumn: diferencia_goles
+
+		annotation SummarizationSetBy = User
+
+	column resultado
+		dataType: string
+		lineageTag: 9c0d1e2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f
+		summarizeBy: none
+		sourceColumn: resultado
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column posesion_pct
+		dataType: double
+		formatString: 0.00
+		lineageTag: 3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d
+		summarizeBy: none
+		sourceColumn: posesion_pct
+
+		annotation SummarizationSetBy = User
+
+	column tiros_totales
+		dataType: int64
+		formatString: 0
+		lineageTag: 4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e
+		summarizeBy: sum
+		sourceColumn: tiros_totales
+
+		annotation SummarizationSetBy = User
+
+	column disparos_puerta
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c6d7e8f-9a0b-1c2d-3e4f-5a6b7c8d9e0f
+		summarizeBy: sum
+		sourceColumn: disparos_puerta
+
+		annotation SummarizationSetBy = User
+
+	column saques_esquina
+		dataType: int64
+		formatString: 0
+		lineageTag: 15775c5b-27d2-4c95-bb1c-970e932b5baa
+		summarizeBy: sum
+		sourceColumn: saques_esquina
+
+		annotation SummarizationSetBy = Automatic
+
+	column gran_probabilidad
+		dataType: int64
+		formatString: 0
+		lineageTag: 14f5f8a3-11e3-477b-ae5b-96edc5f51247
+		summarizeBy: sum
+		sourceColumn: gran_probabilidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column partido_sin_info
+		dataType: int64
+		formatString: 0
+		lineageTag: 5eb16088-e3c6-4c2b-9ada-17ce8f9d9c24
+		summarizeBy: sum
+		sourceColumn: partido_sin_info
+
+		annotation SummarizationSetBy = Automatic
+
+	column estado_partido
+		dataType: string
+		lineageTag: d3832d28-1d75-4f8d-a2df-be9ac9f5fc45
+		summarizeBy: none
+		sourceColumn: estado_partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column estado
+		dataType: string
+		lineageTag: cc39dff3-4798-454a-82bd-69574e10ea72
+		summarizeBy: none
+		sourceColumn: estado
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_stats
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 675f3abe-45b5-4ff4-bef8-187e2bc9dc2f
+		summarizeBy: none
+		sourceColumn: fecha_stats
+
+		variation Variación
+			isDefault
+			relationship: d08df38d-fdb0-467f-96cf-0f7fd518d4e5
+			defaultHierarchy: LocalDateTable_813ab083-ddc1-42cf-a81e-83d91c90130b.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column precision_tiro_pct
+		dataType: double
+		lineageTag: 13ed9ec1-6444-4661-a5e2-8a9a3cb0f510
+		summarizeBy: sum
+		sourceColumn: precision_tiro_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column conversion_gol_pct
+		dataType: double
+		lineageTag: 0e41de83-e8c7-41f0-9ce3-86507ebb0480
+		summarizeBy: sum
+		sourceColumn: conversion_gol_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column pases
+		dataType: int64
+		formatString: 0
+		lineageTag: 9175cb54-75bd-4666-96fb-8a6f1c368adc
+		summarizeBy: sum
+		sourceColumn: pases
+
+		annotation SummarizationSetBy = Automatic
+
+	column pases_precisos
+		dataType: int64
+		formatString: 0
+		lineageTag: 6f6ef3e2-e277-4e2a-9959-338b9ad9a484
+		summarizeBy: sum
+		sourceColumn: pases_precisos
+
+		annotation SummarizationSetBy = Automatic
+
+	column pases_precisos_pct
+		dataType: double
+		lineageTag: 2a344cf8-7fc5-4e0e-8271-3d5041ca9e18
+		summarizeBy: sum
+		sourceColumn: pases_precisos_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column regates_realizados
+		dataType: int64
+		formatString: 0
+		lineageTag: 5261ce75-64a2-4a43-8b5e-53a718ba47d2
+		summarizeBy: sum
+		sourceColumn: regates_realizados
+
+		annotation SummarizationSetBy = Automatic
+
+	column regates_realizados_pct
+		dataType: double
+		lineageTag: 8eef01de-8dc1-4903-803c-fea00a627f98
+		summarizeBy: sum
+		sourceColumn: regates_realizados_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tiros_area
+		dataType: int64
+		formatString: 0
+		lineageTag: 2e18d5e7-5755-43c1-a7b4-3d61b86e983a
+		summarizeBy: sum
+		sourceColumn: tiros_area
+
+		annotation SummarizationSetBy = Automatic
+
+	column tiros_fuera_area
+		dataType: int64
+		formatString: 0
+		lineageTag: 246fd6c1-02a8-410f-adf7-88d4ebd84284
+		summarizeBy: sum
+		sourceColumn: tiros_fuera_area
+
+		annotation SummarizationSetBy = Automatic
+
+	column tiros_bloqueados
+		dataType: int64
+		formatString: 0
+		lineageTag: 6e680abf-d9ec-46cf-bd64-2f99d9f2dcb8
+		summarizeBy: sum
+		sourceColumn: tiros_bloqueados
+
+		annotation SummarizationSetBy = Automatic
+
+	column duelos_ganados
+		dataType: int64
+		formatString: 0
+		lineageTag: 6a625ef0-fd5d-4101-839d-79af948a8ca4
+		summarizeBy: sum
+		sourceColumn: duelos_ganados
+
+		annotation SummarizationSetBy = Automatic
+
+	column entradas
+		dataType: int64
+		formatString: 0
+		lineageTag: f97f8d53-aa61-4782-a52d-88c5eaec4c15
+		summarizeBy: sum
+		sourceColumn: entradas
+
+		annotation SummarizationSetBy = Automatic
+
+	column despejes
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b740620-1d98-471a-9eec-55e60d60ecd7
+		summarizeBy: sum
+		sourceColumn: despejes
+
+		annotation SummarizationSetBy = Automatic
+
+	column bloqueos
+		dataType: int64
+		formatString: 0
+		lineageTag: 5980e599-add1-45eb-be28-22ab8d3ba878
+		summarizeBy: sum
+		sourceColumn: bloqueos
+
+		annotation SummarizationSetBy = Automatic
+
+	column intercepciones
+		dataType: int64
+		formatString: 0
+		lineageTag: 6d0f44c2-594c-4714-9748-5a12f255171c
+		summarizeBy: sum
+		sourceColumn: intercepciones
+
+		annotation SummarizationSetBy = Automatic
+
+	column tarjetas_amarillas
+		dataType: int64
+		formatString: 0
+		lineageTag: 3c2f6fb8-2ad7-435d-83d0-b831f235eca8
+		summarizeBy: sum
+		sourceColumn: tarjetas_amarillas
+
+		annotation SummarizationSetBy = Automatic
+
+	column tarjetas_rojas
+		dataType: int64
+		formatString: 0
+		lineageTag: 10308dca-2c3a-425b-9542-f10c62f996b6
+		summarizeBy: sum
+		sourceColumn: tarjetas_rojas
+
+		annotation SummarizationSetBy = Automatic
+
+	column fueras_juego
+		dataType: int64
+		formatString: 0
+		lineageTag: dfac5552-2024-4803-90a8-a55cedb9b41a
+		summarizeBy: sum
+		sourceColumn: fueras_juego
+
+		annotation SummarizationSetBy = Automatic
+
+	column paradas_portero
+		dataType: int64
+		formatString: 0
+		lineageTag: 472ca40a-4ae9-41ee-bf1c-6bb285d8ef5d
+		summarizeBy: sum
+		sourceColumn: paradas_portero
+
+		annotation SummarizationSetBy = Automatic
+
+	column tiros_largos_precisos
+		dataType: int64
+		formatString: 0
+		lineageTag: f01ac9d6-2047-4ffb-9486-53bd0cbe9755
+		summarizeBy: sum
+		sourceColumn: tiros_largos_precisos
+
+		annotation SummarizationSetBy = Automatic
+
+	column tiros_largos_precisos_pct
+		dataType: double
+		lineageTag: 67842880-20de-4b74-a1fb-dbfe668db20b
+		summarizeBy: sum
+		sourceColumn: tiros_largos_precisos_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tiros_libres_precisos
+		dataType: int64
+		formatString: 0
+		lineageTag: bf63c385-3cea-400d-9604-2a1ec2c15a17
+		summarizeBy: sum
+		sourceColumn: tiros_libres_precisos
+
+		annotation SummarizationSetBy = Automatic
+
+	column tiros_libres_precisos_pct
+		dataType: double
+		lineageTag: f5840358-f363-435f-907d-2a2b5c3880b6
+		summarizeBy: sum
+		sourceColumn: tiros_libres_precisos_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column grandes_oportunidades_perdidas
+		dataType: int64
+		formatString: 0
+		lineageTag: 13c11f46-299c-4b0c-b76a-2b3326e2a106
+		summarizeBy: sum
+		sourceColumn: grandes_oportunidades_perdidas
+
+		annotation SummarizationSetBy = Automatic
+
+	column toques_area_rival
+		dataType: int64
+		formatString: 0
+		lineageTag: 7f28f73b-ffdf-4e85-aba7-69180d7e6eb7
+		summarizeBy: sum
+		sourceColumn: toques_area_rival
+
+		annotation SummarizationSetBy = Automatic
+
+	column faltas
+		dataType: int64
+		formatString: 0
+		lineageTag: ec407de0-da9e-4e33-8082-1a61cefb084a
+		summarizeBy: sum
+		sourceColumn: faltas
+
+		annotation SummarizationSetBy = Automatic
+
+	column centros_precisos
+		dataType: int64
+		formatString: 0
+		lineageTag: ad5bc6a8-5275-4d5b-ac44-bad32132ccde
+		summarizeBy: sum
+		sourceColumn: centros_precisos
+
+		annotation SummarizationSetBy = Automatic
+
+	column mitad_propia
+		dataType: int64
+		formatString: 0
+		lineageTag: c8fbe082-62b2-4946-a7dd-20a776c572f9
+		summarizeBy: sum
+		sourceColumn: mitad_propia
+
+		annotation SummarizationSetBy = Automatic
+
+	column mitad_rival
+		dataType: int64
+		formatString: 0
+		lineageTag: 73af62e8-032a-4a6b-b095-efc12a1960fd
+		summarizeBy: sum
+		sourceColumn: mitad_rival
+
+		annotation SummarizationSetBy = Automatic
+
+	column lanzamientos
+		dataType: int64
+		formatString: 0
+		lineageTag: dd94684a-68cf-49be-929d-59b42f5a0c5f
+		summarizeBy: sum
+		sourceColumn: lanzamientos
+
+		annotation SummarizationSetBy = Automatic
+
+	column url
+		dataType: string
+		isHidden
+		lineageTag: c7111075-1f84-4246-af02-43b954ce58a3
+		summarizeBy: none
+		sourceColumn: url
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column fuente_partido
+		dataType: string
+		isHidden
+		lineageTag: f1693cfa-b5f0-4ebf-a5b0-d904a59aa40a
+		summarizeBy: none
+		sourceColumn: fuente_partido
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ft_partidos_equipo = m
+		mode: import
+		source =
+				let
+				    Origen = Databricks.Catalogs("adb-7405608228887680.0.azuredatabricks.net", "/sql/1.0/warehouses/8f3fbabc301b89f4", [Catalog="catalog_liga1_prod", Database="vw_ddv", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation=null]),
+				    ft_partidos_equipo_vw = Origen{[Item="ft_partidos_equipo_vw",Schema="vw_ddv",Catalog="catalog_liga1_prod"]}[Data],
+				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(ft_partidos_equipo_vw, {{"nombre_equipo", Text.Proper, type text}}),
+				    #"Texto en mayúsculas" = Table.TransformColumns(#"Poner En Mayúsculas Cada Palabra", {{"alias_equipo", Text.Upper, type text}})
+				in
+				    #"Texto en mayúsculas"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

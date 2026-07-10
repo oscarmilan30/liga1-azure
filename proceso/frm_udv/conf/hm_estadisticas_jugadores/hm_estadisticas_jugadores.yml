@@ -1,0 +1,73 @@
+hm_estadisticas_jugadores:
+
+  # Columnas del parquet RDV de estadisticas_jugadores (ya en minúscula post-curated)
+  cols_raw_estadisticas:
+    - id_tm
+    - jugador
+    - club
+    - temporada
+    - foto_url
+    - competencia
+    - partidos_jugados
+    - titularidades
+    - ppp
+    - goles
+    - asistencias
+    - tarjetas_amarillas
+    - tarjeta_amarilla_roja
+    - tarjetas_rojas
+    - entrada_suplente
+    - salida_suplente
+    - penaltis_anotados
+    - goles_en_contra
+    - partidos_imbatido
+    - min_por_gol
+    - minutos_jugados
+    - datos_disponibles
+
+  # Columnas del catálogo de equipos para resolver id_equipo
+  cols_catalogo_equipos:
+    - id_equipo
+    - nombre_transfermarkt
+
+  # Renombrado de columnas raw → nombres internos
+  # El parquet RDV ya tiene los nombres en minúscula correctos; no se requieren renombres.
+  rename_columns: {}
+
+  # Reglas CASE-WHEN
+  case_rules:
+    competencia:
+      expr: >
+        CASE
+          WHEN {col} IS NULL OR trim({col}) = '' THEN 'Sin información'
+          ELSE {col}
+        END
+
+  # Schema final de la tabla UDV
+  schema:
+    id_estadistica_jugador: string
+    id_jugador: string
+    id_tm: string
+    jugador: string
+    id_equipo: int
+    temporada: int
+    competencia: string
+    partidos_jugados: int
+    titularidades: int
+    ppp: double
+    goles: int
+    asistencias: int
+    tarjetas_amarillas: int
+    tarjeta_amarilla_roja: int
+    tarjetas_rojas: int
+    entrada_suplente: int
+    salida_suplente: int
+    penaltis_anotados: int
+    goles_en_contra: int
+    partidos_imbatido: int
+    min_por_gol: int
+    minutos_jugados: int
+    datos_disponibles: boolean
+    fuente: string
+    fecha_carga: timestamp
+    periodo: int
