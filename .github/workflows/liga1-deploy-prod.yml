@@ -1019,8 +1019,19 @@ jobs:
           token    = os.environ["DATABRICKS_TOKEN"]
           headers  = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
           app_name = "${{ env.APP_NAME }}"
-          user     = "${{ secrets.DATABRICKS_USER_PROD }}"
-          src_path = f"/Repos/{user}/liga1-azure/databricks_app"
+
+          # Descubrir path real del repo en el workspace (evita asumir el usuario)
+          r_repos = requests.get(f"{host}/api/2.0/repos", headers=headers)
+          repos   = r_repos.json().get("repos", [])
+          match   = [x for x in repos if "liga1-azure" in x.get("url", "")]
+          if not match:
+              print("❌ No se encontró el repo liga1-azure en el workspace prod")
+              sys.exit(1)
+          repo_path = match[0]["path"]
+          # Apps API requiere prefijo /Workspace (la Repos API devuelve /Repos/...)
+          if not repo_path.startswith("/Workspace"):
+              repo_path = f"/Workspace{repo_path}"
+          src_path  = f"{repo_path}/databricks_app"
 
           print(f"🚀 Iniciando deployment de '{app_name}' desde {src_path}...")
 

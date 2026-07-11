@@ -289,11 +289,15 @@ El despliegue a producción está **completamente automatizado** via GitHub Acti
 
 1. Espera a que el Job 3 sincronice el repo en el workspace prod
 2. Crea la app `liga1-ia` si no existe
-3. Dispara el deployment apuntando a `/Repos/{user}/liga1-azure/databricks_app`
+3. Dispara el deployment apuntando a `/Workspace/Repos/{user}/liga1-azure/databricks_app`
 4. Hace polling hasta confirmar estado `SUCCEEDED`
 5. Imprime la URL pública de la app en el log de GitHub Actions
 
 No se requieren pasos manuales en la UI de Databricks para producción.
+
+### Requisito: PAT con scope `apps`
+
+El GitHub Secret `DATABRICKS_TOKEN_PROD` debe ser un PAT con el scope **`apps`** habilitado. Para verificar o agregar el scope: workspace prod → **Settings → Developer → Access tokens** → editar el token → agregar `apps` en API scope(s).
 
 ### Secrets escritos automáticamente por el workflow
 
