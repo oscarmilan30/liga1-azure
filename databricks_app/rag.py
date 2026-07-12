@@ -687,10 +687,18 @@ def get_valoracion_equipos(
         {where} ORDER BY {order} LIMIT 100""")
 
 
-def get_evolucion_valor_liga() -> pd.DataFrame:
-    """Evolución del valor total de la liga por temporada.
+def get_evolucion_valor_liga(año_inicio: int | None = None, año_fin: int | None = None) -> pd.DataFrame:
+    """Evolución del valor total de la liga por temporada (suma global, no por equipo).
     Equivale al gráfico de líneas de la página VALORACIÓN de Power BI.
+    Acepta rango opcional — sin él devuelve todos los años disponibles.
     """
+    where = ""
+    if año_inicio and año_fin:
+        where = f"WHERE temporada BETWEEN {año_inicio} AND {año_fin}"
+    elif año_inicio:
+        where = f"WHERE temporada >= {año_inicio}"
+    elif año_fin:
+        where = f"WHERE temporada <= {año_fin}"
     return _run_query(f"""
         SELECT temporada,
                ROUND(SUM(valor_total) / 1000000, 2) AS valor_total_mm_eur,
@@ -698,6 +706,7 @@ def get_evolucion_valor_liga() -> pd.DataFrame:
                ROUND(AVG(extranjeros), 1)            AS extranjeros_promedio,
                COUNT(DISTINCT nombre_equipo)         AS equipos
         FROM {CATALOG}.vw_ddv.ft_evolucion_valoracion_vw
+        {where}
         GROUP BY temporada ORDER BY temporada ASC""")
 
 
@@ -1223,9 +1232,13 @@ def construir_contexto(pregunta: str) -> tuple[str, pd.DataFrame | None, str | N
             w in pregunta.lower() for w in ["evolución", "evolucion", "por año", "historial de",
                                              "a lo largo", "cada año", "todos los años"]
         ):
-            # Extraer nombre: eliminar GREEDILY todo hasta el ÚLTIMO "de/del" antes del nombre
-            # Ej: "Evolución del score de Alex Valera" → "Alex Valera"
-            nombre = re.sub(r'^.*\bde[l]?\s+', '', pregunta, flags=re.IGNORECASE).strip().rstrip("?")
+            # Extraer nombre: limpiar sufijos de tipo de gráfico antes del regex greedy
+            # Sin esto "grafico de lineas" al final hace que ^.* capture hasta ese "de" en vez del del nombre
+            # Ej: "score ML de Paolo Guerrero? grafico de lineas" → limpiar → "score ML de Paolo Guerrero"
+            pregunta_clean = re.sub(
+                r'[,.]?\s*(gr[áa]fico\s+de\s+\w+)\s*$', '', pregunta, flags=re.IGNORECASE
+            ).strip().rstrip("?")
+            nombre = re.sub(r'^.*\bde[l]?\s+', '', pregunta_clean, flags=re.IGNORECASE).strip().rstrip("?")
             df = get_score_ml_evolucion(nombre)
             contexto = f"Evolución score ML de {nombre}:\n{df.to_string(index=False)}"
             chart_type = "line"
@@ -1237,9 +1250,11 @@ def construir_contexto(pregunta: str) -> tuple[str, pd.DataFrame | None, str | N
             contexto = f"Score ML de jugadores Liga 1{pos_label}:\n{df.to_string(index=False)}"
             chart_type = "bar"
 
-        # ── Valoración liga (evolución) ────────────────────────────────────────
-        elif intent["valoracion"] and not equipo and intent["evolucion"]:
-            df = get_evolucion_valor_liga()
+        # ── Valoración liga (evolución / rango sin equipo específico) ─────────
+        # Si hay rango pero sin equipo → quiere el total de la liga por año, no desglose por equipo
+        elif intent["valoracion"] and not equipo and (intent["evolucion"] or rango):
+            año_ini, año_fin = rango if rango else (None, None)
+            df = get_evolucion_valor_liga(año_ini, año_fin)
             contexto = f"Evolución del valor total de la Liga 1:\n{df.to_string(index=False)}"
             chart_type = "line"
 
