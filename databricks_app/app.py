@@ -125,9 +125,9 @@ def _render_grafico(df, tipo: str):
 
     cols = set(df.columns)
 
-    def _line_fig(x, y, color=None, title="", ylabel=""):
+    def _line_fig(x, y, color=None, title="", ylabel="", data=None):
         """Helper: línea plotly con eje X sin coma y sin decimales."""
-        df_sorted = df.sort_values(x)
+        df_sorted = (data if data is not None else df).sort_values(x)
         fig = px.line(
             df_sorted, x=x, y=y, color=color,
             title=title,
@@ -164,7 +164,8 @@ def _render_grafico(df, tipo: str):
             df_v = df.copy()
             df_v["valor_mm"] = (df_v["valor_total"] / 1_000_000).round(2)
             fig = _line_fig("temporada", "valor_mm", color="nombre_equipo",
-                            title="📈 Evolución del valor de mercado", ylabel="Valor (MM €)")
+                            title="📈 Evolución del valor de mercado", ylabel="Valor (MM €)",
+                            data=df_v)
             st.plotly_chart(fig, use_container_width=True)
 
     elif tipo == "bar":
